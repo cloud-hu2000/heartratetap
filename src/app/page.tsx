@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import FeedbackWidget from "@/components/FeedbackWidget";
 
 type ViewMode = "rest" | "sport";
 
@@ -472,6 +473,7 @@ const HeartRatePage = () => {
       </section>
 
       <footer className="footnote">© {new Date().getFullYear()} Heart Rhythm Studio</footer>
+      <FeedbackWidget />
     </div>
   );
 };

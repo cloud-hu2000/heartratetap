@@ -378,6 +378,251 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.feedback-widget {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.feedback-toggle {
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba(15, 43, 51, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feedback-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(15, 43, 51, 0.3);
+}
+
+.feedback-panel {
+  width: min(360px, calc(100vw - 2.5rem));
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+  box-shadow: 0 25px 60px rgba(15, 43, 51, 0.2);
+  animation: fade-in 0.3s ease;
+}
+
+.feedback-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.feedback-panel-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.feedback-panel-header h3 {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.feedback-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-form label {
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--muted);
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #f9fdfc;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+}
+
+.feedback-message {
+  margin: 0.35rem 0 0.75rem;
+  font-size: 0.9rem;
+}
+
+.feedback-message-success {
+  color: #0f8c8c;
+}
+
+.feedback-message-error {
+  color: #c05746;
+}
+
+.feedback-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feedback-list-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.feedback-list-headline h4 {
+  margin: 0;
+  color: var(--ink);
+}
+
+.feedback-empty {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.feedback-item {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: #fdfefe;
+}
+
+.feedback-item h5 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.feedback-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.feedback-item-time {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.feedback-vote {
+  border: none;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 16px;
+  padding: 0.4rem 0.75rem;
+  min-width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feedback-vote small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.feedback-vote:disabled,
+.feedback-vote-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.comment-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.comment-form label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.comment-form input,
+.comment-form textarea {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #f9fdfc;
+}
+
+.comment-form textarea {
+  resize: vertical;
+}
+
+.comment-form-message {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.comment-form-message-success {
+  color: var(--accent);
+}
+
+.comment-form-message-error {
+  color: #c05746;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 @media (max-width: 768px) {
   .panel {
     padding: 1.25rem;
@@ -394,6 +639,11 @@ body {
   .seo-content table th,
   .seo-content table td {
     padding: 0.5rem;
+  }
+
+  .feedback-widget {
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 
