@@ -59,21 +59,21 @@ const sanitizeFeedback = (record: FeedbackRecord): Feedback => ({
 
 export const fetchFeedbackList = async (): Promise<Feedback[]> => {
   await ensureTables();
-  const { rows } = await sql<FeedbackRecord>`
+  const rows = (await sql`
     SELECT id, title, description, email, votes, created_at
     FROM feedback_items
     ORDER BY votes DESC, created_at ASC
-  `;
+  `) as FeedbackRecord[];
   return rows.map(sanitizeFeedback);
 };
 
 export const createFeedback = async (data: { title: string; description: string; email: string | null }): Promise<Feedback> => {
   await ensureTables();
-  const { rows } = await sql<FeedbackRecord>`
+  const rows = (await sql`
     INSERT INTO feedback_items (title, description, email)
     VALUES (${data.title}, ${data.description}, ${data.email})
     RETURNING id, title, description, email, votes, created_at
-  `;
+  `) as FeedbackRecord[];
   return sanitizeFeedback(rows[0]);
 };
 
@@ -86,20 +86,20 @@ export const castVote = async (feedbackId: string, deviceId: string): Promise<Fe
     ON CONFLICT (feedback_id, device_hash) DO NOTHING
     RETURNING feedback_id
   `;
-  if (insertResult.rowCount === 0) {
-    const { rows } = await sql<FeedbackRecord>`
+  if (insertResult.length === 0) {
+    const rows = (await sql`
       SELECT id, title, description, email, votes, created_at
       FROM feedback_items
       WHERE id = ${feedbackId}
-    `;
+    `) as FeedbackRecord[];
     return rows.length ? sanitizeFeedback(rows[0]) : null;
   }
-  const { rows } = await sql<FeedbackRecord>`
+  const rows = (await sql`
     UPDATE feedback_items
     SET votes = votes + 1
     WHERE id = ${feedbackId}
     RETURNING id, title, description, email, votes, created_at
-  `;
+  `) as FeedbackRecord[];
   return rows.length ? sanitizeFeedback(rows[0]) : null;
 };
 

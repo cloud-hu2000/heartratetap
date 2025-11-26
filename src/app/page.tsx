@@ -294,7 +294,7 @@ const HeartRatePage = () => {
             How to Use This Heart Rate Monitor
           </h2>
           <p style={{ marginBottom: "1.5rem" }}>
-            Using our <strong>heart rate detection</strong> tool is simple and requires no special equipment. Here's how to get started with your <strong>real-time heart rate</strong> measurement:
+            Using our <strong>heart rate detection</strong> tool is simple and requires no special equipment. Here&apos;s how to get started with your <strong>real-time heart rate</strong> measurement:
           </p>
           <ol style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
             <li style={{ marginBottom: "0.75rem" }}>
@@ -322,7 +322,7 @@ const HeartRatePage = () => {
             Resting Heart Rate Reference Values
           </h2>
           <p style={{ marginBottom: "1rem" }}>
-            Resting heart rate is your heart rate when you're at rest, typically measured in the morning before any activity. Use our <strong>click to test heart rate</strong> feature to measure your resting heart rate and compare it with these reference values:
+            Resting heart rate is your heart rate when you&apos;re at rest, typically measured in the morning before any activity. Use our <strong>click to test heart rate</strong> feature to measure your resting heart rate and compare it with these reference values:
           </p>
           
           <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
@@ -457,7 +457,7 @@ const HeartRatePage = () => {
             Accuracy and Limitations
           </h2>
           <p style={{ marginBottom: "1.5rem" }}>
-            Our <strong>online heart rate test</strong> provides a convenient way to <strong>click to test your heart rate</strong> and get <strong>real-time monitoring</strong>. However, it's important to understand that this tool is designed for general fitness and wellness purposes. The accuracy depends on your ability to tap consistently with your pulse.
+            Our <strong>online heart rate test</strong> provides a convenient way to <strong>click to test your heart rate</strong> and get <strong>real-time monitoring</strong>. However, it&apos;s important to understand that this tool is designed for general fitness and wellness purposes. The accuracy depends on your ability to tap consistently with your pulse.
           </p>
           <p style={{ marginBottom: "1.5rem" }}>
             For medical diagnosis or if you have concerns about your heart rate, please consult a healthcare professional. This <strong>heart rate detection</strong> tool should not replace professional medical advice or monitoring equipment.
