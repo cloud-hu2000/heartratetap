@@ -12,7 +12,7 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className="pill active" disabled={pending}>
-      {pending ? "提交中…" : "提交建议"}
+      {pending ? "Submitting…" : "Submit idea"}
     </button>
   );
 };
@@ -22,14 +22,14 @@ const CommentForm = () => {
   return (
     <form className="comment-form" action={formAction}>
       <label>
-        标题
-        <input name="title" type="text" placeholder="请输入标题" minLength={4} maxLength={80} required />
+        Title
+        <input name="title" type="text" placeholder="Give your idea a title" minLength={4} maxLength={80} required />
       </label>
       <label>
-        详细描述
+        Details
         <textarea
           name="description"
-          placeholder="告诉我们你想改进的细节"
+          placeholder="Tell us exactly what you would like us to improve"
           rows={4}
           minLength={10}
           maxLength={1000}
@@ -37,8 +37,8 @@ const CommentForm = () => {
         />
       </label>
       <label>
-        邮箱（选填）
-        <input name="email" type="email" placeholder="方便进一步沟通" maxLength={120} />
+        Email (optional)
+        <input name="email" type="email" placeholder="We will reach out if we need clarification" maxLength={120} />
       </label>
       <SubmitButton />
       {state.message && (

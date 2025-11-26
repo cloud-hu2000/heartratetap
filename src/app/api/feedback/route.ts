@@ -22,7 +22,7 @@ export async function GET() {
     return NextResponse.json({ feedback });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "无法获取意见列表" }, { status: 500 });
+    return NextResponse.json({ error: "Unable to fetch feedback" }, { status: 500 });
   }
 }
 
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     const payload = await request.json();
     const parsed = feedbackSchema.safeParse(payload);
     if (!parsed.success) {
-      return NextResponse.json({ error: "字段格式有误" }, { status: 400 });
+      return NextResponse.json({ error: "Payload validation failed" }, { status: 400 });
     }
     const { title, description, email } = parsed.data;
     const feedback = await createFeedback({
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ feedback });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "提交失败，请稍后重试" }, { status: 500 });
+    return NextResponse.json({ error: "Submission failed, please try again later" }, { status: 500 });
   }
 }
 

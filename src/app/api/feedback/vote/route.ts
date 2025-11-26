@@ -14,16 +14,16 @@ export async function POST(request: Request) {
     const payload = await request.json();
     const parsed = voteSchema.safeParse(payload);
     if (!parsed.success) {
-      return NextResponse.json({ error: "非法投票参数" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid vote payload" }, { status: 400 });
     }
     const feedback = await castVote(parsed.data.feedbackId, parsed.data.deviceId);
     if (!feedback) {
-      return NextResponse.json({ error: "找不到该建议" }, { status: 404 });
+      return NextResponse.json({ error: "Feedback item not found" }, { status: 404 });
     }
     return NextResponse.json({ feedback });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "投票失败，请稍后重试" }, { status: 500 });
+    return NextResponse.json({ error: "Vote failed, please try again later" }, { status: 500 });
   }
 }
 

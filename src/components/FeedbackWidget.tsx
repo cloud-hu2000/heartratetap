@@ -75,13 +75,13 @@ const FeedbackWidget = () => {
     try {
       const response = await fetch("/api/feedback", { cache: "no-store" });
       if (!response.ok) {
-        throw new Error("加载反馈失败");
+        throw new Error("Failed to load feedback");
       }
       const data = (await response.json()) as { feedback: FeedbackItem[] };
       setItems(data.feedback ?? []);
     } catch (error) {
       console.error(error);
-      setMessage({ type: "error", text: "无法加载意见列表" });
+      setMessage({ type: "error", text: "Unable to load the feedback list" });
     }
   }, []);
 
@@ -114,15 +114,15 @@ const FeedbackWidget = () => {
       });
       if (!response.ok) {
         const errorBody = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(errorBody?.error ?? "提交失败，请稍后再试");
+        throw new Error(errorBody?.error ?? "Submission failed, please try again");
       }
       const { feedback } = (await response.json()) as { feedback: FeedbackItem };
       setItems((prev) => [feedback, ...prev]);
       setForm(INITIAL_FORM);
-      setMessage({ type: "success", text: "已收到你的建议，感谢支持！" });
+      setMessage({ type: "success", text: "Thanks! Your idea has been recorded." });
     } catch (error) {
       console.error(error);
-      setMessage({ type: "error", text: error instanceof Error ? error.message : "提交失败，请稍后再试" });
+      setMessage({ type: "error", text: error instanceof Error ? error.message : "Submission failed, please try again" });
     } finally {
       setSubmitting(false);
     }
@@ -130,12 +130,12 @@ const FeedbackWidget = () => {
 
   const handleVote = async (feedbackId: string) => {
     if (votedIds.has(feedbackId)) {
-      setMessage({ type: "error", text: "你已经投过票啦" });
+      setMessage({ type: "error", text: "You already voted for this idea" });
       return;
     }
     const deviceId = ensureDeviceId();
     if (!deviceId) {
-      setMessage({ type: "error", text: "无法识别设备，稍后再试" });
+      setMessage({ type: "error", text: "Unable to identify this device, please try again" });
       return;
     }
     setVoting((prev) => ({ ...prev, [feedbackId]: true }));
@@ -148,17 +148,17 @@ const FeedbackWidget = () => {
       });
       if (!response.ok) {
         const body = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? "投票失败");
+        throw new Error(body?.error ?? "Voting failed");
       }
       const { feedback } = (await response.json()) as { feedback: FeedbackItem };
       setItems((prev) => prev.map((item) => (item.id === feedback.id ? feedback : item)));
       const next = new Set(votedIds);
       next.add(feedbackId);
       storeVotedIds(next);
-      setMessage({ type: "success", text: "已助力该建议" });
+      setMessage({ type: "success", text: "Thanks for supporting this idea" });
     } catch (error) {
       console.error(error);
-      setMessage({ type: "error", text: error instanceof Error ? error.message : "投票失败" });
+      setMessage({ type: "error", text: error instanceof Error ? error.message : "Voting failed" });
     } finally {
       setVoting((prev) => ({ ...prev, [feedbackId]: false }));
     }
@@ -172,15 +172,15 @@ const FeedbackWidget = () => {
         aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {isOpen ? "收起意见箱" : "反馈与排行"}
+        {isOpen ? "Close feedback panel" : "Feedback & leaderboard"}
       </button>
 
       {isOpen && (
         <div className="feedback-panel">
           <div className="feedback-panel-header">
             <div>
-              <p className="feedback-panel-label">意见箱</p>
-              <h3>告诉我们下一步如何改进</h3>
+              <p className="feedback-panel-label">Feedback box</p>
+              <h3>Tell us what to improve next</h3>
             </div>
             <button type="button" className="feedback-close" onClick={() => setIsOpen(false)}>
               ×
@@ -189,23 +189,23 @@ const FeedbackWidget = () => {
 
           <form className="feedback-form" onSubmit={handleSubmit}>
             <label>
-              标题
+              Title
               <input
                 type="text"
                 value={form.title}
                 onChange={handleChange("title")}
-                placeholder="一句话描述你的想法"
+                placeholder="Describe your idea in one sentence"
                 required
                 minLength={4}
                 maxLength={80}
               />
             </label>
             <label>
-              详细描述
+              Details
               <textarea
                 value={form.description}
                 onChange={handleChange("description")}
-                placeholder="越详细越容易安排开发优先级"
+                placeholder="Share as much context as possible"
                 rows={4}
                 required
                 minLength={10}
@@ -213,16 +213,16 @@ const FeedbackWidget = () => {
               />
             </label>
             <label>
-              联系邮箱（选填）
+              Email (optional)
               <input
                 type="email"
                 value={form.email}
                 onChange={handleChange("email")}
-                placeholder="方便我们与你进一步沟通"
+                placeholder="So we can follow up if needed"
               />
             </label>
             <button type="submit" className="pill active" disabled={submitting}>
-              {submitting ? "提交中…" : "提交建议"}
+              {submitting ? "Submitting…" : "Submit idea"}
             </button>
           </form>
 
@@ -234,10 +234,10 @@ const FeedbackWidget = () => {
 
           <div className="feedback-list">
             <div className="feedback-list-headline">
-              <h4>社区排行</h4>
-              <span>{sortedItems.length} 条建议</span>
+              <h4>Community leaderboard</h4>
+              <span>{sortedItems.length} ideas</span>
             </div>
-            {sortedItems.length === 0 && <p className="feedback-empty">暂时还没有建议，快来当第一个吧。</p>}
+            {sortedItems.length === 0 && <p className="feedback-empty">No ideas yet. Be the first to share!</p>}
             {sortedItems.map((item) => (
               <article key={item.id} className="feedback-item">
                 <div>
@@ -257,7 +257,7 @@ const FeedbackWidget = () => {
                   disabled={votedIds.has(item.id) || voting[item.id]}
                 >
                   <span>{item.votes}</span>
-                  <small>{votedIds.has(item.id) ? "已投票" : voting[item.id] ? "投票中…" : "支持"}</small>
+                  <small>{votedIds.has(item.id) ? "Voted" : voting[item.id] ? "Voting…" : "Support"}</small>
                 </button>
               </article>
             ))}

@@ -10,17 +10,17 @@ export type CommentFormState = {
 };
 
 const schema = z.object({
-  title: z.string().min(4, "标题至少4个字符").max(80, "标题不能超过80个字符"),
-  description: z.string().min(10, "请提供更详细的描述").max(1000, "描述过长"),
+  title: z.string().min(4, "The title needs at least 4 characters").max(80, "The title is too long"),
+  description: z.string().min(10, "Please add a bit more detail").max(1000, "The description is too long"),
   email: z
     .string()
-    .email("邮箱格式不正确")
-    .max(120, "邮箱过长")
+    .email("Please provide a valid email")
+    .max(120, "The email is too long")
     .optional()
     .or(z.literal(""))
 });
 
-const SUCCESS_STATE: CommentFormState = { status: "success", message: "提交成功，感谢建议！" };
+const SUCCESS_STATE: CommentFormState = { status: "success", message: "Thanks! Your idea was submitted." };
 
 export async function create(_prevState: CommentFormState, formData: FormData): Promise<CommentFormState> {
   try {
@@ -31,7 +31,7 @@ export async function create(_prevState: CommentFormState, formData: FormData): 
     };
     const parsed = schema.safeParse(candidate);
     if (!parsed.success) {
-      const message = parsed.error.issues[0]?.message ?? "请检查提交内容";
+      const message = parsed.error.issues[0]?.message ?? "Please check your submission";
       return { status: "error", message };
     }
     const { title, description, email } = parsed.data;
@@ -44,7 +44,7 @@ export async function create(_prevState: CommentFormState, formData: FormData): 
     return SUCCESS_STATE;
   } catch (error) {
     console.error("Server action create failed", error);
-    return { status: "error", message: "提交失败，请稍后重试" };
+    return { status: "error", message: "Submission failed, please try again later" };
   }
 }
 

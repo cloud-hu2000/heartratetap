@@ -6,17 +6,17 @@ const CommentPage = async () => {
   return (
     <div className="comment-page">
       <section className="panel">
-        <p className="hero-sub">社区意见墙</p>
+        <p className="hero-sub">Community idea wall</p>
         <h1 className="hero-title" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>
-          直接在这里提交你的改进建议
+          Share how we can improve HeartRateTap
         </h1>
         <CommentForm />
       </section>
 
       <section className="panel">
-        <p className="hero-sub">最新建议</p>
+        <p className="hero-sub">Latest ideas</p>
         <div className="comment-list">
-          {comments.length === 0 && <p className="feedback-empty">暂时还没有建议，快来当第一个吧。</p>}
+          {comments.length === 0 && <p className="feedback-empty">No ideas yet. Be the first to submit one!</p>}
           {comments.map((item) => (
             <article key={item.id} className="feedback-item">
               <div>
@@ -30,7 +30,7 @@ const CommentPage = async () => {
               </div>
               <div className="feedback-vote" style={{ cursor: "default" }}>
                 <span>{item.votes}</span>
-                <small>总票数</small>
+                <small>Total votes</small>
               </div>
             </article>
           ))}
