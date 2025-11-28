@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import FeedbackWidget from "@/components/FeedbackWidget";
+import RedditShareCTA from "@/components/RedditShareCTA";
 
 type ViewMode = "rest" | "sport";
 
@@ -173,6 +174,8 @@ const HeartRatePage = () => {
         </div>
       </section>
 
+
+
       <main className="canvas">
         <section className={`panel pulse-zone ${beats.length === 0 ? "pulse-zone-idle" : ""} ${isFrozen ? "pulse-zone-frozen" : ""}`}>
           <div className="pulse-zone-header">
@@ -281,6 +284,8 @@ const HeartRatePage = () => {
           </div>
         </section>
       </main>
+	  
+	  <RedditShareCTA />
 
       {/* SEO Content Section */}
       <section className="panel seo-content" style={{ marginTop: "2rem" }}>
