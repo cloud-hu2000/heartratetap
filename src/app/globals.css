@@ -713,3 +713,82 @@ body {
   }
 }
 
+.blog-page {
+  gap: 0;
+}
+
+.blog-article {
+  gap: 2rem;
+}
+
+.blog-hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+}
+
+.blog-intro {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.blog-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.blog-section h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--accent);
+}
+
+.blog-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.blog-step-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem;
+  background: #f9fffd;
+}
+
+.blog-table-wrapper {
+  overflow-x: auto;
+}
+
+.blog-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.blog-table-wrapper th,
+.blog-table-wrapper td {
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.blog-note {
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: var(--accent-soft);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+}
+
+.blog-cta {
+  align-items: flex-start;
+}
+
+.blog-cta-note {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
