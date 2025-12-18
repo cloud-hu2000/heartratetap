@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import RedditShareCTA from "@/components/RedditShareCTA";
 
@@ -464,8 +465,22 @@ const HeartRatePage = () => {
           )}
         </section>
       </main>
-	  
-	  <RedditShareCTA />
+
+      <section className="panel roadmap-preview" style={{ marginTop: "2rem" }}>
+        <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
+          Product roadmap
+        </p>
+        <h2 className="roadmap-preview-title">See what the community is voting for next</h2>
+        <p style={{ marginBottom: "1rem", color: "var(--muted)" }}>
+          Ideas you share in the feedback box are connected to our public roadmap. Visit the roadmap to upvote your
+          favorite ideas, track progress, and see what&apos;s planned, in progress, or already shipped.
+        </p>
+        <Link href="/roadmap" className="pill active">
+          Open roadmap &amp; top ideas
+        </Link>
+      </section>
+
+      <RedditShareCTA />
 
       {/* SEO Content Section */}
       <section className="panel seo-content" style={{ marginTop: "2rem" }}>
@@ -656,7 +671,6 @@ const HeartRatePage = () => {
           </p>
         </div>
       </section>
-
       <footer className="footnote">© {new Date().getFullYear()} Heart Rhythm Studio</footer>
       <FeedbackWidget />
     </div>
