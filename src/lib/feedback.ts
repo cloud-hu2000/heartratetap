@@ -21,6 +21,16 @@ export type Feedback = {
   createdAt: string;
 };
 
+const normalizeStatus = (status: string | null): Feedback["status"] => {
+  if (!status) return "planned";
+  const value = status.toLowerCase().trim();
+  if (value === "planned") return "planned";
+  if (value === "in_progress" || value === "in progress" || value === "in-progress") return "in_progress";
+  if (value === "shipped" || value === "done" || value === "released") return "shipped";
+  if (value === "archived") return "archived";
+  return "planned";
+};
+
 let tablesReady: Promise<void> | null = null;
 
 const ensureTables = async () => {
@@ -61,7 +71,7 @@ const sanitizeFeedback = (record: FeedbackRecord): Feedback => ({
   description: record.description,
   email: record.email,
   votes: record.votes,
-  status: (record.status as Feedback["status"]) ?? "planned",
+  status: normalizeStatus(record.status),
   createdAt: record.created_at
 });
 
