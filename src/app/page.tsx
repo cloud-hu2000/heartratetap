@@ -185,6 +185,18 @@ const HeartRatePage = () => {
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
       if (event.code === "Space") {
+        const target = event.target as HTMLElement | null;
+        if (target) {
+          const tag = target.tagName.toLowerCase();
+          const isFormField =
+            tag === "input" ||
+            tag === "textarea" ||
+            (target as HTMLElement).isContentEditable ||
+            target.closest("input, textarea, [contenteditable='true']");
+          if (isFormField) {
+            return;
+          }
+        }
         event.preventDefault();
         handleBeat();
       }
