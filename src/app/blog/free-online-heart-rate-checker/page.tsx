@@ -32,7 +32,7 @@ const CHECKER_BENEFITS = [
   },
   {
     title: "Privacy First",
-    body: "Your data stays on your device. We don't collect, store, or sell your heart rate measurements."
+    body: "Your data stays on your device. We do not collect, store, or sell your heart rate measurements."
   }
 ];
 
@@ -76,12 +76,12 @@ const USE_CASES = [
   {
     title: "Pre-Workout Assessment",
     description:
-      "Before hitting the gym, use our free online heart rate checker to ensure you're starting from a healthy baseline."
+      "Before hitting the gym, use our free online heart rate checker to ensure you are starting from a healthy baseline."
   },
   {
     title: "Stress Monitoring",
     description:
-      "Feeling anxious? Check heart rate online free to see if your heart rate is elevated. High readings may indicate it's time for a break."
+      "Feeling anxious? Check heart rate online free to see if your heart rate is elevated. High readings may indicate it is time for a break."
   },
   {
     title: "Post-Exercise Recovery",
@@ -118,8 +118,8 @@ const BlogPage = () => {
         <section className="blog-section">
           <h2>Why Use a Free Online Heart Rate Checker?</h2>
           <p>
-            Not everyone owns a smartwatch or fitness tracker. Maybe you left yours at home, maybe you're checking for
-            the first time, or maybe you just don't want to spend money on another gadget. Whatever the reason, a{" "}
+            Not everyone owns a smartwatch or fitness tracker. Maybe you left yours at home, maybe you&apos;re checking for
+            the first time, or maybe you just don&apos;t want to spend money on another gadget. Whatever the reason, a{" "}
             <strong>free online heart rate checker</strong> gives you instant access to your pulse data without any
             barriers.
           </p>
@@ -168,7 +168,7 @@ const BlogPage = () => {
               on the display, showing your current BPM.
             </li>
             <li>
-              <strong>Stop and save</strong> – Click "Stop" to lock your reading and see personalized health insights.
+              <strong>Stop and save</strong> – Click &quot;Stop&quot; to lock your reading and see personalized health insights.
             </li>
           </ol>
         </section>
@@ -176,7 +176,7 @@ const BlogPage = () => {
         <section className="blog-section">
           <h2>Free Online Heart Rate Checker vs Other Methods</h2>
           <p>
-            How does checking your <strong>online heart rate</strong> compare to other measurement methods? Here's a
+            How does checking your <strong>online heart rate</strong> compare to other measurement methods? Here&apos;s a
             quick comparison:
           </p>
           <div className="blog-table-wrapper">
@@ -205,7 +205,7 @@ const BlogPage = () => {
           </div>
           <p className="blog-note">
             💡 While medical-grade devices offer the highest accuracy, our <strong>free heart rate monitor online</strong>{" "}
-            provides excellent results for everyday wellness tracking—and it's always available when you need it.
+            provides excellent results for everyday wellness tracking—and it&apos;s always available when you need it.
           </p>
         </section>
 
@@ -227,7 +227,7 @@ const BlogPage = () => {
         <section className="blog-section">
           <h2>Understanding Your Heart Rate Measure Online</h2>
           <p>
-            After you <strong>check heart rate online free</strong>, it's important to understand what your numbers
+            After you <strong>check heart rate online free</strong>, it&apos;s important to understand what your numbers
             mean:
           </p>
 
@@ -308,7 +308,7 @@ const BlogPage = () => {
 
           <h3>Is my data private when using this free heart rate monitor online?</h3>
           <p>
-            Yes. All measurements are stored locally in your browser. We don't send your heart rate data to any server
+            Yes. All measurements are stored locally in your browser. We don&apos;t send your heart rate data to any server
             or third party.
           </p>
         </section>
@@ -317,7 +317,7 @@ const BlogPage = () => {
           <h2>Start Using the Free Online Heart Rate Checker Now</h2>
           <p>
             Ready to <strong>check heart rate online free</strong>? Our tool is available 24/7, completely free, and
-            requires no registration. Just tap and measure—it's that simple.
+            requires no registration. Just tap and measure—it&apos;s that simple.
           </p>
           <Link href="/" className="pill active" prefetch>
             Try Free Heart Rate Monitor Now
