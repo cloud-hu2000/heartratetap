@@ -7,6 +7,7 @@ type FeedbackRecord = {
   description: string;
   email: string | null;
   votes: number;
+  status: string | null;
   created_at: string;
 };
 
@@ -16,6 +17,7 @@ export type Feedback = {
   description: string;
   email: string | null;
   votes: number;
+  status: "planned" | "in_progress" | "shipped" | "archived";
   createdAt: string;
 };
 
@@ -32,8 +34,13 @@ const ensureTables = async () => {
           description TEXT NOT NULL,
           email TEXT,
           votes INTEGER NOT NULL DEFAULT 0,
+          status TEXT NOT NULL DEFAULT 'planned',
           created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
+      `;
+      await sql`
+        ALTER TABLE feedback_items
+        ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'planned'
       `;
       await sql`
         CREATE TABLE IF NOT EXISTS feedback_votes (
@@ -54,13 +61,14 @@ const sanitizeFeedback = (record: FeedbackRecord): Feedback => ({
   description: record.description,
   email: record.email,
   votes: record.votes,
+  status: (record.status as Feedback["status"]) ?? "planned",
   createdAt: record.created_at
 });
 
 export const fetchFeedbackList = async (): Promise<Feedback[]> => {
   await ensureTables();
   const rows = (await sql`
-    SELECT id, title, description, email, votes, created_at
+    SELECT id, title, description, email, votes, status, created_at
     FROM feedback_items
     ORDER BY votes DESC, created_at ASC
   `) as FeedbackRecord[];
@@ -70,9 +78,9 @@ export const fetchFeedbackList = async (): Promise<Feedback[]> => {
 export const createFeedback = async (data: { title: string; description: string; email: string | null }): Promise<Feedback> => {
   await ensureTables();
   const rows = (await sql`
-    INSERT INTO feedback_items (title, description, email)
-    VALUES (${data.title}, ${data.description}, ${data.email})
-    RETURNING id, title, description, email, votes, created_at
+    INSERT INTO feedback_items (title, description, email, status)
+    VALUES (${data.title}, ${data.description}, ${data.email}, 'planned')
+    RETURNING id, title, description, email, votes, status, created_at
   `) as FeedbackRecord[];
   return sanitizeFeedback(rows[0]);
 };
@@ -88,7 +96,7 @@ export const castVote = async (feedbackId: string, deviceId: string): Promise<Fe
   `;
   if (insertResult.length === 0) {
     const rows = (await sql`
-      SELECT id, title, description, email, votes, created_at
+      SELECT id, title, description, email, votes, status, created_at
       FROM feedback_items
       WHERE id = ${feedbackId}
     `) as FeedbackRecord[];
@@ -98,7 +106,7 @@ export const castVote = async (feedbackId: string, deviceId: string): Promise<Fe
     UPDATE feedback_items
     SET votes = votes + 1
     WHERE id = ${feedbackId}
-    RETURNING id, title, description, email, votes, created_at
+    RETURNING id, title, description, email, votes, status, created_at
   `) as FeedbackRecord[];
   return rows.length ? sanitizeFeedback(rows[0]) : null;
 };
