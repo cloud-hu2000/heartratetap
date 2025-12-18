@@ -97,6 +97,8 @@ const HeartRatePage = () => {
   const [displayBpm, setDisplayBpm] = useState<number | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [historyPage, setHistoryPage] = useState(0);
+  const [tapPulse, setTapPulse] = useState(false);
+  const [beatCount, setBeatCount] = useState(0);
 
   // 计算三种心率方式
   const liveBpm = useMemo(() => computeBpm(beats), [beats]);
@@ -164,13 +166,21 @@ const HeartRatePage = () => {
     });
   }, [viewMode]);
 
+  const triggerTapPulse = useCallback(() => {
+    setTapPulse(true);
+    setBeatCount((c) => c + 1);
+    setTimeout(() => setTapPulse(false), 200);
+  }, []);
+
   const handleBeat = useCallback(() => {
+    triggerTapPulse();
     // 如果已停止，点击开始则清零重新测量，并记录第一次点击
     if (isFrozen) {
       setIsFrozen(false);
       setFrozenBpm(null);
       setBeats([]);
       setDisplayBpm(null);
+      setBeatCount(1);
       // 清零后立即记录第一次点击
       const now = performance.now();
       setBeats([now]);
@@ -181,7 +191,7 @@ const HeartRatePage = () => {
       const next = [...prev, now];
       return next.slice(-16);
     });
-  }, [isFrozen]);
+  }, [isFrozen, triggerTapPulse]);
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -270,13 +280,23 @@ const HeartRatePage = () => {
       <main className="canvas">
         <section className={`panel pulse-zone ${beats.length === 0 ? "pulse-zone-idle" : ""} ${isFrozen ? "pulse-zone-frozen" : ""}`}>
           <div className="pulse-zone-header">
-            <div className="metric">
+            <div className={`metric ${tapPulse ? "metric-pulse" : ""}`}>
               {displayBpm ?? "--"}
               <span style={{ fontSize: "1rem", marginLeft: "0.5rem", color: "var(--muted)" }}>
                 bpm
               </span>
+              {beats.length > 0 && !isFrozen && (
+                <span className="beat-indicator">
+                  <span className={`beat-dot ${tapPulse ? "beat-dot-active" : ""}`} />
+                </span>
+              )}
             </div>
-            <p className="status-label">{statusLabel}</p>
+            <p className="status-label">
+              {statusLabel}
+              {beats.length > 0 && !isFrozen && (
+                <span className="tap-counter"> • {beatCount} taps</span>
+              )}
+            </p>
             {!isFrozen && (bpm5s || bpm10s) && (
               <div className="bpm-details">
                 {bpm10s && (
@@ -349,8 +369,12 @@ const HeartRatePage = () => {
             </div>
           )}
 
-          <div className="tap-surface" onPointerDown={handleBeat}>
-            <p style={{ margin: 0, fontSize: "1.15rem" }}>{COPY.tapHint}</p>
+          <div className={`tap-surface ${tapPulse ? "tap-surface-active" : ""}`} onPointerDown={handleBeat}>
+            <div className="tap-surface-content">
+              <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
+              <p style={{ margin: 0, fontSize: "1.15rem" }}>{COPY.tapHint}</p>
+            </div>
+            {tapPulse && <span className="tap-ripple" key={beatCount} />}
           </div>
 
           <div className="controls">

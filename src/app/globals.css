@@ -102,6 +102,68 @@ body {
   font-size: clamp(3rem, 8vw, 5.5rem);
   font-weight: 600;
   letter-spacing: -0.03em;
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  transition: transform 0.1s ease;
+}
+
+.metric-pulse {
+  animation: metric-bounce 0.15s ease-out;
+}
+
+@keyframes metric-bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.beat-indicator {
+  position: relative;
+  margin-left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beat-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.4;
+  transition: all 0.15s ease;
+}
+
+.beat-dot-active {
+  opacity: 1;
+  animation: beat-dot-pulse 0.3s ease-out;
+}
+
+@keyframes beat-dot-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(15, 140, 140, 0.6);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 8px rgba(15, 140, 140, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(15, 140, 140, 0);
+  }
+}
+
+.tap-counter {
+  color: var(--accent);
+  font-weight: 500;
 }
 
 .pulse-zone {
@@ -319,6 +381,63 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   transition-property: border-color, background, transform, box-shadow;
+  position: relative;
+  overflow: hidden;
+}
+
+.tap-surface-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.tap-heart {
+  font-size: 2rem;
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+
+.tap-heart-pulse {
+  animation: tap-heart-beat 0.2s ease-out;
+}
+
+@keyframes tap-heart-beat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tap-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%) scale(0);
+  animation: tap-ripple-expand 0.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes tap-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
 }
 
 .tap-surface:hover {
@@ -328,10 +447,12 @@ body {
   box-shadow: 0 4px 12px rgba(15, 140, 140, 0.1);
 }
 
-.tap-surface:active {
+.tap-surface:active,
+.tap-surface-active {
   border-color: var(--accent);
   background: rgba(15, 140, 140, 0.08);
-  transform: translateY(0);
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(15, 140, 140, 0.15);
 }
 
 .footnote {
