@@ -1,7 +1,8 @@
-import { fetchFeedbackList } from "@/lib/feedback";
 import Link from "next/link";
+import type { Feedback } from "@/lib/feedback";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const STATUS_LABEL: Record<string, string> = {
   planned: "Planned",
@@ -13,7 +14,16 @@ const STATUS_LABEL: Record<string, string> = {
 const STATUS_ORDER: Array<keyof typeof STATUS_LABEL> = ["planned", "in_progress", "shipped"];
 
 const RoadmapPage = async () => {
-  const ideas = await fetchFeedbackList();
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+  const response = await fetch(`${baseUrl}/api/feedback`, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error("Failed to load feedback for roadmap");
+  }
+  const { feedback } = (await response.json()) as { feedback: Feedback[] };
+  const ideas = feedback ?? [];
 
   const grouped = STATUS_ORDER.map((status) => ({
     status,

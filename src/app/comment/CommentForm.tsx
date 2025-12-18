@@ -23,7 +23,7 @@ const CommentForm = () => {
     <form className="comment-form" action={formAction}>
       <label>
         Title
-        <input name="title" type="text" placeholder="Give your idea a title" minLength={4} maxLength={80} required />
+        <input name="title" type="text" placeholder="Give your idea a title" maxLength={80} />
       </label>
       <label>
         Details
@@ -31,9 +31,7 @@ const CommentForm = () => {
           name="description"
           placeholder="Tell us exactly what you would like us to improve"
           rows={4}
-          minLength={10}
           maxLength={1000}
-          required
         />
       </label>
       <label>

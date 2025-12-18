@@ -100,13 +100,26 @@ const FeedbackWidget = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const title = form.title.trim();
+    const description = form.description.trim();
+    const email = form.email.trim();
+
+    if (title.length < 4) {
+      setMessage({ type: "error", text: "Title needs at least 4 characters." });
+      return;
+    }
+    if (description.length < 10) {
+      setMessage({ type: "error", text: "Please add a bit more detail to your idea." });
+      return;
+    }
+
     setSubmitting(true);
     setMessage(null);
     try {
       const payload = {
-        title: form.title.trim(),
-        description: form.description.trim(),
-        email: form.email.trim()
+        title,
+        description,
+        email
       };
       const response = await fetch("/api/feedback", {
         method: "POST",
@@ -199,8 +212,6 @@ const FeedbackWidget = () => {
                 value={form.title}
                 onChange={handleChange("title")}
                 placeholder="Describe your idea in one sentence"
-                required
-                minLength={4}
                 maxLength={80}
               />
             </label>
@@ -211,8 +222,6 @@ const FeedbackWidget = () => {
                 onChange={handleChange("description")}
                 placeholder="Share as much context as possible"
                 rows={4}
-                required
-                minLength={10}
                 maxLength={1000}
               />
             </label>
