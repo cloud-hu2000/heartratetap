@@ -72,7 +72,6 @@ const RoadmapPage = async () => {
                       <div className="roadmap-item-main">
                         <h3>{idea.title}</h3>
                         <p>{idea.description}</p>
-                        <p className="roadmap-status-debug">Status: {idea.status}</p>
                       </div>
                       <div className="roadmap-item-meta">
                         <span className="roadmap-votes">{idea.votes} votes</span>
