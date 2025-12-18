@@ -26,8 +26,12 @@ const normalizeStatus = (status: string | null): Feedback["status"] => {
   const value = status.toLowerCase().trim();
   if (value === "planned") return "planned";
   if (value === "in_progress" || value === "in progress" || value === "in-progress") return "in_progress";
-  if (value === "shipped" || value === "done" || value === "released") return "shipped";
+  if (value === "shipped" || value === "done" || value === "released" || value === "release") return "shipped";
   if (value === "archived") return "archived";
+  if (process.env.NODE_ENV !== "production") {
+    // eslint-disable-next-line no-console
+    console.warn("Unknown feedback status, defaulting to planned:", status);
+  }
   return "planned";
 };
 
