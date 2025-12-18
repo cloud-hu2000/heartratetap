@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
 
 export const metadata: Metadata = {
   title: "How to Check Heart Rate Online Free – No Device Needed",
@@ -131,10 +132,12 @@ const BlogPage = () => {
             insight into your heart health—anytime, anywhere.
           </p>
           <Link href="/" className="pill active" prefetch>
-            Open the HeartRateTap tool
+            Try HeartRateTap now
           </Link>
           <p className="blog-cta-note">Stay informed. Stay healthy.</p>
         </section>
+
+        <BlogKnowledgeHub />
       </article>
     </div>
   );

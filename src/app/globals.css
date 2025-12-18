@@ -889,3 +889,11 @@ body {
   color: var(--muted);
 }
 
+.blog-inline-cta {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
