@@ -1,6 +1,8 @@
 import { fetchFeedbackList } from "@/lib/feedback";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 const STATUS_LABEL: Record<string, string> = {
   planned: "Planned",
   in_progress: "In Progress",
