@@ -271,7 +271,7 @@ const HeartRatePage = () => {
       <section className="panel hero">
         <div>
           <p className="hero-sub">{COPY.heroSub}</p>
-          <h1 className="hero-title">Click to Know Your Heartbeat Anytime, Anywhere</h1>
+          <h1 className="hero-title">Free Online Heart Rate Monitor – Check Your Heart Rate Online Free</h1>
         </div>
       </section>
 

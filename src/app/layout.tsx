@@ -3,19 +3,22 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  title: "Real-Time Heart Rate Monitor - No Device Needed | heartratetap.com",
+  title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
   description:
-    "Click to test your heart rate instantly. Real-time heart rate detection with no download required. Simply tap the page to automatically calculate your heart rate. Start testing now!",
+    "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
   keywords: [
+    "online heart rate",
+    "check heart rate online free",
+    "free heart rate monitor online",
+    "heart rate measure online",
+    "free online heart rate checker",
     "heart rate monitor",
     "real-time heart rate",
     "online heart rate test",
-    "click to measure heart rate",
     "heart rate calculator",
     "pulse rate checker",
     "instant heart rate",
     "no device heart rate",
-    "heart rate detection",
     "resting heart rate",
     "exercise heart rate"
   ],
@@ -23,24 +26,24 @@ export const metadata: Metadata = {
     canonical: "https://heartratetap.com"
   },
   openGraph: {
-    title: "Real-Time Heart Rate Monitor - No Device Needed",
+    title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
     description:
-      "Click to test your heart rate instantly. Real-time heart rate detection with no download required. Simply tap the page to automatically calculate your heart rate.",
+      "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds!",
     url: "https://heartratetap.com",
-    siteName: "heartratetap.com",
+    siteName: "HeartRateTap",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Real-time heart rate monitor - click to test instantly"
+        alt: "Free online heart rate monitor - check heart rate online free"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Real-Time Heart Rate Monitor - No Device Needed",
-    description: "Click to test your heart rate instantly. Real-time detection, no download required."
+    title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
+    description: "Free online heart rate checker. Measure your heart rate online instantly - no device needed!"
   }
 };
 

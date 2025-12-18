@@ -10,6 +10,11 @@ const BlogKnowledgeHub = () => {
       </p>
       <ul>
         <li>
+          <Link href="/blog/free-online-heart-rate-checker">
+            Free Online Heart Rate Checker – Measure Heart Rate Online Instantly
+          </Link>
+        </li>
+        <li>
           <Link href="/blog/how-to-check-heart-rate-online">
             How to Check Heart Rate Online Free – No Device Needed
           </Link>
