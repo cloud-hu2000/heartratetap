@@ -15,6 +15,7 @@ type HistoryEntry = {
 };
 
 const HISTORY_STORAGE_KEY = "heartratetap-history-v1";
+const HISTORY_PAGE_SIZE = 5;
 
 const COPY = {
   heroTitle: "Heart Rhythm Studio",
@@ -94,6 +95,7 @@ const HeartRatePage = () => {
   const [frozenBpm, setFrozenBpm] = useState<number | null>(null);
   const [displayBpm, setDisplayBpm] = useState<number | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [historyPage, setHistoryPage] = useState(0);
 
   // 计算三种心率方式
   const liveBpm = useMemo(() => computeBpm(beats), [beats]);
@@ -192,13 +194,15 @@ const HeartRatePage = () => {
   }, [handleBeat]);
 
   const freeze = useCallback(() => {
+    // Avoid recording multiple entries for the same measurement
+    if (isFrozen) return;
     const bpmToFreeze = bpm10s ?? bpm5s ?? liveBpm;
     if (!bpmToFreeze) return;
     setIsFrozen(true);
     setFrozenBpm(bpmToFreeze);
     setDisplayBpm(bpmToFreeze);
     appendHistory(bpmToFreeze);
-  }, [appendHistory, bpm10s, bpm5s, liveBpm]);
+  }, [appendHistory, bpm10s, bpm5s, liveBpm, isFrozen]);
 
 
   const statusLabel = isFrozen
@@ -224,6 +228,20 @@ const HeartRatePage = () => {
       trendLabel = "Trending slightly lower in recent checks";
     }
   }
+
+  const totalHistoryPages = Math.max(Math.ceil(history.length / HISTORY_PAGE_SIZE), 1);
+  const clampedHistoryPage = Math.min(historyPage, totalHistoryPages - 1);
+  const pagedHistory = history.slice(
+    clampedHistoryPage * HISTORY_PAGE_SIZE,
+    clampedHistoryPage * HISTORY_PAGE_SIZE + HISTORY_PAGE_SIZE
+  );
+
+  const chartSource = history.slice(0, 20).slice().reverse();
+  const hasChart = chartSource.length >= 2;
+  const chartBpms = chartSource.map((h) => h.bpm);
+  const chartMin = Math.min(...chartBpms);
+  const chartMax = Math.max(...chartBpms);
+  const chartRange = chartMax - chartMin || 1;
 
   return (
     <div className="frame">
@@ -354,9 +372,37 @@ const HeartRatePage = () => {
           )}
           {history.length > 0 && (
             <>
+              <div className="history-header-row">
+                {trendLabel && <p className="history-trend">{trendLabel}</p>}
+              </div>
+              {hasChart && history.length > HISTORY_PAGE_SIZE && (
+                <div className="history-chart">
+                  <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                    <polyline
+                      fill="none"
+                      stroke="var(--accent)"
+                      strokeWidth="1.8"
+                      points={chartSource
+                        .map((entry, index) => {
+                          const x = (index / Math.max(chartSource.length - 1, 1)) * 100;
+                          const normalized = (entry.bpm - chartMin) / chartRange;
+                          const y = 35 - normalized * 25;
+                          return `${x},${y}`;
+                        })
+                        .join(" ")}
+                    />
+                  </svg>
+                  <div className="history-chart-caption">
+                    Last {chartSource.length} locked readings •{" "}
+                    <span>
+                      {chartMin}–{chartMax} bpm
+                    </span>
+                  </div>
+                </div>
+              )}
               {trendLabel && <p className="history-trend">{trendLabel}</p>}
               <ul className="history-list">
-                {history.map((entry) => (
+                {pagedHistory.map((entry) => (
                   <li key={entry.id} className="history-item">
                     <div>
                       <div className="history-bpm">
@@ -377,6 +423,31 @@ const HeartRatePage = () => {
                   </li>
                 ))}
               </ul>
+              {history.length > HISTORY_PAGE_SIZE && (
+                <div className="history-pagination">
+                  <button
+                    type="button"
+                    className="pill"
+                    disabled={clampedHistoryPage === 0}
+                    onClick={() => setHistoryPage((page) => Math.max(page - 1, 0))}
+                  >
+                    Newer
+                  </button>
+                  <span className="history-page-label">
+                    Page {clampedHistoryPage + 1} of {totalHistoryPages}
+                  </span>
+                  <button
+                    type="button"
+                    className="pill"
+                    disabled={clampedHistoryPage >= totalHistoryPages - 1}
+                    onClick={() =>
+                      setHistoryPage((page) => Math.min(page + 1, Math.max(totalHistoryPages - 1, 0)))
+                    }
+                  >
+                    Older
+                  </button>
+                </div>
+              )}
             </>
           )}
         </section>
