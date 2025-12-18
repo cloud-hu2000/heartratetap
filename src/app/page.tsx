@@ -7,6 +7,15 @@ import RedditShareCTA from "@/components/RedditShareCTA";
 
 type ViewMode = "rest" | "sport";
 
+type HistoryEntry = {
+  id: string;
+  timestamp: string;
+  bpm: number;
+  context: ViewMode | "unknown";
+};
+
+const HISTORY_STORAGE_KEY = "heartratetap-history-v1";
+
 const COPY = {
   heroTitle: "Heart Rhythm Studio",
   heroSub: "Heart rate calculator",
@@ -84,6 +93,7 @@ const HeartRatePage = () => {
   const [isFrozen, setIsFrozen] = useState(false);
   const [frozenBpm, setFrozenBpm] = useState<number | null>(null);
   const [displayBpm, setDisplayBpm] = useState<number | null>(null);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   // 计算三种心率方式
   const liveBpm = useMemo(() => computeBpm(beats), [beats]);
@@ -116,6 +126,40 @@ const HeartRatePage = () => {
     
     return () => clearInterval(interval);
   }, [currentBpm]);
+
+  // 加载本地历史记录
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(HISTORY_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as HistoryEntry[];
+      if (Array.isArray(parsed)) {
+        setHistory(parsed);
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, []);
+
+  const appendHistory = useCallback((bpm: number) => {
+    const entry: HistoryEntry = {
+      id:
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      timestamp: new Date().toISOString(),
+      bpm,
+      context: viewMode ?? "unknown"
+    };
+    setHistory((prev) => {
+      const next = [entry, ...prev].slice(0, 20);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next));
+      }
+      return next;
+    });
+  }, [viewMode]);
 
   const handleBeat = useCallback(() => {
     // 如果已停止，点击开始则清零重新测量，并记录第一次点击
@@ -153,7 +197,8 @@ const HeartRatePage = () => {
     setIsFrozen(true);
     setFrozenBpm(bpmToFreeze);
     setDisplayBpm(bpmToFreeze);
-  }, [bpm10s, bpm5s, liveBpm]);
+    appendHistory(bpmToFreeze);
+  }, [appendHistory, bpm10s, bpm5s, liveBpm]);
 
 
   const statusLabel = isFrozen
@@ -164,6 +209,21 @@ const HeartRatePage = () => {
 
   // 只在停止后显示建议
   const analysisText = isFrozen ? analysisFor(viewMode, displayBpm ?? null) : null;
+
+  const recentBpm = history.map((h) => h.bpm);
+  const latestBpm = recentBpm[0];
+  const previousBpm = recentBpm[recentBpm.length - 1];
+  let trendLabel: string | null = null;
+  if (recentBpm.length >= 2 && typeof latestBpm === "number" && typeof previousBpm === "number") {
+    const diff = latestBpm - previousBpm;
+    if (Math.abs(diff) < 3) {
+      trendLabel = "Relatively stable across recent measurements";
+    } else if (diff > 0) {
+      trendLabel = "Trending slightly higher in recent checks";
+    } else {
+      trendLabel = "Trending slightly lower in recent checks";
+    }
+  }
 
   return (
     <div className="frame">
@@ -282,6 +342,43 @@ const HeartRatePage = () => {
               style={{ width: "100%", height: "auto", objectFit: "contain" }}
             />
           </div>
+        </section>
+        <section className="panel history-panel">
+          <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
+            Recent heart rate history
+          </p>
+          {history.length === 0 && (
+            <p className="history-empty">
+              Once you lock a result, your last 20 readings will appear here — only stored in this browser.
+            </p>
+          )}
+          {history.length > 0 && (
+            <>
+              {trendLabel && <p className="history-trend">{trendLabel}</p>}
+              <ul className="history-list">
+                {history.map((entry) => (
+                  <li key={entry.id} className="history-item">
+                    <div>
+                      <div className="history-bpm">
+                        {entry.bpm}
+                        <span> bpm</span>
+                      </div>
+                      <p className="history-meta">
+                        {entry.context === "sport" ? "Workout" : "Rest / calm"} •{" "}
+                        {new Date(entry.timestamp).toLocaleString("en-US", {
+                          month: "short",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false
+                        })}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
       </main>
 	  
