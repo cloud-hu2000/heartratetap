@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
+import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
   title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
@@ -62,7 +63,8 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <SpeedInsights />
+        <AnalyticsWithConsent />
+        <CookieConsent />
       </body>
     </html>
   );
