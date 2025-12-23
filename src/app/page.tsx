@@ -695,7 +695,13 @@ const HeartRatePage = () => {
           </p>
         </div>
       </section>
-      <footer className="footnote">© {new Date().getFullYear()} Heart Rhythm Studio</footer>
+      <footer className="footnote">
+        <span>© {new Date().getFullYear()} Heart Rhythm Studio</span>
+        <span style={{ marginLeft: "0.5rem" }}>•</span>
+        <Link href="/privacy-policy" className="blog-inline-cta">
+          Privacy Policy
+        </Link>
+      </footer>
       <FeedbackWidget />
     </div>
   );
