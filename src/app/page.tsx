@@ -20,35 +20,108 @@ const HISTORY_PAGE_SIZE = 5;
 const LANG_STORAGE_KEY = "heartratetap-lang";
 
 const COPY = {
-  heroTitle: "Heart Rhythm Studio",
-  heroSub: "Heart rate calculator",
-  tapHint: "Tap pulse or hit space",
-  frozenTag: "Result locked",
-  diagramTitle: "Pulse map",
-  diagramWrist: "Wrist",
-  diagramNeck: "Neck",
-  restLabel: "Rest",
-  sportLabel: "Active",
-  stop: "Stop",
-  resume: "Reset",
-  status: {
-    waiting: "Tap to begin",
-    measuring: "Listening",
-    frozen: "Saved"
-  },
-  advice: {
-    rest: {
-      low: "Below 60 bpm • breathe slowly and stay warm.",
-      ideal: "60-90 bpm • calm circulation, hydrated and steady.",
-      high: "Above 90 bpm • decompress, stretch, watch stimulants."
+  en: {
+    heroTitle: "Heart Rhythm Studio",
+    heroHeadline: "Free Online Heart Rate Monitor – Check Your Heart Rate Online Free",
+    heroSub: "Heart rate calculator",
+    tapHint: "Tap pulse or hit space",
+    frozenTag: "Result locked",
+    diagramTitle: "Pulse map",
+    diagramWrist: "Wrist",
+    diagramNeck: "Neck",
+    restLabel: "Rest",
+    sportLabel: "Active",
+    stop: "Stop",
+    resume: "Reset",
+    idleHint: "Ready to measure your heart rate",
+    zoneHint: "Heart rate zone indicator",
+    historyTitle: "Recent heart rate history",
+    historyEmpty: "Once you lock a result, your last 20 readings will appear here — only stored in this browser.",
+    historyMetaWorkout: "Workout",
+    historyMetaRest: "Rest / calm",
+    historyNewer: "Newer",
+    historyOlder: "Older",
+    historyPage: "Page",
+    historyOf: "of",
+    trendStable: "Relatively stable across recent measurements",
+    trendHigher: "Trending slightly higher in recent checks",
+    trendLower: "Trending slightly lower in recent checks",
+    roadmapTitle: "Product roadmap",
+    roadmapHeading: "See what the community is voting for next",
+    roadmapDesc:
+      "Ideas you share in the feedback box are connected to our public roadmap. Visit the roadmap to upvote your favorite ideas, track progress, and see what's planned, in progress, or already shipped.",
+    roadmapCta: "Open roadmap & top ideas",
+    wantInfluence: "Want to influence what comes next?",
+    status: {
+      waiting: "Tap to begin",
+      measuring: "Listening",
+      frozen: "Saved"
     },
-    sport: {
-      warm: "50-60% HRmax • gentle warm-up, build rhythm.",
-      burn: "65-75% HRmax • fat-burn efficiency peaks here.",
-      cardio: "80-90% HRmax • short bursts for cardio power."
+    advice: {
+      rest: {
+        low: "Below 60 bpm • breathe slowly and stay warm.",
+        ideal: "60-90 bpm • calm circulation, hydrated and steady.",
+        high: "Above 90 bpm • decompress, stretch, watch stimulants."
+      },
+      sport: {
+        warm: "50-60% HRmax • gentle warm-up, build rhythm.",
+        burn: "65-75% HRmax • fat-burn efficiency peaks here.",
+        cardio: "80-90% HRmax • short bursts for cardio power."
+      }
+    }
+  },
+  es: {
+    heroTitle: "Estudio del ritmo cardíaco",
+    heroHeadline: "Monitor de frecuencia cardíaca en línea gratuito: comprueba tu pulso gratis",
+    heroSub: "Calculadora de frecuencia cardíaca",
+    tapHint: "Toca al ritmo del pulso o pulsa la barra espaciadora",
+    frozenTag: "Resultado guardado",
+    diagramTitle: "Mapa del pulso",
+    diagramWrist: "Muñeca",
+    diagramNeck: "Cuello",
+    restLabel: "Reposo",
+    sportLabel: "Actividad",
+    stop: "Detener",
+    resume: "Reiniciar",
+    idleHint: "Listo para medir tu frecuencia cardíaca",
+    zoneHint: "Indicador de zona de frecuencia cardíaca",
+    historyTitle: "Historial reciente de frecuencia cardíaca",
+    historyEmpty:
+      "Cuando guardes un resultado, tus últimas 20 lecturas aparecerán aquí — solo se almacenan en este navegador.",
+    historyMetaWorkout: "Entrenamiento",
+    historyMetaRest: "Reposo / calma",
+    historyNewer: "Más recientes",
+    historyOlder: "Más antiguas",
+    historyPage: "Página",
+    historyOf: "de",
+    trendStable: "Relativamente estable en las mediciones recientes",
+    trendHigher: "Tendencia ligeramente más alta en las mediciones recientes",
+    trendLower: "Tendencia ligeramente más baja en las mediciones recientes",
+    roadmapTitle: "Hoja de ruta del producto",
+    roadmapHeading: "Mira qué está votando la comunidad",
+    roadmapDesc:
+      "Las ideas que compartes en el panel de feedback están conectadas a nuestra hoja de ruta pública. Visítala para votar, seguir el progreso y ver lo planificado, en progreso o ya entregado.",
+    roadmapCta: "Abrir hoja de ruta e ideas principales",
+    wantInfluence: "¿Quieres influir en lo que sigue?",
+    status: {
+      waiting: "Toca para empezar",
+      measuring: "Escuchando",
+      frozen: "Guardado"
+    },
+    advice: {
+      rest: {
+        low: "Por debajo de 60 lpm • respira lento y mantente abrigado.",
+        ideal: "60-90 lpm • circulación calmada, hidratado y estable.",
+        high: "Más de 90 lpm • relájate, estira y limita estimulantes."
+      },
+      sport: {
+        warm: "50-60% FCmáx • calentamiento suave, crea ritmo.",
+        burn: "65-75% FCmáx • máxima eficiencia de quema de grasa.",
+        cardio: "80-90% FCmáx • ráfagas cortas para potencia cardiovascular."
+      }
     }
   }
-};
+} as const;
 
 const computeBpm = (beats: number[]): number | null => {
   if (beats.length < 2) return null;
@@ -76,18 +149,18 @@ const clampIndicator = (bpm: number): number => {
   return ((Math.min(Math.max(bpm, min), max) - min) / (max - min)) * 100;
 };
 
-const analysisFor = (mode: ViewMode, bpm: number | null): string => {
+const analysisFor = (t: typeof COPY["en"], mode: ViewMode, bpm: number | null): string => {
   if (!bpm) {
-    return COPY.status.waiting;
+    return t.status.waiting;
   }
   if (mode === "rest") {
-    if (bpm < 60) return COPY.advice.rest.low;
-    if (bpm <= 90) return COPY.advice.rest.ideal;
-    return COPY.advice.rest.high;
+    if (bpm < 60) return t.advice.rest.low;
+    if (bpm <= 90) return t.advice.rest.ideal;
+    return t.advice.rest.high;
   }
-  if (bpm < 120) return COPY.advice.sport.warm;
-  if (bpm < 150) return COPY.advice.sport.burn;
-  return COPY.advice.sport.cardio;
+  if (bpm < 120) return t.advice.sport.warm;
+  if (bpm < 150) return t.advice.sport.burn;
+  return t.advice.sport.cardio;
 };
 
 const HeartRatePage = () => {
@@ -101,12 +174,14 @@ const HeartRatePage = () => {
   const [tapPulse, setTapPulse] = useState(false);
   const [beatCount, setBeatCount] = useState(0);
   const [lang, setLang] = useState<"en" | "es">("en");
+  const t = COPY[lang];
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = window.localStorage.getItem(LANG_STORAGE_KEY) as "en" | "es" | null;
     if (stored === "es" || stored === "en") {
       setLang(stored);
+      document.documentElement.lang = stored;
     }
   }, []);
 
@@ -115,10 +190,17 @@ const HeartRatePage = () => {
       const next = prev === "en" ? "es" : "en";
       if (typeof window !== "undefined") {
         window.localStorage.setItem(LANG_STORAGE_KEY, next);
+        document.documentElement.lang = next;
       }
       return next;
     });
   }, []);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang;
+    }
+  }, [lang]);
 
   // 计算三种心率方式
   const liveBpm = useMemo(() => computeBpm(beats), [beats]);
@@ -249,13 +331,13 @@ const HeartRatePage = () => {
 
 
   const statusLabel = isFrozen
-    ? COPY.status.frozen
+    ? t.status.frozen
     : beats.length > 1
-      ? COPY.status.measuring
-      : COPY.status.waiting;
+      ? t.status.measuring
+      : t.status.waiting;
 
   // 只在停止后显示建议
-  const analysisText = isFrozen ? analysisFor(viewMode, displayBpm ?? null) : null;
+  const analysisText = isFrozen ? analysisFor(t, viewMode, displayBpm ?? null) : null;
 
   const recentBpm = history.map((h) => h.bpm);
   const latestBpm = recentBpm[0];
@@ -264,11 +346,11 @@ const HeartRatePage = () => {
   if (recentBpm.length >= 2 && typeof latestBpm === "number" && typeof previousBpm === "number") {
     const diff = latestBpm - previousBpm;
     if (Math.abs(diff) < 3) {
-      trendLabel = "Relatively stable across recent measurements";
+      trendLabel = t.trendStable;
     } else if (diff > 0) {
-      trendLabel = "Trending slightly higher in recent checks";
+      trendLabel = t.trendHigher;
     } else {
-      trendLabel = "Trending slightly lower in recent checks";
+      trendLabel = t.trendLower;
     }
   }
 
@@ -288,18 +370,14 @@ const HeartRatePage = () => {
 
   return (
     <div className="frame">
+      <div className="topbar">
+        <button type="button" className="pill" onClick={toggleLang}>
+          {lang === "en" ? "Language: EN" : "Idioma: ES"}
+        </button>
+      </div>
       <section className="panel hero">
-        <div className="hero-header">
-          <div>
-            <p className="hero-sub">{COPY.heroSub}</p>
-            <h1 className="hero-title">Free Online Heart Rate Monitor – Check Your Heart Rate Online Free</h1>
-          </div>
-          <div className="hero-actions">
-            <button type="button" className="pill" onClick={toggleLang}>
-              Language: {lang === "en" ? "EN" : "ES"}
-            </button>
-          </div>
-        </div>
+        <p className="hero-sub">{t.heroSub}</p>
+        <h1 className="hero-title">{t.heroHeadline}</h1>
       </section>
 
 
@@ -340,7 +418,7 @@ const HeartRatePage = () => {
           {beats.length === 0 && (
             <div className="idle-visual">
               <div className="heart-icon">❤️</div>
-              <p className="idle-hint">Ready to measure your heart rate</p>
+              <p className="idle-hint">{t.idleHint}</p>
             </div>
           )}
 
@@ -357,7 +435,7 @@ const HeartRatePage = () => {
                   }
                 }}
               >
-                {COPY.restLabel}
+                {t.restLabel}
               </button>
               <button
                 type="button"
@@ -370,7 +448,7 @@ const HeartRatePage = () => {
                   }
                 }}
               >
-                {COPY.sportLabel}
+                {t.sportLabel}
               </button>
             </div>
           )}
@@ -384,7 +462,7 @@ const HeartRatePage = () => {
             )}
             {!displayBpm && (
               <div className="zone-bar-placeholder">
-                <span className="zone-bar-hint">Heart rate zone indicator</span>
+              <span className="zone-bar-hint">{t.zoneHint}</span>
               </div>
             )}
           </div>
@@ -399,26 +477,26 @@ const HeartRatePage = () => {
           <div className={`tap-surface ${tapPulse ? "tap-surface-active" : ""}`} onPointerDown={handleBeat}>
             <div className="tap-surface-content">
               <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
-              <p style={{ margin: 0, fontSize: "1.15rem" }}>{COPY.tapHint}</p>
+            <p style={{ margin: 0, fontSize: "1.15rem" }}>{t.tapHint}</p>
             </div>
             {tapPulse && <span className="tap-ripple" key={beatCount} />}
           </div>
 
           <div className="controls">
             <button type="button" className="pill active" onClick={freeze}>
-              {COPY.stop}
+            {t.stop}
             </button>
           </div>
         </section>
 
         <section className="panel">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            {COPY.diagramTitle}
+          {t.diagramTitle}
           </p>
           <div className="diagram">
             <Image
               src="/pause.png"
-              alt={COPY.diagramTitle}
+            alt={t.diagramTitle}
               width={400}
               height={300}
               style={{ width: "100%", height: "auto", objectFit: "contain" }}
@@ -427,11 +505,11 @@ const HeartRatePage = () => {
         </section>
         <section className="panel history-panel">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            Recent heart rate history
+            {t.historyTitle}
           </p>
           {history.length === 0 && (
             <p className="history-empty">
-              Once you lock a result, your last 20 readings will appear here — only stored in this browser.
+              {t.historyEmpty}
             </p>
           )}
           {history.length > 0 && (
@@ -464,7 +542,7 @@ const HeartRatePage = () => {
                   </div>
                 </div>
               )}
-              {trendLabel && <p className="history-trend">{trendLabel}</p>}
+                {trendLabel && <p className="history-trend">{trendLabel}</p>}
               <ul className="history-list">
                 {pagedHistory.map((entry) => (
                   <li key={entry.id} className="history-item">
@@ -474,7 +552,7 @@ const HeartRatePage = () => {
                         <span> bpm</span>
                       </div>
                       <p className="history-meta">
-                        {entry.context === "sport" ? "Workout" : "Rest / calm"} •{" "}
+                        {entry.context === "sport" ? t.historyMetaWorkout : t.historyMetaRest} •{" "}
                         {new Date(entry.timestamp).toLocaleString("en-US", {
                           month: "short",
                           day: "2-digit",
@@ -495,10 +573,10 @@ const HeartRatePage = () => {
                     disabled={clampedHistoryPage === 0}
                     onClick={() => setHistoryPage((page) => Math.max(page - 1, 0))}
                   >
-                    Newer
+                    {t.historyNewer}
                   </button>
                   <span className="history-page-label">
-                    Page {clampedHistoryPage + 1} of {totalHistoryPages}
+                    {t.historyPage} {clampedHistoryPage + 1} {t.historyOf} {totalHistoryPages}
                   </span>
                   <button
                     type="button"
@@ -508,7 +586,7 @@ const HeartRatePage = () => {
                       setHistoryPage((page) => Math.min(page + 1, Math.max(totalHistoryPages - 1, 0)))
                     }
                   >
-                    Older
+                    {t.historyOlder}
                   </button>
                 </div>
               )}
@@ -519,15 +597,12 @@ const HeartRatePage = () => {
 
       <section className="panel roadmap-preview" style={{ marginTop: "2rem" }}>
         <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-          Product roadmap
+          {t.roadmapTitle}
         </p>
-        <h2 className="roadmap-preview-title">See what the community is voting for next</h2>
-        <p style={{ marginBottom: "1rem", color: "var(--muted)" }}>
-          Ideas you share in the feedback box are connected to our public roadmap. Visit the roadmap to upvote your
-          favorite ideas, track progress, and see what&apos;s planned, in progress, or already shipped.
-        </p>
+        <h2 className="roadmap-preview-title">{t.roadmapHeading}</h2>
+        <p style={{ marginBottom: "1rem", color: "var(--muted)" }}>{t.roadmapDesc}</p>
         <Link href="/roadmap" className="pill active">
-          Open roadmap &amp; top ideas
+          {t.roadmapCta}
         </Link>
       </section>
 
@@ -763,6 +838,13 @@ const HeartRatePage = () => {
         </p>
 
         <style jsx>{`
+          .topbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+          }
           .footer-block {
             padding-top: 1.5rem;
             border-top: 1px solid var(--line, rgba(255, 255, 255, 0.08));
