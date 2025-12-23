@@ -17,6 +17,7 @@ type HistoryEntry = {
 
 const HISTORY_STORAGE_KEY = "heartratetap-history-v1";
 const HISTORY_PAGE_SIZE = 5;
+const LANG_STORAGE_KEY = "heartratetap-lang";
 
 const COPY = {
   heroTitle: "Heart Rhythm Studio",
@@ -99,6 +100,25 @@ const HeartRatePage = () => {
   const [historyPage, setHistoryPage] = useState(0);
   const [tapPulse, setTapPulse] = useState(false);
   const [beatCount, setBeatCount] = useState(0);
+  const [lang, setLang] = useState<"en" | "es">("en");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = window.localStorage.getItem(LANG_STORAGE_KEY) as "en" | "es" | null;
+    if (stored === "es" || stored === "en") {
+      setLang(stored);
+    }
+  }, []);
+
+  const toggleLang = useCallback(() => {
+    setLang((prev) => {
+      const next = prev === "en" ? "es" : "en";
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(LANG_STORAGE_KEY, next);
+      }
+      return next;
+    });
+  }, []);
 
   // 计算三种心率方式
   const liveBpm = useMemo(() => computeBpm(beats), [beats]);
@@ -269,9 +289,16 @@ const HeartRatePage = () => {
   return (
     <div className="frame">
       <section className="panel hero">
-        <div>
-          <p className="hero-sub">{COPY.heroSub}</p>
-          <h1 className="hero-title">Free Online Heart Rate Monitor – Check Your Heart Rate Online Free</h1>
+        <div className="hero-header">
+          <div>
+            <p className="hero-sub">{COPY.heroSub}</p>
+            <h1 className="hero-title">Free Online Heart Rate Monitor – Check Your Heart Rate Online Free</h1>
+          </div>
+          <div className="hero-actions">
+            <button type="button" className="pill" onClick={toggleLang}>
+              Language: {lang === "en" ? "EN" : "ES"}
+            </button>
+          </div>
         </div>
       </section>
 
@@ -804,6 +831,20 @@ const HeartRatePage = () => {
           }
         `}</style>
       </footer>
+      <style jsx>{`
+        .hero-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+        .hero-actions {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+        }
+      `}</style>
       <FeedbackWidget />
     </div>
   );
