@@ -823,6 +823,18 @@ const HeartRatePage = () => {
           .footer-sep {
             opacity: 0.6;
           }
+          .hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+          }
+          .hero-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+          }
           @media (max-width: 640px) {
             .footer-head {
               flex-direction: column;
@@ -831,20 +843,6 @@ const HeartRatePage = () => {
           }
         `}</style>
       </footer>
-      <style jsx>{`
-        .hero-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-        .hero-actions {
-          display: flex;
-          gap: 0.5rem;
-          align-items: center;
-        }
-      `}</style>
       <FeedbackWidget />
     </div>
   );
