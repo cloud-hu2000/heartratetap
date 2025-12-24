@@ -69,6 +69,21 @@ const COPY = {
         cardio: "80-90% HRmax • short bursts for cardio power."
       }
     }
+    ,
+    seoIntro:
+      "Our real-time heart rate monitor lets you click to test your heart rate instantly without any devices or downloads. Tap or press the spacebar in rhythm with your pulse and receive immediate BPM and coaching.",
+    seoHowToTitle: "How to Use This Heart Rate Monitor",
+    seoHowToBody:
+      "Using our heart rate detection tool is simple and requires no special equipment. Here’s how to get started:",
+    seoSteps: [
+      "Find your pulse at the wrist or neck.",
+      "Tap the surface or press the spacebar with each heartbeat.",
+      "Watch the BPM update in real time and click Stop to lock the result."
+    ],
+    seoUnderstandingTitle: "Understanding Your Heart Rate Results",
+    seoStartTitle: "Start Your Heart Rate Test Now",
+    seoStartBody:
+      "Ready to begin? Use our real-time heart rate monitor to check your heart rate online instantly. No downloads, no devices—just tap and measure."
   },
   es: {
     heroTitle: "Estudio del ritmo cardíaco",
@@ -120,6 +135,21 @@ const COPY = {
         cardio: "80-90% FCmáx • ráfagas cortas para potencia cardiovascular."
       }
     }
+    ,
+    seoIntro:
+      "Nuestro monitor de frecuencia cardíaca en tiempo real te permite medir tu pulso al instante sin dispositivos ni descargas. Toca o pulsa la barra espaciadora al ritmo de tu pulso y obtén BPM inmediato y recomendaciones.",
+    seoHowToTitle: "Cómo usar este monitor de frecuencia cardíaca",
+    seoHowToBody:
+      "Usar nuestra herramienta de detección es sencillo y no requiere equipos especiales. Así es como empezar:",
+    seoSteps: [
+      "Encuentra tu pulso en la muñeca o el cuello.",
+      "Toca la pantalla o pulsa la barra espaciadora con cada latido.",
+      "Observa el BPM en tiempo real y pulsa Detener para guardar el resultado."
+    ],
+    seoUnderstandingTitle: "Cómo interpretar tus resultados",
+    seoStartTitle: "Comienza tu prueba de frecuencia cardíaca ahora",
+    seoStartBody:
+      "¿Listo para empezar? Usa nuestro monitor en tiempo real para comprobar tu frecuencia cardíaca al instante. Sin descargas, sin dispositivos — solo toca y mide."
   }
 } as const;
 
@@ -462,7 +492,9 @@ const HeartRatePage = () => {
             )}
             {!displayBpm && (
               <div className="zone-bar-placeholder">
-              <span className="zone-bar-hint">{t.zoneHint}</span>
+                <span className="zone-bar-hint" title={t.zoneHint}>
+                  {t.zoneHint}
+                </span>
               </div>
             )}
           </div>
@@ -840,10 +872,17 @@ const HeartRatePage = () => {
         <style jsx>{`
           .topbar {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 0;
+          }
+          .topbar .pill {
+            min-width: 180px;
+            padding: 0.6rem 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 999px;
           }
           .footer-block {
             padding-top: 1.5rem;
