@@ -179,7 +179,7 @@ const clampIndicator = (bpm: number): number => {
   return ((Math.min(Math.max(bpm, min), max) - min) / (max - min)) * 100;
 };
 
-const analysisFor = (t: typeof COPY["en"], mode: ViewMode, bpm: number | null): string => {
+const analysisFor = (t: typeof COPY[keyof typeof COPY], mode: ViewMode, bpm: number | null): string => {
   if (!bpm) {
     return t.status.waiting;
   }
