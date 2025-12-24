@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
+import GoogleOneTap from "@/components/GoogleOneTap";
 
 export const metadata: Metadata = {
   title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
@@ -63,6 +64,11 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
       </head>
       <body>
+        <header style={{ width: "100%", display: "flex", justifyContent: "flex-end", padding: "0.75rem 1rem", boxSizing: "border-box" }}>
+          <nav style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <GoogleOneTap />
+          </nav>
+        </header>
         {children}
         <AnalyticsWithConsent />
         <CookieConsent />
