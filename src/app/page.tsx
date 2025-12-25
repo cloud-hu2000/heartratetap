@@ -86,6 +86,29 @@ const COPY = {
     seoStartTitle: "Start Your Heart Rate Test Now",
     seoStartBody:
       "Ready to begin? Use our real-time heart rate monitor to check your heart rate online instantly. No downloads, no devices—just tap and measure."
+    ,
+    restingTitle: "Resting Heart Rate Reference Values",
+    restingIntro:
+      "Resting heart rate is your heart rate when you're at rest, typically measured in the morning before any activity. Use our click to test heart rate feature to measure your resting heart rate and compare it with these reference values:",
+    ageGroup: "Age Group",
+    menBpm: "Men (bpm)",
+    womenBpm: "Women (bpm)",
+    note:
+      "Note: Well-trained athletes may have resting heart rates as low as 40-60 bpm. If your resting heart rate is consistently above 100 bpm (tachycardia) or below 60 bpm (bradycardia) and you experience symptoms, consult a healthcare professional.",
+    exerciseTitle: "Exercise Heart Rate Reference Values",
+    exerciseIntro:
+      "During exercise, your heart rate increases to supply more oxygen to your muscles. Use our real-time heart rate monitor in active mode to track your exercise heart rate. Here are target heart rate zones based on age and gender:",
+    targetZonesTitle: "Target Heart Rate Zones (50-85% of Maximum Heart Rate)",
+    intensityTitle: "Exercise Intensity Zones",
+    intensityList: [
+      "Light Activity (50-60% max HR): Warm-up, recovery, and gentle exercise. Good for beginners and active recovery.",
+      "Moderate Activity (60-70% max HR): Fat-burning zone. Ideal for weight management and building endurance.",
+      "Vigorous Activity (70-85% max HR): Cardiovascular fitness zone. Improves heart and lung function, builds aerobic capacity.",
+      "Maximum Effort (85-100% max HR): Anaerobic zone. Short bursts for advanced athletes. Use with caution."
+    ],
+    accuracyTitle: "Accuracy and Limitations",
+    accuracyBody:
+      "Our online heart rate test provides a convenient way to click to test your heart rate and get real-time monitoring. However, it's important to understand that this tool is designed for general fitness and wellness purposes. The accuracy depends on your ability to tap consistently with your pulse.",
   },
   es: {
     heroTitle: "Estudio del ritmo cardíaco",
@@ -154,6 +177,29 @@ const COPY = {
     seoStartTitle: "Comienza tu prueba de frecuencia cardíaca ahora",
     seoStartBody:
       "¿Listo para empezar? Usa nuestro monitor en tiempo real para comprobar tu frecuencia cardíaca al instante. Sin descargas, sin dispositivos — solo toca y mide."
+    ,
+    restingTitle: "Valores de referencia de frecuencia cardíaca en reposo",
+    restingIntro:
+      "La frecuencia cardíaca en reposo es la que tienes cuando estás en reposo, normalmente medida por la mañana antes de cualquier actividad. Usa nuestra función de prueba para medir tu frecuencia en reposo y compárala con estos valores de referencia:",
+    ageGroup: "Grupo de edad",
+    menBpm: "Hombres (lpm)",
+    womenBpm: "Mujeres (lpm)",
+    note:
+      "Nota: Los atletas bien entrenados pueden tener frecuencias en reposo de 40-60 lpm. Si tu frecuencia está consistentemente por encima de 100 lpm o por debajo de 60 lpm y tienes síntomas, consulta a un profesional sanitario.",
+    exerciseTitle: "Valores de frecuencia cardíaca durante el ejercicio",
+    exerciseIntro:
+      "Durante el ejercicio, tu frecuencia aumenta para suministrar más oxígeno a los músculos. Usa nuestro monitor en modo activo para seguir tu frecuencia durante el ejercicio. Aquí tienes las zonas objetivo según la edad:",
+    targetZonesTitle: "Zonas objetivo (50-85% de la frecuencia máxima)",
+    intensityTitle: "Zonas de intensidad del ejercicio",
+    intensityList: [
+      "Actividad ligera (50-60% FCmáx): Calentamiento, recuperación y ejercicio suave. Bueno para principiantes y recuperación activa.",
+      "Actividad moderada (60-70% FCmáx): Zona de quema de grasa. Ideal para controlar el peso y mejorar la resistencia.",
+      "Actividad vigorosa (70-85% FCmáx): Zona cardiovascular. Mejora la función cardíaca y pulmonar y la capacidad aeróbica.",
+      "Esfuerzo máximo (85-100% FCmáx): Zona anaeróbica. Ráfagas cortas para atletas avanzados. Usar con precaución."
+    ],
+    accuracyTitle: "Precisión y limitaciones",
+    accuracyBody:
+      "Nuestra prueba en línea ofrece una manera conveniente de medir tu frecuencia y obtener monitorización en tiempo real. Sin embargo, está diseñada para bienestar y fitness; la precisión depende de que toques de forma consistente con tu pulso."
   }
 } as const;
 
@@ -675,19 +721,17 @@ const HeartRatePage = () => {
           <p style={{ marginBottom: "1.5rem" }}>{t.seoUnderstandingBody}</p>
 
           <h2 id="resting-heart-rate" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem", scrollMarginTop: "2rem" }}>
-            Resting Heart Rate Reference Values
+            {t.restingTitle}
           </h2>
-          <p style={{ marginBottom: "1rem" }}>
-            Resting heart rate is your heart rate when you&apos;re at rest, typically measured in the morning before any activity. Use our <strong>click to test heart rate</strong> feature to measure your resting heart rate and compare it with these reference values:
-          </p>
+          <p style={{ marginBottom: "1rem" }}>{t.restingIntro}</p>
           
           <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
               <thead>
                 <tr style={{ background: "var(--accent-soft)", borderBottom: "2px solid var(--accent)" }}>
-                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>Age Group</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>Men (bpm)</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>Women (bpm)</th>
+                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>{t.ageGroup}</th>
+                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.menBpm}</th>
+                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.womenBpm}</th>
                 </tr>
               </thead>
               <tbody>
@@ -726,18 +770,16 @@ const HeartRatePage = () => {
           </div>
 
           <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "2rem", fontStyle: "italic" }}>
-            Note: Well-trained athletes may have resting heart rates as low as 40-60 bpm. If your resting heart rate is consistently above 100 bpm (tachycardia) or below 60 bpm (bradycardia) and you experience symptoms, consult a healthcare professional.
+            {t.note}
           </p>
 
           <h2 id="exercise-heart-rate" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem", scrollMarginTop: "2rem" }}>
-            Exercise Heart Rate Reference Values
+            {t.exerciseTitle}
           </h2>
-          <p style={{ marginBottom: "1rem" }}>
-            During exercise, your heart rate increases to supply more oxygen to your muscles. Use our <strong>real-time heart rate monitor</strong> in active mode to track your exercise heart rate. Here are target heart rate zones based on age and gender:
-          </p>
+          <p style={{ marginBottom: "1rem" }}>{t.exerciseIntro}</p>
 
           <h3 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)", marginTop: "2rem", marginBottom: "1rem" }}>
-            Target Heart Rate Zones (50-85% of Maximum Heart Rate)
+            {t.targetZonesTitle}
           </h3>
           
           <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
@@ -792,21 +834,14 @@ const HeartRatePage = () => {
           </div>
 
           <h3 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)", marginTop: "2rem", marginBottom: "1rem" }}>
-            Exercise Intensity Zones
+            {t.intensityTitle}
           </h3>
           <ul style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Light Activity (50-60% max HR):</strong> Warm-up, recovery, and gentle exercise. Good for beginners and active recovery.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Moderate Activity (60-70% max HR):</strong> Fat-burning zone. Ideal for weight management and building endurance.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Vigorous Activity (70-85% max HR):</strong> Cardiovascular fitness zone. Improves heart and lung function, builds aerobic capacity.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Maximum Effort (85-100% max HR):</strong> Anaerobic zone. Short bursts for advanced athletes. Use with caution.
-            </li>
+            {t.intensityList.map((item) => (
+              <li key={item} style={{ marginBottom: "0.75rem" }}>
+                {item}
+              </li>
+            ))}
           </ul>
 
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
