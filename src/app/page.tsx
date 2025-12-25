@@ -213,6 +213,16 @@ const HeartRatePage = () => {
       setLang(stored);
       document.documentElement.lang = stored;
     }
+    const onStorage = (ev: StorageEvent) => {
+      if (ev.key === LANG_STORAGE_KEY) {
+        const val = ev.newValue as "en" | "es" | null;
+        if (val === "en" || val === "es") {
+          setLang(val);
+        }
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   const toggleLang = useCallback(() => {
