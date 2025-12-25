@@ -45,14 +45,20 @@ export default function NavBar() {
 
       <style jsx>{`
         .nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 56px;
           background: #4285f4;
           color: white;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0.45rem 1rem;
+          padding: 0 1rem;
           gap: 1rem;
           box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+          z-index: 1200;
         }
         .nav-left {
           display: flex;

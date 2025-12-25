@@ -63,7 +63,7 @@ export default function RootLayout({
         />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
       </head>
-      <body>
+      <body style={{ paddingTop: "56px" }}>
         <NavBar />
         {children}
         <AnalyticsWithConsent />
