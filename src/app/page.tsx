@@ -254,7 +254,7 @@ const HeartRatePage = () => {
   const [tapPulse, setTapPulse] = useState(false);
   const [beatCount, setBeatCount] = useState(0);
   const [lang, setLang] = useState<"en" | "es">("en");
-  const t = COPY[lang];
+  const t = COPY[lang] as typeof COPY[keyof typeof COPY];
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -736,32 +736,32 @@ const HeartRatePage = () => {
               </thead>
               <tbody>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>18-25 years</td>
+                  <td style={{ padding: "0.75rem" }}>18-25</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>60-90</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>60-90</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>26-35 years</td>
+                  <td style={{ padding: "0.75rem" }}>26-35</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>60-95</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>60-95</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>36-45 years</td>
+                  <td style={{ padding: "0.75rem" }}>36-45</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>62-98</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>62-98</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>46-55 years</td>
+                  <td style={{ padding: "0.75rem" }}>46-55</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>64-100</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>64-100</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>56-65 years</td>
+                  <td style={{ padding: "0.75rem" }}>56-65</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>66-100</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>66-100</td>
                 </tr>
                 <tr>
-                  <td style={{ padding: "0.75rem" }}>65+ years</td>
+                  <td style={{ padding: "0.75rem" }}>65+</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>68-100</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>68-100</td>
                 </tr>
@@ -794,37 +794,37 @@ const HeartRatePage = () => {
               </thead>
               <tbody>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>18-25 years</td>
+                  <td style={{ padding: "0.75rem" }}>18-25</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>98-166</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>98-166</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>195</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>26-35 years</td>
+                  <td style={{ padding: "0.75rem" }}>26-35</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>97-165</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>97-165</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>194</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>36-45 years</td>
+                  <td style={{ padding: "0.75rem" }}>36-45</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>93-157</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>93-157</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>185</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>46-55 years</td>
+                  <td style={{ padding: "0.75rem" }}>46-55</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>88-149</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>88-149</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>175</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>56-65 years</td>
+                  <td style={{ padding: "0.75rem" }}>56-65</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>83-141</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>83-141</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>166</td>
                 </tr>
                 <tr>
-                  <td style={{ padding: "0.75rem" }}>65+ years</td>
+                  <td style={{ padding: "0.75rem" }}>65+</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>78-132</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>78-132</td>
                   <td style={{ padding: "0.75rem", textAlign: "center" }}>155</td>
@@ -845,21 +845,15 @@ const HeartRatePage = () => {
           </ul>
 
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            Accuracy and Limitations
+            {(t as any).accuracyTitle ?? (t as any).seoUnderstandingTitle}
           </h2>
-          <p style={{ marginBottom: "1.5rem" }}>
-            Our <strong>online heart rate test</strong> provides a convenient way to <strong>click to test your heart rate</strong> and get <strong>real-time monitoring</strong>. However, it&apos;s important to understand that this tool is designed for general fitness and wellness purposes. The accuracy depends on your ability to tap consistently with your pulse.
-          </p>
-          <p style={{ marginBottom: "1.5rem" }}>
-            For medical diagnosis or if you have concerns about your heart rate, please consult a healthcare professional. This <strong>heart rate detection</strong> tool should not replace professional medical advice or monitoring equipment.
-          </p>
+          <p style={{ marginBottom: "1.5rem" }}>{(t as any).accuracyBody ?? (t as any).seoUnderstandingBody}</p>
+          <p style={{ marginBottom: "1.5rem" }}>{/* additional accuracy note if needed */}</p>
 
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            Start Your Heart Rate Test Now
+            {t.seoStartTitle}
           </h2>
-          <p style={{ marginBottom: "1.5rem", fontSize: "1.1rem" }}>
-            Ready to begin? Use our <strong>real-time heart rate monitor</strong> above to <strong>click to test your heart rate</strong> instantly. No download required, no devices needed—just tap and get immediate results. Start your <strong>heart rate detection</strong> and <strong>real-time monitoring</strong> journey today!
-          </p>
+          <p style={{ marginBottom: "1.5rem", fontSize: "1.1rem" }}>{t.seoStartBody}</p>
         </div>
       </section>
       <footer className="footnote footer-block">
