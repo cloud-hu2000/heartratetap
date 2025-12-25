@@ -29,18 +29,36 @@ export default function NavBar() {
   return (
     <header className="nav">
       <div className="nav-left">
-        <span className="logo">❤️</span>
+        <span className="logo" aria-hidden="true">❤️</span>
         <Link href="/" className="nav-title">
           Online Heart Rate Monitor
         </Link>
       </div>
       <nav className="nav-right" aria-label="Primary">
-        <Link href="/" className="nav-link">Home</Link>
+        <Link href="/" className="nav-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+            <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          Home
+        </Link>
         <button className="nav-link pill" onClick={toggleLang} aria-label="Toggle language">
-          {lang === "en" ? "Language ▾" : "Idioma ▾"}
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+            <path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 3v2H8.1A8.02 8.02 0 0111 5zm6.9 7H13v2h4.9A8.03 8.03 0 0117.9 12zM12 19a8.03 8.03 0 01-3.9-1.1V15H12v4z"/>
+          </svg>
+          {lang === "en" ? "EN" : "ES"}
         </button>
-        <Link href="/privacy-policy" className="nav-link">Privacy</Link>
-        <Link href="mailto:cloudhu2000@gmail.com" className="nav-link">Contact</Link>
+        <Link href="/privacy-policy" className="nav-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+            <path fill="currentColor" d="M12 1L3 5v6c0 5.25 3.84 10.74 9 12 5.16-1.26 9-6.75 9-12V5l-9-4z"/>
+          </svg>
+          Privacy
+        </Link>
+        <Link href="mailto:cloudhu2000@gmail.com" className="nav-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+            <path fill="currentColor" d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+          Contact
+        </Link>
       </nav>
 
       <style jsx>{`
@@ -50,7 +68,7 @@ export default function NavBar() {
           left: 0;
           right: 0;
           height: 56px;
-          background: #4285f4;
+          background: var(--accent, #0f8c8c);
           color: white;
           display: flex;
           align-items: center;
@@ -83,13 +101,17 @@ export default function NavBar() {
           color: rgba(255,255,255,0.95);
           text-decoration: none;
           padding: 0.45rem 0.7rem;
+          display: inline-flex;
+          align-items: center;
         }
+        .nav-link svg { color: rgba(255,255,255,0.95); }
         .pill {
           background: rgba(255,255,255,0.12);
           border: 1px solid rgba(255,255,255,0.12);
           border-radius: 999px;
           cursor: pointer;
           font-weight: 700;
+          padding: 0.5rem 0.9rem;
         }
         .nav-link:hover, .pill:hover {
           background: rgba(255,255,255,0.18);
