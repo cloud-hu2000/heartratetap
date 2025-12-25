@@ -1,0 +1,100 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState, useCallback } from "react";
+
+const LANG_STORAGE_KEY = "heartratetap-lang";
+
+export default function NavBar() {
+  const [lang, setLang] = useState<"en" | "es">("en");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = window.localStorage.getItem(LANG_STORAGE_KEY) as "en" | "es" | null;
+    if (stored === "en" || stored === "es") setLang(stored);
+  }, []);
+
+  const toggleLang = useCallback(() => {
+    setLang((prev) => {
+      const next = prev === "en" ? "es" : "en";
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(LANG_STORAGE_KEY, next);
+        window.dispatchEvent(new StorageEvent("storage", { key: LANG_STORAGE_KEY, newValue: next }));
+        document.documentElement.lang = next;
+      }
+      return next;
+    });
+  }, []);
+
+  return (
+    <header className="nav">
+      <div className="nav-left">
+        <span className="logo">❤️</span>
+        <Link href="/" className="nav-title">
+          Online Heart Rate Monitor
+        </Link>
+      </div>
+      <nav className="nav-right" aria-label="Primary">
+        <Link href="/" className="nav-link">Home</Link>
+        <button className="nav-link pill" onClick={toggleLang} aria-label="Toggle language">
+          {lang === "en" ? "Language ▾" : "Idioma ▾"}
+        </button>
+        <Link href="/privacy-policy" className="nav-link">Privacy</Link>
+        <Link href="mailto:cloudhu2000@gmail.com" className="nav-link">Contact</Link>
+      </nav>
+
+      <style jsx>{`
+        .nav {
+          background: #4285f4;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.45rem 1rem;
+          gap: 1rem;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .nav-left {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+        }
+        .logo {
+          font-size: 1.05rem;
+          margin-right: 0.25rem;
+        }
+        .nav-title {
+          color: white;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .nav-right {
+          display: flex;
+          gap: 0.65rem;
+          align-items: center;
+        }
+        .nav-link {
+          color: rgba(255,255,255,0.95);
+          text-decoration: none;
+          padding: 0.45rem 0.7rem;
+        }
+        .pill {
+          background: rgba(255,255,255,0.12);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 999px;
+          cursor: pointer;
+          font-weight: 700;
+        }
+        .nav-link:hover, .pill:hover {
+          background: rgba(255,255,255,0.18);
+        }
+        @media (max-width: 720px) {
+          .nav-right { gap: 0.4rem; }
+          .nav-title { font-size: 0.95rem; }
+        }
+      `}</style>
+    </header>
+  );
+}
+
+
