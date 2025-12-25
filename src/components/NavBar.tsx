@@ -104,7 +104,7 @@ export default function NavBar() {
           margin-right: 0.25rem;
         }
         .nav-title {
-          color: white;
+          color: var(--ink, #000);
           font-weight: 600;
           text-decoration: none !important;
         }
@@ -114,7 +114,7 @@ export default function NavBar() {
           align-items: center;
         }
         .nav-link {
-          color: rgba(255,255,255,0.95);
+          color: var(--ink, #000);
           text-decoration: none !important;
           padding: 0.45rem 1rem;
           display: inline-flex;
@@ -128,8 +128,8 @@ export default function NavBar() {
           letter-spacing: 0.01em;
         }
         .nav-link svg {
-          color: rgba(255,255,255,0.95);
-          background: rgba(255,255,255,0.06);
+          color: var(--ink, #000);
+          background: rgba(15, 43, 51, 0.06);
           padding: 6px;
           border-radius: 8px;
           width: 22px;
@@ -155,12 +155,13 @@ export default function NavBar() {
           text-decoration: none !important;
         }
         .pill {
-          background: rgba(255,255,255,0.12);
-          border: 1px solid rgba(255,255,255,0.12);
+          background: var(--card, #fff);
+          border: 1px solid var(--line, rgba(15,43,51,0.12));
           border-radius: 999px;
           cursor: pointer;
           font-weight: 700;
           padding: 0.5rem 0.9rem;
+          color: var(--ink, #000);
         }
         .nav-link:hover, .pill:hover {
           background: rgba(255,255,255,0.18);
@@ -180,9 +181,9 @@ export default function NavBar() {
           appearance: none;
           -webkit-appearance: none;
           -moz-appearance: none;
-          background: rgba(255,255,255,0.06);
-          color: white;
-          border: 1px solid rgba(255,255,255,0.12);
+          background: #fff;
+          color: var(--ink, #000);
+          border: 1px solid var(--line, rgba(15,43,51,0.12));
           padding: 0.35rem 0.7rem;
           border-radius: 999px;
           font-weight: 700;
