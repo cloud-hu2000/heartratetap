@@ -99,12 +99,25 @@ export default function NavBar() {
         }
         .nav-link {
           color: rgba(255,255,255,0.95);
-          text-decoration: none;
-          padding: 0.45rem 0.7rem;
+          text-decoration: none !important;
+          padding: 0.45rem 0.9rem;
           display: inline-flex;
           align-items: center;
+          gap: 0.45rem;
+          border-radius: 10px;
+          transition: background 0.18s ease, transform 0.08s ease, color 0.18s ease;
+          line-height: 1;
         }
         .nav-link svg { color: rgba(255,255,255,0.95); }
+        /* stronger rule to prevent global link underline styles */
+        .nav-link,
+        .nav-link:link,
+        .nav-link:visited,
+        .nav-link:hover,
+        .nav-link:active,
+        .nav-link:focus {
+          text-decoration: none !important;
+        }
         .pill {
           background: rgba(255,255,255,0.12);
           border: 1px solid rgba(255,255,255,0.12);
@@ -115,6 +128,11 @@ export default function NavBar() {
         }
         .nav-link:hover, .pill:hover {
           background: rgba(255,255,255,0.18);
+          transform: translateY(-1px);
+        }
+        .nav-link:focus {
+          outline: 2px solid rgba(255,255,255,0.12);
+          outline-offset: 2px;
         }
         @media (max-width: 720px) {
           .nav-right { gap: 0.4rem; }
