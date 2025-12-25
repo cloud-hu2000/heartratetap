@@ -49,6 +49,7 @@ export default function NavBar() {
             aria-label="Select language"
             className="lang-select"
             value={lang}
+            style={{ background: "#fff", color: "var(--ink)" }}
             onChange={(e) => {
               const next = e.target.value as "en" | "es";
               setLang(next);
@@ -172,23 +173,7 @@ export default function NavBar() {
           outline: 2px solid rgba(255,255,255,0.14);
           outline-offset: 4px;
         }
-        .nav-lang {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-        }
-        .lang-select {
-          appearance: none;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          background: #fff;
-          color: var(--ink, #000);
-          border: 1px solid var(--line, rgba(15,43,51,0.12));
-          padding: 0.35rem 0.7rem;
-          border-radius: 999px;
-          font-weight: 700;
-          cursor: pointer;
-        }
+        /* .nav-lang and .lang-select moved to globals.css to avoid FOUC */
         /* subtle separator between nav items on large screens */
         .nav-right > :not(:last-child) {
           margin-right: 0;

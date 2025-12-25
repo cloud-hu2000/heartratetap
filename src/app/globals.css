@@ -1113,6 +1113,25 @@ body {
   .nav-title { font-size: 0.95rem; }
 }
 
+/* Language select fallback styles to avoid flash-of-unstyled control */
+.nav-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #fff;
+  color: var(--ink, #000);
+  border: 1px solid var(--line, rgba(15,43,51,0.12));
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .roadmap-preview-title {
   margin: 0 0 0.5rem;
   font-size: clamp(1.6rem, 3.2vw, 2.3rem);
