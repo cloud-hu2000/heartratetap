@@ -94,21 +94,32 @@ export default function NavBar() {
         }
         .nav-right {
           display: flex;
-          gap: 0.65rem;
+          gap: 0.75rem;
           align-items: center;
         }
         .nav-link {
           color: rgba(255,255,255,0.95);
           text-decoration: none !important;
-          padding: 0.45rem 0.9rem;
+          padding: 0.45rem 1rem;
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
-          border-radius: 10px;
-          transition: background 0.18s ease, transform 0.08s ease, color 0.18s ease;
+          gap: 0.5rem;
+          border-radius: 12px;
+          transition: background 0.18s ease, transform 0.08s ease, color 0.18s ease,
+            box-shadow 0.18s ease;
           line-height: 1;
+          font-weight: 600;
+          letter-spacing: 0.01em;
         }
-        .nav-link svg { color: rgba(255,255,255,0.95); }
+        .nav-link svg {
+          color: rgba(255,255,255,0.95);
+          background: rgba(255,255,255,0.06);
+          padding: 6px;
+          border-radius: 8px;
+          width: 22px;
+          height: 22px;
+          display: inline-block;
+        }
         /* stronger rule to prevent global link underline styles */
         .nav-link,
         .nav-link:link,
@@ -128,11 +139,16 @@ export default function NavBar() {
         }
         .nav-link:hover, .pill:hover {
           background: rgba(255,255,255,0.18);
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
         .nav-link:focus {
-          outline: 2px solid rgba(255,255,255,0.12);
-          outline-offset: 2px;
+          outline: 2px solid rgba(255,255,255,0.14);
+          outline-offset: 4px;
+        }
+        /* subtle separator between nav items on large screens */
+        .nav-right > :not(:last-child) {
+          margin-right: 0;
         }
         @media (max-width: 720px) {
           .nav-right { gap: 0.4rem; }
