@@ -41,12 +41,28 @@ export default function NavBar() {
           </svg>
           Home
         </Link>
-        <button className="nav-link pill" onClick={toggleLang} aria-label="Toggle language">
+        <div className="nav-lang">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 3v2H8.1A8.02 8.02 0 0111 5zm6.9 7H13v2h4.9A8.03 8.03 0 0117.9 12zM12 19a8.03 8.03 0 01-3.9-1.1V15H12v4z"/>
           </svg>
-          {lang === "en" ? "EN" : "ES"}
-        </button>
+          <select
+            aria-label="Select language"
+            className="lang-select"
+            value={lang}
+            onChange={(e) => {
+              const next = e.target.value as "en" | "es";
+              setLang(next);
+              if (typeof window !== "undefined") {
+                window.localStorage.setItem(LANG_STORAGE_KEY, next);
+                window.dispatchEvent(new StorageEvent("storage", { key: LANG_STORAGE_KEY, newValue: next }));
+                document.documentElement.lang = next;
+              }
+            }}
+          >
+            <option value="en">EN — English</option>
+            <option value="es">ES — Español</option>
+          </select>
+        </div>
         <Link href="/privacy-policy" className="nav-link" style={{ textDecoration: "none" }}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M12 1L3 5v6c0 5.25 3.84 10.74 9 12 5.16-1.26 9-6.75 9-12V5l-9-4z"/>
@@ -154,6 +170,23 @@ export default function NavBar() {
         .nav-link:focus {
           outline: 2px solid rgba(255,255,255,0.14);
           outline-offset: 4px;
+        }
+        .nav-lang {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+        .lang-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background: rgba(255,255,255,0.06);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.12);
+          padding: 0.35rem 0.7rem;
+          border-radius: 999px;
+          font-weight: 700;
+          cursor: pointer;
         }
         /* subtle separator between nav items on large screens */
         .nav-right > :not(:last-child) {
