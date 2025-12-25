@@ -109,6 +109,7 @@ const COPY = {
     accuracyTitle: "Accuracy and Limitations",
     accuracyBody:
       "Our online heart rate test provides a convenient way to click to test your heart rate and get real-time monitoring. However, it's important to understand that this tool is designed for general fitness and wellness purposes. The accuracy depends on your ability to tap consistently with your pulse.",
+    targetMaxHr: "Max HR"
   },
   es: {
     heroTitle: "Estudio del ritmo cardíaco",
@@ -199,7 +200,8 @@ const COPY = {
     ],
     accuracyTitle: "Precisión y limitaciones",
     accuracyBody:
-      "Nuestra prueba en línea ofrece una manera conveniente de medir tu frecuencia y obtener monitorización en tiempo real. Sin embargo, está diseñada para bienestar y fitness; la precisión depende de que toques de forma consistente con tu pulso."
+      "Nuestra prueba en línea ofrece una manera conveniente de medir tu frecuencia y obtener monitorización en tiempo real. Sin embargo, está diseñada para bienestar y fitness; la precisión depende de que toques de forma consistente con tu pulso.",
+    targetMaxHr: "FC máx"
   }
 } as const;
 
@@ -786,10 +788,10 @@ const HeartRatePage = () => {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
               <thead>
                 <tr style={{ background: "var(--accent-soft)", borderBottom: "2px solid var(--accent)" }}>
-                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>Age Group</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>Men (bpm)</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>Women (bpm)</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>Max HR</th>
+                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>{t.ageGroup}</th>
+                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.menBpm}</th>
+                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.womenBpm}</th>
+                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.targetMaxHr ?? "Max HR"}</th>
                 </tr>
               </thead>
               <tbody>
