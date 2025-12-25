@@ -81,6 +81,8 @@ const COPY = {
       "Watch the BPM update in real time and click Stop to lock the result."
     ],
     seoUnderstandingTitle: "Understanding Your Heart Rate Results",
+    seoUnderstandingBody:
+      "Your heart rate results can help you understand your cardiovascular health. The tool provides real-time monitoring for both resting and active heart rates, giving you insights into fitness and overall health.",
     seoStartTitle: "Start Your Heart Rate Test Now",
     seoStartBody:
       "Ready to begin? Use our real-time heart rate monitor to check your heart rate online instantly. No downloads, no devices—just tap and measure."
@@ -147,6 +149,8 @@ const COPY = {
       "Observa el BPM en tiempo real y pulsa Detener para guardar el resultado."
     ],
     seoUnderstandingTitle: "Cómo interpretar tus resultados",
+    seoUnderstandingBody:
+      "Tus resultados pueden ayudarte a comprender la salud cardiovascular. La herramienta ofrece monitorización en tiempo real tanto para la frecuencia en reposo como en actividad, brindándote información sobre tu forma física y salud general.",
     seoStartTitle: "Comienza tu prueba de frecuencia cardíaca ahora",
     seoStartBody:
       "¿Listo para empezar? Usa nuestro monitor en tiempo real para comprobar tu frecuencia cardíaca al instante. Sin descargas, sin dispositivos — solo toca y mide."
@@ -410,11 +414,6 @@ const HeartRatePage = () => {
 
   return (
     <div className="frame">
-      <div className="topbar">
-        <button type="button" className="pill" onClick={toggleLang}>
-          {lang === "en" ? "Language: EN" : "Idioma: ES"}
-        </button>
-      </div>
       <section className="panel hero">
         <p className="hero-sub">{t.heroSub}</p>
         <h1 className="hero-title">{t.heroHeadline}</h1>
@@ -655,36 +654,25 @@ const HeartRatePage = () => {
         
         <div style={{ lineHeight: "1.8", color: "var(--ink)" }}>
           <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
-            Our <strong>real-time heart rate monitor</strong> allows you to <strong>click to test your heart rate</strong> instantly without any devices or downloads. Simply tap the page or press the spacebar in rhythm with your pulse, and our system will automatically calculate your heart rate. This <strong>online heart rate test</strong> provides immediate results, making it perfect for quick <strong>heart rate detection</strong> and <strong>real-time monitoring</strong>.
+            {t.seoIntro}
           </p>
 
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            How to Use This Heart Rate Monitor
+            {t.seoHowToTitle}
           </h2>
-          <p style={{ marginBottom: "1.5rem" }}>
-            Using our <strong>heart rate detection</strong> tool is simple and requires no special equipment. Here&apos;s how to get started with your <strong>real-time heart rate</strong> measurement:
-          </p>
+          <p style={{ marginBottom: "1.5rem" }}>{t.seoHowToBody}</p>
           <ol style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Find your pulse:</strong> Place your fingers on your wrist (radial artery) or neck (carotid artery) to feel your heartbeat.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Start clicking:</strong> Click the tap surface or press the spacebar each time you feel a heartbeat. The system will track your rhythm in real-time.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Monitor your heart rate:</strong> Watch as your <strong>heart rate</strong> is calculated and displayed instantly. The tool uses advanced algorithms to provide accurate <strong>real-time monitoring</strong>.
-            </li>
-            <li style={{ marginBottom: "0.75rem" }}>
-              <strong>Stop and review:</strong> Click the stop button to lock your result and see personalized recommendations based on your heart rate.
-            </li>
+            {t.seoSteps.map((s) => (
+              <li key={s} style={{ marginBottom: "0.75rem" }}>
+                {s}
+              </li>
+            ))}
           </ol>
 
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            Understanding Your Heart Rate Results
+            {t.seoUnderstandingTitle}
           </h2>
-          <p style={{ marginBottom: "1.5rem" }}>
-            Your <strong>heart rate detection</strong> results can help you understand your cardiovascular health. The tool provides <strong>real-time monitoring</strong> for both resting and active heart rates, giving you insights into your fitness level and overall health.
-          </p>
+          <p style={{ marginBottom: "1.5rem" }}>{t.seoUnderstandingBody}</p>
 
           <h2 id="resting-heart-rate" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem", scrollMarginTop: "2rem" }}>
             Resting Heart Rate Reference Values
