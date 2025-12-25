@@ -62,8 +62,6 @@ export default function RootLayout({
           content="gjZiC-RxIRbV11DFbLLx5X7wESoAEDrQC0p5p0g8qU4"
         />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
-        <link rel="icon" href="/favicon.svg" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
       </head>
       <body style={{ paddingTop: "56px" }}>
         <NavBar />

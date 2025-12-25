@@ -1018,6 +1018,101 @@ body {
   text-underline-offset: 2px;
 }
 
+/* NavBar global styles to avoid FOUC (rendered server-side) */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--accent, #0f8c8c);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  gap: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 1200;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.logo {
+  font-size: 1.05rem;
+  margin-right: 0.25rem;
+}
+.nav-title {
+  color: white;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+.nav-right {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.nav-link {
+  color: rgba(255,255,255,0.95);
+  text-decoration: none !important;
+  padding: 0.45rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  transition: background 0.18s ease, transform 0.08s ease, color 0.18s ease,
+    box-shadow 0.18s ease;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.nav-link svg {
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.06);
+  padding: 6px;
+  border-radius: 8px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+.nav-link,
+.nav-link:link,
+.nav-link:visited,
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus,
+.nav a,
+.nav a:link,
+.nav a:visited,
+.nav a:hover,
+.nav a:active,
+.nav a:focus {
+  text-decoration: none !important;
+}
+.pill {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+}
+.nav-link:hover, .pill:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+.nav-link:focus {
+  outline: 2px solid rgba(255,255,255,0.14);
+  outline-offset: 4px;
+}
+@media (max-width: 720px) {
+  .nav-right { gap: 0.4rem; }
+  .nav-title { font-size: 0.95rem; }
+}
+
 .roadmap-preview-title {
   margin: 0 0 0.5rem;
   font-size: clamp(1.6rem, 3.2vw, 2.3rem);
