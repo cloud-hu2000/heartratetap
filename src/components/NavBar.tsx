@@ -90,7 +90,7 @@ export default function NavBar() {
         .nav-title {
           color: white;
           font-weight: 600;
-          text-decoration: none;
+          text-decoration: none !important;
         }
         .nav-right {
           display: flex;
@@ -127,6 +127,15 @@ export default function NavBar() {
         .nav-link:hover,
         .nav-link:active,
         .nav-link:focus {
+          text-decoration: none !important;
+        }
+        /* ensure any anchor inside nav has no underline even if global css applies */
+        .nav a,
+        .nav a:link,
+        .nav a:visited,
+        .nav a:hover,
+        .nav a:active,
+        .nav a:focus {
           text-decoration: none !important;
         }
         .pill {
