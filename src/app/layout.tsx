@@ -3,9 +3,10 @@ import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
-import { registerServiceWorker } from "@/lib/sw";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://heartratetap.com"),
   title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
   description:
     "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
@@ -65,11 +66,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 注册Service Worker
-  if (typeof window !== 'undefined') {
-    registerServiceWorker();
-  }
-
   return (
     <html lang="en">
       <head>
@@ -84,6 +80,7 @@ export default function RootLayout({
         {children}
         <AnalyticsWithConsent />
         <CookieConsent />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
