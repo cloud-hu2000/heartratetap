@@ -3,6 +3,7 @@ import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
+import { registerServiceWorker } from "@/lib/sw";
 
 export const metadata: Metadata = {
   title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
@@ -64,6 +65,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 注册Service Worker
+  if (typeof window !== 'undefined') {
+    registerServiceWorker();
+  }
+
   return (
     <html lang="en">
       <head>

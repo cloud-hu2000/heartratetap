@@ -1230,3 +1230,131 @@ body {
   font-weight: 600;
 }
 
+/* SEO Content Server Component styles */
+.seo-content-wrapper {
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.seo-intro {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.seo-heading {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.seo-subheading {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.seo-body {
+  margin-bottom: 1.5rem;
+}
+
+.seo-steps {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.seo-step-item {
+  margin-bottom: 0.75rem;
+}
+
+.seo-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.seo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.seo-table-header {
+  background: var(--accent-soft);
+  border-bottom: 2px solid var(--accent);
+}
+
+.seo-table-row {
+  border-bottom: 1px solid var(--line);
+}
+
+.seo-table-cell {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.seo-table-header-cell {
+  font-weight: 600;
+}
+
+.seo-table-center {
+  text-align: center;
+}
+
+.seo-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.seo-intensity-list {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.seo-intensity-item {
+  margin-bottom: 0.75rem;
+}
+
+.seo-start-body {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Additional styles for reduced inline styles */
+.metric-unit {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: var(--muted);
+}
+
+.zone-indicator-positioned {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tap-hint-text {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.section-margin-top {
+  margin-top: 2rem;
+}
+
+.hero-sub-margin {
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-desc {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.pause-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+

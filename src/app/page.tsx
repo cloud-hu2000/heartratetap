@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import RedditShareCTA from "@/components/RedditShareCTA";
+import { SEOContent } from "@/components/SEOContent";
 
 type ViewMode = "rest" | "sport";
 
@@ -478,9 +479,7 @@ const HeartRatePage = () => {
           <div className="pulse-zone-header">
             <div className={`metric ${tapPulse ? "metric-pulse" : ""}`} aria-live="polite" aria-atomic="true">
               {displayBpm ?? "--"}
-              <span style={{ fontSize: "1rem", marginLeft: "0.5rem", color: "var(--muted)" }}>
-                bpm
-              </span>
+              <span className="metric-unit">bpm</span>
               {beats.length > 0 && !isFrozen && (
                 <span className="beat-indicator">
                   <span className={`beat-dot ${tapPulse ? "beat-dot-active" : ""}`} />
@@ -547,7 +546,7 @@ const HeartRatePage = () => {
           <div className="zone-bar">
             {displayBpm && (
               <span
-                className="zone-indicator"
+                className="zone-indicator zone-indicator-positioned"
                 style={{ left: `${clampIndicator(displayBpm)}%` }}
               />
             )}
@@ -583,7 +582,7 @@ const HeartRatePage = () => {
           >
             <div className="tap-surface-content">
               <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
-              <p style={{ margin: 0, fontSize: "1.15rem" }}>{t.tapHint}</p>
+              <p className="tap-hint-text">{t.tapHint}</p>
             </div>
             {tapPulse && <span className="tap-ripple" key={beatCount} />}
           </button>
@@ -596,21 +595,26 @@ const HeartRatePage = () => {
         </section>
 
         <section className="panel">
-          <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-          {t.diagramTitle}
+          <p className="hero-sub hero-sub-margin">
+            {t.diagramTitle}
           </p>
           <div className="diagram">
-            <Image
-              src="/pause.png"
-            alt={t.diagramTitle}
-              width={400}
-              height={300}
-              style={{ width: "100%", height: "auto", objectFit: "contain" }}
-            />
+            <picture>
+              <source srcSet="/pause.avif" type="image/avif" />
+              <source srcSet="/pause.webp" type="image/webp" />
+              <Image
+                src="/pause-optimized.png"
+                alt={t.diagramTitle}
+                width={400}
+                height={300}
+                className="pause-image"
+                priority={false}
+              />
+            </picture>
           </div>
         </section>
         <section className="panel history-panel">
-          <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
+          <p className="hero-sub hero-sub-margin">
             {t.historyTitle}
           </p>
           {history.length === 0 && (
@@ -701,12 +705,12 @@ const HeartRatePage = () => {
         </section>
       </main>
 
-      <section className="panel roadmap-preview" style={{ marginTop: "2rem" }}>
-        <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
+      <section className="panel roadmap-preview section-margin-top">
+        <p className="hero-sub hero-sub-margin">
           {t.roadmapTitle}
         </p>
         <h2 className="roadmap-preview-title">{t.roadmapHeading}</h2>
-        <p style={{ marginBottom: "1rem", color: "var(--muted)" }}>{t.roadmapDesc}</p>
+        <p className="roadmap-desc">{t.roadmapDesc}</p>
         <Link href="/roadmap" className="pill active">
           {t.roadmapCta}
         </Link>
@@ -714,167 +718,7 @@ const HeartRatePage = () => {
 
       <RedditShareCTA />
 
-      {/* SEO Content Section */}
-      <section className="panel seo-content" style={{ marginTop: "2rem" }}>
-        
-        <div style={{ lineHeight: "1.8", color: "var(--ink)" }}>
-          <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
-            {t.seoIntro}
-          </p>
-
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            {t.seoHowToTitle}
-          </h2>
-          <p style={{ marginBottom: "1.5rem" }}>{t.seoHowToBody}</p>
-          <ol style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
-            {t.seoSteps.map((s) => (
-              <li key={s} style={{ marginBottom: "0.75rem" }}>
-                {s}
-            </li>
-            ))}
-          </ol>
-
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            {t.seoUnderstandingTitle}
-          </h2>
-          <p style={{ marginBottom: "1.5rem" }}>{t.seoUnderstandingBody}</p>
-
-          <h2 id="resting-heart-rate" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem", scrollMarginTop: "2rem" }}>
-            {t.restingTitle}
-          </h2>
-          <p style={{ marginBottom: "1rem" }}>{t.restingIntro}</p>
-          
-          <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
-              <thead>
-                <tr style={{ background: "var(--accent-soft)", borderBottom: "2px solid var(--accent)" }}>
-                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>{t.ageGroup}</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.menBpm}</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.womenBpm}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>18-25</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>60-90</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>60-90</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>26-35</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>60-95</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>60-95</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>36-45</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>62-98</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>62-98</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>46-55</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>64-100</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>64-100</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>56-65</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>66-100</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>66-100</td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "0.75rem" }}>65+</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>68-100</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>68-100</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "2rem", fontStyle: "italic" }}>
-            {t.note}
-          </p>
-
-          <h2 id="exercise-heart-rate" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem", scrollMarginTop: "2rem" }}>
-            {t.exerciseTitle}
-          </h2>
-          <p style={{ marginBottom: "1rem" }}>{t.exerciseIntro}</p>
-
-          <h3 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)", marginTop: "2rem", marginBottom: "1rem" }}>
-            {t.targetZonesTitle}
-          </h3>
-          
-          <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
-              <thead>
-                <tr style={{ background: "var(--accent-soft)", borderBottom: "2px solid var(--accent)" }}>
-                  <th style={{ padding: "0.75rem", textAlign: "left", fontWeight: "600" }}>{t.ageGroup}</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.menBpm}</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.womenBpm}</th>
-                  <th style={{ padding: "0.75rem", textAlign: "center", fontWeight: "600" }}>{t.targetMaxHr ?? "Max HR"}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>18-25</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>98-166</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>98-166</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>195</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>26-35</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>97-165</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>97-165</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>194</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>36-45</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>93-157</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>93-157</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>185</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>46-55</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>88-149</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>88-149</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>175</td>
-                </tr>
-                <tr style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td style={{ padding: "0.75rem" }}>56-65</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>83-141</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>83-141</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>166</td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "0.75rem" }}>65+</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>78-132</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>78-132</td>
-                  <td style={{ padding: "0.75rem", textAlign: "center" }}>155</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)", marginTop: "2rem", marginBottom: "1rem" }}>
-            {t.intensityTitle}
-          </h3>
-          <ul style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
-            {t.intensityList.map((item) => (
-              <li key={item} style={{ marginBottom: "0.75rem" }}>
-                {item}
-            </li>
-            ))}
-          </ul>
-
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            {(t as any).accuracyTitle ?? (t as any).seoUnderstandingTitle}
-          </h2>
-          <p style={{ marginBottom: "1.5rem" }}>{(t as any).accuracyBody ?? (t as any).seoUnderstandingBody}</p>
-          <p style={{ marginBottom: "1.5rem" }}>{/* additional accuracy note if needed */}</p>
-
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", marginTop: "2.5rem", marginBottom: "1rem" }}>
-            {t.seoStartTitle}
-          </h2>
-          <p style={{ marginBottom: "1.5rem", fontSize: "1.1rem" }}>{t.seoStartBody}</p>
-        </div>
-      </section>
+      <SEOContent lang={lang} />
       <footer className="footnote footer-block">
         <div className="footer-head">
           <div className="footer-brand">
