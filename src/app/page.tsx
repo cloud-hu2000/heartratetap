@@ -21,18 +21,18 @@ const LANG_STORAGE_KEY = "heartratetap-lang";
 
 const COPY = {
   en: {
-    heroTitle: "Heart Rhythm Studio",
+  heroTitle: "Heart Rhythm Studio",
     heroHeadline: "Free Online Heart Rate Monitor – Check Your Heart Rate Online Free",
-    heroSub: "Heart rate calculator",
-    tapHint: "Tap pulse or hit space",
-    frozenTag: "Result locked",
-    diagramTitle: "Pulse map",
-    diagramWrist: "Wrist",
-    diagramNeck: "Neck",
-    restLabel: "Rest",
-    sportLabel: "Active",
-    stop: "Stop",
-    resume: "Reset",
+  heroSub: "Heart rate calculator",
+  tapHint: "Tap pulse or hit space",
+  frozenTag: "Result locked",
+  diagramTitle: "Pulse map",
+  diagramWrist: "Wrist",
+  diagramNeck: "Neck",
+  restLabel: "Rest",
+  sportLabel: "Active",
+  stop: "Stop",
+  resume: "Reset",
     idleHint: "Ready to measure your heart rate",
     zoneHint: "Heart rate zone indicator",
     historyTitle: "Recent heart rate history",
@@ -52,23 +52,23 @@ const COPY = {
       "Ideas you share in the feedback box are connected to our public roadmap. Visit the roadmap to upvote your favorite ideas, track progress, and see what's planned, in progress, or already shipped.",
     roadmapCta: "Open roadmap & top ideas",
     wantInfluence: "Want to influence what comes next?",
-    status: {
-      waiting: "Tap to begin",
-      measuring: "Listening",
-      frozen: "Saved"
+  status: {
+    waiting: "Tap to begin",
+    measuring: "Listening",
+    frozen: "Saved"
+  },
+  advice: {
+    rest: {
+      low: "Below 60 bpm • breathe slowly and stay warm.",
+      ideal: "60-90 bpm • calm circulation, hydrated and steady.",
+      high: "Above 90 bpm • decompress, stretch, watch stimulants."
     },
-    advice: {
-      rest: {
-        low: "Below 60 bpm • breathe slowly and stay warm.",
-        ideal: "60-90 bpm • calm circulation, hydrated and steady.",
-        high: "Above 90 bpm • decompress, stretch, watch stimulants."
-      },
-      sport: {
-        warm: "50-60% HRmax • gentle warm-up, build rhythm.",
-        burn: "65-75% HRmax • fat-burn efficiency peaks here.",
-        cardio: "80-90% HRmax • short bursts for cardio power."
-      }
+    sport: {
+      warm: "50-60% HRmax • gentle warm-up, build rhythm.",
+      burn: "65-75% HRmax • fat-burn efficiency peaks here.",
+      cardio: "80-90% HRmax • short bursts for cardio power."
     }
+  }
     ,
     seoIntro:
       "Our real-time heart rate monitor lets you click to test your heart rate instantly without any devices or downloads. Tap or press the spacebar in rhythm with your pulse and receive immediate BPM and coaching.",
@@ -309,11 +309,11 @@ const HeartRatePage = () => {
         if (currentBpm === null) {
           return null;
         }
-        
+
         if (prev === null) {
           return currentBpm;
         }
-        
+
         const diff = currentBpm - prev;
         if (Math.abs(diff) < 0.5) {
           return currentBpm;
@@ -322,7 +322,7 @@ const HeartRatePage = () => {
         return Math.round(prev + diff * 0.2);
       });
     }, 50); // 每50ms更新一次
-    
+
     return () => clearInterval(interval);
   }, [currentBpm]);
 
@@ -387,28 +387,7 @@ const HeartRatePage = () => {
     });
   }, [isFrozen, triggerTapPulse]);
 
-  useEffect(() => {
-    const listener = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
-        const target = event.target as HTMLElement | null;
-        if (target) {
-          const tag = target.tagName.toLowerCase();
-          const isFormField =
-            tag === "input" ||
-            tag === "textarea" ||
-            (target as HTMLElement).isContentEditable ||
-            target.closest("input, textarea, [contenteditable='true']");
-          if (isFormField) {
-            return;
-          }
-        }
-        event.preventDefault();
-        handleBeat();
-      }
-    };
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
-  }, [handleBeat]);
+  // Removed global space key listener - now handled by tap-surface button
 
   const freeze = useCallback(() => {
     // Avoid recording multiple entries for the same measurement
@@ -472,7 +451,7 @@ const HeartRatePage = () => {
       <main className="canvas">
         <section className={`panel pulse-zone ${beats.length === 0 ? "pulse-zone-idle" : ""} ${isFrozen ? "pulse-zone-frozen" : ""}`}>
           <div className="pulse-zone-header">
-            <div className={`metric ${tapPulse ? "metric-pulse" : ""}`}>
+            <div className={`metric ${tapPulse ? "metric-pulse" : ""}`} aria-live="polite" aria-atomic="true">
               {displayBpm ?? "--"}
               <span style={{ fontSize: "1rem", marginLeft: "0.5rem", color: "var(--muted)" }}>
                 bpm
@@ -563,13 +542,26 @@ const HeartRatePage = () => {
             </div>
           )}
 
-          <div className={`tap-surface ${tapPulse ? "tap-surface-active" : ""}`} onPointerDown={handleBeat}>
+          <button
+            type="button"
+            className={`tap-surface ${tapPulse ? "tap-surface-active" : ""}`}
+            onPointerDown={handleBeat}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleBeat();
+              }
+            }}
+            tabIndex={0}
+            aria-label={t.tapHint}
+            role="button"
+          >
             <div className="tap-surface-content">
               <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
-            <p style={{ margin: 0, fontSize: "1.15rem" }}>{t.tapHint}</p>
+              <p style={{ margin: 0, fontSize: "1.15rem" }}>{t.tapHint}</p>
             </div>
             {tapPulse && <span className="tap-ripple" key={beatCount} />}
-          </div>
+          </button>
 
           <div className="controls">
             <button type="button" className="pill active" onClick={freeze}>
@@ -631,7 +623,7 @@ const HeartRatePage = () => {
                   </div>
                 </div>
               )}
-                {trendLabel && <p className="history-trend">{trendLabel}</p>}
+              {trendLabel && <p className="history-trend">{trendLabel}</p>}
               <ul className="history-list">
                 {pagedHistory.map((entry) => (
                   <li key={entry.id} className="history-item">
@@ -713,7 +705,7 @@ const HeartRatePage = () => {
             {t.seoSteps.map((s) => (
               <li key={s} style={{ marginBottom: "0.75rem" }}>
                 {s}
-              </li>
+            </li>
             ))}
           </ol>
 
@@ -842,7 +834,7 @@ const HeartRatePage = () => {
             {t.intensityList.map((item) => (
               <li key={item} style={{ marginBottom: "0.75rem" }}>
                 {item}
-              </li>
+            </li>
             ))}
           </ul>
 
