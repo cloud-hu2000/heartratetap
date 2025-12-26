@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "HeartRateTap",
     images: [
       {
-        url: "/og.png",
+        url: "https://heartratetap.com/favicon.png",
         width: 1200,
         height: 630,
         alt: "Free online heart rate monitor - check heart rate online free"
