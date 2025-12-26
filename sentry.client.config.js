@@ -8,13 +8,6 @@ if (typeof window !== 'undefined') {
     environment: process.env.NODE_ENV || 'development',
     replaysOnErrorSampleRate: 0.1,
     replaysSessionSampleRate: 0.01,
-    integrations: [
-      new Sentry.Replay({
-        // 录屏功能
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
-    ],
     // 隐私保护：默认不关联用户标识
     beforeSend(event) {
       // 检查用户是否同意数据收集
