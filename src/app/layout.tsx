@@ -3,7 +3,6 @@ import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://heartratetap.com"),
@@ -80,7 +79,6 @@ export default function RootLayout({
         {children}
         <AnalyticsWithConsent />
         <CookieConsent />
-        <ServiceWorkerRegister />
       </body>
     </html>
   );
