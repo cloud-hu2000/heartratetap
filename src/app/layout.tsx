@@ -3,6 +3,7 @@ import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
+import { StructuredData } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://heartratetap.com"),
@@ -73,6 +74,7 @@ export default function RootLayout({
           content="gjZiC-RxIRbV11DFbLLx5X7wESoAEDrQC0p5p0g8qU4"
         />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
+        <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
         <NavBar />
