@@ -486,6 +486,19 @@ const HeartRatePage = () => {
     }
   }, [isFrozen, triggerTapPulse, isMobile, beatCount, accuracyHint]);
 
+  // 当测量开始时，自动将焦点转移到tap-surface按钮
+  useEffect(() => {
+    if (beats.length > 0 && !isFrozen) {
+      // 延迟一点时间确保DOM更新后再转移焦点
+      setTimeout(() => {
+        const tapSurfaceButton = document.querySelector('.tap-surface') as HTMLButtonElement;
+        if (tapSurfaceButton) {
+          tapSurfaceButton.focus();
+        }
+      }, 100);
+    }
+  }, [beats.length, isFrozen]);
+
   // Removed global space key listener - now handled by tap-surface button
 
   const freeze = useCallback(() => {
@@ -580,7 +593,23 @@ const HeartRatePage = () => {
           {/* 未开始时的引导视觉 */}
           {beats.length === 0 && (
             <div className="idle-visual">
-              <div className="heart-icon">❤️</div>
+              <button
+                type="button"
+                className="heart-icon-button"
+                onClick={handleBeat}
+                onPointerDown={handleBeat}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleBeat();
+                  }
+                }}
+                tabIndex={0}
+                aria-label="Start measuring heart rate"
+                title="Click to start measuring your heart rate"
+              >
+                ❤️
+              </button>
               <p className="idle-hint">{t.idleHint}</p>
               {showTutorial && (
                 <div className="tutorial-overlay">

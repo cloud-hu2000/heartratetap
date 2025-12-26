@@ -225,10 +225,39 @@ body {
   min-height: 200px;
 }
 
-.heart-icon {
+.heart-icon-button {
+  background: none;
+  border: none;
   font-size: 4rem;
   animation: pulse-heart 2s ease-in-out infinite;
   filter: drop-shadow(0 4px 12px rgba(15, 140, 140, 0.2));
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.heart-icon-button:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 6px 16px rgba(15, 140, 140, 0.3));
+}
+
+.heart-icon-button:active {
+  transform: scale(0.95);
+  filter: drop-shadow(0 2px 8px rgba(15, 140, 140, 0.4));
+}
+
+.heart-icon-button:focus {
+  outline: 2px solid var(--accent, #0f8c8c);
+  outline-offset: 4px;
 }
 
 @keyframes pulse-heart {
