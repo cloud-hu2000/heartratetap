@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sentry:sourcemaps": "sentry-cli sourcemaps upload --release=$npm_package_version ./nextjs",
+    "sentry:sourcemaps": "sentry-cli sourcemaps upload --org cloudhu --project javascript-nextjs --release=$npm_package_version ./.next/static/chunks",
     "postbuild": "npm run sentry:sourcemaps"
   },
   "dependencies": {

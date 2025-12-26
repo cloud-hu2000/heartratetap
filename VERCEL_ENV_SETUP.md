@@ -56,6 +56,17 @@ Environment: Production
 - **No errors appearing?** Check that DSN is correct and environment variables are set
 - **Auth token issues?** Make sure the token has the right scopes
 - **Sourcemaps not uploading?** Check that `SENTRY_AUTH_TOKEN` is set in production only
+- **Organization/project not found?** Verify your `.sentryclirc` configuration matches your Sentry account
+
+## Sourcemap Upload
+
+Sourcemaps are automatically uploaded after each production build via the `postbuild` script. This enables:
+
+- **Readable stack traces** in error reports
+- **Accurate error locations** in your source code
+- **Better debugging** experience in Sentry dashboard
+
+The upload happens only in production builds with valid `SENTRY_AUTH_TOKEN`.
 
 ## Current Configuration Status
 
