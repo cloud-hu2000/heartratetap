@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "src/app/**/*.js": {
+      "maxDuration": 10
+    }
+  },
+  "regions": ["iad1"],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+    }
+  },
+  "functions": {
+    "src/app/api/**/*.js": {
+      "maxDuration": 10
+    }
+  }
+}

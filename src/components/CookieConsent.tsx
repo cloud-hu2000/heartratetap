@@ -16,6 +16,14 @@ const CookieConsent = () => {
   const updateConsent = useCallback((next: ConsentState) => {
     if (typeof window === "undefined" || !next) return;
     window.localStorage.setItem(CONSENT_KEY, next);
+
+    // 同时设置分析同意状态
+    if (next === "accepted") {
+      window.localStorage.setItem("hrt-analytics-consent", "accepted");
+    } else {
+      window.localStorage.setItem("hrt-analytics-consent", "rejected");
+    }
+
     setStatus(next);
     window.dispatchEvent(
       new StorageEvent("storage", { key: CONSENT_KEY, newValue: next, oldValue: status ?? undefined })
@@ -98,8 +106,8 @@ const CookieConsent = () => {
         </div>
         <div className="cookie-consent__text" id="cookie-description">
           <p>
-            We use essential cookies for site functionality. Analytics cookies are only activated if you choose
-            &quot;Accept&quot;. You can change your choice anytime in your browser storage. Read our{" "}
+            We use essential cookies for site functionality. Analytics cookies and error monitoring are only activated if you choose
+            &quot;Accept&quot;. Your privacy is protected - no personal data is collected without consent. You can change your choice anytime in your browser storage. Read our{" "}
             <Link href="/privacy-policy" className="blog-inline-cta">
               Privacy Policy
             </Link>
