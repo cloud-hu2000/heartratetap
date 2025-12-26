@@ -385,7 +385,7 @@ const HeartRatePage = () => {
     }
   }, []);
 
-  const appendHistory = useCallback((bpm: number) => {
+  const appendHistory = useCallback((bpm: number, mode?: ViewMode) => {
     const entry: HistoryEntry = {
       id:
         typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -393,7 +393,7 @@ const HeartRatePage = () => {
           : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
       timestamp: new Date().toISOString(),
       bpm,
-      context: viewMode ?? "unknown"
+      context: mode ?? "unknown"
     };
     setHistory((prev) => {
       const next = [entry, ...prev].slice(0, 20);
@@ -402,19 +402,18 @@ const HeartRatePage = () => {
       }
       return next;
     });
-  }, [viewMode]);
+  }, []);
 
   // 导出历史数据为CSV
   const exportHistoryToCSV = useCallback(() => {
     if (history.length === 0) return;
 
     const csvContent = [
-      ["Timestamp", "BPM", "Context", "Mode"].join(","),
+      ["Timestamp", "BPM", "Mode"].join(","),
       ...history.map(entry => [
         new Date(entry.timestamp).toLocaleString(),
         entry.bpm,
-        entry.context,
-        entry.context === "sport" ? "Active" : "Rest"
+        entry.context === "sport" ? "Active" : entry.context === "rest" ? "Rest" : "Unknown"
       ].join(","))
     ].join("\n");
 
@@ -497,8 +496,8 @@ const HeartRatePage = () => {
     setIsFrozen(true);
     setFrozenBpm(bpmToFreeze);
     setDisplayBpm(bpmToFreeze);
-    appendHistory(bpmToFreeze);
-  }, [appendHistory, bpm10s, bpm5s, liveBpm, isFrozen]);
+    appendHistory(bpmToFreeze, viewMode);
+  }, [appendHistory, bpm10s, bpm5s, liveBpm, isFrozen, viewMode]);
 
 
   const statusLabel = isFrozen
