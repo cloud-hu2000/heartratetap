@@ -20,6 +20,8 @@ const HISTORY_STORAGE_KEY = "heartratetap-history-v1";
 const HISTORY_PAGE_SIZE = 5;
 const LANG_STORAGE_KEY = "heartratetap-lang";
 const MIN_BEAT_INTERVAL = 150; // 最小点击间隔150ms，防止抖动
+const FIRST_TIME_KEY = "heartratetap-first-time";
+const TUTORIAL_SHOWN_KEY = "heartratetap-tutorial-shown";
 
 const COPY = {
   en: {
@@ -259,6 +261,12 @@ const HeartRatePage = () => {
   const [beatCount, setBeatCount] = useState(0);
   const [lang, setLang] = useState<"en" | "es">("en");
   const lastBeatTime = useRef<number>(0);
+
+  // 移动端检测和优化
+  const [isMobile, setIsMobile] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
+  const [accuracyHint, setAccuracyHint] = useState<string | null>(null);
   const t = COPY[lang] as typeof COPY[keyof typeof COPY];
 
   useEffect(() => {
@@ -268,6 +276,24 @@ const HeartRatePage = () => {
       setLang(stored);
       document.documentElement.lang = stored;
     }
+
+    // 检测移动设备
+    const mobileCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    setIsMobile(mobileCheck);
+
+    // 检查是否首次使用
+    const hasUsedBefore = window.localStorage.getItem(FIRST_TIME_KEY);
+    if (!hasUsedBefore) {
+      setIsFirstTime(true);
+      window.localStorage.setItem(FIRST_TIME_KEY, "true");
+    }
+
+    // 检查是否已显示教程
+    const tutorialShown = window.localStorage.getItem(TUTORIAL_SHOWN_KEY);
+    if (!tutorialShown && mobileCheck) {
+      setShowTutorial(true);
+    }
+
     const onStorage = (ev: StorageEvent) => {
       if (ev.key === LANG_STORAGE_KEY) {
         const val = ev.newValue as "en" | "es" | null;
@@ -378,6 +404,41 @@ const HeartRatePage = () => {
     });
   }, [viewMode]);
 
+  // 导出历史数据为CSV
+  const exportHistoryToCSV = useCallback(() => {
+    if (history.length === 0) return;
+
+    const csvContent = [
+      ["Timestamp", "BPM", "Context", "Mode"].join(","),
+      ...history.map(entry => [
+        new Date(entry.timestamp).toLocaleString(),
+        entry.bpm,
+        entry.context,
+        entry.context === "sport" ? "Active" : "Rest"
+      ].join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `heartrate-history-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, [history]);
+
+  // 清除历史数据
+  const clearHistory = useCallback(() => {
+    if (typeof window !== "undefined") {
+      if (confirm("Are you sure you want to clear all heart rate history? This action cannot be undone.")) {
+        setHistory([]);
+        window.localStorage.removeItem(HISTORY_STORAGE_KEY);
+      }
+    }
+  }, []);
+
   const triggerTapPulse = useCallback(() => {
     setTapPulse(true);
     setBeatCount((c) => c + 1);
@@ -395,6 +456,11 @@ const HeartRatePage = () => {
 
     triggerTapPulse();
 
+    // 移动端震动反馈
+    if (isMobile && 'vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
+
     // 如果已停止，点击开始则清零重新测量，并记录第一次点击
     if (isFrozen) {
       setIsFrozen(false);
@@ -411,7 +477,15 @@ const HeartRatePage = () => {
       const next = [...prev, now];
       return next.slice(-16);
     });
-  }, [isFrozen, triggerTapPulse]);
+
+    // 精确度提示
+    const newBeatCount = beatCount + 1;
+    if (newBeatCount >= 10 && !accuracyHint) {
+      setAccuracyHint("Great! You have enough beats for a stable reading.");
+    } else if (newBeatCount === 3 && !accuracyHint) {
+      setAccuracyHint("Keep tapping! Aim for at least 10 beats for better accuracy.");
+    }
+  }, [isFrozen, triggerTapPulse, isMobile, beatCount, accuracyHint]);
 
   // Removed global space key listener - now handled by tap-surface button
 
@@ -509,6 +583,31 @@ const HeartRatePage = () => {
             <div className="idle-visual">
               <div className="heart-icon">❤️</div>
               <p className="idle-hint">{t.idleHint}</p>
+              {showTutorial && (
+                <div className="tutorial-overlay">
+                  <div className="tutorial-content">
+                    <h3>📱 Quick Tutorial</h3>
+                    <ol>
+                      <li>Find your pulse on wrist or neck</li>
+                      <li>Tap the heart area in rhythm</li>
+                      <li>Wait for stable BPM reading</li>
+                      <li>Tap &quot;Stop&quot; to save result</li>
+                    </ol>
+                    <button
+                      type="button"
+                      className="pill active tutorial-close"
+                      onClick={() => {
+                        setShowTutorial(false);
+                        if (typeof window !== "undefined") {
+                          window.localStorage.setItem(TUTORIAL_SHOWN_KEY, "true");
+                        }
+                      }}
+                    >
+                      Got it! 🎯
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -568,7 +667,7 @@ const HeartRatePage = () => {
 
           <button
             type="button"
-            className={`tap-surface ${tapPulse ? "tap-surface-active" : ""}`}
+            className={`tap-surface ${tapPulse ? "tap-surface-active" : ""} ${isMobile ? "tap-surface-mobile" : ""}`}
             onPointerDown={handleBeat}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -583,6 +682,9 @@ const HeartRatePage = () => {
             <div className="tap-surface-content">
               <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
               <p className="tap-hint-text">{t.tapHint}</p>
+              {accuracyHint && (
+                <p className="accuracy-hint">{accuracyHint}</p>
+              )}
             </div>
             {tapPulse && <span className="tap-ripple" key={beatCount} />}
           </button>
@@ -614,9 +716,31 @@ const HeartRatePage = () => {
           </div>
         </section>
         <section className="panel history-panel">
-          <p className="hero-sub hero-sub-margin">
-            {t.historyTitle}
-          </p>
+          <div className="history-header">
+            <p className="hero-sub hero-sub-margin">
+              {t.historyTitle}
+            </p>
+            {history.length > 0 && (
+              <div className="history-controls">
+                <button
+                  type="button"
+                  className="pill"
+                  onClick={exportHistoryToCSV}
+                  title="Export history as CSV"
+                >
+                  📊 Export
+                </button>
+                <button
+                  type="button"
+                  className="pill danger"
+                  onClick={clearHistory}
+                  title="Clear all history"
+                >
+                  🗑️ Clear
+                </button>
+              </div>
+            )}
+          </div>
           {history.length === 0 && (
             <p className="history-empty">
               {t.historyEmpty}
