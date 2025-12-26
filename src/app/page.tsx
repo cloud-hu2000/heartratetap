@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
@@ -18,6 +18,7 @@ type HistoryEntry = {
 const HISTORY_STORAGE_KEY = "heartratetap-history-v1";
 const HISTORY_PAGE_SIZE = 5;
 const LANG_STORAGE_KEY = "heartratetap-lang";
+const MIN_BEAT_INTERVAL = 150; // 最小点击间隔150ms，防止抖动
 
 const COPY = {
   en: {
@@ -256,6 +257,7 @@ const HeartRatePage = () => {
   const [tapPulse, setTapPulse] = useState(false);
   const [beatCount, setBeatCount] = useState(0);
   const [lang, setLang] = useState<"en" | "es">("en");
+  const lastBeatTime = useRef<number>(0);
   const t = COPY[lang] as typeof COPY[keyof typeof COPY];
 
   useEffect(() => {
@@ -302,28 +304,43 @@ const HeartRatePage = () => {
   // 选择显示的心率（优先使用10秒，其次5秒，最后是间隔计算）
   const currentBpm = isFrozen ? frozenBpm : (bpm10s ?? bpm5s ?? liveBpm);
 
-  // 平滑更新显示的心率数字 - 使用统一的定时器
+  // 平滑更新显示的心率数字 - 使用requestAnimationFrame优化性能
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDisplayBpm((prev) => {
-        if (currentBpm === null) {
-          return null;
-        }
+    let animationId: number;
+    let lastUpdateTime = 0;
+    const UPDATE_INTERVAL = 100; // 降低到100ms以减少CPU消耗
 
-        if (prev === null) {
-          return currentBpm;
-        }
+    const updateDisplay = (timestamp: number) => {
+      if (timestamp - lastUpdateTime >= UPDATE_INTERVAL) {
+        setDisplayBpm((prev) => {
+          if (currentBpm === null) {
+            return null;
+          }
 
-        const diff = currentBpm - prev;
-        if (Math.abs(diff) < 0.5) {
-          return currentBpm;
-        }
-        // 每次更新20%的差值，实现平滑过渡
-        return Math.round(prev + diff * 0.2);
-      });
-    }, 50); // 每50ms更新一次
+          if (prev === null) {
+            return currentBpm;
+          }
 
-    return () => clearInterval(interval);
+          const diff = currentBpm - prev;
+          if (Math.abs(diff) < 0.5) {
+            return currentBpm;
+          }
+          // 每次更新15%的差值，实现更平滑的过渡
+          return Math.round(prev + diff * 0.15);
+        });
+        lastUpdateTime = timestamp;
+      }
+
+      animationId = requestAnimationFrame(updateDisplay);
+    };
+
+    animationId = requestAnimationFrame(updateDisplay);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, [currentBpm]);
 
   // 加载本地历史记录
@@ -367,7 +384,16 @@ const HeartRatePage = () => {
   }, []);
 
   const handleBeat = useCallback(() => {
+    const now = performance.now();
+
+    // 去抖：防止短时间内重复点击
+    if (now - lastBeatTime.current < MIN_BEAT_INTERVAL) {
+      return;
+    }
+    lastBeatTime.current = now;
+
     triggerTapPulse();
+
     // 如果已停止，点击开始则清零重新测量，并记录第一次点击
     if (isFrozen) {
       setIsFrozen(false);
@@ -376,11 +402,10 @@ const HeartRatePage = () => {
       setDisplayBpm(null);
       setBeatCount(1);
       // 清零后立即记录第一次点击
-      const now = performance.now();
       setBeats([now]);
       return;
     }
-    const now = performance.now();
+
     setBeats((prev) => {
       const next = [...prev, now];
       return next.slice(-16);
