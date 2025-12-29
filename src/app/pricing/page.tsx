@@ -11,6 +11,12 @@ const PricingContent = () => {
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
   const canceled = searchParams.get('canceled');
 
+  // Parse bilingual features
+  const parseFeature = (feature: string) => {
+    const match = feature.match(/EN: (.+?) \| ES: (.+)/);
+    return match ? { en: match[1], es: match[2] } : { en: feature, es: feature };
+  };
+
   const handleUpgrade = async (tier: MembershipTier) => {
     if (!user) return;
 
@@ -65,12 +71,18 @@ const PricingContent = () => {
               </div>
             </div>
             <ul className="pricing-features">
-              {MEMBERSHIP_TIERS.free.features.map((feature, index) => (
-                <li key={index} className="pricing-feature">
-                  <span className="pricing-feature-check">✓</span>
-                  {feature}
-                </li>
-              ))}
+              {MEMBERSHIP_TIERS.free.features.map((feature, index) => {
+                const parsed = parseFeature(feature);
+                return (
+                  <li key={index} className="pricing-feature">
+                    <span className="pricing-feature-check">✓</span>
+                    <div className="pricing-feature-text">
+                      <span className="pricing-feature-en">{parsed.en}</span>
+                      <span className="pricing-feature-es">{parsed.es}</span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             <button
               className="pricing-button pricing-button-secondary"
@@ -92,12 +104,18 @@ const PricingContent = () => {
               </div>
             </div>
             <ul className="pricing-features">
-              {MEMBERSHIP_TIERS.basic.features.map((feature, index) => (
-                <li key={index} className="pricing-feature">
-                  <span className="pricing-feature-check">✓</span>
-                  {feature}
-                </li>
-              ))}
+              {MEMBERSHIP_TIERS.basic.features.map((feature, index) => {
+                const parsed = parseFeature(feature);
+                return (
+                  <li key={index} className="pricing-feature">
+                    <span className="pricing-feature-check">✓</span>
+                    <div className="pricing-feature-text">
+                      <span className="pricing-feature-en">{parsed.en}</span>
+                      <span className="pricing-feature-es">{parsed.es}</span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             <button
               className="pricing-button pricing-button-primary"
@@ -118,12 +136,18 @@ const PricingContent = () => {
               </div>
             </div>
             <ul className="pricing-features">
-              {MEMBERSHIP_TIERS.pro.features.map((feature, index) => (
-                <li key={index} className="pricing-feature">
-                  <span className="pricing-feature-check">✓</span>
-                  {feature}
-                </li>
-              ))}
+              {MEMBERSHIP_TIERS.pro.features.map((feature, index) => {
+                const parsed = parseFeature(feature);
+                return (
+                  <li key={index} className="pricing-feature">
+                    <span className="pricing-feature-check">✓</span>
+                    <div className="pricing-feature-text">
+                      <span className="pricing-feature-en">{parsed.en}</span>
+                      <span className="pricing-feature-es">{parsed.es}</span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             <button
               className="pricing-button pricing-button-primary"

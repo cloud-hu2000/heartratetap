@@ -2474,6 +2474,24 @@ input[type="password"]:focus {
   flex-shrink: 0;
 }
 
+.pricing-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pricing-feature-en {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.pricing-feature-es {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
 .pricing-button {
   width: 100%;
   padding: 1rem 2rem;
