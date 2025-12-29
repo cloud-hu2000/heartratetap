@@ -1,6 +1,9 @@
 import crypto from "node:crypto";
 import { sql } from "./db";
 
+// Check if database is available (skip during build)
+const isDbAvailable = typeof sql !== 'undefined' && sql;
+
 type FeedbackRecord = {
   id: string;
   title: string;
@@ -38,6 +41,11 @@ const normalizeStatus = (status: string | null): Feedback["status"] => {
 let tablesReady: Promise<void> | null = null;
 
 const ensureTables = async () => {
+  // Check if database is available
+  if (!isDbAvailable) {
+    return;
+  }
+
   if (!tablesReady) {
     tablesReady = (async () => {
       await sql`CREATE EXTENSION IF NOT EXISTS "pgcrypto";`;
@@ -80,6 +88,11 @@ const sanitizeFeedback = (record: FeedbackRecord): Feedback => ({
 });
 
 export const fetchFeedbackList = async (): Promise<Feedback[]> => {
+  // Check if database is available
+  if (!isDbAvailable) {
+    console.warn("Database not available, returning empty feedback list");
+    return [];
+  }
   await ensureTables();
   const rows = (await sql`
     SELECT id, title, description, email, votes, status, created_at
@@ -90,6 +103,10 @@ export const fetchFeedbackList = async (): Promise<Feedback[]> => {
 };
 
 export const createFeedback = async (data: { title: string; description: string; email: string | null }): Promise<Feedback> => {
+  // Check if database is available
+  if (!isDbAvailable) {
+    throw new Error("Database not available");
+  }
   await ensureTables();
   const rows = (await sql`
     INSERT INTO feedback_items (title, description, email, status)
@@ -100,6 +117,12 @@ export const createFeedback = async (data: { title: string; description: string;
 };
 
 export const castVote = async (feedbackId: string, deviceId: string): Promise<Feedback | null> => {
+  // Check if database is available
+  if (!isDbAvailable) {
+    console.warn("Database not available, skipping vote");
+    return null;
+  }
+
   await ensureTables();
   const deviceHash = crypto.createHash("sha256").update(deviceId).digest("hex");
   const insertResult = await sql`

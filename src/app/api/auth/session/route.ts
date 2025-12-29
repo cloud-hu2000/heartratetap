@@ -3,6 +3,13 @@ import { readSessionFromHeader, verifySession } from "@/lib/auth";
 import { sql } from "@/lib/db";
 
 export async function GET(req: Request) {
+    // Check if database is available (skip during build)
+  if (!sql) {
+    return NextResponse.json({
+      error: "Database connection not available. Please configure POSTGRES_URL."
+    }, { status: 503 });
+  }
+
   try {
     const cookieHeader = req.headers.get("cookie");
     const token = readSessionFromHeader(cookieHeader);

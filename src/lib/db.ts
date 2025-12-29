@@ -2,9 +2,17 @@ import { neon } from "@neondatabase/serverless";
 
 const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
 
-if (!connectionString) {
-  throw new Error("未检测到 POSTGRES_URL 或 DATABASE_URL，请在环境变量中配置 Neon 连接串。");
+// 创建一个安全的数据库连接，如果没有配置则返回null
+let sql: any = null;
+
+if (typeof window === 'undefined') {
+  // 服务器端
+  if (connectionString) {
+    sql = neon(connectionString);
+  } else {
+    console.warn("⚠️  数据库连接未配置，某些功能将被禁用");
+  }
 }
 
-export const sql = neon(connectionString);
+export { sql };
 

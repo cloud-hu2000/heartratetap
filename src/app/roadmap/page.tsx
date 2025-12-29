@@ -14,7 +14,13 @@ const STATUS_LABEL: Record<string, string> = {
 const STATUS_ORDER: Array<keyof typeof STATUS_LABEL> = ["planned", "in_progress", "shipped"];
 
 const RoadmapPage = async () => {
-  const ideas = await fetchFeedbackList();
+  let ideas: any[] = [];
+  try {
+    ideas = await fetchFeedbackList();
+  } catch (error) {
+    console.warn("Failed to fetch feedback list:", error);
+    ideas = [];
+  }
 
   const grouped = STATUS_ORDER.map((status) => ({
     status,

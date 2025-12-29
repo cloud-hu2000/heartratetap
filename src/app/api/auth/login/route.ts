@@ -4,6 +4,13 @@ import { verifyPassword, signSession, makeSessionCookie } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
+    // Check if database is available (skip during build)
+    if (!sql) {
+      return NextResponse.json({
+        error: "Database connection not available. Please configure POSTGRES_URL."
+      }, { status: 503 });
+    }
+
     const body = await req.json();
     const email = (body.email || "").toLowerCase().trim();
     const password = body.password;

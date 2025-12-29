@@ -2,7 +2,13 @@ import CommentForm from "./CommentForm";
 import { fetchFeedbackList } from "@/lib/feedback";
 
 const CommentPage = async () => {
-  const comments = await fetchFeedbackList();
+  let comments: any[] = [];
+  try {
+    comments = await fetchFeedbackList();
+  } catch (error) {
+    console.warn("Failed to fetch feedback list:", error);
+    comments = [];
+  }
   return (
     <div className="comment-page">
       <section className="panel">

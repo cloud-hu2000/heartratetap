@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 
 export async function GET(req: Request) {
+    // Check if database is available (skip during build)
+  if (!sql) {
+    return NextResponse.json({
+      error: "Database connection not available. Please configure POSTGRES_URL."
+    }, { status: 503 });
+  }
+
   try {
     const url = new URL(req.url);
     const token = url.searchParams.get("token");
