@@ -2353,6 +2353,23 @@ input[type="password"]:focus {
   color: var(--ink);
   margin: 0 0 1rem 0;
   letter-spacing: -0.025em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pricing-title-en {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pricing-title-es {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-style: italic;
 }
 
 .pricing-subtitle {
@@ -2361,6 +2378,22 @@ input[type="password"]:focus {
   margin: 0;
   max-width: 600px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.pricing-subtitle-en {
+  font-size: 1.125rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.pricing-subtitle-es {
+  font-size: 1rem;
+  color: var(--muted);
+  font-style: italic;
 }
 
 .pricing-notice {
@@ -2532,47 +2565,6 @@ input[type="password"]:focus {
   border-color: rgba(15, 43, 51, 0.3);
 }
 
-/* FAQ Section */
-.pricing-faq {
-  margin-top: 4rem;
-  text-align: center;
-}
-
-.pricing-faq-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0 0 2rem 0;
-}
-
-.pricing-faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.pricing-faq-item {
-  text-align: left;
-  padding: 1.5rem;
-  background: var(--card);
-  border-radius: 12px;
-  border: 1px solid var(--line);
-}
-
-.pricing-faq-item h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0 0 0.5rem 0;
-}
-
-.pricing-faq-item p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.5;
-}
 
 /* CTA Section */
 .pricing-cta {
@@ -2589,12 +2581,45 @@ input[type="password"]:focus {
   font-weight: 600;
   color: var(--ink);
   margin: 0 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.pricing-cta-en {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.pricing-cta-es {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--muted);
+  font-style: italic;
 }
 
 .pricing-cta p {
   font-size: 1.125rem;
   color: var(--muted);
   margin: 0 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.pricing-cta-text-en {
+  font-size: 1rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.pricing-cta-text-es {
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-style: italic;
 }
 
 .pricing-cta-button {
@@ -2607,6 +2632,21 @@ input[type="password"]:focus {
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.pricing-cta-button-en {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pricing-cta-button-es {
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .pricing-cta-button:hover {

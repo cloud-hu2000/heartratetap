@@ -48,9 +48,13 @@ const PricingContent = () => {
       <div className="pricing-container">
         {/* Header */}
         <header className="pricing-header">
-          <h1 className="pricing-title">Choose Your Plan</h1>
+          <h1 className="pricing-title">
+            <span className="pricing-title-en">Choose Your Plan</span>
+            <span className="pricing-title-es">Elija Su Plan</span>
+          </h1>
           <p className="pricing-subtitle">
-            Unlock advanced heart rate analysis and personalized health insights
+            <span className="pricing-subtitle-en">Unlock advanced heart rate analysis and personalized health insights</span>
+            <span className="pricing-subtitle-es">Desbloquee análisis avanzado de frecuencia cardíaca y perspectivas de salud personalizadas</span>
           </p>
           {canceled && (
             <div className="pricing-notice">
@@ -159,36 +163,21 @@ const PricingContent = () => {
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <section className="pricing-faq">
-          <h2 className="pricing-faq-title">Frequently Asked Questions</h2>
-          <div className="pricing-faq-grid">
-            <div className="pricing-faq-item">
-              <h4>Can I cancel anytime?</h4>
-              <p>Yes, you can cancel your subscription at any time. You&apos;ll continue to have access to premium features until the end of your billing period.</p>
-            </div>
-            <div className="pricing-faq-item">
-              <h4>Is my data secure?</h4>
-              <p>Absolutely. We use industry-standard encryption and never sell your personal health data. Your privacy is our top priority.</p>
-            </div>
-            <div className="pricing-faq-item">
-              <h4>What payment methods do you accept?</h4>
-              <p>We accept all major credit cards, PayPal, and other popular payment methods through our secure payment processor.</p>
-            </div>
-            <div className="pricing-faq-item">
-              <h4>Do you offer refunds?</h4>
-              <p>We offer a 30-day money-back guarantee. If you&apos;re not satisfied with your subscription, contact us for a full refund.</p>
-            </div>
-          </div>
-        </section>
 
         {/* CTA Section */}
         {!user && (
           <div className="pricing-cta">
-            <h3>Ready to upgrade your heart health tracking?</h3>
-            <p>Create a free account to get started, then upgrade anytime.</p>
+            <h3>
+              <span className="pricing-cta-en">Ready to upgrade your heart health tracking?</span>
+              <span className="pricing-cta-es">¿Listo para mejorar el seguimiento de su salud cardíaca?</span>
+            </h3>
+            <p>
+              <span className="pricing-cta-text-en">Create a free account to get started, then upgrade anytime.</span>
+              <span className="pricing-cta-text-es">Cree una cuenta gratuita para comenzar, luego actualice en cualquier momento.</span>
+            </p>
             <Link href="/register" className="pricing-cta-button">
-              Get Started Free
+              <span className="pricing-cta-button-en">Get Started Free</span>
+              <span className="pricing-cta-button-es">Comenzar Gratis</span>
             </Link>
           </div>
         )}
