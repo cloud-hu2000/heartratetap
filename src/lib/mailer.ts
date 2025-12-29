@@ -10,6 +10,7 @@ export const sendFeedbackEmail = async (feedback: Feedback) => {
     console.warn("RESEND_API_KEY is not set. Skip feedback email notification.");
     return { delivered: false, reason: "missing_api_key" } as const;
   }
+
   const resend = new Resend(apiKey);
   try {
     await resend.emails.send({
@@ -32,4 +33,3 @@ export const sendFeedbackEmail = async (feedback: Feedback) => {
 };
 
 export const notifyNewFeedback = async (feedback: Feedback) => sendFeedbackEmail(feedback);
-
