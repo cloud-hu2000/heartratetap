@@ -74,8 +74,17 @@ function RegisterPageContent() {
     setSuccess('');
     setIsSubmitting(true);
 
+    console.log('🔄 开始注册流程...');
+    console.log('📝 表单数据:', {
+      email: formData.email,
+      passwordLength: formData.password.length,
+      confirmPasswordLength: formData.confirmPassword.length,
+      name: formData.name,
+    });
+
     // 验证必填字段
     if (!formData.email || !formData.password) {
+      console.warn('❌ 验证失败: 必填字段缺失');
       setError('Email and password are required');
       setIsSubmitting(false);
       return;
@@ -84,6 +93,7 @@ function RegisterPageContent() {
     // 验证邮箱格式
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
+      console.warn('❌ 验证失败: 邮箱格式无效', formData.email);
       setError('Please enter a valid email address');
       setIsSubmitting(false);
       return;
@@ -91,6 +101,7 @@ function RegisterPageContent() {
 
     // 验证密码强度
     if (!checkPasswordStrength(formData.password)) {
+      console.warn('❌ 验证失败: 密码强度不足', { score: passwordStrength.score, feedback: passwordStrength.feedback });
       setError('Password does not meet requirements');
       setIsSubmitting(false);
       return;
@@ -98,23 +109,36 @@ function RegisterPageContent() {
 
     // 验证密码确认
     if (formData.password !== formData.confirmPassword) {
+      console.warn('❌ 验证失败: 密码确认不匹配');
       setError('Passwords do not match');
       setIsSubmitting(false);
       return;
     }
 
-    // 注册
-    const result = await register({
-      email: formData.email,
-      password: formData.password,
-      name: formData.name || undefined,
-    });
+    console.log('✅ 前端验证通过，开始API调用...');
 
-    if (result.success) {
-      setSuccess('Registration successful! Welcome to HeartRateTap!');
-      // 重定向由Context处理
-    } else {
-      setError(result.error || 'Registration failed');
+    // 注册
+    try {
+      const result = await register({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name || undefined,
+      });
+
+      console.log('📡 API响应结果:', result);
+
+      if (result.success) {
+        console.log('🎉 注册成功！');
+        setSuccess('Registration successful! Welcome to HeartRateTap!');
+        // 重定向由Context处理
+      } else {
+        console.error('❌ 注册失败:', result.error);
+        setError(result.error || 'Registration failed');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error('💥 注册过程中发生异常:', error);
+      setError('An unexpected error occurred. Please try again.');
       setIsSubmitting(false);
     }
   };
@@ -294,7 +318,15 @@ function RegisterPageContent() {
                     <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     </svg>
-                    {error}
+                    <div>
+                      <div className="font-medium mb-1">Registration Failed</div>
+                      <div className="text-sm opacity-90">{error}</div>
+                      {process.env.NODE_ENV === 'development' && (
+                        <div className="text-xs mt-2 opacity-75">
+                          💡 Check browser console for detailed debug information
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}

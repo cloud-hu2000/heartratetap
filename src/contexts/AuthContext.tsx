@@ -119,9 +119,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     name?: string;
   }): Promise<{ success: boolean; error?: string }> => {
     try {
+      console.log('🚀 AuthContext.register: 开始注册请求');
+      console.log('📤 请求数据:', { ...userData, password: '***' }); // 隐藏密码
+
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
-      const response = await fetch('/api/auth/register', {
+      const apiUrl = '/api/auth/register';
+      console.log('🌐 请求URL:', apiUrl);
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,20 +135,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
         body: JSON.stringify(userData),
       });
 
+      console.log('📡 HTTP响应状态:', response.status, response.statusText);
+      console.log('📡 响应头:', Object.fromEntries(response.headers.entries()));
+
       const data = await response.json();
+      console.log('📦 响应数据:', data);
 
       if (data.tokens) {
+        console.log('✅ 注册成功，获取到tokens');
         // 注册成功，重新检查认证状态
         await checkAuth();
         // 重定向到首页
+        console.log('🔄 重定向到首页');
         router.push('/');
         return { success: true };
       } else {
+        console.warn('⚠️ 注册失败，无tokens返回');
+        console.log('❌ 错误详情:', data.error || '未知错误');
         setAuthState(prev => ({ ...prev, isLoading: false }));
         return { success: false, error: data.error || 'Registration failed' };
       }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('💥 AuthContext.register: 网络请求异常', error);
+      console.error('💥 错误详情:', {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
       setAuthState(prev => ({ ...prev, isLoading: false }));
       return { success: false, error: 'Network error' };
     }
