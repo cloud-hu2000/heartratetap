@@ -11,10 +11,10 @@ const PricingContent = () => {
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
   const canceled = searchParams.get('canceled');
 
-  // Parse bilingual features
-  const parseFeature = (feature: string) => {
-    const match = feature.match(/EN: (.+?) \| ES: (.+)/);
-    return match ? { en: match[1], es: match[2] } : { en: feature, es: feature };
+  // Parse bilingual text
+  const parseBilingual = (text: string) => {
+    const match = text.match(/EN: (.+?) \| ES: (.+)/);
+    return match ? { en: match[1], es: match[2] } : { en: text, es: text };
   };
 
   const handleUpgrade = async (tier: MembershipTier) => {
@@ -68,7 +68,10 @@ const PricingContent = () => {
           {/* Free Plan */}
           <div className={`pricing-card ${isCurrentPlan('free') ? 'pricing-card-current' : ''}`}>
             <div className="pricing-card-header">
-              <h3 className="pricing-plan-name">{MEMBERSHIP_TIERS.free.name}</h3>
+              <h3 className="pricing-plan-name">
+                <span className="pricing-plan-name-en">{parseBilingual(MEMBERSHIP_TIERS.free.name).en}</span>
+                <span className="pricing-plan-name-es">{parseBilingual(MEMBERSHIP_TIERS.free.name).es}</span>
+              </h3>
               <div className="pricing-price">
                 <span className="pricing-amount">$0</span>
                 <span className="pricing-period">forever</span>
@@ -76,7 +79,7 @@ const PricingContent = () => {
             </div>
             <ul className="pricing-features">
               {MEMBERSHIP_TIERS.free.features.map((feature, index) => {
-                const parsed = parseFeature(feature);
+                const parsed = parseBilingual(feature);
                 return (
                   <li key={index} className="pricing-feature">
                     <span className="pricing-feature-check">✓</span>
@@ -99,9 +102,15 @@ const PricingContent = () => {
 
           {/* Basic Plan */}
           <div className={`pricing-card pricing-card-featured ${isCurrentPlan('basic') ? 'pricing-card-current' : ''}`}>
-            <div className="pricing-card-badge">Most Popular</div>
+            <div className="pricing-card-badge">
+              <span className="pricing-badge-en">Most Popular</span>
+              <span className="pricing-badge-es">Más Popular</span>
+            </div>
             <div className="pricing-card-header">
-              <h3 className="pricing-plan-name">{MEMBERSHIP_TIERS.basic.name}</h3>
+              <h3 className="pricing-plan-name">
+                <span className="pricing-plan-name-en">{parseBilingual(MEMBERSHIP_TIERS.basic.name).en}</span>
+                <span className="pricing-plan-name-es">{parseBilingual(MEMBERSHIP_TIERS.basic.name).es}</span>
+              </h3>
               <div className="pricing-price">
                 <span className="pricing-amount">${MEMBERSHIP_TIERS.basic.price}</span>
                 <span className="pricing-period">/month</span>
@@ -109,7 +118,7 @@ const PricingContent = () => {
             </div>
             <ul className="pricing-features">
               {MEMBERSHIP_TIERS.basic.features.map((feature, index) => {
-                const parsed = parseFeature(feature);
+                const parsed = parseBilingual(feature);
                 return (
                   <li key={index} className="pricing-feature">
                     <span className="pricing-feature-check">✓</span>
@@ -133,7 +142,10 @@ const PricingContent = () => {
           {/* Pro Plan */}
           <div className={`pricing-card ${isCurrentPlan('pro') ? 'pricing-card-current' : ''}`}>
             <div className="pricing-card-header">
-              <h3 className="pricing-plan-name">{MEMBERSHIP_TIERS.pro.name}</h3>
+              <h3 className="pricing-plan-name">
+                <span className="pricing-plan-name-en">{parseBilingual(MEMBERSHIP_TIERS.pro.name).en}</span>
+                <span className="pricing-plan-name-es">{parseBilingual(MEMBERSHIP_TIERS.pro.name).es}</span>
+              </h3>
               <div className="pricing-price">
                 <span className="pricing-amount">${MEMBERSHIP_TIERS.pro.price}</span>
                 <span className="pricing-period">/month</span>
@@ -141,7 +153,7 @@ const PricingContent = () => {
             </div>
             <ul className="pricing-features">
               {MEMBERSHIP_TIERS.pro.features.map((feature, index) => {
-                const parsed = parseFeature(feature);
+                const parsed = parseBilingual(feature);
                 return (
                   <li key={index} className="pricing-feature">
                     <span className="pricing-feature-check">✓</span>

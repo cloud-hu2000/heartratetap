@@ -18,7 +18,7 @@ export interface User {
 // 会员等级定义
 export const MEMBERSHIP_TIERS = {
   free: {
-    name: 'Free',
+    name: 'EN: Free | ES: Gratis',
     price: 0,
     currency: 'USD',
     features: [
@@ -29,7 +29,7 @@ export const MEMBERSHIP_TIERS = {
     ],
   },
   basic: {
-    name: 'Professional',
+    name: 'EN: Professional | ES: Profesional',
     price: 1.99,
     currency: 'USD',
     interval: 'month',
@@ -42,7 +42,7 @@ export const MEMBERSHIP_TIERS = {
     ],
   },
   pro: {
-    name: 'Premium',
+    name: 'EN: Premium | ES: Premium',
     price: 6.99,
     currency: 'USD',
     interval: 'month',
@@ -57,7 +57,7 @@ export const MEMBERSHIP_TIERS = {
     ],
   },
   enterprise: {
-    name: 'Enterprise',
+    name: 'EN: Enterprise | ES: Empresarial',
     price: 29.99,
     currency: 'USD',
     interval: 'month',
