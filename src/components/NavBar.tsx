@@ -51,13 +51,23 @@ export default function NavBar() {
             aria-label="Select language"
             className="lang-select"
             value={lang}
-            style={{ background: "#fff", color: "var(--ink)" }}
+            style={{
+              background: "#fff",
+              color: "var(--ink)",
+              transition: "all 0.2s ease",
+              cursor: "pointer"
+            }}
             onChange={(e) => {
               const next = e.target.value as "en" | "es";
               setLang(next);
               if (typeof window !== "undefined") {
                 window.localStorage.setItem(LANG_STORAGE_KEY, next);
-                window.dispatchEvent(new StorageEvent("storage", { key: LANG_STORAGE_KEY, newValue: next }));
+                // Dispatch storage event to notify other components
+                window.dispatchEvent(new StorageEvent("storage", {
+                  key: LANG_STORAGE_KEY,
+                  newValue: next,
+                  oldValue: lang
+                }));
                 document.documentElement.lang = next;
               }
             }}

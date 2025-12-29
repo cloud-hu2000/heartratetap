@@ -8,52 +8,40 @@ import { MEMBERSHIP_TIERS } from '@/contexts/AuthContext';
 const CheckoutSuccessContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isProcessing, setIsProcessing] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const tier = searchParams.get('tier');
+  const requestId = searchParams.get('requestId');
 
   useEffect(() => {
-    const processUpgrade = async () => {
-      if (!tier) {
-        setError('Invalid upgrade request');
-        setIsProcessing(false);
-        return;
-      }
+    if (!tier) {
+      console.error('❌ 缺少tier参数');
+      return;
+    }
 
-      try {
-        // In production, this would verify the payment with your payment processor
-        // and update the user's membership tier in the database
+    console.log('✅ 支付成功回调:', { tier, requestId });
 
-        console.log('✅ 模拟支付成功处理，会员等级:', tier);
+    // 支付成功后，数据库应该已经被万里汇的通知API更新了
+    // 这里我们直接显示成功信息，然后重定向到profile页面
+    const redirectTimer = setTimeout(() => {
+      setIsRedirecting(true);
+      router.push('/profile?upgrade=success&tier=' + tier);
+    }, 3000); // 3秒后自动重定向
 
-        // Simulate processing delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
+    return () => clearTimeout(redirectTimer);
+  }, [tier, requestId, router]);
 
-        // Redirect to profile with success message
-        router.push('/profile?upgrade=success&tier=' + tier);
-
-      } catch (err) {
-        console.error('Payment processing error:', err);
-        setError('Failed to process your upgrade. Please contact support.');
-        setIsProcessing(false);
-      }
-    };
-
-    processUpgrade();
-  }, [tier, router]);
-
-  if (error) {
+  if (!tier) {
     return (
       <div className="checkout-page">
         <div className="checkout-container">
           <div className="checkout-card">
             <div className="checkout-error">
               <div className="checkout-icon checkout-icon-error">❌</div>
-              <h1 className="checkout-title">Payment Failed</h1>
-              <p className="checkout-message">{error}</p>
+              <h1 className="checkout-title">Invalid Request</h1>
+              <p className="checkout-message">Missing required parameters for payment processing.</p>
               <Link href="/pricing" className="checkout-button">
-                Try Again
+                Back to Pricing
               </Link>
             </div>
           </div>
@@ -62,23 +50,33 @@ const CheckoutSuccessContent = () => {
     );
   }
 
-  if (isProcessing) {
-    return (
-      <div className="checkout-page">
-        <div className="checkout-container">
-          <div className="checkout-card">
-            <div className="checkout-processing">
-              <div className="checkout-spinner"></div>
-              <h1 className="checkout-title">Processing Your Upgrade</h1>
-              <p className="checkout-message">Please wait while we activate your new membership...</p>
-            </div>
+  const plan = MEMBERSHIP_TIERS[tier as keyof typeof MEMBERSHIP_TIERS];
+
+  return (
+    <div className="checkout-page">
+      <div className="checkout-container">
+        <div className="checkout-card">
+          <div className="checkout-processing">
+            <div className="checkout-icon checkout-icon-success">✅</div>
+            <h1 className="checkout-title">Payment Successful!</h1>
+            <p className="checkout-message">
+              Thank you for upgrading to {plan?.name || tier} membership.
+              Your account has been upgraded and you now have access to premium features.
+            </p>
+            {isRedirecting ? (
+              <p className="checkout-message" style={{ fontSize: '0.9rem', opacity: 0.8 }}>
+                Redirecting to your profile...
+              </p>
+            ) : (
+              <Link href="/profile" className="checkout-button">
+                Go to Profile
+              </Link>
+            )}
           </div>
         </div>
       </div>
-    );
-  }
-
-  return null; // This will redirect
+    </div>
+  );
 };
 
 const CheckoutSuccessPage = () => {

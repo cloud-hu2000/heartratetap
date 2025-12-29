@@ -337,18 +337,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const upgradeMembership = async (tier: MembershipTier): Promise<{ success: boolean; error?: string; paymentUrl?: string }> => {
     try {
       console.log('🚀 upgradeMembership: 开始会员升级', { tier });
+      console.log('🔍 当前用户信息:', { userId: authState.user?.id, userTier: authState.user?.account_tier });
 
       const response = await fetch('/api/billing/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // 包含cookies以进行身份验证
         body: JSON.stringify({
           tier,
           successUrl: `${window.location.origin}/profile?upgrade=success`,
           cancelUrl: `${window.location.origin}/pricing?canceled=true`,
         }),
       });
+
+      console.log('📡 API响应状态:', response.status, response.statusText);
+      console.log('📡 响应头:', Object.fromEntries(response.headers.entries()));
 
       if (response.ok) {
         const data = await response.json();
@@ -357,7 +362,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       } else {
         const errorData = await response.json().catch(() => ({}));
         console.error('❌ 升级会话创建失败:', errorData);
-        return { success: false, error: errorData.error || 'Failed to create checkout session' };
+        return { success: false, error: errorData.error || errorData.debug || 'Failed to create checkout session' };
       }
     } catch (error) {
       console.error('💥 upgradeMembership: 网络异常', error);
