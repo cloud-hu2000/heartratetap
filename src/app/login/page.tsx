@@ -17,6 +17,8 @@ function LoginPageContent() {
   const [success, setSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
 
   // 如果已登录，重定向到首页
   useEffect(() => {
@@ -86,6 +88,55 @@ function LoginPageContent() {
 
       setError(errorMessage);
       setIsSubmitting(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!formData.email) {
+      setError('Please enter your email address first');
+      return;
+    }
+
+    setIsResettingPassword(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      console.log('🚀 handleForgotPassword: 发送密码重置邮件');
+      console.log('📤 请求邮箱:', formData.email);
+
+      const response = await fetch('/api/auth/request-password-reset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      console.log('📡 HTTP响应状态:', response.status);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('📦 响应数据:', data);
+
+        if (data.ok) {
+          console.log('✅ 密码重置邮件发送成功');
+          setResetEmailSent(true);
+          setSuccess(`Password reset email sent to ${formData.email}. Please check your inbox.`);
+        } else {
+          console.warn('⚠️ 密码重置邮件发送失败:', data.error);
+          setError(data.error || 'Failed to send reset email');
+        }
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('💥 密码重置请求失败:', response.status, errorData);
+        setError(errorData.error || 'Failed to send reset email. Please try again.');
+      }
+    } catch (error) {
+      console.error('💥 handleForgotPassword: 网络异常', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsResettingPassword(false);
     }
   };
 
@@ -223,11 +274,10 @@ function LoginPageContent() {
                 <button
                   type="button"
                   className="form-link-button"
-                  onClick={() => {
-                    alert('Forgot password feature coming soon!');
-                  }}
+                  onClick={handleForgotPassword}
+                  disabled={isResettingPassword}
                 >
-                  Forgot your password?
+                  {isResettingPassword ? 'Sending reset email...' : 'Forgot your password?'}
                 </button>
               </div>
 
