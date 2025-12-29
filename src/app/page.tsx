@@ -6,6 +6,7 @@ import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import RedditShareCTA from "@/components/RedditShareCTA";
 import { SEOContent } from "@/components/SEOContent";
+import { useAuth } from "@/contexts/AuthContext";
 
 type ViewMode = "rest" | "sport";
 
@@ -250,6 +251,7 @@ const analysisFor = (t: typeof COPY[keyof typeof COPY], mode: ViewMode, bpm: num
 };
 
 const HeartRatePage = () => {
+  const { hasPermission, user } = useAuth();
   const [viewMode, setViewMode] = useState<ViewMode>("rest");
   const [beats, setBeats] = useState<number[]>([]);
   const [isFrozen, setIsFrozen] = useState(false);
@@ -408,6 +410,12 @@ const HeartRatePage = () => {
   const exportHistoryToCSV = useCallback(() => {
     if (history.length === 0) return;
 
+    // 检查会员权限
+    if (!hasPermission('export_data')) {
+      alert('Data export is available for Professional and higher plans. Upgrade to unlock this feature!');
+      return;
+    }
+
     const csvContent = [
       ["Timestamp", "BPM", "Mode"].join(","),
       ...history.map(entry => [
@@ -426,7 +434,7 @@ const HeartRatePage = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [history]);
+  }, [history, hasPermission]);
 
   // 清除历史数据
   const clearHistory = useCallback(() => {
@@ -553,6 +561,32 @@ const HeartRatePage = () => {
 
   return (
     <div className="frame">
+      {/* Membership Status Banner */}
+      {user && (
+        <div className="membership-banner">
+          <div className="membership-content">
+            <div className="membership-info">
+              <span className="membership-tier">
+                {user.account_tier === 'free' && 'Free Plan'}
+                {user.account_tier === 'basic' && 'Professional Plan'}
+                {user.account_tier === 'pro' && 'Premium Plan'}
+                {user.account_tier === 'enterprise' && 'Enterprise Plan'}
+              </span>
+              {user.account_tier === 'free' && (
+                <span className="membership-upgrade">
+                  Upgrade for advanced features like data export and personalized reports
+                </span>
+              )}
+            </div>
+            {user.account_tier === 'free' && (
+              <Link href="/pricing" className="membership-upgrade-button">
+                Upgrade Now
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+
       <section className="panel hero">
         <p className="hero-sub">{t.heroSub}</p>
         <h1 className="hero-title">{t.heroHeadline}</h1>

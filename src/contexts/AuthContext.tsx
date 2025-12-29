@@ -9,10 +9,71 @@ export interface User {
   email: string;
   name?: string;
   role: 'user' | 'admin';
+  account_tier: 'free' | 'basic' | 'pro' | 'enterprise';
   email_verified?: boolean;
   created_at?: string;
   updated_at?: string;
 }
+
+// 会员等级定义
+export const MEMBERSHIP_TIERS = {
+  free: {
+    name: 'Free',
+    price: 0,
+    currency: 'USD',
+    features: [
+      '基础心率测量',
+      '实时BPM显示',
+      '本地历史记录 (20条)',
+      '基础健康建议',
+    ],
+  },
+  basic: {
+    name: 'Professional',
+    price: 1.99,
+    currency: 'USD',
+    interval: 'month',
+    features: [
+      '所有免费功能',
+      '数据导出 (CSV)',
+      '历史趋势分析',
+      '高级健康洞察',
+      '无广告体验',
+    ],
+  },
+  pro: {
+    name: 'Premium',
+    price: 6.99,
+    currency: 'USD',
+    interval: 'month',
+    features: [
+      '所有专业功能',
+      '云端数据同步',
+      '个性化健康报告',
+      '运动计划建议',
+      '健康目标追踪',
+      '高级数据可视化',
+      '优先客服支持',
+    ],
+  },
+  enterprise: {
+    name: 'Enterprise',
+    price: 29.99,
+    currency: 'USD',
+    interval: 'month',
+    features: [
+      '所有高级功能',
+      '团队管理',
+      '批量数据导出',
+      'API访问',
+      '自定义报告',
+      '专属客户经理',
+      '企业级安全',
+    ],
+  },
+} as const;
+
+export type MembershipTier = keyof typeof MEMBERSHIP_TIERS;
 
 // 认证状态类型
 export interface AuthState {
@@ -31,6 +92,8 @@ interface AuthContextType extends AuthState {
   }) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  hasPermission: (feature: string) => boolean;
+  upgradeMembership: (tier: MembershipTier) => Promise<{ success: boolean; error?: string; paymentUrl?: string }>;
 }
 
 // 创建Context
@@ -234,12 +297,82 @@ export function AuthProvider({ children }: AuthProviderProps) {
     checkAuth();
   }, []);
 
+  // 权限检查函数
+  const hasPermission = (feature: string): boolean => {
+    if (!authState.user) return false;
+
+    const tier = authState.user.account_tier;
+
+    // 功能权限映射
+    const featurePermissions: Record<string, MembershipTier[]> = {
+      // 免费功能
+      'basic_measurement': ['free', 'basic', 'pro', 'enterprise'],
+      'local_history': ['free', 'basic', 'pro', 'enterprise'],
+      'basic_analysis': ['free', 'basic', 'pro', 'enterprise'],
+
+      // 专业功能 ($1.99)
+      'export_data': ['basic', 'pro', 'enterprise'],
+      'advanced_analysis': ['basic', 'pro', 'enterprise'],
+      'trend_analysis': ['basic', 'pro', 'enterprise'],
+
+      // 高级功能 ($6.99)
+      'cloud_sync': ['pro', 'enterprise'],
+      'personalized_reports': ['pro', 'enterprise'],
+      'workout_plans': ['pro', 'enterprise'],
+      'health_goals': ['pro', 'enterprise'],
+      'advanced_visualization': ['pro', 'enterprise'],
+
+      // 企业功能 ($29.99)
+      'team_management': ['enterprise'],
+      'api_access': ['enterprise'],
+      'custom_reports': ['enterprise'],
+      'priority_support': ['enterprise'],
+    };
+
+    const allowedTiers = featurePermissions[feature];
+    return allowedTiers ? allowedTiers.includes(tier) : false;
+  };
+
+  // 会员升级函数
+  const upgradeMembership = async (tier: MembershipTier): Promise<{ success: boolean; error?: string; paymentUrl?: string }> => {
+    try {
+      console.log('🚀 upgradeMembership: 开始会员升级', { tier });
+
+      const response = await fetch('/api/billing/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tier,
+          successUrl: `${window.location.origin}/profile?upgrade=success`,
+          cancelUrl: `${window.location.origin}/pricing?canceled=true`,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ 升级会话创建成功:', data);
+        return { success: true, paymentUrl: data.url };
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('❌ 升级会话创建失败:', errorData);
+        return { success: false, error: errorData.error || 'Failed to create checkout session' };
+      }
+    } catch (error) {
+      console.error('💥 upgradeMembership: 网络异常', error);
+      return { success: false, error: 'Network error. Please try again.' };
+    }
+  };
+
   const contextValue: AuthContextType = {
     ...authState,
     login,
     register,
     logout,
     checkAuth,
+    hasPermission,
+    upgradeMembership,
   };
 
   return (

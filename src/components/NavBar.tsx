@@ -66,6 +66,12 @@ export default function NavBar() {
             <option value="es">ES — Español</option>
           </select>
         </div>
+        <Link href="/pricing" className="nav-link" style={{ textDecoration: "none" }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+            <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Pricing
+        </Link>
         <Link href="/privacy-policy" className="nav-link" style={{ textDecoration: "none" }}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M12 1L3 5v6c0 5.25 3.84 10.74 9 12 5.16-1.26 9-6.75 9-12V5l-9-4z"/>
