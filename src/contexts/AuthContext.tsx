@@ -83,30 +83,61 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // 登录函数
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
+      console.log('🚀 AuthContext.login: 开始登录请求');
+      console.log('📤 登录参数:', { email, password: '***' }); // 隐藏密码
+
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
-      const response = await fetch('/api/auth/login', {
+      const apiUrl = '/api/auth/login';
+      console.log('🌐 请求URL:', apiUrl);
+
+      const requestData = { email, password };
+      console.log('📤 请求体:', { email, password: '***' });
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(requestData),
       });
 
+      console.log('📡 HTTP响应状态:', response.status, response.statusText);
+      console.log('📡 响应头:', Object.fromEntries(response.headers.entries()));
+
       const data = await response.json();
+      console.log('📦 响应数据:', data);
 
       if (data.tokens) {
+        console.log('✅ 登录成功，获取到tokens');
+        console.log('🔑 Tokens信息:', {
+          accessToken: data.tokens.accessToken ? 'present' : 'missing',
+          refreshToken: data.tokens.refreshToken ? 'present' : 'missing',
+        });
+
         // 登录成功，重新检查认证状态
+        console.log('🔍 重新检查认证状态...');
         await checkAuth();
+
         // 重定向到首页
+        console.log('🔄 重定向到首页');
         router.push('/');
         return { success: true };
       } else {
+        console.warn('⚠️ 登录失败：', data.error || 'Unknown error');
+        console.warn('⚠️ 响应数据详情:', data);
+
         setAuthState(prev => ({ ...prev, isLoading: false }));
         return { success: false, error: data.error || 'Login failed' };
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('💥 AuthContext.login: 网络请求异常', error);
+      console.error('💥 错误详情:', {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
+
       setAuthState(prev => ({ ...prev, isLoading: false }));
       return { success: false, error: 'Network error' };
     }
@@ -117,7 +148,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     email: string;
     password: string;
     name?: string;
-  }): Promise<{ success: boolean; error?: string }> => {
+  }): Promise<{ success: boolean; error?: string; needsVerification?: boolean }> => {
     try {
       console.log('🚀 AuthContext.register: 开始注册请求');
       console.log('📤 请求数据:', { ...userData, password: '***' }); // 隐藏密码
