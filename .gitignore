@@ -8,3 +8,6 @@ my-app
 
 # Test files
 test-sentry-token.js
+
+# Test Environment Variables
+.env.local
