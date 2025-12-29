@@ -5,6 +5,7 @@ import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
 import { StructuredData } from "@/components/StructuredData";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export function generateMetadata(): Metadata {
   return {
@@ -83,10 +84,12 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
-        <NavBar />
-        {children}
-        <AnalyticsWithConsent />
-        <CookieConsent />
+        <AuthProvider>
+          <NavBar />
+          {children}
+          <AnalyticsWithConsent />
+          <CookieConsent />
+        </AuthProvider>
       </body>
     </html>
   );

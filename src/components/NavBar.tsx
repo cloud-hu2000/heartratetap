@@ -2,11 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthModal from "./AuthModal";
 
 const LANG_STORAGE_KEY = "heartratetap-lang";
 
 export default function NavBar() {
   const [lang, setLang] = useState<"en" | "es">("en");
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -76,7 +80,50 @@ export default function NavBar() {
           </svg>
           Contact
         </Link>
+
+        {/* 用户认证相关按钮 */}
+        {isAuthenticated && user ? (
+          <div className="user-menu">
+            <button
+              className="nav-link user-button"
+              onClick={() => {/* TODO: Toggle user dropdown */}}
+              style={{ textDecoration: "none" }}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+                <path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14C13.66 14 15 15.34 15 17C15 18.66 13.66 20 12 20C10.34 20 9 18.66 9 17C9 15.34 10.34 14 12 14Z"/>
+              </svg>
+              {user.name || user.email.split('@')[0]}
+            </button>
+            <button
+              onClick={logout}
+              className="nav-link logout-button"
+              style={{ textDecoration: "none" }}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+                <path fill="currentColor" d="M16 17V14H9V10H16V7L21 12L16 17M14 2A2 2 0 0116 4V6H14V4H5V20H14V18H16V20A2 2 0 0114 22H5A2 2 0 013 20V4A2 2 0 015 2H14Z"/>
+              </svg>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="nav-link auth-button pill"
+            style={{ textDecoration: "none" }}
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
+              <path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14C13.66 14 15 15.34 15 17C15 18.66 13.66 20 12 20C10.34 20 9 18.66 9 17C9 15.34 10.34 14 12 14Z"/>
+            </svg>
+            Sign In
+          </button>
+        )}
       </nav>
+
+      {/* 认证模态框 */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
 
       <style jsx>{`
         .nav {
