@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 
 // 用户类型定义
 export interface User {
@@ -41,6 +42,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter();
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     isLoading: true,
@@ -96,6 +98,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (data.tokens) {
         // 登录成功，重新检查认证状态
         await checkAuth();
+        // 重定向到首页
+        router.push('/');
         return { success: true };
       } else {
         setAuthState(prev => ({ ...prev, isLoading: false }));
@@ -130,6 +134,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (data.tokens) {
         // 注册成功，重新检查认证状态
         await checkAuth();
+        // 重定向到首页
+        router.push('/');
         return { success: true };
       } else {
         setAuthState(prev => ({ ...prev, isLoading: false }));
