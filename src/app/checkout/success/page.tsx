@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MEMBERSHIP_TIERS } from '@/contexts/AuthContext';
 
-const CheckoutSuccessPage = () => {
+const CheckoutSuccessContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isProcessing, setIsProcessing] = useState(true);
@@ -81,6 +81,23 @@ const CheckoutSuccessPage = () => {
   return null; // This will redirect
 };
 
-export default function Page() {
-  return <CheckoutSuccessPage />;
-}
+const CheckoutSuccessPage = () => {
+  return (
+    <Suspense fallback={
+      <div className="checkout-page">
+        <div className="checkout-container">
+          <div className="checkout-card">
+            <div className="checkout-processing">
+              <div className="checkout-spinner"></div>
+              <h1 className="checkout-title">Loading...</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    }>
+      <CheckoutSuccessContent />
+    </Suspense>
+  );
+};
+
+export default CheckoutSuccessPage;

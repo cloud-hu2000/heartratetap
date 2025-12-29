@@ -250,7 +250,7 @@ function LoginPageContent() {
 
               {/* Terms */}
               <div className="form-terms">
-                By clicking "Sign in", you agree to the Terms of Service.
+                By clicking &quot;Sign in&quot;, you agree to the Terms of Service.
               </div>
 
               {/* Submit Button */}

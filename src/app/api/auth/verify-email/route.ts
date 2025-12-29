@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { signSession, makeSessionCookie } from "@/lib/auth";
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: Request) {
     // Check if database is available (skip during build)
   if (!sql) {

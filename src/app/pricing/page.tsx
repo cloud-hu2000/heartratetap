@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useAuth, MEMBERSHIP_TIERS, type MembershipTier } from '@/contexts/AuthContext';
 import { useSearchParams } from 'next/navigation';
 
-const PricingPage = () => {
+const PricingContent = () => {
   const { user, upgradeMembership } = useAuth();
   const searchParams = useSearchParams();
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
@@ -141,7 +141,7 @@ const PricingPage = () => {
           <div className="pricing-faq-grid">
             <div className="pricing-faq-item">
               <h4>Can I cancel anytime?</h4>
-              <p>Yes, you can cancel your subscription at any time. You'll continue to have access to premium features until the end of your billing period.</p>
+              <p>Yes, you can cancel your subscription at any time. You&apos;ll continue to have access to premium features until the end of your billing period.</p>
             </div>
             <div className="pricing-faq-item">
               <h4>Is my data secure?</h4>
@@ -153,7 +153,7 @@ const PricingPage = () => {
             </div>
             <div className="pricing-faq-item">
               <h4>Do you offer refunds?</h4>
-              <p>We offer a 30-day money-back guarantee. If you're not satisfied with your subscription, contact us for a full refund.</p>
+              <p>We offer a 30-day money-back guarantee. If you&apos;re not satisfied with your subscription, contact us for a full refund.</p>
             </div>
           </div>
         </section>
@@ -173,6 +173,20 @@ const PricingPage = () => {
   );
 };
 
-export default function Page() {
-  return <PricingPage />;
-}
+const PricingPage = () => {
+  return (
+    <Suspense fallback={
+      <div className="pricing-page">
+        <div className="pricing-container">
+          <div className="pricing-header">
+            <h1 className="pricing-title">Loading...</h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <PricingContent />
+    </Suspense>
+  );
+};
+
+export default PricingPage;
