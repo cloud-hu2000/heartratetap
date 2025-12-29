@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { hashPassword, signSession, makeSessionCookie } from "@/lib/auth";
+import { sendVerificationEmail } from "@/lib/mailer";
+import { randomUUID } from "crypto";
 
 export async function POST(req: Request) {
   console.log('🚀 API /auth/register: 开始处理注册请求');
@@ -52,10 +54,10 @@ export async function POST(req: Request) {
     const password_hash = hashPassword(password);
     console.log('✅ 密码哈希完成');
 
-    console.log('💾 API /auth/register: 插入新用户到数据库');
+    console.log('💾 API /auth/register: 插入新用户到数据库（未验证邮箱）');
     const inserted = await sql`
       insert into users (email, email_verified, name, password_hash)
-      values (${email}, true, ${name}, ${password_hash})
+      values (${email}, false, ${name}, ${password_hash})
       returning id, email, name, role, account_tier
     `;
 
@@ -66,7 +68,7 @@ export async function POST(req: Request) {
     }
 
     const user = inserted[0];
-    console.log('👤 新用户创建成功:', {
+    console.log('👤 新用户创建成功（未验证）:', {
       id: user.id,
       email: user.email,
       name: user.name,
@@ -74,11 +76,24 @@ export async function POST(req: Request) {
       account_tier: user.account_tier
     });
 
-    console.log('🎫 API /auth/register: 生成JWT token');
-    const token = signSession({ sub: user.id, email: user.email, role: user.role });
-    console.log('✅ JWT token生成成功');
+    // 生成验证token并写入 auth_tokens 表
+    const token = randomUUID();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24小时有效
+    console.log('🔑 生成邮箱验证token:', token, '，有效期至', expiresAt.toISOString());
 
-    console.log('🍪 API /auth/register: 设置session cookie');
+    const insertedToken = await sql`
+      insert into auth_tokens (user_id, token, type, expires_at, used)
+      values (${user.id}, ${token}, 'email_verification', ${expiresAt.toISOString()}, false)
+      returning id
+    `;
+    console.log('📊 auth_tokens 插入结果：', insertedToken.length);
+
+    // 发送验证邮件
+    console.log('📨 开始发送验证邮件到', email);
+    const sendResult = await sendVerificationEmail(email, token);
+    console.log('📨 发送验证邮件结果:', sendResult);
+
+    // 不直接设置session cookie，等用户验证后再允许登录
     const res = NextResponse.json({
       ok: true,
       user: {
@@ -88,14 +103,10 @@ export async function POST(req: Request) {
         role: user.role,
         account_tier: user.account_tier
       },
-      tokens: true // 向前端表示有token
+      verificationSent: true
     }, { status: 201 });
 
-    const secure = process.env.NODE_ENV === "production";
-    res.headers.set("Set-Cookie", makeSessionCookie(token, secure));
-    console.log('✅ Cookie设置完成，安全模式:', secure);
-
-    console.log('🎉 API /auth/register: 注册成功完成');
+    console.log('🎉 API /auth/register: 已发送验证邮件，等待用户验证');
     return res;
 
   } catch (err) {

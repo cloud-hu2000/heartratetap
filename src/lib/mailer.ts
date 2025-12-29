@@ -45,16 +45,19 @@ export const sendVerificationEmail = async (to: string, token: string) => {
   const site = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const verifyUrl = `${site}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
   try {
+    console.log('📨 sendVerificationEmail: sending verification email to', to);
+    console.log('📨 sendVerificationEmail: verify URL:', verifyUrl);
     await resend.emails.send({
       from: `HeartRate Tap <${from}>`,
       to,
       subject: "Verify your email for HeartRateTap",
       text: `Click to verify your email: ${verifyUrl}`
     });
+    console.log('✅ sendVerificationEmail: email sent to', to);
     return { delivered: true } as const;
   } catch (error) {
     console.error("Failed to send verification email", error);
-    return { delivered: false, reason: "resend_error" } as const;
+    return { delivered: false, reason: "resend_error", error: String(error) } as const;
   }
 };
 

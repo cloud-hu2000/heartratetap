@@ -28,7 +28,7 @@ interface AuthContextType extends AuthState {
     email: string;
     password: string;
     name?: string;
-  }) => Promise<{ success: boolean; error?: string }>;
+  }) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
 }
@@ -141,6 +141,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.json();
       console.log('📦 响应数据:', data);
 
+      // 如果后端返回 verificationSent，说明邮件已发送，需用户点击邮件完成验证
+      if (data.verificationSent) {
+        console.log('📨 注册已收到：验证邮件已发送，等待用户验证');
+        setAuthState(prev => ({ ...prev, isLoading: false }));
+        return { success: true, needsVerification: true };
+      }
+
+      // 兼容老逻辑：如果直接返回 tokens 则认为已直接登录/注册成功
       if (data.tokens) {
         console.log('✅ 注册成功，获取到tokens');
         // 注册成功，重新检查认证状态
@@ -149,12 +157,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log('🔄 重定向到首页');
         router.push('/');
         return { success: true };
-      } else {
-        console.warn('⚠️ 注册失败，无tokens返回');
-        console.log('❌ 错误详情:', data.error || '未知错误');
-        setAuthState(prev => ({ ...prev, isLoading: false }));
-        return { success: false, error: data.error || 'Registration failed' };
       }
+
+      console.warn('⚠️ 注册未成功：', data.error || 'Unknown');
+      setAuthState(prev => ({ ...prev, isLoading: false }));
+      return { success: false, error: data.error || 'Registration failed' };
     } catch (error) {
       console.error('💥 AuthContext.register: 网络请求异常', error);
       console.error('💥 错误详情:', {

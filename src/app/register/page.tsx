@@ -22,6 +22,8 @@ function RegisterPageContent() {
     feedback: [] as string[],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState<string | null>(null);
+  const [resendLoading, setResendLoading] = useState(false);
 
   // 如果已登录，重定向到首页
   useEffect(() => {
@@ -127,7 +129,12 @@ function RegisterPageContent() {
 
       console.log('📡 API响应结果:', result);
 
-      if (result.success) {
+      if (result.success && (result as any).needsVerification) {
+        console.log('📨 注册完成；验证邮件已发送，等待邮箱确认');
+          setRegisteredEmail(formData.email);
+          setSuccess('Verification email sent. Please check your inbox and click the link to complete registration.');
+        setIsSubmitting(false);
+      } else if (result.success) {
         console.log('🎉 注册成功！');
         setSuccess('Registration successful! Welcome to HeartRateTap!');
         // 重定向由Context处理
@@ -164,16 +171,16 @@ function RegisterPageContent() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <div className="frame">
-        {/* Header */}
+        {/* Header (美化，参考示例样式) */}
         <header className="text-center mb-8">
           <Link href="/" className="inline-block">
             <span className="text-4xl mb-2 block">❤️</span>
           </Link>
-          <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--ink)' }}>
-            Create Account
+          <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--ink)' }}>
+            Start today!
           </h1>
-          <p style={{ color: 'var(--muted)' }}>
-            Join HeartRateTap to track your heart health
+          <p className="mb-4" style={{ color: 'var(--muted)' }}>
+            No payment required.
           </p>
         </header>
 
@@ -341,28 +348,67 @@ function RegisterPageContent() {
                     <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    {success}
+                    <div className="flex-1">
+                      <div>{success}</div>
+                      {registeredEmail && (
+                        <div className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>
+                          Didn't receive the email? <button
+                            onClick={async () => {
+                              setResendLoading(true);
+                              try {
+                                const resp = await fetch('/api/auth/send-verification', {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ email: registeredEmail })
+                                });
+                                const d = await resp.json();
+                                console.log('📡 resend response', d);
+                                if (resp.ok) {
+                                  setSuccess('Verification email resent. Please check your inbox.');
+                                } else {
+                                  setError(d.error || 'Failed to resend verification email');
+                                }
+                              } catch (err) {
+                                console.error('Resend error', err);
+                                setError('Network error when resending verification email');
+                              } finally {
+                                setResendLoading(false);
+                              }
+                            }}
+                            className="font-semibold hover:underline"
+                            style={{ color: 'var(--accent)', marginLeft: 6 }}
+                            disabled={resendLoading}
+                          >
+                            {resendLoading ? 'Sending...' : 'Resend verification email'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
 
               {/* Submit Button */}
+              <div className="mb-4 text-sm" style={{ color: 'var(--muted)' }}>
+                By clicking "Get started for free", you agree to the Terms of Service.
+              </div>
               <button
                 type="submit"
                 disabled={isSubmitting || !formData.email || !formData.password || !formData.confirmPassword}
-                className="w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-6"
+                className="w-full py-4 px-6 rounded-full font-semibold text-white shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-6"
                 style={{
-                  backgroundColor: 'var(--accent)',
-                  border: 'none'
+                  backgroundColor: '#f59e0b',
+                  border: 'none',
+                  fontSize: '1.05rem'
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitting) {
-                    e.currentTarget.style.backgroundColor = 'var(--ink)';
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#ec9a03';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isSubmitting) {
-                    e.currentTarget.style.backgroundColor = 'var(--accent)';
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#f59e0b';
                   }
                 }}
               >
@@ -372,7 +418,7 @@ function RegisterPageContent() {
                     Creating Account...
                   </div>
                 ) : (
-                  'Create Account'
+                  'Get started for free'
                 )}
               </button>
             </form>
