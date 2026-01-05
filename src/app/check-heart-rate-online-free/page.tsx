@@ -20,7 +20,7 @@ export default function CheckHeartRatePage() {
       <section>
         <h2>How to start</h2>
         <ol>
-          <li>Click the "Start check" button and follow the on-screen instructions.</li>
+          <li>Click the &quot;Start check&quot; button and follow the on-screen instructions.</li>
           <li>Remain still and allow the tool a few seconds to sample for a stable reading.</li>
           <li>Review the displayed BPM and guidance; repeat the measurement if needed.</li>
         </ol>
