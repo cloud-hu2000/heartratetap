@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "sentry:sourcemaps": "sentry-cli sourcemaps upload --org cloudhu --project javascript-nextjs --release=$npm_package_version ./.next/static/chunks",
-    "postbuild": "npm run sentry:sourcemaps"
+    "postbuild": "node -e \"if (process.env.SENTRY_AUTH_TOKEN) require('child_process').execSync('npm run sentry:sourcemaps', { stdio: 'inherit' }); else console.log('Skipping sentry sourcemaps upload (SENTRY_AUTH_TOKEN not set)');\""
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
