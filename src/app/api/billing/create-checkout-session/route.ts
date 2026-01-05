@@ -141,7 +141,9 @@ export async function POST(req: Request) {
 
     // 检查万里汇API配置（开发环境跳过）
     const isProduction = process.env.NODE_ENV === 'production';
-    if (isProduction && (!WORLDFIRST_CLIENT_ID || !WORLDFIRST_PRIVATE_KEY)) {
+    const worldFirstClientId = process.env.WORLDFIRST_CLIENT_ID;
+    const worldFirstPrivateKey = process.env.WORLDFIRST_PRIVATE_KEY;
+    if (isProduction && (!worldFirstClientId || !worldFirstPrivateKey)) {
       console.error('❌ 万里汇API配置缺失（生产环境必需）');
       return NextResponse.json({
         error: "WorldFirst API configuration missing"
