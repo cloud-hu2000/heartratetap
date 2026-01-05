@@ -207,7 +207,7 @@ export async function POST(req: Request) {
     const worldFirstRequest = {
       orderGroup: {
         orderBuyer: {
-          referenceBuyerId: authSession.sub
+          referenceBuyerId: userId
         },
         orderGroupDescription: `HeartRateTap ${planNameEn} Membership`,
         orderGroupId: payToRequestId,
@@ -234,7 +234,7 @@ export async function POST(req: Request) {
             paymentMethodType: "BALANCE",
             paymentMethodDataType: "PAYMENT_ACCOUNT_NO",
             paymentMethodData: "",
-            customerId: authSession.sub
+            customerId: userId
           },
           paymentNotifyUrl,
           referenceOrderId: payToRequestId
