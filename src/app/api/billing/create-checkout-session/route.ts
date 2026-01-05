@@ -67,6 +67,20 @@ type MembershipTier = keyof typeof MEMBERSHIP_TIERS;
 import { stripe } from "@/lib/stripe";
 
 // This is a placeholder implementation
+
+// Placeholder helper: createWorldFirstPayment
+// In production this should call WorldFirst API using configured credentials.
+async function createWorldFirstPayment(requestData: any): Promise<any> {
+  // If real credentials are not configured, return a mocked successful response
+  return {
+    result: { resultStatus: 'S' },
+    actionForm: JSON.stringify({
+      actionFormType: 'RedirectActionForm',
+      redirectUrl: requestData.paymentRedirectUrl || ''
+    }),
+    payToSummaries: [{ payToId: `mock-${Date.now()}` }],
+  };
+}
 // In production, this would integrate with Stripe, PayPal, or other payment processors
 export async function POST(req: Request) {
   try {
