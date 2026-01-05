@@ -113,6 +113,8 @@ export async function POST(req: Request) {
         debug: "Session verification failed. Please log in again."
       }, { status: 401 });
     }
+    // authSession 已验证为存在且包含 sub，提取为局部常量以便 TypeScript 进行类型收窄
+    const userId = authSession.sub;
 
     const { tier, successUrl, cancelUrl } = await req.json();
     console.log('📦 请求参数:', { tier, successUrl, cancelUrl, userId: authSession.sub });
@@ -131,7 +133,7 @@ export async function POST(req: Request) {
 
     // 生成万里汇支付请求ID (格式: user_{userId}_{tier}_{timestamp})
     const timestamp = Date.now();
-    const payToRequestId = `user_${authSession.sub}_${tier}_${timestamp}`;
+    const payToRequestId = `user_${userId}_${tier}_${timestamp}`;
 
     // 构建万里汇通知URL
     const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || 'http://localhost:3000';
@@ -179,8 +181,8 @@ export async function POST(req: Request) {
         mode: 'payment',
         success_url: successRedirect,
         cancel_url: cancelRedirect,
-            metadata: {
-          userId: authSession.sub,
+          metadata: {
+          userId,
           tier,
           payToRequestId,
         },
