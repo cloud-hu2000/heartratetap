@@ -65,23 +65,8 @@ const MEMBERSHIP_TIERS = {
 type MembershipTier = keyof typeof MEMBERSHIP_TIERS;
 
 import { stripe } from "@/lib/stripe";
-
-// This is a placeholder implementation
-
-// Placeholder helper: createWorldFirstPayment
-// In production this should call WorldFirst API using configured credentials.
-async function createWorldFirstPayment(requestData: any): Promise<any> {
-  // If real credentials are not configured, return a mocked successful response
-  return {
-    result: { resultStatus: 'S' },
-    actionForm: JSON.stringify({
-      actionFormType: 'RedirectActionForm',
-      redirectUrl: requestData.paymentRedirectUrl || ''
-    }),
-    payToSummaries: [{ payToId: `mock-${Date.now()}` }],
-  };
-}
-// In production, this would integrate with Stripe, PayPal, or other payment processors
+// 仅支持 Stripe；已移除 WorldFirst (万里汇) 后端逻辑
+// In production this file only creates Stripe checkout sessions.
 export async function POST(req: Request) {
   try {
     console.log('🚀 API /api/billing/create-checkout-session: 创建结账会话');
@@ -155,16 +140,7 @@ export async function POST(req: Request) {
 
     console.log('📋 支付请求信息:', { payToRequestId, paymentNotifyUrl });
 
-    // 检查万里汇API配置（开发环境跳过）
-    const isProduction = process.env.NODE_ENV === 'production';
-    const worldFirstClientId = process.env.WORLDFIRST_CLIENT_ID;
-    const worldFirstPrivateKey = process.env.WORLDFIRST_PRIVATE_KEY;
-    if (isProduction && (!worldFirstClientId || !worldFirstPrivateKey)) {
-      console.error('❌ 万里汇API配置缺失（生产环境必需）');
-      return NextResponse.json({
-        error: "WorldFirst API configuration missing"
-      }, { status: 500 });
-    }
+    // 已移除 WorldFirst/万里汇 的配置检查（仅使用 Stripe）
 
     // 使用 Stripe 创建 Checkout 会话
     if (!process.env.STRIPE_SECRET_KEY || !stripe) {
@@ -215,108 +191,7 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    
-
-    // 构建万里汇支付请求数据
-    const worldFirstRequest = {
-      orderGroup: {
-        orderBuyer: {
-          referenceBuyerId: userId
-        },
-        orderGroupDescription: `HeartRateTap ${planNameEn} Membership`,
-        orderGroupId: payToRequestId,
-        orders: [
-          {
-            orderTotalAmount: {
-              currency: plan.currency,
-              value: (plan.price * 100).toString() // 万里汇期望以最小货币单位（如分）表示
-            },
-            orderDescription: `HeartRateTap ${planNameEn} Membership - ${plan.price} ${plan.currency}`,
-            referenceOrderId: payToRequestId,
-            transactionTime: new Date().toISOString()
-          }
-        ]
-      },
-      payToDetails: [
-        {
-          payToRequestId,
-          payToAmount: {
-            currency: plan.currency,
-            value: (plan.price * 100).toString()
-          },
-          payToMethod: {
-            paymentMethodType: "BALANCE",
-            paymentMethodDataType: "PAYMENT_ACCOUNT_NO",
-            paymentMethodData: "",
-            customerId: userId
-          },
-          paymentNotifyUrl,
-          referenceOrderId: payToRequestId
-        }
-      ],
-      paymentRedirectUrl: successUrl || `${baseUrl}/checkout/success?tier=${tier}&requestId=${payToRequestId}`,
-      industryProductCode: "ONLINE_DIRECT_PAY"
-    };
-
-    try {
-      // 调用万里汇API
-      const worldFirstResponse = await createWorldFirstPayment(worldFirstRequest);
-
-      console.log('✅ 万里汇API调用成功:', worldFirstResponse);
-
-      // 检查API调用结果
-      if (worldFirstResponse.result.resultStatus !== 'S') {
-        console.error('❌ 万里汇API调用失败:', worldFirstResponse.result);
-        return NextResponse.json({
-          error: "Failed to create payment with WorldFirst",
-          details: worldFirstResponse.result
-        }, { status: 400 });
-      }
-
-      // 解析跳转URL
-      let paymentUrl = '';
-      try {
-        const actionForm = JSON.parse(worldFirstResponse.actionForm);
-        if (actionForm.actionFormType === 'RedirectActionForm') {
-          paymentUrl = actionForm.redirectUrl;
-        }
-      } catch (error) {
-        console.error('❌ 解析actionForm失败:', error);
-        return NextResponse.json({
-          error: "Failed to parse payment URL from WorldFirst response"
-        }, { status: 500 });
-      }
-
-      if (!paymentUrl) {
-        console.error('❌ 未获取到支付URL');
-        return NextResponse.json({
-          error: "No payment URL received from WorldFirst"
-        }, { status: 500 });
-      }
-
-      console.log('✅ 支付会话创建成功，跳转URL:', paymentUrl);
-
-      return NextResponse.json({
-        url: paymentUrl,
-        sessionId: payToRequestId,
-        worldfirstData: {
-          payToRequestId,
-          paymentNotifyUrl,
-          payToId: worldFirstResponse.payToSummaries?.[0]?.payToId,
-          paymentAmount: {
-            currency: plan.currency,
-            value: (plan.price * 100).toString()
-          }
-        }
-      });
-
-    } catch (error) {
-      console.error('💥 调用万里汇API失败:', error);
-      return NextResponse.json({
-        error: "Failed to create payment session",
-        details: String(error)
-      }, { status: 500 });
-    }
+    // 已移除万里汇/WorldFirst 的后端创建逻辑 —— 仅保留 Stripe 路径
 
   } catch (error) {
     console.error('💥 API /api/billing/create-checkout-session: 服务器错误', error);
