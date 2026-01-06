@@ -1,18 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchFeedbackList } from "@/lib/feedback";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
-export const metadata: Metadata = {
-  title: "HeartRateTap Roadmap & Community Ideas | Feature Development",
-  description:
-    "See what features are planned, in progress, and shipped for HeartRateTap. Vote on community suggestions and help shape the future of our free online heart rate monitor.",
-  alternates: {
-    canonical: "https://heartratetap.com/roadmap"
-  }
-};
 
 const STATUS_LABEL: Record<string, string> = {
   planned: "Planned",

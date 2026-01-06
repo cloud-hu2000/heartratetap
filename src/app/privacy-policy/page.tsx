@@ -4,10 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy | HeartRateTap",
   description:
-    "Learn how HeartRateTap handles your data. We do not sell your data and store your heart rate measurements locally in your browser by default.",
-  alternates: {
-    canonical: "https://heartratetap.com/privacy-policy"
-  }
+    "Learn how HeartRateTap handles your data. We do not sell your data and store your heart rate measurements locally in your browser by default."
 };
 
 const PrivacyPolicyPage = () => {

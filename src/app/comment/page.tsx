@@ -1,15 +1,5 @@
-import type { Metadata } from "next";
 import CommentForm from "./CommentForm";
 import { fetchFeedbackList } from "@/lib/feedback";
-
-export const metadata: Metadata = {
-  title: "Community Feedback & Feature Requests | HeartRateTap",
-  description:
-    "Share your ideas and feedback to help improve HeartRateTap. Vote on community suggestions and contribute to the development of our free online heart rate monitor.",
-  alternates: {
-    canonical: "https://heartratetap.com/comment"
-  }
-};
 
 const CommentPage = async () => {
   let comments: any[] = [];

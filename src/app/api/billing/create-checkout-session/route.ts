@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { verifySession } from "@/lib/auth";
 import crypto from "crypto";
 
-// 会员等级定义 (服务器端版本，避免客户端导入问题) - 永久会员制
+// 会员等级定义 (服务器端版本，避免客户端导入问题)
 const MEMBERSHIP_TIERS = {
   free: {
     name: 'EN: Free | ES: Gratis',
@@ -19,21 +19,22 @@ const MEMBERSHIP_TIERS = {
   },
   basic: {
     name: 'EN: Professional | ES: Profesional',
-    price: 19.99,
+    price: 1.99,
     currency: 'USD',
+    interval: 'month',
     features: [
       'EN: All free features | ES: Todas las funciones gratuitas',
       'EN: Data export (CSV) | ES: Exportación de datos (CSV)',
       'EN: History trend analysis | ES: Análisis de tendencias históricas',
       'EN: Advanced health insights | ES: Perspectivas avanzadas de salud',
       'EN: Ad-free experience | ES: Experiencia sin anuncios',
-      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   pro: {
     name: 'EN: Premium | ES: Premium',
-    price: 49.99,
+    price: 6.99,
     currency: 'USD',
+    interval: 'month',
     features: [
       'EN: All professional features | ES: Todas las funciones profesionales',
       'EN: Cloud data sync | ES: Sincronización de datos en la nube',
@@ -42,13 +43,13 @@ const MEMBERSHIP_TIERS = {
       'EN: Health goal tracking | ES: Seguimiento de objetivos de salud',
       'EN: Advanced data visualization | ES: Visualización avanzada de datos',
       'EN: Priority customer support | ES: Soporte al cliente prioritario',
-      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   enterprise: {
     name: 'EN: Enterprise | ES: Empresarial',
-    price: 199.99,
+    price: 29.99,
     currency: 'USD',
+    interval: 'month',
     features: [
       'EN: All premium features | ES: Todas las funciones premium',
       'EN: Team management | ES: Gestión de equipos',
@@ -57,7 +58,6 @@ const MEMBERSHIP_TIERS = {
       'EN: Custom reports | ES: Informes personalizados',
       'EN: Dedicated account manager | ES: Gerente de cuenta dedicado',
       'EN: Enterprise-grade security | ES: Seguridad de nivel empresarial',
-      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
 } as const;
@@ -155,64 +155,63 @@ export async function POST(req: Request) {
 
     console.log('📋 支付请求信息:', { payToRequestId, paymentNotifyUrl });
 
-    // 优先使用 Stripe（如果已配置），否则回退到万里汇（WorldFirst）
+    // 检查万里汇API配置（开发环境跳过）
     const isProduction = process.env.NODE_ENV === 'production';
-    const stripeConfigured = !!process.env.STRIPE_SECRET_KEY && !!stripe;
-
-    if (stripeConfigured) {
-      console.log('💳 使用 Stripe 创建 Checkout 会话 (优先策略)');
-      const successRedirect = successUrl || `${baseUrl}/checkout/success?tier=${tier}&requestId=${payToRequestId}`;
-      const cancelRedirect = cancelUrl || `${baseUrl}/pricing?canceled=true`;
-      const unitAmount = Math.round(plan.price * 100);
-
-      try {
-        const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          line_items: [
-            {
-              price_data: {
-                currency: plan.currency.toLowerCase(),
-                product_data: {
-                  name: `HeartRateTap ${planNameEn} Lifetime Membership`,
-                  description: `One-time payment for lifetime access to ${planNameEn} features`,
-                },
-                unit_amount: unitAmount,
-              },
-              quantity: 1,
-            },
-          ],
-          mode: 'payment', // 一次性支付，而不是订阅
-          success_url: successRedirect,
-          cancel_url: cancelRedirect,
-          metadata: {
-            userId,
-            tier,
-            payToRequestId,
-            lifetime: 'true', // 标记为永久会员购买
-          },
-        });
-
-        console.log('✅ Stripe Checkout 会话创建成功:', { sessionId: session.id, url: session.url });
-        return NextResponse.json({
-          url: session.url,
-          sessionId: session.id,
-        });
-      } catch (stripeError) {
-        console.error('💥 Stripe 创建会话失败:', stripeError);
-        return NextResponse.json({
-          error: "Failed to create Stripe checkout session",
-          details: String(stripeError)
-        }, { status: 500 });
-      }
-    }
-
-    // Stripe 未配置或不可用，继续使用万里汇（WorldFirst）
     const worldFirstClientId = process.env.WORLDFIRST_CLIENT_ID;
     const worldFirstPrivateKey = process.env.WORLDFIRST_PRIVATE_KEY;
     if (isProduction && (!worldFirstClientId || !worldFirstPrivateKey)) {
-      console.error('❌ 万里汇API配置缺失（生产环境必需）且 Stripe 未配置');
+      console.error('❌ 万里汇API配置缺失（生产环境必需）');
       return NextResponse.json({
         error: "WorldFirst API configuration missing"
+      }, { status: 500 });
+    }
+
+    // 使用 Stripe 创建 Checkout 会话
+    if (!process.env.STRIPE_SECRET_KEY || !stripe) {
+      console.error('❌ Stripe 未配置 (缺少 STRIPE_SECRET_KEY)');
+      return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
+    }
+
+    console.log('💳 使用 Stripe 创建 Checkout 会话');
+    const successRedirect = successUrl || `${baseUrl}/checkout/success?tier=${tier}&requestId=${payToRequestId}`;
+    const cancelRedirect = cancelUrl || `${baseUrl}/pricing?canceled=true`;
+    const unitAmount = Math.round(plan.price * 100);
+
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: plan.currency.toLowerCase(),
+              product_data: {
+                name: `HeartRateTap ${planNameEn} Membership`,
+              },
+              unit_amount: unitAmount,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: successRedirect,
+        cancel_url: cancelRedirect,
+          metadata: {
+          userId,
+          tier,
+          payToRequestId,
+        },
+      });
+
+      console.log('✅ Stripe Checkout 会话创建成功:', { sessionId: session.id, url: session.url });
+      return NextResponse.json({
+        url: session.url,
+        sessionId: session.id,
+      });
+    } catch (stripeError) {
+      console.error('💥 Stripe 创建会话失败:', stripeError);
+      return NextResponse.json({
+        error: "Failed to create Stripe checkout session",
+        details: String(stripeError)
       }, { status: 500 });
     }
 

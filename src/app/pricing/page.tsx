@@ -148,7 +148,7 @@ const PricingContent = () => {
               </h3>
               <div className="pricing-price">
                 <span className="pricing-amount">${MEMBERSHIP_TIERS.basic.price}</span>
-                <span className="pricing-period">{currentLang === 'en' ? 'lifetime' : 'de por vida'}</span>
+                <span className="pricing-period">/month</span>
               </div>
             </div>
             <ul className="pricing-features">
@@ -176,7 +176,7 @@ const PricingContent = () => {
               </h3>
               <div className="pricing-price">
                 <span className="pricing-amount">${MEMBERSHIP_TIERS.pro.price}</span>
-                <span className="pricing-period">{currentLang === 'en' ? 'lifetime' : 'de por vida'}</span>
+                <span className="pricing-period">/month</span>
               </div>
             </div>
             <ul className="pricing-features">
