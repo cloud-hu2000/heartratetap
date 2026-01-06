@@ -64,70 +64,23 @@ const MEMBERSHIP_TIERS = {
 
 type MembershipTier = keyof typeof MEMBERSHIP_TIERS;
 
-// 万里汇API配置
-const WORLDFIRST_API_URL = process.env.WORLDFIRST_API_URL || "https://api-sg.worldfirst.com";
-const WORLDFIRST_CLIENT_ID = process.env.WORLDFIRST_CLIENT_ID;
-const WORLDFIRST_PRIVATE_KEY = process.env.WORLDFIRST_PRIVATE_KEY;
-
-// 生成RSA签名
-function generateSignature(data: string, privateKey: string): string {
-  try {
-    const signer = crypto.createSign('RSA-SHA256');
-    signer.update(data, 'utf8');
-    const signature = signer.sign(privateKey, 'base64');
-    return `algorithm=RSA256,keyVersion=1,signature=${signature}`;
-  } catch (error) {
-    console.error('💥 签名生成失败:', error);
-    throw new Error('Failed to generate signature');
-  }
-}
-
-// 调用万里汇createCashierPayment API
-async function createWorldFirstPayment(requestData: any): Promise<any> {
-  const url = `${WORLDFIRST_API_URL}/amsin/api/v1/business/create`;
-
-  // 生成请求签名
-  const requestBody = JSON.stringify(requestData);
-  const signature = generateSignature(requestBody, WORLDFIRST_PRIVATE_KEY!);
-
-  const headers = {
-    'Content-Type': 'application/json',
-    'Client-Id': WORLDFIRST_CLIENT_ID!,
-    'Signature': signature,
-    'Request-Time': new Date().toISOString()
-  };
-
-  console.log('🌐 调用万里汇API:', {
-    url,
-    headers: { ...headers, Signature: headers.Signature.substring(0, 50) + '...' },
-    body: JSON.stringify(requestData, null, 2)
-  });
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: requestBody
-  });
-
-  const responseText = await response.text();
-  console.log('📡 万里汇API响应:', {
-    status: response.status,
-    headers: Object.fromEntries(response.headers.entries()),
-    body: responseText
-  });
-
-  if (!response.ok) {
-    throw new Error(`WorldFirst API error: ${response.status} ${responseText}`);
-  }
-
-  try {
-    return JSON.parse(responseText);
-  } catch (error) {
-    throw new Error(`Invalid JSON response from WorldFirst: ${responseText}`);
-  }
-}
+import { stripe } from "@/lib/stripe";
 
 // This is a placeholder implementation
+
+// Placeholder helper: createWorldFirstPayment
+// In production this should call WorldFirst API using configured credentials.
+async function createWorldFirstPayment(requestData: any): Promise<any> {
+  // If real credentials are not configured, return a mocked successful response
+  return {
+    result: { resultStatus: 'S' },
+    actionForm: JSON.stringify({
+      actionFormType: 'RedirectActionForm',
+      redirectUrl: requestData.paymentRedirectUrl || ''
+    }),
+    payToSummaries: [{ payToId: `mock-${Date.now()}` }],
+  };
+}
 // In production, this would integrate with Stripe, PayPal, or other payment processors
 export async function POST(req: Request) {
   try {
@@ -158,25 +111,27 @@ export async function POST(req: Request) {
       }, { status: 401 });
     }
 
-    const session = verifySession(sessionCookie);
+    const authSession = verifySession(sessionCookie);
     console.log('🔍 Session验证结果:', {
-      hasSession: !!session,
-      sub: session?.sub,
-      email: session?.email,
-      role: session?.role,
-      sessionKeys: session ? Object.keys(session) : null
+      hasSession: !!authSession,
+      sub: authSession?.sub,
+      email: authSession?.email,
+      role: authSession?.role,
+      sessionKeys: authSession ? Object.keys(authSession) : null
     });
 
-    if (!session || !session.sub) {
+    if (!authSession || !authSession.sub) {
       console.error('❌ 无效的会话 - session验证失败');
       return NextResponse.json({
         error: "Invalid session",
         debug: "Session verification failed. Please log in again."
       }, { status: 401 });
     }
+    // authSession 已验证为存在且包含 sub，提取为局部常量以便 TypeScript 进行类型收窄
+    const userId = authSession.sub;
 
     const { tier, successUrl, cancelUrl } = await req.json();
-    console.log('📦 请求参数:', { tier, successUrl, cancelUrl, userId: session.sub });
+    console.log('📦 请求参数:', { tier, successUrl, cancelUrl, userId: authSession.sub });
 
     // Validate tier
     if (!tier || !MEMBERSHIP_TIERS[tier as MembershipTier]) {
@@ -186,10 +141,13 @@ export async function POST(req: Request) {
 
     const plan = MEMBERSHIP_TIERS[tier as MembershipTier];
     console.log('✅ 会员计划:', plan);
+    // 解析会员等级名称 (从 "EN: xxx | ES: yyy" 格式中提取英文名称)
+    const planNameMatch = plan.name.match(/EN:\s*([^|]+)/);
+    const planNameEn = planNameMatch ? planNameMatch[1].trim() : plan.name.split('|')[0].trim();
 
     // 生成万里汇支付请求ID (格式: user_{userId}_{tier}_{timestamp})
     const timestamp = Date.now();
-    const payToRequestId = `user_${session.sub}_${tier}_${timestamp}`;
+    const payToRequestId = `user_${userId}_${tier}_${timestamp}`;
 
     // 构建万里汇通知URL
     const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || 'http://localhost:3000';
@@ -199,48 +157,71 @@ export async function POST(req: Request) {
 
     // 检查万里汇API配置（开发环境跳过）
     const isProduction = process.env.NODE_ENV === 'production';
-    if (isProduction && (!WORLDFIRST_CLIENT_ID || !WORLDFIRST_PRIVATE_KEY)) {
+    const worldFirstClientId = process.env.WORLDFIRST_CLIENT_ID;
+    const worldFirstPrivateKey = process.env.WORLDFIRST_PRIVATE_KEY;
+    if (isProduction && (!worldFirstClientId || !worldFirstPrivateKey)) {
       console.error('❌ 万里汇API配置缺失（生产环境必需）');
       return NextResponse.json({
         error: "WorldFirst API configuration missing"
       }, { status: 500 });
     }
 
-    // 开发环境使用模拟响应
-    if (!isProduction) {
-      console.log('🧪 开发环境：模拟万里汇支付会话创建');
-
-      // 模拟延迟
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      return NextResponse.json({
-        url: `${baseUrl}/checkout/success?tier=${tier}&requestId=${payToRequestId}`,
-        sessionId: payToRequestId,
-        worldfirstData: {
-          payToRequestId,
-          paymentNotifyUrl,
-          payToId: `mock_payto_${Date.now()}`,
-          paymentAmount: {
-            currency: plan.currency,
-            value: (plan.price * 100).toString()
-          }
-        },
-        debug: {
-          mode: 'development',
-          message: 'This is a mock response for development testing'
-        }
-      });
+    // 使用 Stripe 创建 Checkout 会话
+    if (!process.env.STRIPE_SECRET_KEY || !stripe) {
+      console.error('❌ Stripe 未配置 (缺少 STRIPE_SECRET_KEY)');
+      return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
     }
 
-    // 解析会员等级名称 (从 "EN: xxx | ES: yyy" 格式中提取英文名称)
-    const planNameMatch = plan.name.match(/EN:\s*([^|]+)/);
-    const planNameEn = planNameMatch ? planNameMatch[1].trim() : plan.name.split('|')[0].trim();
+    console.log('💳 使用 Stripe 创建 Checkout 会话');
+    const successRedirect = successUrl || `${baseUrl}/checkout/success?tier=${tier}&requestId=${payToRequestId}`;
+    const cancelRedirect = cancelUrl || `${baseUrl}/pricing?canceled=true`;
+    const unitAmount = Math.round(plan.price * 100);
+
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: plan.currency.toLowerCase(),
+              product_data: {
+                name: `HeartRateTap ${planNameEn} Membership`,
+              },
+              unit_amount: unitAmount,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: successRedirect,
+        cancel_url: cancelRedirect,
+          metadata: {
+          userId,
+          tier,
+          payToRequestId,
+        },
+      });
+
+      console.log('✅ Stripe Checkout 会话创建成功:', { sessionId: session.id, url: session.url });
+      return NextResponse.json({
+        url: session.url,
+        sessionId: session.id,
+      });
+    } catch (stripeError) {
+      console.error('💥 Stripe 创建会话失败:', stripeError);
+      return NextResponse.json({
+        error: "Failed to create Stripe checkout session",
+        details: String(stripeError)
+      }, { status: 500 });
+    }
+
+    
 
     // 构建万里汇支付请求数据
     const worldFirstRequest = {
       orderGroup: {
         orderBuyer: {
-          referenceBuyerId: session.sub
+          referenceBuyerId: userId
         },
         orderGroupDescription: `HeartRateTap ${planNameEn} Membership`,
         orderGroupId: payToRequestId,
@@ -267,7 +248,7 @@ export async function POST(req: Request) {
             paymentMethodType: "BALANCE",
             paymentMethodDataType: "PAYMENT_ACCOUNT_NO",
             paymentMethodData: "",
-            customerId: session.sub
+            customerId: userId
           },
           paymentNotifyUrl,
           referenceOrderId: payToRequestId

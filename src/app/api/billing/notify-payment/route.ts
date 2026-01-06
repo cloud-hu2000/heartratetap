@@ -1,196 +1,120 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import crypto from "crypto";
+import { stripe } from "@/lib/stripe";
 
-// WorldFirst RSA公钥 (需要在环境变量中配置)
-const WORLDFIRST_PUBLIC_KEY = process.env.WORLDFIRST_PUBLIC_KEY;
-
-// 验证RSA256签名
-function verifySignature(signature: string, data: string, publicKey: string): boolean {
-  try {
-    // 从签名字符串中提取实际签名 (格式: algorithm=RSA256, keyVersion=2, signature=xxxxx)
-    const signatureMatch = signature.match(/signature=([^,]+)/);
-    if (!signatureMatch) {
-      console.error('❌ 无效的签名格式');
-      return false;
-    }
-
-    const actualSignature = signatureMatch[1];
-    const verifier = crypto.createVerify('RSA-SHA256');
-    verifier.update(data, 'utf8');
-
-    return verifier.verify(publicKey, actualSignature, 'base64');
-  } catch (error) {
-    console.error('💥 签名验证失败:', error);
-    return false;
-  }
-}
-
-// 处理支付通知
-async function handlePaymentNotification(notificationData: any) {
-  const {
-    payToRequestId,  // 商户生成的支付请求号
-    paymentId,       // 万里汇支付ID
-    paymentTime,     // 支付时间
-    paymentAmount,   // 支付金额
-    result,          // 支付结果
-    notifyType       // 通知类型
-  } = notificationData;
-
-  console.log('📡 处理支付通知:', {
-    payToRequestId,
-    paymentId,
-    paymentTime,
-    paymentAmount,
-    result,
-    notifyType
-  });
-
-  // 检查数据库连接
-  if (!sql) {
-    console.error('❌ 数据库连接不可用');
-    throw new Error('Database connection not available');
-  }
-
-  // 只有支付成功的结果才处理
-  if (result.resultStatus !== 'S' || result.resultCode !== 'SUCCESS') {
-    console.log('⚠️ 支付未成功，跳过处理:', result);
-    return;
-  }
-
-  // 从payToRequestId中解析用户信息 (格式: user_{userId}_{tier}_{timestamp})
-  const requestIdParts = payToRequestId.split('_');
-  if (requestIdParts.length < 3 || requestIdParts[0] !== 'user') {
-    console.error('❌ 无效的支付请求ID格式:', payToRequestId);
-    throw new Error('Invalid payment request ID format');
-  }
-
-  const userId = requestIdParts[1];
-  const tier = requestIdParts[2];
-
-  console.log('👤 更新用户账户:', { userId, tier, paymentAmount });
-
-  // 更新用户的会员等级
-  const updateResult = await sql`
-    UPDATE users
-    SET account_tier = ${tier}, updated_at = NOW()
-    WHERE id = ${userId}
-  `;
-
-  if (updateResult.rowCount === 0) {
-    console.error('❌ 用户更新失败，用户ID不存在:', userId);
-    throw new Error('User not found or update failed');
-  }
-
-  // 记录支付历史 (可以扩展为单独的支付记录表)
-  console.log('✅ 用户账户更新成功:', { userId, tier });
-
-  // 可以在这里添加更多业务逻辑，比如：
-  // - 发送确认邮件
-  // - 更新订阅状态
-  // - 触发其他业务流程
-}
-
+// Stripe webhook handler: 验证签名并根据事件处理业务逻辑（如更新用户会员等级）
 export async function POST(req: NextRequest) {
   try {
-    console.log('🚀 API /api/billing/notify-payment: 接收万里汇支付通知');
+    console.log('🚀 API /api/billing/notify-payment: 接收 Stripe webhook');
 
-    // 检查环境变量
-    if (!WORLDFIRST_PUBLIC_KEY) {
-      console.error('❌ WORLDFIRST_PUBLIC_KEY 环境变量未配置');
-      return NextResponse.json({
-        result: {
-          resultStatus: "F",
-          resultCode: "PARAM_ILLEGAL",
-          resultMessage: "WorldFirst public key not configured"
-        }
-      }, { status: 500 });
+    if (!stripe) {
+      console.error('❌ Stripe 未配置 (STRIPE_SECRET_KEY 缺失)');
+      return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
     }
 
-    // 获取请求头
-    const signature = req.headers.get('signature');
-    const clientId = req.headers.get('client-id');
-    const responseTime = req.headers.get('response-time');
-
-    console.log('📋 请求头信息:', { signature: signature?.substring(0, 50) + '...', clientId, responseTime });
-
-    // 验证必需的请求头
-    if (!signature || !clientId) {
-      console.error('❌ 缺少必需的请求头');
-      return NextResponse.json({
-        result: {
-          resultStatus: "F",
-          resultCode: "PARAM_ILLEGAL",
-          resultMessage: "Missing required headers: signature or client-id"
-        }
-      }, { status: 400 });
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    if (!webhookSecret) {
+      console.error('❌ STRIPE_WEBHOOK_SECRET 环境变量未配置');
+      return NextResponse.json({ error: "Missing STRIPE_WEBHOOK_SECRET" }, { status: 500 });
     }
 
-    // 获取请求体
-    const body = await req.text();
-    console.log('📦 请求体:', body.substring(0, 200) + '...');
+    const sig = req.headers.get('stripe-signature') || '';
+    const buf = await req.arrayBuffer();
+    const rawBody = Buffer.from(buf);
 
-    // 验证签名
-    const isValidSignature = verifySignature(signature, body, WORLDFIRST_PUBLIC_KEY);
-    if (!isValidSignature) {
-      console.error('❌ 签名验证失败');
-      return NextResponse.json({
-        result: {
-          resultStatus: "F",
-          resultCode: "PARAM_ILLEGAL",
-          resultMessage: "Invalid signature"
-        }
-      }, { status: 400 });
-    }
-
-    console.log('✅ 签名验证成功');
-
-    // 解析请求体
-    let notificationData;
+    let event: any;
     try {
-      notificationData = JSON.parse(body);
-    } catch (error) {
-      console.error('❌ 无效的JSON格式');
-      return NextResponse.json({
-        result: {
-          resultStatus: "F",
-          resultCode: "PARAM_ILLEGAL",
-          resultMessage: "Invalid JSON format"
-        }
-      }, { status: 400 });
+      event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+    } catch (err) {
+      console.error('❌ Stripe webhook 验证失败:', err);
+      return NextResponse.json({ error: "Invalid webhook signature" }, { status: 400 });
     }
 
-    // 处理支付通知
-    await handlePaymentNotification(notificationData);
+    console.log('📡 Stripe event:', event.type);
 
-    // 返回成功响应
-    console.log('✅ 支付通知处理成功');
+    // 处理 checkout.session.completed: 完成支付后更新用户会员等级
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const metadata = session.metadata || {};
+      const userId = metadata.userId;
+      const tier = metadata.tier;
 
-    return NextResponse.json({
-      result: {
-        resultStatus: "S",
-        resultCode: "SUCCESS",
-        resultMessage: "success"
+      console.log('🔔 checkout.session.completed metadata:', metadata);
+      if (userId && tier) {
+        if (!sql) {
+          console.error('❌ 数据库连接不可用，无法更新用户等级');
+        } else {
+          await sql`
+            UPDATE users
+            SET account_tier = ${tier}, updated_at = NOW()
+            WHERE id = ${userId}
+          `;
+          console.log('✅ 已更新用户会员等级', { userId, tier });
+        }
       }
-    });
+    }
 
+    // 处理 payment_intent.succeeded：尝试从 metadata 或关联的 checkout session 获取 userId/tier 并更新数据库
+    if (event.type === 'payment_intent.succeeded') {
+      const paymentIntent = event.data.object;
+      const metadata = paymentIntent.metadata || {};
+      const userId = metadata.userId;
+      const tier = metadata.tier;
+
+      console.log('🔔 payment_intent.succeeded metadata:', metadata);
+
+      if (userId && tier) {
+        if (!sql) {
+          console.error('❌ 数据库连接不可用，无法更新用户等级');
+        } else {
+          await sql`
+            UPDATE users
+            SET account_tier = ${tier}, updated_at = NOW()
+            WHERE id = ${userId}
+          `;
+          console.log('✅ 已更新用户会员等级 (from payment_intent.metadata)', { userId, tier });
+        }
+      } else {
+        // 若 payment_intent.metadata 没有 userId/tier，则尝试通过 payment_intent 查找关联的 checkout session
+        try {
+          const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent.id, limit: 1 });
+          const sess = sessions.data?.[0];
+          const sessMeta = sess?.metadata || {};
+          const sessUserId = sessMeta.userId;
+          const sessTier = sessMeta.tier;
+          console.log('🔍 Linked checkout.session metadata:', sessMeta);
+          if (sessUserId && sessTier) {
+            if (!sql) {
+              console.error('❌ 数据库连接不可用，无法更新用户等级');
+            } else {
+              await sql`
+                UPDATE users
+                SET account_tier = ${sessTier}, updated_at = NOW()
+                WHERE id = ${sessUserId}
+              `;
+              console.log('✅ 已更新用户会员等级 (from linked checkout.session)', { userId: sessUserId, tier: sessTier });
+            }
+          } else {
+            console.warn('⚠️ 无法从 payment_intent 或其关联 session 中找到 userId/tier', { paymentIntentId: paymentIntent.id });
+          }
+        } catch (err) {
+          console.error('❌ 查询 checkout.session 时出错', err);
+        }
+      }
+    }
+
+    // 可扩展：处理其他事件类型，如 payment_intent.succeeded、invoice.paid 等
+
+    return NextResponse.json({ received: true });
   } catch (error) {
     console.error('💥 API /api/billing/notify-payment: 服务器错误', error);
-
-    return NextResponse.json({
-      result: {
-        resultStatus: "U",
-        resultCode: "UNKNOWN_EXCEPTION",
-        resultMessage: "Internal server error"
-      }
-    }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
 
-// 为了测试目的，添加GET方法来检查端点是否可用
 export async function GET() {
   return NextResponse.json({
-    message: "WorldFirst notify-payment endpoint is active",
+    message: "Stripe notify-payment endpoint is active",
     timestamp: new Date().toISOString(),
     status: "ok"
   });

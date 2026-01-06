@@ -193,95 +193,193 @@ const FeedbackWidget = () => {
       </button>
 
       {isOpen && (
-        <div className="feedback-panel">
-          <div className="feedback-panel-header">
-            <div>
-              <p className="feedback-panel-label">Feedback box</p>
-              <h3>Tell us what to improve next</h3>
+        <div
+          className="feedback-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Feedback dialog"
+          onClick={() => setIsOpen(false)}
+        >
+          <div className="feedback-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="feedback-panel-header">
+              <div>
+                <p className="feedback-panel-label">Feedback box</p>
+                <h3>Tell us what to improve next</h3>
+              </div>
+              <button
+                type="button"
+                className="feedback-close"
+                onClick={() => setIsOpen(false)}
+                aria-label="Close feedback"
+              >
+                ×
+              </button>
             </div>
-            <button type="button" className="feedback-close" onClick={() => setIsOpen(false)}>
-              ×
-            </button>
-          </div>
 
-          <form className="feedback-form" onSubmit={handleSubmit}>
-            <label>
-              Title
-              <input
-                type="text"
-                value={form.title}
-                onChange={handleChange("title")}
-                placeholder="Describe your idea in one sentence"
-                maxLength={80}
-              />
-            </label>
-            <label>
-              Details
-              <textarea
-                value={form.description}
-                onChange={handleChange("description")}
-                placeholder="Share as much context as possible"
-                rows={4}
-                maxLength={1000}
-              />
-            </label>
-            <label>
-              Email (optional)
-              <input
-                type="email"
-                value={form.email}
-                onChange={handleChange("email")}
-                placeholder="So we can follow up if needed"
-              />
-            </label>
-            <button type="submit" className="pill active" disabled={submitting}>
-              {submitting ? "Submitting…" : "Submit idea"}
-            </button>
-          </form>
-
-          {message && (
-            <p className={`feedback-message feedback-message-${message.type}`}>
-              {message.text}{" "}
-              {message.type === "success" && (
-                <Link href="/roadmap" className="blog-inline-cta">
-                  View Top Ideas
-                </Link>
-              )}
-            </p>
-          )}
-
-          <div className="feedback-list">
-            <div className="feedback-list-headline">
-              <h4>Community leaderboard</h4>
-              <span>{sortedItems.length} ideas</span>
-            </div>
-            {sortedItems.length === 0 && <p className="feedback-empty">No ideas yet. Be the first to share!</p>}
-            {sortedItems.map((item) => (
-              <article key={item.id} className="feedback-item">
-                <div>
-                  <h5>{item.title}</h5>
-                  <p>{item.description}</p>
-                  <span className="feedback-item-time">
-                    {new Date(item.createdAt).toLocaleDateString(undefined, {
-                      month: "short",
-                      day: "2-digit"
-                    })}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className={`feedback-vote ${votedIds.has(item.id) ? "feedback-vote-disabled" : ""}`}
-                  onClick={() => handleVote(item.id)}
-                  disabled={votedIds.has(item.id) || voting[item.id]}
-                >
-                  <span>{item.votes}</span>
-                  <small>{votedIds.has(item.id) ? "Voted" : voting[item.id] ? "Voting…" : "Support"}</small>
+            <div className="feedback-body">
+              <form className="feedback-form" onSubmit={handleSubmit}>
+                <label>
+                  Title
+                  <input
+                    type="text"
+                    value={form.title}
+                    onChange={handleChange("title")}
+                    placeholder="Describe your idea in one sentence"
+                    maxLength={80}
+                  />
+                </label>
+                <label>
+                  Details
+                  <textarea
+                    value={form.description}
+                    onChange={handleChange("description")}
+                    placeholder="Share as much context as possible"
+                    rows={4}
+                    maxLength={1000}
+                  />
+                </label>
+                <label>
+                  Email (optional)
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange("email")}
+                    placeholder="So we can follow up if needed"
+                  />
+                </label>
+                <button type="submit" className="pill active" disabled={submitting}>
+                  {submitting ? "Submitting…" : "Submit idea"}
                 </button>
-              </article>
-            ))}
+              </form>
+
+              {message && (
+                <p className={`feedback-message feedback-message-${message.type}`}>
+                  {message.text}{" "}
+                  {message.type === "success" && (
+                    <Link href="/roadmap" className="blog-inline-cta">
+                      View Top Ideas
+                    </Link>
+                  )}
+                </p>
+              )}
+
+              <div className="feedback-list">
+                <div className="feedback-list-headline">
+                  <h4>Community leaderboard</h4>
+                  <span>{sortedItems.length} ideas</span>
+                </div>
+                {sortedItems.length === 0 && <p className="feedback-empty">No ideas yet. Be the first to share!</p>}
+                {sortedItems.map((item) => (
+                  <article key={item.id} className="feedback-item">
+                    <div>
+                      <h5>{item.title}</h5>
+                      <p>{item.description}</p>
+                      <span className="feedback-item-time">
+                        {new Date(item.createdAt).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "2-digit"
+                        })}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className={`feedback-vote ${votedIds.has(item.id) ? "feedback-vote-disabled" : ""}`}
+                      onClick={() => handleVote(item.id)}
+                      disabled={votedIds.has(item.id) || voting[item.id]}
+                    >
+                      <span>{item.votes}</span>
+                      <small>{votedIds.has(item.id) ? "Voted" : voting[item.id] ? "Voting…" : "Support"}</small>
+                    </button>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        .feedback-toggle {
+          cursor: pointer;
+        }
+        /* overlay covers viewport so panel doesn't push content */
+        .feedback-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          padding: 1rem;
+        }
+        .feedback-modal {
+          background: var(--bg, #fff);
+          width: min(900px, 96vw);
+          max-height: 90vh;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .feedback-panel-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1rem 1.25rem;
+          border-bottom: 1px solid var(--line, rgba(0,0,0,0.06));
+        }
+        .feedback-close {
+          background: none;
+          border: none;
+          font-size: 1.25rem;
+          cursor: pointer;
+          padding: 0.25rem 0.5rem;
+          line-height: 1;
+        }
+        .feedback-body {
+          padding: 1rem 1.25rem 1.5rem;
+          overflow: auto;
+        }
+        .feedback-form label {
+          display: block;
+          margin-bottom: 0.75rem;
+          font-weight: 600;
+        }
+        .feedback-form input,
+        .feedback-form textarea {
+          width: 100%;
+          padding: 0.5rem;
+          margin-top: 0.25rem;
+          border: 1px solid var(--line, rgba(0,0,0,0.08));
+          border-radius: 6px;
+          background: var(--bg, #fff);
+        }
+        .feedback-list {
+          margin-top: 1rem;
+        }
+        .feedback-item {
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.75rem 0;
+          border-bottom: 1px solid var(--line, rgba(0,0,0,0.04));
+        }
+        @media (max-width: 640px) {
+          .feedback-modal {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 95vh;
+          }
+          .feedback-panel-header {
+            padding: 0.75rem;
+          }
+          .feedback-body {
+            padding: 0.75rem;
+          }
+        }
+      `}</style>
     </div>
   );
 };

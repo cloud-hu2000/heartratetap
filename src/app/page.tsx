@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
@@ -458,6 +459,69 @@ const HeartRatePage = () => {
     setShowUpgradePrompt(false);
   }, []);
 
+  // Portal-based upgrade modal so it overlays entire viewport regardless of parent stacking contexts
+  const UpgradeModalPortal = ({ onClose }: { onClose: () => void }) => {
+    useEffect(() => {
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") onClose();
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [onClose]);
+
+    if (typeof document === "undefined") return null;
+
+    return createPortal(
+      <div className="upgrade-modal-overlay" onClick={onClose}>
+        <div className="upgrade-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="upgrade-modal-header">
+            <h3>Upgrade to Export Data</h3>
+            <button
+              type="button"
+              className="upgrade-modal-close"
+              onClick={onClose}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+          <div className="upgrade-modal-body">
+            <div className="upgrade-modal-icon">📊</div>
+            <p className="upgrade-modal-message">
+              Data export is available for Professional and Premium plans. Upgrade your membership to unlock this feature and get access to advanced analytics.
+            </p>
+            <div className="upgrade-modal-features">
+              <h4>Professional Plan includes:</h4>
+              <ul>
+                <li>✅ Data export (CSV)</li>
+                <li>✅ Advanced health insights</li>
+                <li>✅ Trend analysis</li>
+                <li>✅ Ad-free experience</li>
+              </ul>
+            </div>
+          </div>
+          <div className="upgrade-modal-actions">
+            <button
+              type="button"
+              className="pill"
+              onClick={onClose}
+            >
+              Maybe Later
+            </button>
+            <button
+              type="button"
+              className="pill active"
+              onClick={handleUpgradeClick}
+            >
+              Upgrade Now
+            </button>
+          </div>
+        </div>
+      </div>,
+      document.body
+    );
+  };
+
   const triggerTapPulse = useCallback(() => {
     setTapPulse(true);
     setBeatCount((c) => c + 1);
@@ -902,55 +966,8 @@ const HeartRatePage = () => {
           )}
         </section>
 
-        {/* 升级会员提示对话框 */}
-        {showUpgradePrompt && (
-          <div className="upgrade-modal-overlay" onClick={handleCancelUpgrade}>
-            <div className="upgrade-modal" onClick={(e) => e.stopPropagation()}>
-              <div className="upgrade-modal-header">
-                <h3>Upgrade to Export Data</h3>
-                <button
-                  type="button"
-                  className="upgrade-modal-close"
-                  onClick={handleCancelUpgrade}
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="upgrade-modal-body">
-                <div className="upgrade-modal-icon">📊</div>
-                <p className="upgrade-modal-message">
-                  Data export is available for Professional and Premium plans. Upgrade your membership to unlock this feature and get access to advanced analytics.
-                </p>
-                <div className="upgrade-modal-features">
-                  <h4>Professional Plan includes:</h4>
-                  <ul>
-                    <li>✅ Data export (CSV)</li>
-                    <li>✅ Advanced health insights</li>
-                    <li>✅ Trend analysis</li>
-                    <li>✅ Ad-free experience</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="upgrade-modal-actions">
-                <button
-                  type="button"
-                  className="pill"
-                  onClick={handleCancelUpgrade}
-                >
-                  Maybe Later
-                </button>
-                <button
-                  type="button"
-                  className="pill active"
-                  onClick={handleUpgradeClick}
-                >
-                  Upgrade Now
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* 升级会员提示对话框（通过 portal 渲染） */}
+        {showUpgradePrompt && <UpgradeModalPortal onClose={handleCancelUpgrade} />}
       </main>
 
       <section className="panel roadmap-preview section-margin-top">
@@ -1022,7 +1039,7 @@ const HeartRatePage = () => {
             text-align: center;
             border-radius: 999px;
           }
-          .upgrade-modal-overlay {
+          :global(.upgrade-modal-overlay) {
             position: fixed;
             top: 0;
             left: 0;
@@ -1036,7 +1053,7 @@ const HeartRatePage = () => {
             padding: 1rem;
             backdrop-filter: blur(2px);
           }
-          .upgrade-modal {
+          :global(.upgrade-modal) {
             background: var(--bg, #ffffff);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -1045,20 +1062,20 @@ const HeartRatePage = () => {
             max-height: 90vh;
             overflow-y: auto;
           }
-          .upgrade-modal-header {
+          :global(.upgrade-modal-header) {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 1.5rem 1.5rem 1rem;
             border-bottom: 1px solid var(--line, rgba(255, 255, 255, 0.08));
           }
-          .upgrade-modal-header h3 {
+          :global(.upgrade-modal-header h3) {
             margin: 0;
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--ink, #000);
           }
-          .upgrade-modal-close {
+          :global(.upgrade-modal-close) {
             background: none;
             border: none;
             font-size: 1.5rem;
@@ -1069,66 +1086,66 @@ const HeartRatePage = () => {
             border-radius: 4px;
             transition: all 0.2s;
           }
-          .upgrade-modal-close:hover {
+          :global(.upgrade-modal-close:hover) {
             background: var(--line, rgba(255, 255, 255, 0.08));
             color: var(--ink, #000);
           }
-          .upgrade-modal-body {
+          :global(.upgrade-modal-body) {
             padding: 1.5rem;
             text-align: center;
           }
-          .upgrade-modal-icon {
+          :global(.upgrade-modal-icon) {
             font-size: 3rem;
             margin-bottom: 1rem;
           }
-          .upgrade-modal-message {
+          :global(.upgrade-modal-message) {
             margin: 0 0 1.5rem;
             color: var(--ink, #000);
             line-height: 1.6;
             font-size: 1rem;
           }
-          .upgrade-modal-features {
+          :global(.upgrade-modal-features) {
             text-align: left;
             margin-bottom: 1.5rem;
           }
-          .upgrade-modal-features h4 {
+          :global(.upgrade-modal-features h4) {
             margin: 0 0 0.75rem;
             font-size: 1rem;
             font-weight: 600;
             color: var(--ink, #000);
           }
-          .upgrade-modal-features ul {
+          :global(.upgrade-modal-features ul) {
             margin: 0;
             padding-left: 1.25rem;
           }
-          .upgrade-modal-features li {
+          :global(.upgrade-modal-features li) {
             margin-bottom: 0.5rem;
             color: var(--muted, #666);
             font-size: 0.9rem;
           }
-          .upgrade-modal-actions {
+          :global(.upgrade-modal-actions) {
             display: flex;
             gap: 0.75rem;
             padding: 0 1.5rem 1.5rem;
             justify-content: center;
           }
-          .upgrade-modal-actions .pill {
+          :global(.upgrade-modal-actions .pill) {
             flex: 1;
             min-width: 120px;
             padding: 0.75rem 1rem;
             font-weight: 600;
           }
           @media (max-width: 480px) {
-            .upgrade-modal-overlay {
+            :global(.upgrade-modal-overlay) {
               padding: 0.5rem;
             }
-            .upgrade-modal {
+            :global(.upgrade-modal) {
               max-width: none;
             }
-            .upgrade-modal-actions {
+            :global(.upgrade-modal-actions) {
               flex-direction: column;
             }
-            .upgrade-modal-actions .pill {
+            :global(.upgrade-modal-actions .pill) {
               width: 100%;
             }
           }
