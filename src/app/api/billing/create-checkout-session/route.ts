@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { verifySession } from "@/lib/auth";
 import crypto from "crypto";
 
-// 会员等级定义 (服务器端版本，避免客户端导入问题)
+// 会员等级定义 (服务器端版本，避免客户端导入问题) - 永久会员制
 const MEMBERSHIP_TIERS = {
   free: {
     name: 'EN: Free | ES: Gratis',
@@ -19,22 +19,21 @@ const MEMBERSHIP_TIERS = {
   },
   basic: {
     name: 'EN: Professional | ES: Profesional',
-    price: 1.99,
+    price: 19.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All free features | ES: Todas las funciones gratuitas',
       'EN: Data export (CSV) | ES: Exportación de datos (CSV)',
       'EN: History trend analysis | ES: Análisis de tendencias históricas',
       'EN: Advanced health insights | ES: Perspectivas avanzadas de salud',
       'EN: Ad-free experience | ES: Experiencia sin anuncios',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   pro: {
     name: 'EN: Premium | ES: Premium',
-    price: 6.99,
+    price: 49.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All professional features | ES: Todas las funciones profesionales',
       'EN: Cloud data sync | ES: Sincronización de datos en la nube',
@@ -43,13 +42,13 @@ const MEMBERSHIP_TIERS = {
       'EN: Health goal tracking | ES: Seguimiento de objetivos de salud',
       'EN: Advanced data visualization | ES: Visualización avanzada de datos',
       'EN: Priority customer support | ES: Soporte al cliente prioritario',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   enterprise: {
     name: 'EN: Enterprise | ES: Empresarial',
-    price: 29.99,
+    price: 199.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All premium features | ES: Todas las funciones premium',
       'EN: Team management | ES: Gestión de equipos',
@@ -58,6 +57,7 @@ const MEMBERSHIP_TIERS = {
       'EN: Custom reports | ES: Informes personalizados',
       'EN: Dedicated account manager | ES: Gerente de cuenta dedicado',
       'EN: Enterprise-grade security | ES: Seguridad de nivel empresarial',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
 } as const;
@@ -185,20 +185,22 @@ export async function POST(req: Request) {
             price_data: {
               currency: plan.currency.toLowerCase(),
               product_data: {
-                name: `HeartRateTap ${planNameEn} Membership`,
+                name: `HeartRateTap ${planNameEn} Lifetime Membership`,
+                description: `One-time payment for lifetime access to ${planNameEn} features`,
               },
               unit_amount: unitAmount,
             },
             quantity: 1,
           },
         ],
-        mode: 'payment',
+        mode: 'payment', // 一次性支付，而不是订阅
         success_url: successRedirect,
         cancel_url: cancelRedirect,
-          metadata: {
+        metadata: {
           userId,
           tier,
           payToRequestId,
+          lifetime: 'true', // 标记为永久会员购买
         },
       });
 

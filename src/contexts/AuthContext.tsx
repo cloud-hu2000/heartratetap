@@ -15,7 +15,7 @@ export interface User {
   updated_at?: string;
 }
 
-// 会员等级定义
+// 会员等级定义 - 永久会员制
 export const MEMBERSHIP_TIERS = {
   free: {
     name: 'EN: Free | ES: Gratis',
@@ -30,22 +30,21 @@ export const MEMBERSHIP_TIERS = {
   },
   basic: {
     name: 'EN: Professional | ES: Profesional',
-    price: 1.99,
+    price: 19.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All free features | ES: Todas las funciones gratuitas',
       'EN: Data export (CSV) | ES: Exportación de datos (CSV)',
       'EN: History trend analysis | ES: Análisis de tendencias históricas',
       'EN: Advanced health insights | ES: Perspectivas avanzadas de salud',
       'EN: Ad-free experience | ES: Experiencia sin anuncios',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   pro: {
     name: 'EN: Premium | ES: Premium',
-    price: 6.99,
+    price: 49.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All professional features | ES: Todas las funciones profesionales',
       'EN: Cloud data sync | ES: Sincronización de datos en la nube',
@@ -54,13 +53,13 @@ export const MEMBERSHIP_TIERS = {
       'EN: Health goal tracking | ES: Seguimiento de objetivos de salud',
       'EN: Advanced data visualization | ES: Visualización avanzada de datos',
       'EN: Priority customer support | ES: Soporte al cliente prioritario',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
   enterprise: {
     name: 'EN: Enterprise | ES: Empresarial',
-    price: 29.99,
+    price: 199.99,
     currency: 'USD',
-    interval: 'month',
     features: [
       'EN: All premium features | ES: Todas las funciones premium',
       'EN: Team management | ES: Gestión de equipos',
@@ -69,6 +68,7 @@ export const MEMBERSHIP_TIERS = {
       'EN: Custom reports | ES: Informes personalizados',
       'EN: Dedicated account manager | ES: Gerente de cuenta dedicado',
       'EN: Enterprise-grade security | ES: Seguridad de nivel empresarial',
+      'EN: Lifetime access | ES: Acceso de por vida',
     ],
   },
 } as const;
@@ -92,6 +92,7 @@ interface AuthContextType extends AuthState {
   }) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  updateUser: (user: User) => void;
   hasPermission: (feature: string) => boolean;
   upgradeMembership: (tier: MembershipTier) => Promise<{ success: boolean; error?: string; paymentUrl?: string }>;
 }
@@ -114,19 +115,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 检查认证状态
   const checkAuth = async () => {
+    console.log('🔍 AuthContext.checkAuth: 开始检查认证状态');
+
     try {
+      console.log('🔄 AuthContext.checkAuth: 设置加载状态');
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
+      console.log('🌐 AuthContext.checkAuth: 调用session API');
       const response = await fetch('/api/auth/session');
+      console.log('📡 AuthContext.checkAuth: Session API响应状态:', response.status);
+
       const data = await response.json();
+      console.log('📦 AuthContext.checkAuth: Session API响应数据:', data);
 
       if (data.user) {
+        console.log('✅ AuthContext.checkAuth: 用户已认证，设置用户状态');
+        console.log('👤 AuthContext.checkAuth: 用户信息:', { id: data.user.id, email: data.user.email, name: data.user.name });
         setAuthState({
           user: data.user,
           isLoading: false,
           isAuthenticated: true,
         });
       } else {
+        console.log('❌ AuthContext.checkAuth: 用户未认证，清除用户状态');
         setAuthState({
           user: null,
           isLoading: false,
@@ -134,7 +145,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         });
       }
     } catch (error) {
-      console.error('Failed to check auth status:', error);
+      console.error('💥 AuthContext.checkAuth: 检查认证状态时发生异常', error);
+      console.error('💥 错误详情:', {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
       setAuthState({
         user: null,
         isLoading: false,
@@ -297,6 +313,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
     checkAuth();
   }, []);
 
+  // 直接更新用户信息
+  const updateUser = (updatedUser: User): void => {
+    console.log('🔄 AuthContext.updateUser: 直接更新用户信息');
+    console.log('👤 AuthContext.updateUser: 新用户信息:', { id: updatedUser.id, email: updatedUser.email, name: updatedUser.name });
+    setAuthState(prev => ({
+      ...prev,
+      user: updatedUser,
+      isLoading: false,
+      isAuthenticated: true,
+    }));
+  };
+
   // 权限检查函数
   const hasPermission = (feature: string): boolean => {
     if (!authState.user) return false;
@@ -311,7 +339,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       'basic_analysis': ['free', 'basic', 'pro', 'enterprise'],
 
       // 专业功能 ($1.99)
-      'export_data': ['basic', 'pro', 'enterprise'],
+      'export_data': ['basic', 'pro'],
       'advanced_analysis': ['basic', 'pro', 'enterprise'],
       'trend_analysis': ['basic', 'pro', 'enterprise'],
 
@@ -376,6 +404,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     checkAuth,
+    updateUser,
     hasPermission,
     upgradeMembership,
   };
