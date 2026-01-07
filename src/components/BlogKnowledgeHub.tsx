@@ -25,6 +25,21 @@ const BlogKnowledgeHub = () => {
           </Link>
         </li>
         <li>
+          <Link href="/blog/free-online-heart-rate-monitor">
+            Free Online Heart Rate Monitor — Check Your Heart Rate Instantly
+          </Link>
+        </li>
+        <li>
+          <Link href="/blog/online-heart-rate-monitor">
+            Online Heart Rate Monitor — Measure Your Heart Rate in the Browser
+          </Link>
+        </li>
+        <li>
+          <Link href="/blog/heart-rate-monitor-online">
+            Heart Rate Monitor Online — Trustworthy Online Heart Rate Tool
+          </Link>
+        </li>
+        <li>
           <Link href="/blog/daily-resting-heart-rate-check">
             Daily Resting Heart Rate Check – A 30-Second Health Habit
           </Link>
