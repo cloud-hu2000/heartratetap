@@ -52,6 +52,41 @@ export async function POST(req: NextRequest) {
           console.log('✅ 已更新用户会员等级', { userId, tier });
         }
       }
+      // 更新 payments 表（如果存在关联的 order_id / checkout_session_id / provider_payment_id）
+      try {
+        const orderId = session.metadata?.payToRequestId;
+        const checkoutSessionId = session.id;
+        const providerPaymentId = session.payment_intent || null;
+        let receiptUrl = null;
+        if (providerPaymentId && stripe) {
+          try {
+            const pi = await stripe.paymentIntents.retrieve(providerPaymentId);
+            receiptUrl = pi.charges?.data?.[0]?.receipt_url || null;
+          } catch (e) {
+            console.warn('🔍 无法通过 PaymentIntent 获取 receipt_url', e);
+          }
+        }
+
+        if (sql) {
+          await sql`
+            UPDATE payments
+            SET status = 'succeeded',
+                provider_payment_id = ${providerPaymentId},
+                checkout_session_id = ${checkoutSessionId},
+                amount = ${session.amount_total ?? null},
+                currency = ${session.currency ? session.currency.toUpperCase() : null},
+                receipt_url = ${receiptUrl},
+                raw_payload = ${JSON.stringify(event)},
+                updated_at = NOW()
+            WHERE order_id = ${orderId} OR checkout_session_id = ${checkoutSessionId} OR provider_payment_id = ${providerPaymentId}
+          `;
+          console.log('📝 已更新 payments（checkout.session.completed）', { orderId, checkoutSessionId, providerPaymentId });
+        } else {
+          console.warn('⚠️ 数据库不可用，无法更新 payments');
+        }
+      } catch (err) {
+        console.error('❌ 更新 payments 行时出错', err);
+      }
     }
 
     // 处理 payment_intent.succeeded：尝试从 metadata 或关联的 checkout session 获取 userId/tier 并更新数据库

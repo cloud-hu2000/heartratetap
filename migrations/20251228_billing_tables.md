@@ -31,7 +31,7 @@ Important fields:
 - `provider_id (text)` — Provider-specific subject identifier (e.g. Google sub).  
 - `password_hash (text)` — Hashed password (nullable for OAuth-only accounts). Use Argon2/bcrypt.  
 - `role (text)` — `user`, `admin`, or `support`. Default `user`.  
-- `account_tier (text)` — `free`, `basic`, `pro`, or `enterprise`. Default `free`.  
+- `account_tier (text)` — `free`, `pro`, `premium`, or `enterprise`. Default `free`.  
 - `billing_customer_id (text)` — External customer identifier from Wanlihui (or other provider) used for mapping payments/subscriptions.  
 - `metadata (jsonb)` — Arbitrary app metadata.  
 - `consent (jsonb)` — Stores consent states and timestamps (e.g., { marketing: true, marketing_ts: "..." }).  

@@ -644,8 +644,8 @@ const HeartRatePage = () => {
             <div className="membership-info">
               <span className="membership-tier">
                 {user.account_tier === 'free' && 'Free Plan'}
-                {user.account_tier === 'basic' && 'Professional Plan'}
-                {user.account_tier === 'pro' && 'Premium Plan'}
+                {user.account_tier === 'pro' && 'Professional Plan'}
+                {user.account_tier === 'premium' && 'Premium Plan'}
                 {user.account_tier === 'enterprise' && 'Enterprise Plan'}
               </span>
               {user.account_tier === 'free' && (

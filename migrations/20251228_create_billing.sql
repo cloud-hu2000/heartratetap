@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
   provider_id text,         -- external provider subject/id
   password_hash text,       -- nullable if oauth-only
   role text NOT NULL DEFAULT 'user', -- 'user'|'admin'|'support'
-  account_tier text NOT NULL DEFAULT 'free', -- 'free'|'basic'|'pro'|'enterprise'
+  account_tier text NOT NULL DEFAULT 'free', -- 'free'|'pro'|'premium'|'enterprise'
   billing_customer_id text, -- ID from Wanlihui (or other provider)
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),

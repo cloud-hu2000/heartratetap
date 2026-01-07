@@ -17,7 +17,7 @@ const MEMBERSHIP_TIERS = {
       'EN: Basic health advice | ES: Consejos básicos de salud',
     ],
   },
-  basic: {
+  pro: {
     name: 'EN: Professional | ES: Profesional',
     price: 1.99,
     currency: 'USD',
@@ -30,7 +30,7 @@ const MEMBERSHIP_TIERS = {
       'EN: Ad-free experience | ES: Experiencia sin anuncios',
     ],
   },
-  pro: {
+  premium: {
     name: 'EN: Premium | ES: Premium',
     price: 6.99,
     currency: 'USD',
@@ -153,6 +153,23 @@ export async function POST(req: Request) {
     const cancelRedirect = cancelUrl || `${baseUrl}/pricing?canceled=true`;
     const unitAmount = Math.round(plan.price * 100);
 
+    // 在创建 Stripe 会话前，向本地数据库插入一条 pending 的 payments 记录（用于幂等与对账）
+    try {
+      if (sql) {
+        const description = `Purchase ${planNameEn} Membership`;
+        const inserted = await sql`
+          INSERT INTO payments (user_id, order_id, provider, amount, currency, status, description, idempotency_key, created_at, updated_at)
+          VALUES (${userId}, ${payToRequestId}, 'stripe', ${unitAmount}, ${plan.currency.toUpperCase()}, 'pending', ${description}, ${payToRequestId}, NOW(), NOW())
+          RETURNING id
+        `;
+        console.log('📝 已写入 pending payment', { orderId: payToRequestId, inserted: inserted?.[0]?.id });
+      } else {
+        console.warn('⚠️ 数据库不可用，未写入 pending payment');
+      }
+    } catch (err) {
+      console.error('❌ 插入 pending payment 失败', err);
+    }
+
     try {
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -179,6 +196,18 @@ export async function POST(req: Request) {
       });
 
       console.log('✅ Stripe Checkout 会话创建成功:', { sessionId: session.id, url: session.url });
+      // 将 checkout_session_id 回填到 payments 记录，便于 webhook/对账使用
+      try {
+        if (sql && session?.id) {
+          await sql`
+            UPDATE payments
+            SET checkout_session_id = ${session.id}, updated_at = NOW()
+            WHERE order_id = ${payToRequestId}
+          `;
+        }
+      } catch (err) {
+        console.error('❌ 回填 checkout_session_id 失败', err);
+      }
       return NextResponse.json({
         url: session.url,
         sessionId: session.id,

@@ -9,7 +9,7 @@ export interface User {
   email: string;
   name?: string;
   role: 'user' | 'admin';
-  account_tier: 'free' | 'basic' | 'pro' | 'enterprise';
+  account_tier: 'free' | 'pro' | 'premium' | 'enterprise';
   email_verified?: boolean;
   created_at?: string;
   updated_at?: string;
@@ -28,7 +28,7 @@ export const MEMBERSHIP_TIERS = {
       'EN: Basic health advice | ES: Consejos básicos de salud',
     ],
   },
-  basic: {
+  pro: {
     name: 'EN: Professional | ES: Profesional',
     price: 1.99,
     currency: 'USD',
@@ -41,7 +41,7 @@ export const MEMBERSHIP_TIERS = {
       'EN: Ad-free experience | ES: Experiencia sin anuncios',
     ],
   },
-  pro: {
+  premium: {
     name: 'EN: Premium | ES: Premium',
     price: 6.99,
     currency: 'USD',
@@ -117,7 +117,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
-      const response = await fetch('/api/auth/session');
+      const response = await fetch('/api/auth/session', { credentials: 'include', cache: 'no-store' });
       const data = await response.json();
 
       if (data.user) {
@@ -306,22 +306,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // 功能权限映射
     const featurePermissions: Record<string, MembershipTier[]> = {
       // 免费功能
-      'basic_measurement': ['free', 'basic', 'pro', 'enterprise'],
-      'local_history': ['free', 'basic', 'pro', 'enterprise'],
-      'basic_analysis': ['free', 'basic', 'pro', 'enterprise'],
+      'basic_measurement': ['free', 'pro', 'premium', 'enterprise'],
+      'local_history': ['free', 'pro', 'premium', 'enterprise'],
+      'basic_analysis': ['free', 'pro', 'premium', 'enterprise'],
 
       // 专业功能 ($1.99)
-      'export_data': ['basic', 'pro', 'enterprise'],
-      'advanced_analysis': ['basic', 'pro', 'enterprise'],
-      'trend_analysis': ['basic', 'pro', 'enterprise'],
+      'export_data': ['pro', 'premium', 'enterprise'],
+      'advanced_analysis': ['pro', 'premium', 'enterprise'],
+      'trend_analysis': ['pro', 'premium', 'enterprise'],
 
       // 高级功能 ($6.99)
-      'cloud_sync': ['pro', 'enterprise'],
-      'personalized_reports': ['pro', 'enterprise'],
-      'workout_plans': ['pro', 'enterprise'],
-      'health_goals': ['pro', 'enterprise'],
-      'advanced_visualization': ['pro', 'enterprise'],
-
+      'cloud_sync': ['premium', 'enterprise'],
+      'personalized_reports': ['premium', 'enterprise'],
+      'workout_plans': ['premium', 'enterprise'],
+      'health_goals': ['premium', 'enterprise'],
+      'advanced_visualization': ['premium', 'enterprise'],
       // 企业功能 ($29.99)
       'team_management': ['enterprise'],
       'api_access': ['enterprise'],

@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 const LANG_STORAGE_KEY = "heartratetap-lang";
 
 const PricingContent = () => {
-  const { user, upgradeMembership } = useAuth();
+  const { user, upgradeMembership, checkAuth } = useAuth();
   const searchParams = useSearchParams();
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
   const [currentLang, setCurrentLang] = useState<"en" | "es">(() => {
@@ -47,6 +47,13 @@ const PricingContent = () => {
       }, 300);
     }
   }, [currentLang]);
+
+  // Ensure we have the latest auth state when this page mounts
+  useEffect(() => {
+    if (typeof window !== 'undefined' && checkAuth) {
+      checkAuth().catch(err => console.warn('checkAuth failed on pricing mount', err));
+    }
+  }, []);
 
   // Parse bilingual text
   const parseBilingual = (text: string) => {
@@ -137,39 +144,11 @@ const PricingContent = () => {
             </button>
           </div>
 
-          {/* Basic Plan */}
-          <div className={`pricing-card pricing-card-featured ${isCurrentPlan('basic') ? 'pricing-card-current' : ''}`}>
+          {/* Professional Plan */}
+          <div className={`pricing-card pricing-card-featured ${isCurrentPlan('pro') ? 'pricing-card-current' : ''}`}>
             <div className="pricing-card-badge">
               {currentLang === 'en' ? 'Most Popular' : 'Más Popular'}
             </div>
-            <div className="pricing-card-header">
-              <h3 className="pricing-plan-name">
-                {getText(MEMBERSHIP_TIERS.basic.name)}
-              </h3>
-              <div className="pricing-price">
-                <span className="pricing-amount">${MEMBERSHIP_TIERS.basic.price}</span>
-                <span className="pricing-period">/month</span>
-              </div>
-            </div>
-            <ul className="pricing-features">
-              {MEMBERSHIP_TIERS.basic.features.map((feature, index) => (
-                <li key={index} className="pricing-feature">
-                  <span className="pricing-feature-check">✓</span>
-                  <span className="pricing-feature-text">{getText(feature)}</span>
-                </li>
-              ))}
-            </ul>
-            <button
-              className="pricing-button pricing-button-primary"
-              disabled={isCurrentPlan('basic') || !user}
-              onClick={() => handleUpgrade('basic')}
-            >
-              {getButtonText('basic')}
-            </button>
-          </div>
-
-          {/* Pro Plan */}
-          <div className={`pricing-card ${isCurrentPlan('pro') ? 'pricing-card-current' : ''}`}>
             <div className="pricing-card-header">
               <h3 className="pricing-plan-name">
                 {getText(MEMBERSHIP_TIERS.pro.name)}
@@ -193,6 +172,34 @@ const PricingContent = () => {
               onClick={() => handleUpgrade('pro')}
             >
               {getButtonText('pro')}
+            </button>
+          </div>
+
+          {/* Pro Plan */}
+          <div className={`pricing-card ${isCurrentPlan('premium') ? 'pricing-card-current' : ''}`}>
+            <div className="pricing-card-header">
+              <h3 className="pricing-plan-name">
+                {getText(MEMBERSHIP_TIERS.premium.name)}
+              </h3>
+              <div className="pricing-price">
+                <span className="pricing-amount">${MEMBERSHIP_TIERS.premium.price}</span>
+                <span className="pricing-period">/month</span>
+              </div>
+            </div>
+            <ul className="pricing-features">
+              {MEMBERSHIP_TIERS.premium.features.map((feature, index) => (
+                <li key={index} className="pricing-feature">
+                  <span className="pricing-feature-check">✓</span>
+                  <span className="pricing-feature-text">{getText(feature)}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              className="pricing-button pricing-button-primary"
+              disabled={isCurrentPlan('premium') || !user}
+              onClick={() => handleUpgrade('premium')}
+            >
+              {getButtonText('premium')}
             </button>
           </div>
         </div>
