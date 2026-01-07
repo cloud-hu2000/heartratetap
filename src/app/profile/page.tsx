@@ -108,8 +108,8 @@ export default function ProfilePage() {
               borderColor: '#dc3545',
               fontWeight: '600'
             }}
-            onMouseEnter={(e) => e.target.style.background = '#c82333'}
-            onMouseLeave={(e) => e.target.style.background = '#dc3545'}
+            onMouseEnter={(e) => (e.target as HTMLElement).style.background = '#c82333'}
+            onMouseLeave={(e) => (e.target as HTMLElement).style.background = '#dc3545'}
           >
             Logout
           </button>
@@ -171,8 +171,8 @@ export default function ProfilePage() {
                     gap: '0.25rem',
                     transition: 'all 0.2s ease'
                   }}
-                  onMouseEnter={(e) => !refreshing && (e.target.style.borderColor = 'var(--accent)')}
-                  onMouseLeave={(e) => !refreshing && (e.target.style.borderColor = 'var(--line)')}
+                  onMouseEnter={(e) => !refreshing && ((e.target as HTMLElement).style.borderColor = 'var(--accent)')}
+                  onMouseLeave={(e) => !refreshing && ((e.target as HTMLElement).style.borderColor = 'var(--line)')}
                 >
                   {refreshing ? (
                     <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-[var(--accent)]"></div>
@@ -444,12 +444,12 @@ export default function ProfilePage() {
                 color: '#fff'
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = '#c82333';
-                e.target.style.borderColor = '#c82333';
+                (e.target as HTMLElement).style.background = '#c82333';
+                (e.target as HTMLElement).style.borderColor = '#c82333';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = '#dc3545';
-                e.target.style.borderColor = '#dc3545';
+                (e.target as HTMLElement).style.background = '#dc3545';
+                (e.target as HTMLElement).style.borderColor = '#dc3545';
               }}
             >
               Delete Account
