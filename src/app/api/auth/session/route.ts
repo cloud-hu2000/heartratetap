@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     const payload = verifySession(token);
     if (!payload || !payload.sub) return NextResponse.json({ user: null });
 
-    const rows = await sql`select id, email, name, role, account_tier from users where id = ${payload.sub} limit 1`;
+    const rows = await sql`select id, email, name, role, account_tier, email_verified, created_at, updated_at from users where id = ${payload.sub} limit 1`;
     const user = rows[0] ?? null;
     return NextResponse.json({ user });
   } catch (err) {
