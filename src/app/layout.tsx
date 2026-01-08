@@ -82,6 +82,20 @@ export default function RootLayout({
           content="gjZiC-RxIRbV11DFbLLx5X7wESoAEDrQC0p5p0g8qU4"
         />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
+
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-95CLQ9158L"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-95CLQ9158L');
+            `
+          }}
+        />
+
         <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
