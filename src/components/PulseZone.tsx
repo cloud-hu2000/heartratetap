@@ -1,0 +1,188 @@
+"use client";
+
+import { useCallback } from "react";
+import { ViewMode } from "@/lib/types";
+import { clampIndicator, analysisFor } from "@/lib/heart-rate-utils";
+import { COPY } from "@/lib/constants";
+
+interface PulseZoneProps {
+  lang: "en" | "es";
+  beats: number[];
+  isFrozen: boolean;
+  displayBpm: number | null;
+  viewMode: ViewMode;
+  tapPulse: boolean;
+  beatCount: number;
+  accuracyHint: string | null;
+  isMobile: boolean;
+  currentBpm: number | null;
+  bpm5s: number | null;
+  bpm10s: number | null;
+  onBeat: () => void;
+  onFreeze: () => void;
+  onSetViewMode: (mode: ViewMode) => void;
+}
+
+export default function PulseZone({
+  lang,
+  beats,
+  isFrozen,
+  displayBpm,
+  viewMode,
+  tapPulse,
+  beatCount,
+  accuracyHint,
+  isMobile,
+  currentBpm,
+  bpm5s,
+  bpm10s,
+  onBeat,
+  onFreeze,
+  onSetViewMode
+}: PulseZoneProps) {
+  const t = COPY[lang] as typeof COPY[keyof typeof COPY];
+
+  const statusLabel = isFrozen
+    ? t.status.frozen
+    : beats.length > 1
+      ? t.status.measuring
+      : t.status.waiting;
+
+  const analysisText = isFrozen ? analysisFor(t, viewMode, displayBpm ?? null) : null;
+
+  const handleViewModeChange = useCallback((mode: ViewMode) => {
+    onSetViewMode(mode);
+    const section = document.getElementById(mode === "rest" ? "resting-heart-rate" : "exercise-heart-rate");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [onSetViewMode]);
+
+  return (
+    <section className={`panel pulse-zone ${beats.length === 0 ? "pulse-zone-idle" : ""} ${isFrozen ? "pulse-zone-frozen" : ""}`}>
+      <div className="pulse-zone-header">
+        <div className={`metric ${tapPulse ? "metric-pulse" : ""}`} aria-live="polite" aria-atomic="true">
+          {displayBpm ?? "--"}
+          <span className="metric-unit">bpm</span>
+          {beats.length > 0 && !isFrozen && (
+            <span className="beat-indicator">
+              <span className={`beat-dot ${tapPulse ? "beat-dot-active" : ""}`} />
+            </span>
+          )}
+        </div>
+        <p className="status-label">
+          {statusLabel}
+          {beats.length > 0 && !isFrozen && (
+            <span className="tap-counter"> • {beatCount} taps</span>
+          )}
+        </p>
+        {!isFrozen && (bpm5s || bpm10s) && (
+          <div className="bpm-details">
+            {bpm10s && (
+              <span>10s: {bpm10s} bpm</span>
+            )}
+            {bpm5s && (
+              <span>5s: {bpm5s} bpm</span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* 未开始时的引导视觉 */}
+      {beats.length === 0 && (
+        <div className="idle-visual">
+          <button
+            type="button"
+            className="heart-icon-button"
+            onClick={onBeat}
+            onPointerDown={onBeat}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onBeat();
+              }
+            }}
+            tabIndex={0}
+            aria-label="Start measuring heart rate"
+            title="Click to start measuring your heart rate"
+          >
+            ❤️
+          </button>
+          <p className="idle-hint">{t.idleHint}</p>
+        </div>
+      )}
+
+      {isFrozen && (
+        <div className="view-row">
+          <button
+            type="button"
+            className={`pill ${viewMode === "rest" ? "active" : ""}`}
+            onClick={() => handleViewModeChange("rest")}
+          >
+            {t.restLabel}
+          </button>
+          <button
+            type="button"
+            className={`pill ${viewMode === "sport" ? "active" : ""}`}
+            onClick={() => handleViewModeChange("sport")}
+          >
+            {t.sportLabel}
+          </button>
+        </div>
+      )}
+
+      <div className="zone-bar">
+        {displayBpm && (
+          <span
+            className="zone-indicator zone-indicator-positioned"
+            style={{ left: `${clampIndicator(displayBpm)}%` }}
+          />
+        )}
+        {!displayBpm && (
+          <div className="zone-bar-placeholder">
+            <span className="zone-bar-hint" title={t.zoneHint}>
+              {t.zoneHint}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {analysisText && (
+        <div className="analysis">
+          <div className="analysis-icon">✓</div>
+          <div className="analysis-text">{analysisText}</div>
+        </div>
+      )}
+
+      <button
+        type="button"
+        className={`tap-surface ${tapPulse ? "tap-surface-active" : ""} ${isMobile ? "tap-surface-mobile" : ""}`}
+        onPointerDown={onBeat}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onBeat();
+          }
+        }}
+        tabIndex={0}
+        aria-label={t.tapHint}
+        role="button"
+      >
+        <div className="tap-surface-content">
+          <span className={`tap-heart ${tapPulse ? "tap-heart-pulse" : ""}`}>💓</span>
+          <p className="tap-hint-text">{t.tapHint}</p>
+          {accuracyHint && (
+            <p className="accuracy-hint">{accuracyHint}</p>
+          )}
+        </div>
+        {tapPulse && <span className="tap-ripple" key={beatCount} />}
+      </button>
+
+      <div className="controls">
+        <button type="button" className="pill active" onClick={onFreeze}>
+          {t.stop}
+        </button>
+      </div>
+    </section>
+  );
+}
