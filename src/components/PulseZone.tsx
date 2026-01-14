@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { ViewMode } from "@/lib/types";
 import { clampIndicator, analysisFor } from "@/lib/heart-rate-utils";
 import { COPY } from "@/lib/constants";
@@ -50,6 +50,57 @@ export default function PulseZone({
 
   const analysisText = isFrozen ? analysisFor(t, viewMode, displayBpm ?? null) : null;
 
+  // 用于跟踪触摸事件的引用
+  const touchStartRef = useRef<{ x: number; y: number; time: number; scrollY: number } | null>(null);
+
+  // 处理触摸开始
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      time: Date.now(),
+      scrollY: window.scrollY
+    };
+  }, []);
+
+  // 处理触摸移动，如果检测到滑动则取消触摸
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartRef.current.x);
+    const deltaY = Math.abs(touch.clientY - touchStartRef.current.y);
+
+    // 如果移动距离超过阈值，认为是滑动意图，取消触摸处理
+    if (deltaX > 10 || deltaY > 10) {
+      touchStartRef.current = null;
+    }
+  }, []);
+
+  // 处理触摸结束，判断是否为有效点击
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartRef.current.x);
+    const deltaY = Math.abs(touch.clientY - touchStartRef.current.y);
+    const deltaTime = Date.now() - touchStartRef.current.time;
+    const deltaScroll = Math.abs(window.scrollY - touchStartRef.current.scrollY);
+
+    // 更严格的点击检测：
+    // 1. 移动距离必须很小（< 5px）
+    // 2. 触摸时间必须很短（< 200ms）
+    // 3. 页面滚动距离必须很小（< 3px）
+    const isValidTap = deltaX < 5 && deltaY < 5 && deltaTime < 200 && deltaScroll < 3;
+
+    if (isValidTap) {
+      onBeat();
+    }
+
+    touchStartRef.current = null;
+  }, [onBeat]);
+
   const handleViewModeChange = useCallback((mode: ViewMode) => {
     onSetViewMode(mode);
     const section = document.getElementById(mode === "rest" ? "resting-heart-rate" : "exercise-heart-rate");
@@ -95,7 +146,9 @@ export default function PulseZone({
             type="button"
             className="heart-icon-button"
             onClick={onBeat}
-            onPointerDown={onBeat}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -104,7 +157,7 @@ export default function PulseZone({
             }}
             tabIndex={0}
             aria-label="Start measuring heart rate"
-            title="Click to start measuring your heart rate"
+            title="Tap to start measuring your heart rate"
           >
             ❤️
           </button>
@@ -157,7 +210,10 @@ export default function PulseZone({
       <button
         type="button"
         className={`tap-surface ${tapPulse ? "tap-surface-active" : ""} ${isMobile ? "tap-surface-mobile" : ""}`}
-        onPointerDown={onBeat}
+        onClick={onBeat}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
