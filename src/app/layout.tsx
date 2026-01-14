@@ -82,6 +82,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="gjZiC-RxIRbV11DFbLLx5X7wESoAEDrQC0p5p0g8qU4"
         />
+        <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
 
         {/* Google tag (gtag.js) */}
