@@ -21,7 +21,6 @@ import RoadmapPreview from "@/components/RoadmapPreview";
 import Footer from "@/components/Footer";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import UpgradeModal from "@/components/UpgradeModal";
-import RedditShareCTA from "@/components/RedditShareCTA";
 
 // Lazy load non-critical components
 const FeedbackWidget = lazy(() => import("@/components/FeedbackWidget"));
@@ -116,8 +115,6 @@ const HeartRatePage = () => {
       </main>
 
       <RoadmapPreview lang={lang} />
-
-      <RedditShareCTA />
 
       <Suspense fallback={<div>Loading...</div>}>
         <SEOContent lang={lang} />
