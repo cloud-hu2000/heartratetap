@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
@@ -87,7 +86,6 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
   const [accuracyHint, setAccuracyHint] = useState<string | null>(null);
-  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
   const t = COPY[lang] as typeof COPY[keyof typeof COPY];
 
   useEffect(() => {
@@ -241,79 +239,7 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
     }
   }, []);
 
-  // 处理升级会员
-  const handleUpgradeClick = useCallback(() => {
-    setShowUpgradePrompt(false);
-    window.location.href = '/pricing';
-  }, []);
 
-  // 取消升级提示
-  const handleCancelUpgrade = useCallback(() => {
-    setShowUpgradePrompt(false);
-  }, []);
-
-  // Portal-based upgrade modal so it overlays entire viewport regardless of parent stacking contexts
-  const UpgradeModalPortal = ({ onClose }: { onClose: () => void }) => {
-    useEffect(() => {
-      const onKey = (e: KeyboardEvent) => {
-        if (e.key === "Escape") onClose();
-      };
-      window.addEventListener("keydown", onKey);
-      return () => window.removeEventListener("keydown", onKey);
-    }, [onClose]);
-
-    if (typeof document === "undefined") return null;
-
-    return createPortal(
-      <div className="upgrade-modal-overlay" onClick={onClose}>
-        <div className="upgrade-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="upgrade-modal-header">
-            <h3>Upgrade to Export Data</h3>
-            <button
-              type="button"
-              className="upgrade-modal-close"
-              onClick={onClose}
-              aria-label="Close"
-            >
-              ×
-            </button>
-          </div>
-          <div className="upgrade-modal-body">
-            <div className="upgrade-modal-icon">📊</div>
-            <p className="upgrade-modal-message">
-              Data export is available for Professional and Premium plans. Upgrade your membership to unlock this feature and get access to advanced analytics.
-            </p>
-            <div className="upgrade-modal-features">
-              <h4>Professional Plan includes:</h4>
-              <ul>
-                <li>✅ Data export (CSV)</li>
-                <li>✅ Advanced health insights</li>
-                <li>✅ Trend analysis</li>
-                <li>✅ Ad-free experience</li>
-              </ul>
-            </div>
-          </div>
-          <div className="upgrade-modal-actions">
-            <button
-              type="button"
-              className="pill"
-              onClick={onClose}
-            >
-              Maybe Later
-            </button>
-            <button
-              type="button"
-              className="pill active"
-              onClick={handleUpgradeClick}
-            >
-              Upgrade Now
-            </button>
-          </div>
-        </div>
-      </div>,
-      document.body
-    );
-  };
 
   const triggerTapPulse = useCallback(() => {
     setTapPulse(true);
@@ -775,8 +701,6 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
           )}
         </section>
 
-        {/* 升级会员提示对话框（通过 portal 渲染） */}
-        {showUpgradePrompt && <UpgradeModalPortal onClose={handleCancelUpgrade} />}
       </main>
     </div>
   );

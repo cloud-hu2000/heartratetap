@@ -82,15 +82,6 @@ export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
     }
   }, []);
 
-  // 处理升级会员
-  const handleUpgradeClick = useCallback(() => {
-    setShowUpgradePrompt(false);
-    window.location.href = '/pricing';
-  }, []);
-
-  const handleCancelUpgrade = useCallback(() => {
-    setShowUpgradePrompt(false);
-  }, []);
 
   // 计算分页和趋势
   const totalHistoryPages = Math.max(Math.ceil(history.length / HISTORY_PAGE_SIZE), 1);
@@ -109,16 +100,13 @@ export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
     pagedHistory,
     totalHistoryPages,
     clampedHistoryPage,
-    showUpgradePrompt,
     trendLabel,
     chartData,
     actions: {
       setHistoryPage,
       appendHistory,
       exportHistoryToCSV,
-      clearHistory,
-      handleUpgradeClick,
-      handleCancelUpgrade
+      clearHistory
     }
   };
 };
