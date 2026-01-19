@@ -98,6 +98,12 @@ export default function RootLayout({
           }}
         />
 
+        <script
+          async
+          src="//shockedmirror.com/b/X.VAsQdAGGl/0pYiWucc/fedmA9/uzZGUQlQk/PsTbYx3/NkTuEK2eOXTOMitVNyjSca1-MGTXYl5VNrAE"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+
         <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
