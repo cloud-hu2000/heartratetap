@@ -12,7 +12,6 @@ interface UseHistoryProps {
 export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [historyPage, setHistoryPage] = useState(0);
-  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
 
   const t = COPY[lang] as typeof COPY[keyof typeof COPY];
 
@@ -48,7 +47,8 @@ export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
 
     // 检查会员权限
     if (!hasPermission('export_data')) {
-      setShowUpgradePrompt(true);
+      // 跳转到新页面显示升级提示
+      window.open('/pricing?feature=export', '_blank');
       return;
     }
 

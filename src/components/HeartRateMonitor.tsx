@@ -206,7 +206,8 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
 
     // 检查会员权限
     if (!hasPermission('export_data')) {
-      setShowUpgradePrompt(true);
+      // 跳转到新页面显示升级提示
+      window.open('/pricing?feature=export', '_blank');
       return;
     }
 

@@ -38,7 +38,6 @@ const HeartRatePage = () => {
     pagedHistory,
     totalHistoryPages,
     clampedHistoryPage,
-    showUpgradePrompt,
     trendLabel,
     chartData,
     actions: historyActions
@@ -110,8 +109,6 @@ const HeartRatePage = () => {
           onClearHistory={historyActions.clearHistory}
           onSetHistoryPage={uiActions.setHistoryPage}
         />
-
-        {showUpgradePrompt && <UpgradeModal onClose={historyActions.handleCancelUpgrade} />}
       </main>
 
       <RoadmapPreview lang={lang} />
