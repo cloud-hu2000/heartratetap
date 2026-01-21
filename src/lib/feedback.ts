@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 import { sql } from "./db";
 
 // Check if database is available (skip during build)
-const isDbAvailable = typeof sql !== 'undefined' && sql;
+const isDbAvailable = typeof sql !== 'undefined' && sql !== null && sql;
 
 type FeedbackRecord = {
   id: string;
