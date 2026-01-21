@@ -77,10 +77,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           name="google-site-verification"
           content="gjZiC-RxIRbV11DFbLLx5X7wESoAEDrQC0p5p0g8qU4"
         />
+        <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
 
         {/* Google tag (gtag.js) */}
@@ -94,6 +96,12 @@ export default function RootLayout({
               gtag('config', 'G-95CLQ9158L');
             `
           }}
+        />
+
+        <script
+          async
+          src="//shockedmirror.com/b/X.VAsQdAGGl/0pYiWucc/fedmA9/uzZGUQlQk/PsTbYx3/NkTuEK2eOXTOMitVNyjSca1-MGTXYl5VNrAE"
+          referrerPolicy="no-referrer-when-downgrade"
         />
 
         <StructuredData />

@@ -38,6 +38,26 @@ body {
   gap: 2rem;
 }
 
+/* 广告横幅样式 - 居中横屏显示 */
+.ad-banner-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.ad-banner {
+  width: 100%;
+  max-width: 728px; /* 标准横幅广告宽度 */
+  min-height: 90px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .canvas {
   flex: 1;
   display: grid;

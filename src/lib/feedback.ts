@@ -93,13 +93,20 @@ export const fetchFeedbackList = async (): Promise<Feedback[]> => {
     console.warn("Database not available, returning empty feedback list");
     return [];
   }
-  await ensureTables();
-  const rows = (await sql`
-    SELECT id, title, description, email, votes, status, created_at
-    FROM feedback_items
-    ORDER BY votes DESC, created_at ASC
-  `) as FeedbackRecord[];
-  return rows.map(sanitizeFeedback);
+
+  try {
+    await ensureTables();
+    const rows = (await sql`
+      SELECT id, title, description, email, votes, status, created_at
+      FROM feedback_items
+      ORDER BY votes DESC, created_at ASC
+    `) as FeedbackRecord[];
+    return rows.map(sanitizeFeedback);
+  } catch (error) {
+    console.warn("Failed to fetch feedback list from database:", error);
+    // Return empty array instead of throwing error to prevent page rendering failures
+    return [];
+  }
 };
 
 export const createFeedback = async (data: { title: string; description: string; email: string | null }): Promise<Feedback> => {
@@ -107,13 +114,19 @@ export const createFeedback = async (data: { title: string; description: string;
   if (!isDbAvailable) {
     throw new Error("Database not available");
   }
-  await ensureTables();
-  const rows = (await sql`
-    INSERT INTO feedback_items (title, description, email, status)
-    VALUES (${data.title}, ${data.description}, ${data.email}, 'planned')
-    RETURNING id, title, description, email, votes, status, created_at
-  `) as FeedbackRecord[];
-  return sanitizeFeedback(rows[0]);
+
+  try {
+    await ensureTables();
+    const rows = (await sql`
+      INSERT INTO feedback_items (title, description, email, status)
+      VALUES (${data.title}, ${data.description}, ${data.email}, 'planned')
+      RETURNING id, title, description, email, votes, status, created_at
+    `) as FeedbackRecord[];
+    return sanitizeFeedback(rows[0]);
+  } catch (error) {
+    console.error("Failed to create feedback in database:", error);
+    throw new Error("Failed to save feedback. Please try again later.");
+  }
 };
 
 export const castVote = async (feedbackId: string, deviceId: string): Promise<Feedback | null> => {

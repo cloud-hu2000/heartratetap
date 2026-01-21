@@ -109,13 +109,6 @@ export function StructuredData() {
           "price": "0",
           "priceCurrency": "USD"
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "1000",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
         "author": {
           "@type": "Organization",
           "@id": "https://heartratetap.com/#organization"
