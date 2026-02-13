@@ -15,11 +15,6 @@ const BlogKnowledgeHub = () => {
           </Link>
         </li>
         <li>
-          <Link href="/blog/how-to-check-heart-rate-online">
-            How to Check Heart Rate Online Free – No Device Needed
-          </Link>
-        </li>
-        <li>
           <Link href="/blog/heart-rate-zones-for-running">
             Heart Rate Zones for Running: Are You Training in the Right Zone?
           </Link>
@@ -27,11 +22,6 @@ const BlogKnowledgeHub = () => {
         <li>
           <Link href="/blog/free-online-heart-rate-monitor">
             Free Online Heart Rate Monitor — Check Your Heart Rate Instantly
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/online-heart-rate-monitor">
-            Online Heart Rate Monitor — Measure Your Heart Rate in the Browser
           </Link>
         </li>
         <li>
