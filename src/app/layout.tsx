@@ -113,6 +113,13 @@ export default function RootLayout({
           referrerPolicy="no-referrer-when-downgrade"
         />
 
+        {/* Ahrefs Analytics */}
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="jmJyFaXCFey64pIyVeFUyg"
+          async
+        />
+
         <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
