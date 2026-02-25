@@ -208,6 +208,15 @@ export async function GET(req: Request) {
       user = inserted[0];
     }
 
+    // 理论上上面的逻辑保证 user 一定存在，这里再做一次保护以通过类型检查
+    if (!user) {
+      console.error("❌ Google OAuth 回调中 user 仍为 undefined");
+      return NextResponse.json(
+        { error: "Failed to create or load user for Google OAuth" },
+        { status: 500 }
+      );
+    }
+
     // 4. 生成会话并设置 cookie
     const token = signSession({
       sub: user.id,
