@@ -53,7 +53,8 @@ const PricingContent = () => {
     if (typeof window !== 'undefined' && checkAuth) {
       checkAuth().catch(err => console.warn('checkAuth failed on pricing mount', err));
     }
-  }, [checkAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   // Parse bilingual text
   const parseBilingual = (text: string) => {

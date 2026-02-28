@@ -2585,8 +2585,9 @@ input[type="password"]:focus {
   font-weight: 600;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   text-align: center;
+  will-change: background-color, border-color, box-shadow;
 }
 
 .pricing-button:disabled {
@@ -2603,7 +2604,7 @@ input[type="password"]:focus {
 .pricing-button-primary:hover:not(:disabled) {
   background: #0a6b6b;
   border-color: #0a6b6b;
-  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .pricing-button-secondary {
@@ -2683,11 +2684,12 @@ input[type="password"]:focus {
   border-radius: 8px;
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   align-items: center;
+  will-change: background-color, box-shadow;
 }
 
 .pricing-cta-button-en {
@@ -2703,7 +2705,7 @@ input[type="password"]:focus {
 
 .pricing-cta-button:hover {
   background: #0a6b6b;
-  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive Design */
@@ -2796,13 +2798,14 @@ input[type="password"]:focus {
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
+  will-change: background-color, box-shadow;
 }
 
   .membership-upgrade-button:hover {
   background: #0a6b6b;
-  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 640px) {

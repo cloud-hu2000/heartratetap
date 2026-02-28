@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
 // 用户类型定义
@@ -113,7 +113,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   });
 
   // 检查认证状态
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
@@ -141,7 +141,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthenticated: false,
       });
     }
-  };
+  }, []);
 
   // 登录函数
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
