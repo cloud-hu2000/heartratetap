@@ -2,24 +2,14 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
-export default function ProfilePage() {
-  const { user, isAuthenticated, isLoading, logout, checkAuth } = useAuth();
+// 提取使用 useSearchParams 的逻辑到单独组件
+function UpgradeSuccessHandler() {
+  const { isAuthenticated, isLoading, checkAuth } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [resendLoading, setResendLoading] = useState(false);
-  const [resendMessage, setResendMessage] = useState<string | null>(null);
-  const [resendError, setResendError] = useState<string | null>(null);
-  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated, isLoading, router]);
-
-  // 检查是否有升级成功的参数，如果有则刷新用户状态
   useEffect(() => {
     const upgradeSuccess = searchParams.get('upgrade');
     if (upgradeSuccess === 'success' && !isLoading && isAuthenticated) {
@@ -38,6 +28,23 @@ export default function ProfilePage() {
       };
     }
   }, [searchParams, isLoading, isAuthenticated, checkAuth, router]);
+
+  return null;
+}
+
+export default function ProfilePage() {
+  const { user, isAuthenticated, isLoading, logout, checkAuth } = useAuth();
+  const router = useRouter();
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState<string | null>(null);
+  const [resendError, setResendError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   const handleLogout = async () => {
     await logout();
@@ -110,6 +117,9 @@ export default function ProfilePage() {
 
   return (
     <div className="frame">
+      <Suspense fallback={null}>
+        <UpgradeSuccessHandler />
+      </Suspense>
       {/* Header Section */}
       <section className="panel hero">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
