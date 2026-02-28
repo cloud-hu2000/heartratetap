@@ -3,11 +3,12 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { MEMBERSHIP_TIERS } from '@/contexts/AuthContext';
+import { MEMBERSHIP_TIERS, useAuth } from '@/contexts/AuthContext';
 
 const CheckoutSuccessContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { checkAuth } = useAuth();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   const tier = searchParams.get('tier');
@@ -21,15 +22,36 @@ const CheckoutSuccessContent = () => {
 
     console.log('✅ 支付成功回调:', { tier, requestId });
 
-    // 支付成功后，数据库应该已经被万里汇的通知API更新了
-    // 这里我们直接显示成功信息，然后重定向到profile页面
+    // 支付成功后，刷新用户状态以获取最新的会员等级
+    // 由于 Stripe webhook 可能需要一些时间处理，我们添加延迟和重试机制
+    const refreshUserState = async (retryCount = 0) => {
+      try {
+        console.log(`🔄 刷新用户状态... (尝试 ${retryCount + 1}/3)`);
+        await checkAuth();
+        console.log('✅ 用户状态已刷新');
+      } catch (error) {
+        console.error('❌ 刷新用户状态失败:', error);
+        // 如果失败且未达到最大重试次数，延迟后重试
+        if (retryCount < 2) {
+          setTimeout(() => refreshUserState(retryCount + 1), 2000);
+        }
+      }
+    };
+
+    // 延迟刷新，给 webhook 一些时间处理
+    setTimeout(() => {
+      refreshUserState();
+    }, 1500);
+
+    // 支付成功后，数据库应该已经被Stripe webhook更新了
+    // 这里我们刷新用户状态，然后重定向到profile页面
     const redirectTimer = setTimeout(() => {
       setIsRedirecting(true);
       router.push('/profile?upgrade=success&tier=' + tier);
     }, 3000); // 3秒后自动重定向
 
     return () => clearTimeout(redirectTimer);
-  }, [tier, requestId, router]);
+  }, [tier, requestId, router, checkAuth]);
 
   if (!tier) {
     return (

@@ -1,12 +1,13 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function ProfilePage() {
   const { user, isAuthenticated, isLoading, logout, checkAuth } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [resendLoading, setResendLoading] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
   const [resendError, setResendError] = useState<string | null>(null);
@@ -17,6 +18,26 @@ export default function ProfilePage() {
       router.push('/');
     }
   }, [isAuthenticated, isLoading, router]);
+
+  // 检查是否有升级成功的参数，如果有则刷新用户状态
+  useEffect(() => {
+    const upgradeSuccess = searchParams.get('upgrade');
+    if (upgradeSuccess === 'success' && !isLoading && isAuthenticated) {
+      console.log('✅ 检测到升级成功，刷新用户状态...');
+      // 延迟刷新，确保 webhook 已经处理完成
+      const refreshTimer = setTimeout(() => {
+        checkAuth().catch(err => console.error('刷新用户状态失败:', err));
+      }, 1000);
+      // 清除 URL 参数，避免重复刷新
+      const replaceTimer = setTimeout(() => {
+        router.replace('/profile', { scroll: false });
+      }, 2000);
+      return () => {
+        clearTimeout(refreshTimer);
+        clearTimeout(replaceTimer);
+      };
+    }
+  }, [searchParams, isLoading, isAuthenticated, checkAuth, router]);
 
   const handleLogout = async () => {
     await logout();
