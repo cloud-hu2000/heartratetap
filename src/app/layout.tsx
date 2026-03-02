@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import * as Sentry from "@sentry/nextjs";
 import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
@@ -94,30 +95,33 @@ export default function RootLayout({
         <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
 
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-95CLQ9158L"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-95CLQ9158L');
-            `
-          }}
+        {/* Google tag (gtag.js) - 使用 next/script 以符合 Next.js 建议 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-95CLQ9158L"
+          strategy="afterInteractive"
         />
+        <Script id="ga-gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-95CLQ9158L');
+          `}
+        </Script>
 
-        <script
+        <Script
           async
           src="//shockedmirror.com/b/X.VAsQdAGGl/0pYiWucc/fedmA9/uzZGUQlQk/PsTbYx3/NkTuEK2eOXTOMitVNyjSca1-MGTXYl5VNrAE"
           referrerPolicy="no-referrer-when-downgrade"
+          strategy="afterInteractive"
         />
 
         {/* Ahrefs Analytics */}
-        <script
+        <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="jmJyFaXCFey64pIyVeFUyg"
           async
+          strategy="afterInteractive"
         />
 
         <StructuredData />

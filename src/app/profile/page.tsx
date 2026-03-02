@@ -1,8 +1,36 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+
+// 提取使用 useSearchParams 的逻辑到单独组件
+function UpgradeSuccessHandler() {
+  const { isAuthenticated, isLoading, checkAuth } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const upgradeSuccess = searchParams.get('upgrade');
+    if (upgradeSuccess === 'success' && !isLoading && isAuthenticated) {
+      console.log('✅ 检测到升级成功，刷新用户状态...');
+      // 延迟刷新，确保 webhook 已经处理完成
+      const refreshTimer = setTimeout(() => {
+        checkAuth().catch(err => console.error('刷新用户状态失败:', err));
+      }, 1000);
+      // 清除 URL 参数，避免重复刷新
+      const replaceTimer = setTimeout(() => {
+        router.replace('/profile', { scroll: false });
+      }, 2000);
+      return () => {
+        clearTimeout(refreshTimer);
+        clearTimeout(replaceTimer);
+      };
+    }
+  }, [searchParams, isLoading, isAuthenticated, checkAuth, router]);
+
+  return null;
+}
 
 export default function ProfilePage() {
   const { user, isAuthenticated, isLoading, logout, checkAuth } = useAuth();
@@ -89,6 +117,9 @@ export default function ProfilePage() {
 
   return (
     <div className="frame">
+      <Suspense fallback={null}>
+        <UpgradeSuccessHandler />
+      </Suspense>
       {/* Header Section */}
       <section className="panel hero">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>

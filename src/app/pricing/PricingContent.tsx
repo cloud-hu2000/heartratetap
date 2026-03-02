@@ -53,7 +53,20 @@ const PricingContent = () => {
     if (typeof window !== 'undefined' && checkAuth) {
       checkAuth().catch(err => console.warn('checkAuth failed on pricing mount', err));
     }
-  }, [checkAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
+  // 检查 URL 参数，如果有升级成功或从其他页面返回，刷新用户状态
+  useEffect(() => {
+    const upgradeSuccess = searchParams.get('upgrade');
+    if (upgradeSuccess === 'success' && user && checkAuth) {
+      console.log('✅ 检测到升级成功，刷新用户状态...');
+      // 延迟一下，确保 webhook 已经处理完成
+      setTimeout(() => {
+        checkAuth().catch(err => console.error('刷新用户状态失败:', err));
+      }, 1000);
+    }
+  }, [searchParams, user, checkAuth]);
 
   // Parse bilingual text
   const parseBilingual = (text: string) => {
