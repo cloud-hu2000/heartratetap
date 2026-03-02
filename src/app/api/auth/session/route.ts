@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { readSessionFromHeader, verifySession } from "@/lib/auth";
 import { sql } from "@/lib/db";
 
+// Use Node.js runtime for better performance and lower edge function usage
+export const runtime = 'nodejs';
+
 export async function GET(req: Request) {
     // Check if database is available (skip during build)
   if (!sql) {
@@ -20,7 +23,14 @@ export async function GET(req: Request) {
 
     const rows = await sql`select id, email, name, role, account_tier, email_verified, created_at, updated_at from users where id = ${payload.sub} limit 1`;
     const user = rows[0] ?? null;
-    return NextResponse.json({ user });
+    
+    // Add cache headers to reduce edge function calls
+    // Cache for 30 seconds to reduce database queries
+    return NextResponse.json({ user }, {
+      headers: {
+        'Cache-Control': 'private, max-age=30, stale-while-revalidate=60'
+      }
+    });
   } catch (err) {
     return NextResponse.json({ error: "Server error", detail: String(err) }, { status: 500 });
   }

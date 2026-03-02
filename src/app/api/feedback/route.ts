@@ -14,12 +14,20 @@ const feedbackSchema = z.object({
     .or(z.literal(""))
 });
 
+// Use Node.js runtime to reduce edge function usage
+export const runtime = 'nodejs';
+// Allow caching for GET requests to reduce database queries
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
     const feedback = await fetchFeedbackList();
-    return NextResponse.json({ feedback });
+    // Cache feedback list for 5 minutes to reduce edge requests
+    return NextResponse.json({ feedback }, {
+      headers: {
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=600'
+      }
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Unable to fetch feedback" }, { status: 500 });
