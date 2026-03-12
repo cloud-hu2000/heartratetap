@@ -117,7 +117,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
-      const response = await fetch('/api/auth/session', { credentials: 'include', cache: 'no-store' });
+      // 添加时间戳参数确保每次都获取最新数据
+      const response = await fetch(`/api/auth/session?t=${Date.now()}`, { 
+        credentials: 'include', 
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       const data = await response.json();
 
       if (data.user) {
@@ -296,6 +303,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     checkAuth();
   }, []);
+
+  // 当页面变为可见时（用户切换回标签页），刷新用户状态
+  // 这样可以确保如果数据库中的用户信息被更改，前端状态会及时更新
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && authState.isAuthenticated) {
+        // 页面变为可见且用户已登录时，刷新用户状态
+        checkAuth().catch(err => console.warn('Failed to refresh auth on visibility change:', err));
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [authState.isAuthenticated, checkAuth]);
 
   // 权限检查函数
   const hasPermission = (feature: string): boolean => {

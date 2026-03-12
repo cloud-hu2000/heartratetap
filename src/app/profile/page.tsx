@@ -2,31 +2,40 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useRef } from 'react';
 
 // 提取使用 useSearchParams 的逻辑到单独组件
 function UpgradeSuccessHandler() {
   const { isAuthenticated, isLoading, checkAuth } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const hasProcessedRef = useRef(false);
 
   useEffect(() => {
     const upgradeSuccess = searchParams.get('upgrade');
-    if (upgradeSuccess === 'success' && !isLoading && isAuthenticated) {
-      console.log('✅ 检测到升级成功，刷新用户状态...');
-      // 延迟刷新，确保 webhook 已经处理完成
-      const refreshTimer = setTimeout(() => {
-        checkAuth().catch(err => console.error('刷新用户状态失败:', err));
-      }, 1000);
-      // 清除 URL 参数，避免重复刷新
-      const replaceTimer = setTimeout(() => {
-        router.replace('/profile', { scroll: false });
-      }, 2000);
-      return () => {
-        clearTimeout(refreshTimer);
-        clearTimeout(replaceTimer);
-      };
+    // 如果已经处理过，或者没有升级成功参数，或者还在加载中，或者未认证，则跳过
+    if (hasProcessedRef.current || upgradeSuccess !== 'success' || isLoading || !isAuthenticated) {
+      return;
     }
+
+    // 标记为已处理，避免重复执行
+    hasProcessedRef.current = true;
+    console.log('✅ 检测到升级成功，刷新用户状态...');
+    
+    // 延迟刷新，确保 webhook 已经处理完成
+    const refreshTimer = setTimeout(() => {
+      checkAuth().catch(err => console.error('刷新用户状态失败:', err));
+    }, 1000);
+    
+    // 清除 URL 参数，避免重复刷新
+    const replaceTimer = setTimeout(() => {
+      router.replace('/profile', { scroll: false });
+    }, 2000);
+    
+    return () => {
+      clearTimeout(refreshTimer);
+      clearTimeout(replaceTimer);
+    };
   }, [searchParams, isLoading, isAuthenticated, checkAuth, router]);
 
   return null;
@@ -45,6 +54,14 @@ export default function ProfilePage() {
       router.push('/');
     }
   }, [isAuthenticated, isLoading, router]);
+
+  // 页面加载时刷新用户数据，确保显示最新的tier信息
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      checkAuth().catch(err => console.error('Failed to refresh user data on mount:', err));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 只在组件挂载时执行一次
 
   const handleLogout = async () => {
     await logout();

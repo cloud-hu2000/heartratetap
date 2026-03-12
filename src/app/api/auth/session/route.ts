@@ -23,17 +23,13 @@ export async function GET(req: Request) {
 
     const rows = await sql`select id, email, name, role, account_tier, email_verified, created_at, updated_at from users where id = ${payload.sub} limit 1`;
     const user = rows[0] ?? null;
-    
-    // Add cache headers to reduce edge function calls
-    // Cache for 30 seconds to reduce database queries
-    return NextResponse.json({ user }, {
-      headers: {
-        'Cache-Control': 'private, max-age=30, stale-while-revalidate=60'
-      }
-    });
+    const response = NextResponse.json({ user });
+    // 禁用缓存，确保总是返回最新的用户数据
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    return response;
   } catch (err) {
     return NextResponse.json({ error: "Server error", detail: String(err) }, { status: 500 });
   }
 }
-
-

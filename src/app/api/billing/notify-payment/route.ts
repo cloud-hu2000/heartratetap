@@ -30,7 +30,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid webhook signature" }, { status: 400 });
     }
 
-    console.log('📡 Stripe event:', event.type);
+    console.log('📡 Stripe event:', event.type, {
+      eventId: event.id,
+      livemode: event.livemode,
+    });
 
     // 处理 checkout.session.completed: 完成支付后更新用户会员等级
     if (event.type === 'checkout.session.completed') {
@@ -39,8 +42,17 @@ export async function POST(req: NextRequest) {
       const userId = metadata.userId;
       const tier = metadata.tier;
 
-      console.log('🔔 checkout.session.completed metadata:', metadata);
-      if (userId && tier) {
+      console.log('🔔 checkout.session.completed:', {
+        sessionId: session.id,
+        paymentStatus: session.payment_status,
+        metadata,
+        amountTotal: session.amount_total,
+        currency: session.currency,
+      });
+
+      if (!userId || !tier) {
+        console.error('❌ checkout.session.completed metadata 缺少必要字段:', { userId, tier });
+      } else {
         if (!sql) {
           console.error('❌ 数据库连接不可用，无法更新用户等级');
         } else {
@@ -96,7 +108,13 @@ export async function POST(req: NextRequest) {
       const userId = metadata.userId;
       const tier = metadata.tier;
 
-      console.log('🔔 payment_intent.succeeded metadata:', metadata);
+      console.log('🔔 payment_intent.succeeded:', {
+        paymentIntentId: paymentIntent.id,
+        amount: paymentIntent.amount,
+        currency: paymentIntent.currency,
+        status: paymentIntent.status,
+        metadata,
+      });
 
       if (userId && tier) {
         if (!sql) {
