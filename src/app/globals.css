@@ -2618,6 +2618,52 @@ input[type="password"]:focus {
   border-color: rgba(15, 43, 51, 0.3);
 }
 
+/* Payment Method Selection */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.payment-methods-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.payment-methods-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.payment-method-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--card);
+  color: var(--muted);
+  border: 2px solid var(--line);
+}
+
+.payment-method-button:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.payment-method-selected {
+  border-color: var(--accent);
+  background: rgba(0, 137, 137, 0.1);
+  color: var(--accent);
+  font-weight: 600;
+}
+
 
 /* CTA Section */
 .pricing-cta {
@@ -2752,6 +2798,15 @@ input[type="password"]:focus {
   .pricing-button {
     padding: 0.875rem 1.5rem;
     font-size: 0.95rem;
+  }
+
+  .payment-methods-options {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .payment-method-button {
+    width: 100%;
   }
 }
 

@@ -11,6 +11,7 @@ const PricingContent = () => {
   const { user, upgradeMembership, checkAuth } = useAuth();
   const searchParams = useSearchParams();
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'stripe' | 'alipay'>('stripe');
   const [currentLang, setCurrentLang] = useState<"en" | "es">(() => {
     if (typeof window !== "undefined") {
       const stored = window.localStorage.getItem(LANG_STORAGE_KEY) as "en" | "es" | null;
@@ -85,6 +86,15 @@ const PricingContent = () => {
 
     setIsUpgrading(tier);
     try {
+      // 支付宝占位功能
+      if (selectedPaymentMethod === 'alipay') {
+        alert(currentLang === 'en' 
+          ? 'Alipay payment is coming soon. Please use Stripe for now.' 
+          : 'El pago con Alipay llegará pronto. Por favor, use Stripe por ahora.');
+        setIsUpgrading(null);
+        return;
+      }
+
       const result = await upgradeMembership(tier);
       if (result.success && result.paymentUrl) {
         window.location.href = result.paymentUrl;
@@ -128,6 +138,27 @@ const PricingContent = () => {
             </div>
           )}
         </header>
+
+        {/* Payment Method Selection */}
+        <div className="payment-methods">
+          <div className="payment-methods-label">
+            {currentLang === 'en' ? 'Payment Method:' : 'Método de Pago:'}
+          </div>
+          <div className="payment-methods-options">
+            <button
+              className={`payment-method-button ${selectedPaymentMethod === 'stripe' ? 'payment-method-selected' : ''}`}
+              onClick={() => setSelectedPaymentMethod('stripe')}
+            >
+              💳 Stripe
+            </button>
+            <button
+              className={`payment-method-button ${selectedPaymentMethod === 'alipay' ? 'payment-method-selected' : ''}`}
+              onClick={() => setSelectedPaymentMethod('alipay')}
+            >
+              🟦 Alipay
+            </button>
+          </div>
+        </div>
 
         {/* Pricing Cards */}
         <div className="pricing-grid">
