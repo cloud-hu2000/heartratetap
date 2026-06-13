@@ -4,14 +4,17 @@ import BlogKnowledgeHub from '@/components/BlogKnowledgeHub';
 export const metadata = {
   title: "Free Online Heart Rate Monitor — Check Your Heart Rate Instantly | HeartRateTap",
   description: "Use our free online heart rate monitor to measure your BPM instantly. Fast, private, and designed by signal-processing experts.",
+  alternates: {
+    canonical: "https://www.heartratetap.com/blog/free-online-heart-rate-monitor",
+  },
   openGraph: {
     title: "Free Online Heart Rate Monitor — Check Your Heart Rate Instantly",
     description: "Use our free online heart rate monitor to measure your BPM instantly. Fast, private, and designed by signal-processing experts.",
-    url: "https://heartratetap.com/blog/free-online-heart-rate-monitor",
+    url: "https://www.heartratetap.com/blog/free-online-heart-rate-monitor",
     siteName: "HeartRateTap",
     images: [
       {
-        url: "https://heartratetap.com/favicon.png",
+        url: "https://www.heartratetap.com/favicon.png",
         width: 1200,
         height: 630,
       },
@@ -28,12 +31,12 @@ export default function Page() {
   const ldJson = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://heartratetap.com/blog/free-online-heart-rate-monitor" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.heartratetap.com/blog/free-online-heart-rate-monitor" },
     "headline": "Free Online Heart Rate Monitor — Check Your Heart Rate Instantly",
     "description": "Use our free online heart rate monitor to measure your BPM instantly. Fast, private, and designed by signal-processing experts.",
-    "image": "https://heartratetap.com/favicon.png",
+    "image": "https://www.heartratetap.com/favicon.png",
     "author": { "@type": "Organization", "name": "HeartRateTap" },
-    "publisher": { "@type": "Organization", "name": "HeartRateTap", "logo": { "@type": "ImageObject", "url": "https://heartratetap.com/favicon.png" } },
+    "publisher": { "@type": "Organization", "name": "HeartRateTap", "logo": { "@type": "ImageObject", "url": "https://www.heartratetap.com/favicon.png" } },
     "datePublished": "2026-01-07",
     "dateModified": "2026-01-07",
     "keywords": "free online heart rate monitor, online heart rate monitor, heart rate monitor online"

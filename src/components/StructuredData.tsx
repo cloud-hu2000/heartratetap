@@ -6,8 +6,8 @@ export function StructuredData() {
       // WebApplication - 描述工具类型
       {
         "@type": "WebApplication",
-        "@id": "https://heartratetap.com/#webapplication",
-        "url": "https://heartratetap.com",
+        "@id": "https://www.heartratetap.com/#webapplication",
+        "url": "https://www.heartratetap.com",
         "name": "HeartRateTap - Free Online Heart Rate Monitor",
         "description": "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
         "applicationCategory": "HealthApplication",
@@ -28,24 +28,24 @@ export function StructuredData() {
           "Heart rate history tracking",
           "Multi-language support (English/Spanish)"
         ],
-        "screenshot": "https://heartratetap.com/favicon.png",
+        "screenshot": "https://www.heartratetap.com/favicon.png",
         "author": {
           "@type": "Organization",
-          "@id": "https://heartratetap.com/#organization"
+          "@id": "https://www.heartratetap.com/#organization"
         },
         "publisher": {
           "@type": "Organization",
-          "@id": "https://heartratetap.com/#organization"
+          "@id": "https://www.heartratetap.com/#organization"
         }
       },
       // Organization - 描述组织信息
       {
         "@type": "Organization",
-        "@id": "https://heartratetap.com/#organization",
+        "@id": "https://www.heartratetap.com/#organization",
         "name": "HeartRateTap",
         "alternateName": "Heart Rhythm Studio",
-        "url": "https://heartratetap.com",
-        "logo": "https://heartratetap.com/favicon.png",
+        "url": "https://www.heartratetap.com",
+        "logo": "https://www.heartratetap.com/favicon.png",
         "description": "Free online heart rate monitoring tool providing real-time BPM measurement without any devices or downloads.",
         "foundingDate": "2024",
         "contactPoint": {
@@ -74,7 +74,7 @@ export function StructuredData() {
       // ContactPoint - 额外的联系方式
       {
         "@type": "ContactPoint",
-        "@id": "https://heartratetap.com/#contact",
+        "@id": "https://www.heartratetap.com/#contact",
         "telephone": "+1-555-123-4567",
         "email": "cloudhu2000@zohomail.cn",
         "contactType": "customer service",
@@ -96,14 +96,14 @@ export function StructuredData() {
       // SoftwareApplication - 补充应用信息
       {
         "@type": "SoftwareApplication",
-        "@id": "https://heartratetap.com/#software",
+        "@id": "https://www.heartratetap.com/#software",
         "name": "HeartRateTap",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "Web",
         "softwareVersion": "1.0.0",
         "fileSize": "0 KB",
-        "downloadUrl": "https://heartratetap.com",
-        "screenshot": "https://heartratetap.com/favicon.png",
+        "downloadUrl": "https://www.heartratetap.com",
+        "screenshot": "https://www.heartratetap.com/favicon.png",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -111,28 +111,20 @@ export function StructuredData() {
         },
         "author": {
           "@type": "Organization",
-          "@id": "https://heartratetap.com/#organization"
+          "@id": "https://www.heartratetap.com/#organization"
         }
       },
       // WebSite - 网站信息
       {
         "@type": "WebSite",
-        "@id": "https://heartratetap.com/#website",
-        "url": "https://heartratetap.com",
+        "@id": "https://www.heartratetap.com/#website",
+        "url": "https://www.heartratetap.com",
         "name": "HeartRateTap - Free Online Heart Rate Monitor",
         "description": "Free online heart rate checker - measure your heart rate online instantly with no device needed",
         "inLanguage": ["en", "es"],
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://heartratetap.com/search?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        },
         "publisher": {
           "@type": "Organization",
-          "@id": "https://heartratetap.com/#organization"
+          "@id": "https://www.heartratetap.com/#organization"
         }
       }
     ]

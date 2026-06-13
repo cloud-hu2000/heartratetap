@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     "Use our free online heart rate checker to measure your heart rate online in seconds. No app download, no device needed. Check heart rate online free with just a tap!",
   alternates: {
-    canonical: "https://heartratetap.com/blog/free-online-heart-rate-checker"
+    canonical: "https://www.heartratetap.com/blog/free-online-heart-rate-checker"
   },
   openGraph: {
     title: "Free Online Heart Rate Checker – Measure Heart Rate Online Instantly",
     description:
       "Use our free online heart rate checker to measure your heart rate online in seconds. No app download, no device needed.",
-    url: "https://heartratetap.com/blog/free-online-heart-rate-checker"
+    url: "https://www.heartratetap.com/blog/free-online-heart-rate-checker"
   }
 };
 

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://heartratetap.com'
+  const baseUrl = 'https://www.heartratetap.com'
   
   // List of AI crawlers and bots that should be allowed
   const aiCrawlers = [

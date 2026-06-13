@@ -4,14 +4,17 @@ import BlogKnowledgeHub from '@/components/BlogKnowledgeHub';
 export const metadata = {
   title: "Heart Rate Monitor Online — A Trustworthy Online Heart Rate Tool | HeartRateTap",
   description: "A transparent, expert-backed online heart rate monitoring tool for quick self-checks and trend tracking.",
+  alternates: {
+    canonical: "https://www.heartratetap.com/blog/heart-rate-monitor-online",
+  },
   openGraph: {
     title: "Heart Rate Monitor Online — A Trustworthy Online Heart Rate Tool",
     description: "A transparent, expert-backed online heart rate monitoring tool for quick self-checks and trend tracking.",
-    url: "https://heartratetap.com/blog/heart-rate-monitor-online",
+    url: "https://www.heartratetap.com/blog/heart-rate-monitor-online",
     siteName: "HeartRateTap",
     images: [
       {
-        url: "https://heartratetap.com/favicon.png",
+        url: "https://www.heartratetap.com/favicon.png",
         width: 1200,
         height: 630,
       },
@@ -28,12 +31,12 @@ export default function Page() {
   const ldJson = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://heartratetap.com/blog/heart-rate-monitor-online" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.heartratetap.com/blog/heart-rate-monitor-online" },
     "headline": "Heart Rate Monitor Online — A Trustworthy Online Heart Rate Tool",
     "description": "A transparent, expert-backed online heart rate monitoring tool for quick self-checks and trend tracking.",
-    "image": "https://heartratetap.com/favicon.png",
+    "image": "https://www.heartratetap.com/favicon.png",
     "author": { "@type": "Organization", "name": "HeartRateTap" },
-    "publisher": { "@type": "Organization", "name": "HeartRateTap", "logo": { "@type": "ImageObject", "url": "https://heartratetap.com/favicon.png" } },
+    "publisher": { "@type": "Organization", "name": "HeartRateTap", "logo": { "@type": "ImageObject", "url": "https://www.heartratetap.com/favicon.png" } },
     "datePublished": "2026-01-07",
     "dateModified": "2026-01-07",
     "keywords": "heart rate monitor online, online heart rate monitor, free online heart rate monitor"

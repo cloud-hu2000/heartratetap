@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Compare the free, Pro, and Premium lifetime plans for HeartRateTap. Unlock advanced heart rate analysis and personalized insights with one-time upgrades.',
   alternates: {
-    canonical: 'https://heartratetap.com/pricing',
+    canonical: 'https://www.heartratetap.com/pricing',
   },
 };
 

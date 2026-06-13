@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "See HeartRateTap's public roadmap and most-voted ideas from the community. Explore what’s planned, in progress, and already shipped for the free online heart rate monitor.",
   alternates: {
-    canonical: "https://heartratetap.com/roadmap"
+    canonical: "https://www.heartratetap.com/roadmap"
   }
 };
 

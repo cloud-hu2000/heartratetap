@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Learn how to build a 30-second daily habit to track your resting heart rate with HeartRateTap’s free online heart rate monitor. No devices, no apps—just your pulse and a browser.",
   alternates: {
-    canonical: "https://heartratetap.com/blog/daily-resting-heart-rate-check"
+    canonical: "https://www.heartratetap.com/blog/daily-resting-heart-rate-check"
   }
 };
 

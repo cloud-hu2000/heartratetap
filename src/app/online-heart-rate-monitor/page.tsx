@@ -4,6 +4,16 @@ export const metadata = {
   title: 'Online Heart Rate Monitor — Real-time & Free Tool | HeartrateTap',
   description:
     "Use HeartrateTap's reliable online heart rate monitor for fast, simple measurements. Click to get real-time BPM, measurement guidance, and common error tips — ideal for quick checks and daily monitoring.",
+  alternates: {
+    canonical: 'https://www.heartratetap.com/online-heart-rate-monitor',
+  },
+  openGraph: {
+    title: 'Online Heart Rate Monitor — Real-time & Free Tool | HeartrateTap',
+    description:
+      "Use HeartrateTap's reliable online heart rate monitor for fast, simple measurements and real-time BPM guidance.",
+    url: 'https://www.heartratetap.com/online-heart-rate-monitor',
+    siteName: 'HeartRateTap',
+  },
 };
 
 export default function OnlineHeartRateMonitorPage() {
@@ -50,5 +60,3 @@ export default function OnlineHeartRateMonitorPage() {
     </main>
   );
 }
-
-

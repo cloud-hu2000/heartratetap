@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Learn how to use heart rate zones for running and workouts, and quickly check whether you are in the right zone with HeartRateTap’s free online heart rate monitor.",
   alternates: {
-    canonical: "https://heartratetap.com/blog/heart-rate-zones-for-running"
+    canonical: "https://www.heartratetap.com/blog/heart-rate-zones-for-running"
   }
 };
 

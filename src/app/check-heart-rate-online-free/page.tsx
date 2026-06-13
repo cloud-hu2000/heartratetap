@@ -4,6 +4,16 @@ export const metadata = {
   title: 'Free Online Heart Rate Check — HeartrateTap Instant Measure',
   description:
     'Use HeartrateTap to check your heart rate online for free. Fast response, mobile and desktop friendly. No device needed — click to view your BPM and get interpretation and measurement tips. Try it now for free.',
+  alternates: {
+    canonical: 'https://www.heartratetap.com/check-heart-rate-online-free',
+  },
+  openGraph: {
+    title: 'Free Online Heart Rate Check — HeartrateTap Instant Measure',
+    description:
+      'Use HeartrateTap to check your heart rate online for free. Fast response, mobile and desktop friendly. No device needed.',
+    url: 'https://www.heartratetap.com/check-heart-rate-online-free',
+    siteName: 'HeartRateTap',
+  },
 };
 
 export default function CheckHeartRatePage() {
@@ -57,5 +67,3 @@ export default function CheckHeartRatePage() {
     </main>
   );
 }
-
-

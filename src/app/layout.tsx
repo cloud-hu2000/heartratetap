@@ -10,7 +10,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 export function generateMetadata(): Metadata {
   return {
-    metadataBase: new URL("https://heartratetap.com"),
+    metadataBase: new URL("https://www.heartratetap.com"),
     title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
     description:
       "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
@@ -42,17 +42,17 @@ export function generateMetadata(): Metadata {
       apple: "/favicon.png"
     },
     alternates: {
-      canonical: "https://heartratetap.com"
+      canonical: "https://www.heartratetap.com"
     },
     openGraph: {
       title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
       description:
         "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds!",
-      url: "https://heartratetap.com",
+      url: "https://www.heartratetap.com",
       siteName: "HeartRateTap",
       images: [
         {
-          url: "https://heartratetap.com/favicon.png",
+          url: "https://www.heartratetap.com/favicon.png",
           width: 1200,
           height: 630,
           alt: "Free online heart rate monitor - check heart rate online free"
