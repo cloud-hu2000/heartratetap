@@ -154,7 +154,7 @@ const BlogPage = () => {
             </li>
             <li>
               <strong>Open HeartRateTap</strong> – Navigate to our{" "}
-              <Link href="/" className="blog-inline-cta">
+              <Link href="/check-heart-rate-online-free" className="blog-inline-cta">
                 free heart rate monitor
               </Link>{" "}
               page.
@@ -319,7 +319,7 @@ const BlogPage = () => {
             Ready to <strong>check heart rate online free</strong>? Our tool is available 24/7, completely free, and
             requires no registration. Just tap and measure—it&apos;s that simple.
           </p>
-          <Link href="/" className="pill active" prefetch>
+          <Link href="/check-heart-rate-online-free" className="pill active" prefetch>
             Try Free Heart Rate Monitor Now
           </Link>
           <p className="blog-cta-note">

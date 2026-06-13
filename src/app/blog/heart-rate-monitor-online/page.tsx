@@ -86,7 +86,7 @@ export default function Page() {
         <BlogKnowledgeHub />
 
         <footer>
-          <p><Link href="/">Return to Home</Link></p>
+          <p><Link href="/online-heart-rate-monitor">Use the online heart rate monitor</Link></p>
         </footer>
 
         <script

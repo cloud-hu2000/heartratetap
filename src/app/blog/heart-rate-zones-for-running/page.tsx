@@ -105,7 +105,7 @@ const RunningZonesPage = () => {
           </p>
           <p>
             👉{" "}
-            <Link href="/" className="blog-inline-cta">
+            <Link href="/online-heart-rate-monitor" className="blog-inline-cta">
               Try HeartRateTap now
             </Link>{" "}
             and get a live BPM reading in seconds.
@@ -187,7 +187,7 @@ const RunningZonesPage = () => {
             HeartRateTap. You’ll quickly see whether you are truly training in the right zone—or if your body is asking
             for more recovery.
           </p>
-          <Link href="/" className="pill active">
+          <Link href="/online-heart-rate-monitor" className="pill active">
             Try HeartRateTap now
           </Link>
           <p className="blog-cta-note">

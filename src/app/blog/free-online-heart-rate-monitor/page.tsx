@@ -106,7 +106,7 @@ export default function Page() {
             Ready to check your heart rate? Our free tool is available 24/7 and requires no registration. Tap to start
             and see your BPM instantly.
           </p>
-          <Link href="/" className="pill active" prefetch>
+          <Link href="/online-heart-rate-monitor" className="pill active" prefetch>
             Try Free Heart Rate Monitor Now
           </Link>
           <p className="blog-cta-note">No downloads. No sign-ups. Just instant heart rate measurement.</p>
@@ -116,7 +116,7 @@ export default function Page() {
 
         <footer>
           <p>
-            <Link href="/">Return to Home</Link>
+            <Link href="/online-heart-rate-monitor">Use the online heart rate monitor</Link>
           </p>
         </footer>
 

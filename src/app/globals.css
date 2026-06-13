@@ -1163,6 +1163,172 @@ body {
   text-underline-offset: 2px;
 }
 
+.tool-landing-page {
+  gap: 1.5rem;
+}
+
+.tool-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.tool-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.tool-eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tool-hero-copy h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.tool-intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.65;
+}
+
+.tool-keyword-row,
+.tool-language-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.tool-keyword-row span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.tool-keyword-row span:first-child {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.tool-hero-monitor {
+  min-width: 0;
+}
+
+.tool-hero-monitor .pulse-zone {
+  height: 100%;
+  min-height: 520px;
+}
+
+.tool-support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.tool-info-panel {
+  border-radius: 18px;
+  gap: 1rem;
+}
+
+.tool-info-panel h2,
+.tool-info-panel h3 {
+  margin: 0;
+}
+
+.tool-info-panel p,
+.tool-info-panel li {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.tool-info-panel ol,
+.tool-info-panel ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.tool-faq-grid,
+.tool-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tool-faq-grid article {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: #f9fffd;
+}
+
+.tool-faq-grid p {
+  margin-bottom: 0;
+}
+
+.tool-link-grid a {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: #f9fffd;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tool-link-grid a:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+@media (max-width: 960px) {
+  .tool-hero,
+  .tool-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-hero-monitor .pulse-zone {
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tool-hero {
+    gap: 1rem;
+  }
+
+  .tool-keyword-row,
+  .tool-language-row {
+    display: none;
+  }
+
+  .tool-intro {
+    line-height: 1.5;
+  }
+
+  .tool-hero-monitor .pulse-zone {
+    min-height: auto;
+  }
+}
+
 /* NavBar global styles to avoid FOUC (rendered server-side) */
 .nav {
   position: fixed;

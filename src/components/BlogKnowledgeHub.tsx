@@ -8,6 +8,10 @@ const BlogKnowledgeHub = () => {
         Explore more guides on how to understand and use your heart rate in everyday life and training. All articles are
         built around the same real-time tapping tool, so you can learn and measure in one place.
       </p>
+      <div className="tool-link-grid">
+        <Link href="/check-heart-rate-online-free">Check heart rate online free</Link>
+        <Link href="/online-heart-rate-monitor">Use the online heart rate monitor</Link>
+      </div>
       <ul>
         <li>
           <Link href="/blog/free-online-heart-rate-checker">
@@ -37,8 +41,8 @@ const BlogKnowledgeHub = () => {
       </ul>
       <p>
         Ready to put it into practice?{" "}
-        <Link href="/" className="blog-inline-cta">
-          Try HeartRateTap now
+        <Link href="/check-heart-rate-online-free" className="blog-inline-cta">
+          Try the free online heart rate checker
         </Link>{" "}
         and see your own numbers in real time.
       </p>

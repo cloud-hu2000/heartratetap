@@ -83,7 +83,7 @@ const DailyRestingHeartRatePage = () => {
           </ol>
           <p>
             👉 You can start right now:{" "}
-            <Link href="/" className="blog-inline-cta">
+            <Link href="/check-heart-rate-online-free" className="blog-inline-cta">
               Try HeartRateTap now
             </Link>{" "}
             and get your current resting BPM.
@@ -141,7 +141,7 @@ const DailyRestingHeartRatePage = () => {
             well-timed, 30-second resting heart rate check each day can give you a powerful early-warning signal for stress,
             fatigue, and recovery.
           </p>
-          <Link href="/" className="pill active">
+          <Link href="/check-heart-rate-online-free" className="pill active">
             Try HeartRateTap now
           </Link>
           <p className="blog-cta-note">

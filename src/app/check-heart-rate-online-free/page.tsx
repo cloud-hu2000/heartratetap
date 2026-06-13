@@ -1,69 +1,63 @@
-import React from 'react';
+import type { Metadata } from "next";
+import ToolLandingPage from "@/components/ToolLandingPage";
 
-export const metadata = {
-  title: 'Free Online Heart Rate Check — HeartrateTap Instant Measure',
+export const metadata: Metadata = {
+  title: "Check Heart Rate Online Free - Online Heart Rate Checker | HeartRateTap",
   description:
-    'Use HeartrateTap to check your heart rate online for free. Fast response, mobile and desktop friendly. No device needed — click to view your BPM and get interpretation and measurement tips. Try it now for free.',
+    "Check heart rate online free with HeartRateTap. Use the online heart rate checker in your browser, tap with your pulse, and get an instant BPM reading with no device or signup.",
   alternates: {
-    canonical: 'https://www.heartratetap.com/check-heart-rate-online-free',
+    canonical: "https://www.heartratetap.com/check-heart-rate-online-free"
   },
   openGraph: {
-    title: 'Free Online Heart Rate Check — HeartrateTap Instant Measure',
+    title: "Check Heart Rate Online Free - Online Heart Rate Checker",
     description:
-      'Use HeartrateTap to check your heart rate online for free. Fast response, mobile and desktop friendly. No device needed.',
-    url: 'https://www.heartratetap.com/check-heart-rate-online-free',
-    siteName: 'HeartRateTap',
+      "Use HeartRateTap to check heart rate online free. Tap with your pulse and get an instant BPM reading in your browser.",
+    url: "https://www.heartratetap.com/check-heart-rate-online-free",
+    siteName: "HeartRateTap"
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Check Heart Rate Online Free - Online Heart Rate Checker",
+    description: "Tap with your pulse and check your heart rate online for free in seconds."
+  }
 };
 
 export default function CheckHeartRatePage() {
   return (
-    <main>
-      <header>
-        <h1>Free Online Heart Rate Check — HeartrateTap Instant Measure</h1>
-        <p>
-          Use HeartrateTap to check your heart rate (BPM) online for free. No extra
-          devices or downloads required — mobile and desktop supported.
-        </p>
-      </header>
-
-      <section>
-        <h2>How to start</h2>
-        <ol>
-          <li>Click the &quot;Start check&quot; button and follow the on-screen instructions.</li>
-          <li>Remain still and allow the tool a few seconds to sample for a stable reading.</li>
-          <li>Review the displayed BPM and guidance; repeat the measurement if needed.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h2>Results interpretation & tips</h2>
-        <p>
-          The measured BPM is an instant reading. Normal resting adult heart rate is
-          roughly 60–100 BPM. If readings remain abnormal over time, consult a
-          healthcare professional.
-        </p>
-        <ul>
-          <li>Rest for 1–2 minutes before measurement; avoid intense exercise or strong emotions.</li>
-          <li>Repeat and record measurements if you observe anomalies for comparison.</li>
-          <li>This tool is for reference and does not replace professional medical advice.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>FAQ</h2>
-        <h3>Do I need to pay or register?</h3>
-        <p>No — basic checks are free and require no registration.</p>
-        <h3>Are results always accurate?</h3>
-        <p>
-          For better accuracy, keep the device stable and ensure adequate lighting if using
-          camera-based detection. For definitive diagnosis, use medical-grade equipment.
-        </p>
-      </section>
-
-      <footer>
-        <p>© HeartrateTap</p>
-      </footer>
-    </main>
+    <ToolLandingPage
+      eyebrow="Free browser-based BPM check"
+      title="Check Heart Rate Online Free"
+      description="Use this online heart rate checker directly in your browser. Find your pulse, tap the tool with each heartbeat, and see your BPM update in real time. No app, wearable, camera permission, or signup required."
+      primaryKeyword="check heart rate online free"
+      secondaryKeywords={["online heart rate checker", "free online heart rate checker", "heart rate measure online"]}
+      useCases={[
+        "Quick resting heart rate checks in the morning",
+        "Before and after workout recovery checks",
+        "Stress or caffeine self-checks during the day",
+        "A no-device backup when you do not have a watch or pulse oximeter"
+      ]}
+      faqs={[
+        {
+          question: "Is this online heart rate checker free?",
+          answer:
+            "Yes. The basic heart rate check is free and works in your browser without registration or a connected device."
+        },
+        {
+          question: "How does it check my heart rate online?",
+          answer:
+            "You feel your pulse and tap in rhythm. HeartRateTap measures the time between taps and converts that rhythm into beats per minute."
+        },
+        {
+          question: "Can I use it on my phone?",
+          answer:
+            "Yes. The checker works on phones, tablets, laptops, and desktop browsers. For best results, keep your hand and screen steady while tapping."
+        },
+        {
+          question: "Can this replace medical equipment?",
+          answer:
+            "No. It is a wellness reference tool, not a medical device. Use certified equipment or talk to a healthcare professional for medical decisions."
+        }
+      ]}
+    />
   );
 }
