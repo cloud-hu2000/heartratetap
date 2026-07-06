@@ -119,7 +119,7 @@ export default function RootLayout({
         {/* Ahrefs Analytics */}
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
-          data-key="jmJyFaXCFey64pIyVeFUyg"
+          data-key="F7PUf+eqUra9h+t+ok3o3w"
           async
           strategy="afterInteractive"
         />
