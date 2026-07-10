@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import * as Sentry from "@sentry/nextjs";
 import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
@@ -13,23 +12,7 @@ export function generateMetadata(): Metadata {
     metadataBase: new URL("https://www.heartratetap.com"),
     title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
     description:
-      "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
-    keywords: [
-      "online heart rate",
-      "check heart rate online free",
-      "free heart rate monitor online",
-      "heart rate measure online",
-      "free online heart rate checker",
-      "heart rate monitor",
-      "real-time heart rate",
-      "online heart rate test",
-      "heart rate calculator",
-      "pulse rate checker",
-      "instant heart rate",
-      "no device heart rate",
-      "resting heart rate",
-      "exercise heart rate"
-    ],
+      "Estimate BPM by tapping in time with a pulse you locate manually. See the formula, limitations, local history and cited resting and exercise context.",
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
@@ -47,7 +30,7 @@ export function generateMetadata(): Metadata {
     openGraph: {
       title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
       description:
-        "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds!",
+        "A transparent tap-interval BPM estimator with local history, documented limitations and cited reference context.",
       url: "https://www.heartratetap.com",
       siteName: "HeartRateTap",
       images: [
@@ -62,7 +45,7 @@ export function generateMetadata(): Metadata {
     twitter: {
       card: "summary_large_image",
       title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
-      description: "Free online heart rate checker. Measure your heart rate online instantly - no device needed!"
+      description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations."
     },
     other: {
       ...Sentry.getTraceData()
@@ -94,28 +77,6 @@ export default function RootLayout({
         />
         <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
-
-        {/* Google tag (gtag.js) - 使用 next/script 以符合 Next.js 建议 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-95CLQ9158L"
-          strategy="afterInteractive"
-        />
-        <Script id="ga-gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-95CLQ9158L');
-          `}
-        </Script>
-
-        {/* Ahrefs Analytics */}
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="F7PUf+eqUra9h+t+ok3o3w"
-          async
-          strategy="afterInteractive"
-        />
 
         <StructuredData />
       </head>

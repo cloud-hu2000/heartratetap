@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchFeedbackList } from "@/lib/feedback";
+import Footer from "@/components/Footer";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
     "See HeartRateTap's public roadmap and most-voted ideas from the community. Explore what’s planned, in progress, and already shipped for the free online heart rate monitor.",
   alternates: {
     canonical: "https://www.heartratetap.com/roadmap"
+  },
+  robots: {
+    index: false,
+    follow: true
   }
 };
 
@@ -118,6 +123,7 @@ const RoadmapPage = async () => {
           </Link>
         </section>
       </article>
+      <Footer />
     </div>
   );
 };

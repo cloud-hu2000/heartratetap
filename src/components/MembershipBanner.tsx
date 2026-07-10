@@ -22,7 +22,7 @@ export default function MembershipBanner({ user }: MembershipBannerProps) {
           </span>
           {user.account_tier === 'free' && (
             <span className="membership-upgrade">
-              Upgrade for advanced features like data export and personalized reports
+              Upgrade for CSV export or to support ongoing development
             </span>
           )}
         </div>

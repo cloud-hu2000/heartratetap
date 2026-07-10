@@ -5,9 +5,13 @@ import PricingContent from './PricingContent';
 export const metadata: Metadata = {
   title: 'Pricing & Lifetime Plans | HeartRateTap',
   description:
-    'Compare the free, Pro, and Premium lifetime plans for HeartRateTap. Unlock advanced heart rate analysis and personalized insights with one-time upgrades.',
+    'Compare HeartRateTap free and supporter plans. Paid tiers use a one-time payment and the currently listed functional upgrade is CSV export.',
   alternates: {
     canonical: 'https://www.heartratetap.com/pricing',
+  },
+  robots: {
+    index: false,
+    follow: true,
   },
 };
 

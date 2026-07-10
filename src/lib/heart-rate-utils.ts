@@ -44,7 +44,7 @@ export const analysisFor = (t: typeof COPY[keyof typeof COPY], mode: ViewMode, b
   }
   if (mode === "rest") {
     if (bpm < 60) return t.advice.rest.low;
-    if (bpm <= 90) return t.advice.rest.ideal;
+    if (bpm <= 100) return t.advice.rest.ideal;
     return t.advice.rest.high;
   }
   if (bpm < 120) return t.advice.sport.warm;

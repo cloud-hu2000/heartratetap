@@ -2,6 +2,30 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/check-heart-rate-online-free',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/online-heart-rate-monitor',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/blog/free-online-heart-rate-monitor',
+        destination: '/blog/free-online-heart-rate-checker',
+        permanent: true,
+      },
+      {
+        source: '/blog/heart-rate-monitor-online',
+        destination: '/blog/free-online-heart-rate-checker',
+        permanent: true,
+      },
+    ];
+  },
   // Optimize for static generation and reduce server-side rendering
   output: 'standalone',
   // Enable compression

@@ -22,10 +22,10 @@ export const MEMBERSHIP_TIERS = {
     price: 0,
     currency: 'USD',
     features: [
-      'EN: Basic heart rate measurement | ES: Medición básica de frecuencia cardíaca',
-      'EN: Real-time BPM display | ES: Visualización BPM en tiempo real',
+      'EN: Tap-based BPM estimate | ES: Estimación de LPM mediante toques',
+      'EN: Live tap-interval display | ES: Visualización de intervalos en directo',
       'EN: Local history (20 readings) | ES: Historial local (20 lecturas)',
-      'EN: Basic health advice | ES: Consejos básicos de salud',
+      'EN: Cited general reference context | ES: Contexto general con fuentes',
     ],
   },
   pro: {
@@ -35,10 +35,9 @@ export const MEMBERSHIP_TIERS = {
     features: [
       'EN: All free features | ES: Todas las funciones gratuitas',
       'EN: Data export (CSV) | ES: Exportación de datos (CSV)',
-      'EN: History trend analysis | ES: Análisis de tendencias históricas',
-      'EN: Advanced health insights | ES: Perspectivas avanzadas de salud',
-      'EN: Ad-free experience | ES: Experiencia sin anuncios',
-      'EN: Lifetime access | ES: Acceso de por vida',
+      'EN: Professional supporter account tier | ES: Nivel de cuenta de colaborador profesional',
+      'EN: One-time payment | ES: Pago único',
+      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
     ],
   },
   premium: {
@@ -47,13 +46,9 @@ export const MEMBERSHIP_TIERS = {
     currency: 'USD',
     features: [
       'EN: All professional features | ES: Todas las funciones profesionales',
-      'EN: Cloud data sync | ES: Sincronización de datos en la nube',
-      'EN: Personalized health reports | ES: Informes de salud personalizados',
-      'EN: Workout plan recommendations | ES: Recomendaciones de planes de entrenamiento',
-      'EN: Health goal tracking | ES: Seguimiento de objetivos de salud',
-      'EN: Advanced data visualization | ES: Visualización avanzada de datos',
-      'EN: Priority customer support | ES: Soporte al cliente prioritario',
-      'EN: Lifetime access | ES: Acceso de por vida',
+      'EN: Premium supporter account tier | ES: Nivel de cuenta de colaborador premium',
+      'EN: Higher one-time contribution to development | ES: Mayor aporte único al desarrollo',
+      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
     ],
   },
   enterprise: {
@@ -62,13 +57,9 @@ export const MEMBERSHIP_TIERS = {
     currency: 'USD',
     features: [
       'EN: All premium features | ES: Todas las funciones premium',
-      'EN: Team management | ES: Gestión de equipos',
-      'EN: Bulk data export | ES: Exportación masiva de datos',
-      'EN: API access | ES: Acceso a API',
-      'EN: Custom reports | ES: Informes personalizados',
-      'EN: Dedicated account manager | ES: Gerente de cuenta dedicado',
-      'EN: Enterprise-grade security | ES: Seguridad de nivel empresarial',
-      'EN: Lifetime access | ES: Acceso de por vida',
+      'EN: Enterprise supporter account tier | ES: Nivel de cuenta de colaborador empresarial',
+      'EN: One-time contribution to development | ES: Aporte único al desarrollo',
+      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
     ],
   },
 } as const;
@@ -302,7 +293,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // 初始化时检查认证状态
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
   // 当页面变为可见时（用户切换回标签页），刷新用户状态
   // 这样可以确保如果数据库中的用户信息被更改，前端状态会及时更新

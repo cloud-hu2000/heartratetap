@@ -118,8 +118,8 @@ const PricingContent = () => {
           </h1>
           <p className="pricing-subtitle">
             {currentLang === 'en'
-              ? 'Unlock advanced heart rate analysis and personalized health insights'
-              : 'Desbloquee análisis avanzado de frecuencia cardíaca y perspectivas de salud personalizadas'
+              ? 'Keep the basic calculator free or support development with a one-time upgrade'
+              : 'Mantenga gratis la calculadora básica o apoye el desarrollo con una mejora de pago único'
             }
           </p>
           {canceled && (
@@ -244,16 +244,16 @@ const PricingContent = () => {
               <h3>{currentLang === 'en' ? 'Pro plan' : 'Plan Pro'}</h3>
               <p>
                 {currentLang === 'en'
-                  ? 'Adds deeper trend context for people who check resting rate, workout recovery, or stress response regularly on the same account.'
-                  : 'Agrega mas contexto de tendencias para quienes revisan reposo, recuperacion o respuesta al estres con regularidad.'}
+                  ? 'Adds CSV export and a Professional supporter account tier. The payment is one-time and does not turn the calculator into a medical service.'
+                  : 'Agrega exportacion CSV y un nivel de colaborador Profesional. El pago es unico y no convierte la calculadora en un servicio medico.'}
               </p>
             </article>
             <article>
               <h3>{currentLang === 'en' ? 'Premium plan' : 'Plan Premium'}</h3>
               <p>
                 {currentLang === 'en'
-                  ? 'Designed for frequent self-tracking, with more personalized interpretation while keeping HeartRateTap a wellness reference rather than a medical device.'
-                  : 'Pensado para seguimiento frecuente, con interpretacion mas personalizada sin convertir HeartRateTap en un dispositivo medico.'}
+                  ? 'Includes the same currently listed functional features as Pro with a higher one-time contribution and a Premium supporter account tier.'
+                  : 'Incluye las mismas funciones actuales que Pro, con un aporte unico mayor y un nivel de colaborador Premium.'}
               </p>
             </article>
           </div>
@@ -264,8 +264,8 @@ const PricingContent = () => {
           <div className="pricing-cta">
             <h3>
               {currentLang === 'en'
-                ? 'Ready to upgrade your heart health tracking?'
-                : '¿Listo para mejorar el seguimiento de su salud cardíaca?'
+                ? 'Want CSV export or to support the project?'
+                : '¿Quiere exportacion CSV o apoyar el proyecto?'
               }
             </h3>
             <p>

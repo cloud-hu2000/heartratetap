@@ -5,32 +5,22 @@ const BlogKnowledgeHub = () => {
     <section className="blog-section">
       <h2>HeartRateTap Knowledge Hub</h2>
       <p>
-        Explore more guides on how to understand and use your heart rate in everyday life and training. All articles are
-        built around the same real-time tapping tool, so you can learn and measure in one place.
+        Continue with a guide that answers a different question, or browse the curated library. Closely related
+        instructions stay together so you do not have to compare repeated versions of the same article.
       </p>
       <div className="tool-link-grid">
-        <Link href="/check-heart-rate-online-free">Check heart rate online free</Link>
-        <Link href="/online-heart-rate-monitor">Use the online heart rate monitor</Link>
+        <Link href="/">Use the tap-based BPM calculator</Link>
+        <Link href="/guides">Browse all guides</Link>
       </div>
       <ul>
         <li>
           <Link href="/blog/free-online-heart-rate-checker">
-            Free Online Heart Rate Checker – Measure Heart Rate Online Instantly
+            How a Tap-Based Heart Rate Checker Estimates BPM
           </Link>
         </li>
         <li>
           <Link href="/blog/heart-rate-zones-for-running">
             Heart Rate Zones for Running: Are You Training in the Right Zone?
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/free-online-heart-rate-monitor">
-            Free Online Heart Rate Monitor — Check Your Heart Rate Instantly
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-monitor-online">
-            Heart Rate Monitor Online — Trustworthy Online Heart Rate Tool
           </Link>
         </li>
         <li>
@@ -41,10 +31,10 @@ const BlogKnowledgeHub = () => {
       </ul>
       <p>
         Ready to put it into practice?{" "}
-        <Link href="/check-heart-rate-online-free" className="blog-inline-cta">
-          Try the free online heart rate checker
+        <Link href="/" className="blog-inline-cta">
+          open the calculator
         </Link>{" "}
-        and see your own numbers in real time.
+        and watch the tap-based estimate update.
       </p>
     </section>
   );

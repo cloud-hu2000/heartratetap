@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 function getBaseUrl(req: Request) {
   // 优先使用显式配置的 BASE_URL
   const envBase =

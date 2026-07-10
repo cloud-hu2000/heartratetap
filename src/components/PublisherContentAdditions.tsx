@@ -4,94 +4,96 @@ type PublisherContentAdditionsProps = {
 
 const CONTENT = {
   en: {
-    reviewed: "Content last reviewed: July 2026",
+    reviewed: "Product explanation last checked: July 10, 2026",
     intro:
-      "HeartRateTap is designed as a practical pulse-timing tool, so this page includes the measurement experience and the context needed to understand it responsibly.",
+      "The notes below describe the behavior of this specific tool—not a generic claim about browser heart-rate apps. The public methodology guide includes a worked calculation and repeatability checklist.",
     sections: [
       {
-        title: "How the tap method estimates BPM",
+        title: "The calculation in one line",
         body:
-          "The tool measures the time between your taps and converts that rhythm into beats per minute. A steady sequence of taps gives the calculator more intervals to compare, which is why ten or more consistent beats usually produces a more stable result than two or three quick taps."
+          "BPM equals 60,000 divided by the average milliseconds between consecutive taps. An average interval of 1,000 ms is 60 BPM; 800 ms is 75 BPM; 600 ms is 100 BPM."
       },
       {
-        title: "What affects accuracy",
+        title: "Which taps are used",
         body:
-          "Cold hands, movement, stress, caffeine, recent exercise, and uneven tapping can all change the reading. If a number looks surprising, rest quietly, find a clear pulse at the wrist or neck, and repeat the measurement before making any personal wellness conclusions."
+          "The active calculation keeps up to the latest 16 tap timestamps. The display checks short rolling windows and prefers the longer available sample. At least two taps are needed, but the interface asks for ten to reduce the influence of one small timing error."
       },
       {
-        title: "When to use a certified device",
+        title: "What remains on this device",
         body:
-          "This site is for everyday wellness reference. It is not a medical device and should not be used for diagnosis, emergency evaluation, medication decisions, or training limits set by a clinician. Use certified equipment or professional care when accuracy matters."
+          "Locked BPM values, timestamps and the selected rest/active label are saved in local browser storage by default. Clearing site data, switching profiles or using a private window can remove that history."
       },
       {
-        title: "Why your history stays local",
+        title: "What we do not claim",
         body:
-          "Recent readings are kept in your browser so you can compare checks on the same device without creating an account. Clearing browser storage, switching browsers, or using private mode can remove that local history."
+          "HeartRateTap has not been validated as a medical device. It does not sense electrical rhythm, detect missed beats, measure blood pressure or oxygen, or establish the cause of a high, low or changing result."
       }
     ],
-    faqTitle: "Practical questions",
+    faqTitle: "Practical measurement questions",
     faqs: [
       {
-        question: "How long should I tap?",
+        question: "Why ask for at least 10 taps?",
         answer:
-          "Tap through at least ten steady heartbeats. For resting checks, sit still for a few minutes first and avoid measuring immediately after climbing stairs, exercising, or drinking caffeine."
+          "More intervals make one slightly early or late tap a smaller part of the average. Ten taps improve repeatability; they do not guarantee that the estimate matches a certified instrument."
       },
       {
-        question: "Why do two readings differ?",
+        question: "Why can two correct attempts differ?",
         answer:
-          "Heart rate naturally changes from minute to minute. Differences can also come from finding a weaker pulse point or tapping slightly ahead of or behind the beat."
+          "Heart rate can change from moment to moment, and tap timing also varies. Repeat in the same posture and conditions, and restart any attempt where you know a beat was missed or added."
       },
       {
-        question: "What is a useful routine?",
+        question: "What if the pulse feels irregular?",
         answer:
-          "For trend tracking, measure at a similar time and in similar conditions, such as after waking and before coffee. Comparing consistent routines is more useful than comparing random readings."
+          "Do not use an averaged tap number to evaluate an irregular rhythm. Record what you noticed and seek appropriate professional advice, especially if the pattern repeats or symptoms are present."
       }
-    ]
+    ],
+    guide: "See the full calculation methodology"
   },
   es: {
-    reviewed: "Contenido revisado por ultima vez: julio de 2026",
+    reviewed: "Explicación del producto revisada: 10 de julio de 2026",
     intro:
-      "HeartRateTap esta pensado como una herramienta practica para cronometrar el pulso, por eso esta pagina combina la medicion con el contexto necesario para interpretarla con responsabilidad.",
+      "Estas notas describen el comportamiento de esta herramienta concreta, no una afirmación general sobre aplicaciones de frecuencia cardíaca. La guía pública incluye un cálculo de ejemplo y una prueba de repetibilidad.",
     sections: [
       {
-        title: "Como el metodo de toques estima los BPM",
+        title: "El cálculo en una línea",
         body:
-          "La herramienta mide el tiempo entre tus toques y convierte ese ritmo en latidos por minuto. Una serie constante de toques da mas intervalos para comparar, por lo que diez o mas latidos regulares suelen ofrecer un resultado mas estable que dos o tres toques rapidos."
+          "Los LPM son 60.000 divididos entre el promedio de milisegundos entre toques consecutivos. Un intervalo medio de 1.000 ms equivale a 60 LPM; 800 ms a 75 LPM; 600 ms a 100 LPM."
       },
       {
-        title: "Que afecta la precision",
+        title: "Qué toques se utilizan",
         body:
-          "Manos frias, movimiento, estres, cafeina, ejercicio reciente y toques irregulares pueden cambiar la lectura. Si el numero sorprende, descansa, encuentra un pulso claro en la muneca o el cuello y repite la medicion."
+          "El cálculo activo conserva hasta las últimas 16 marcas de tiempo. La pantalla comprueba ventanas breves y prefiere la muestra más larga disponible. Bastan dos toques para calcular, pero la interfaz pide diez para reducir el peso de un pequeño error."
       },
       {
-        title: "Cuando usar un dispositivo certificado",
+        title: "Qué permanece en este dispositivo",
         body:
-          "Este sitio es una referencia de bienestar general. No es un dispositivo medico y no debe usarse para diagnostico, emergencias, decisiones de medicacion o limites de entrenamiento definidos por un profesional."
+          "Los LPM guardados, la hora y la etiqueta de reposo/actividad se almacenan localmente en el navegador. Borrar los datos, cambiar de perfil o usar una ventana privada puede eliminar el historial."
       },
       {
-        title: "Por que tu historial queda local",
+        title: "Lo que no afirmamos",
         body:
-          "Las lecturas recientes se guardan en tu navegador para comparar mediciones en el mismo dispositivo sin crear una cuenta. Borrar el almacenamiento, cambiar de navegador o usar modo privado puede eliminar ese historial."
+          "HeartRateTap no está validado como dispositivo médico. No detecta el ritmo eléctrico ni latidos omitidos, no mide presión u oxígeno y no determina la causa de un resultado alto, bajo o cambiante."
       }
     ],
-    faqTitle: "Preguntas practicas",
+    faqTitle: "Preguntas prácticas de medición",
     faqs: [
       {
-        question: "Cuanto tiempo debo tocar?",
+        question: "¿Por qué se piden al menos 10 toques?",
         answer:
-          "Toca durante al menos diez latidos constantes. Para mediciones en reposo, sientate unos minutos antes y evita medir justo despues de subir escaleras, entrenar o tomar cafeina."
+          "Con más intervalos, un toque un poco adelantado o atrasado pesa menos en el promedio. Diez toques mejoran la repetibilidad; no garantizan coincidencia con un instrumento certificado."
       },
       {
-        question: "Por que dos lecturas son diferentes?",
+        question: "¿Por qué dos intentos correctos pueden diferir?",
         answer:
-          "La frecuencia cardiaca cambia naturalmente minuto a minuto. Tambien puede variar si el punto de pulso es debil o si los toques se adelantan o retrasan respecto al latido."
+          "La frecuencia puede cambiar de un momento a otro y el ritmo de los toques también varía. Repite con la misma postura y reinicia si sabes que omitiste o añadiste un latido."
       },
       {
-        question: "Que rutina es util?",
+        question: "¿Qué hago si el pulso parece irregular?",
         answer:
-          "Para seguir tendencias, mide a una hora y en condiciones similares, por ejemplo al despertar y antes del cafe. Comparar rutinas constantes es mas util que comparar lecturas aleatorias."
+          "No uses un promedio de toques para evaluar un ritmo irregular. Anota lo que observaste y busca orientación profesional, especialmente si se repite o hay síntomas."
       }
-    ]
+    ],
+    guide: "Ver la metodología completa"
   }
 };
 
@@ -99,7 +101,7 @@ export default function PublisherContentAdditions({ lang }: PublisherContentAddi
   const t = CONTENT[lang];
 
   return (
-    <section className="panel publisher-content" aria-label="HeartRateTap measurement guidance">
+    <section className="panel publisher-content" aria-label="HeartRateTap calculation and limitations">
       <p className="publisher-reviewed">{t.reviewed}</p>
       <p className="publisher-intro">{t.intro}</p>
 
@@ -123,6 +125,10 @@ export default function PublisherContentAdditions({ lang }: PublisherContentAddi
           ))}
         </div>
       </div>
+
+      <a href="/blog/free-online-heart-rate-checker" className="blog-inline-cta">
+        {t.guide}
+      </a>
     </section>
   );
 }

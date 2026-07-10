@@ -35,15 +35,16 @@ export default function UpgradeModal({ onClose }: UpgradeModalProps) {
         <div className="upgrade-modal-body">
           <div className="upgrade-modal-icon">📊</div>
           <p className="upgrade-modal-message">
-            Data export is available for Professional and Premium plans. Upgrade your membership to unlock this feature and get access to advanced analytics.
+            CSV data export is available for Professional and Premium supporter plans. The upgrade is a one-time
+            payment for the features listed on the pricing page.
           </p>
           <div className="upgrade-modal-features">
             <h4>Professional Plan includes:</h4>
             <ul>
               <li>✅ Data export (CSV)</li>
-              <li>✅ Advanced health insights</li>
-              <li>✅ Trend analysis</li>
-              <li>✅ Ad-free experience</li>
+              <li>✅ Professional supporter account tier</li>
+              <li>✅ One-time payment</li>
+              <li>✅ Lifetime access to the listed features</li>
             </ul>
           </div>
         </div>

@@ -12,8 +12,8 @@ export const COPY = {
     sportLabel: "Active",
     stop: "Stop",
     resume: "Reset",
-    idleHint: "Ready to measure your heart rate",
-    zoneHint: "Heart rate zone indicator",
+    idleHint: "Ready to estimate BPM from your taps",
+    zoneHint: "BPM scale — not a diagnosis",
     historyTitle: "Recent heart rate history",
     historyEmpty: "Once you lock a result, your last 20 readings will appear here — only stored in this browser.",
     historyMetaWorkout: "Workout",
@@ -28,7 +28,7 @@ export const COPY = {
     roadmapTitle: "Product roadmap",
     roadmapHeading: "See what the community is voting for next",
     roadmapDesc:
-      "Ideas you share in the feedback box are connected to our public roadmap. Visit the roadmap to upvote your favorite ideas, track progress, and see what's planned, in progress, or already shipped.",
+      "Ideas submitted through the feedback panel can be reviewed for the public roadmap. Open it to see planned, in-progress, and shipped work; voting remains in the feedback panel on this page.",
     roadmapCta: "Open roadmap & top ideas",
     wantInfluence: "Want to influence what comes next?",
     status: {
@@ -38,14 +38,14 @@ export const COPY = {
     },
     advice: {
       rest: {
-        low: "Below 60 bpm • breathe slowly and stay warm.",
-        ideal: "60-90 bpm • calm circulation, hydrated and steady.",
-        high: "Above 90 bpm • decompress, stretch, watch stimulants."
+        low: "Below 60 bpm • can be usual for some active adults; repeat if unexpected and consider symptoms.",
+        ideal: "60-100 bpm • within a common adult resting reference; compare with your own routine and context.",
+        high: "Above 100 bpm • rest and repeat if unexpected; seek advice if it persists or symptoms are present."
       },
       sport: {
-        warm: "50-60% HRmax • gentle warm-up, build rhythm.",
-        burn: "65-75% HRmax • fat-burn efficiency peaks here.",
-        cardio: "80-90% HRmax • short bursts for cardio power."
+        warm: "Active snapshot below 120 bpm • age, fitness, delay after stopping and medication affect context.",
+        burn: "Active snapshot 120-149 bpm • this is a delayed tap estimate, not continuous workout monitoring.",
+        cardio: "Active snapshot 150+ bpm • stop for concerning symptoms and use an individual exercise plan."
       }
     },
     seoIntro:
@@ -101,8 +101,8 @@ export const COPY = {
     sportLabel: "Actividad",
     stop: "Detener",
     resume: "Reiniciar",
-    idleHint: "Listo para medir tu frecuencia cardíaca",
-    zoneHint: "Indicador de zona de frecuencia cardíaca",
+    idleHint: "Listo para estimar LPM a partir de tus toques",
+    zoneHint: "Escala de LPM — no es un diagnóstico",
     historyTitle: "Historial reciente de frecuencia cardíaca",
     historyEmpty:
       "Cuando guardes un resultado, tus últimas 20 lecturas aparecerán aquí — solo se almacenan en este navegador.",
@@ -118,7 +118,7 @@ export const COPY = {
     roadmapTitle: "Hoja de ruta del producto",
     roadmapHeading: "Mira qué está votando la comunidad",
     roadmapDesc:
-      "Las ideas que compartes en el panel de feedback están conectadas a nuestra hoja de ruta pública. Visítala para votar, seguir el progreso y ver lo planificado, en progreso o ya entregado.",
+      "Las ideas enviadas mediante el panel de comentarios pueden revisarse para la hoja de ruta pública. Ábrela para ver lo planificado, en progreso o entregado; la votación permanece en el panel de esta página.",
     roadmapCta: "Abrir hoja de ruta e ideas principales",
     wantInfluence: "¿Quieres influir en lo que sigue?",
     status: {
@@ -128,14 +128,14 @@ export const COPY = {
     },
     advice: {
       rest: {
-        low: "Por debajo de 60 lpm • respira lento y mantente abrigado.",
-        ideal: "60-90 lpm • circulación calmada, hidratado y estable.",
-        high: "Más de 90 lpm • relájate, estira y limita estimulantes."
+        low: "Menos de 60 lpm • puede ser habitual en algunos adultos activos; repite si no lo esperabas y considera los síntomas.",
+        ideal: "60-100 lpm • dentro de una referencia común en adultos; compáralo con tu propia rutina y contexto.",
+        high: "Más de 100 lpm • descansa y repite si no lo esperabas; busca orientación si persiste o hay síntomas."
       },
       sport: {
-        warm: "50-60% FCmáx • calentamiento suave, crea ritmo.",
-        burn: "65-75% FCmáx • máxima eficiencia de quema de grasa.",
-        cardio: "80-90% FCmáx • ráfagas cortas para potencia cardiovascular."
+        warm: "Lectura activa menor de 120 lpm • la edad, forma física, demora y medicación cambian el contexto.",
+        burn: "Lectura activa de 120-149 lpm • es una estimación tardía, no monitorización continua del ejercicio.",
+        cardio: "Lectura activa de 150+ lpm • detente si hay síntomas preocupantes y usa un plan individual."
       }
     },
     seoIntro:

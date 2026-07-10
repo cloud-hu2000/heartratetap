@@ -1,206 +1,224 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ArticleMeta from "@/components/ArticleMeta";
+import ArticleStructuredData from "@/components/ArticleStructuredData";
 import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
+import Footer from "@/components/Footer";
+import SourceList, { Source } from "@/components/SourceList";
+
+const TITLE = "Heart Rate Zones for Running – Are You Training in the Right Zone?";
+const DESCRIPTION =
+  "Learn what age-predicted heart-rate ranges can and cannot show, how to use the talk test, and why a tap reading after a run is only a delayed snapshot.";
 
 export const metadata: Metadata = {
-  title: "Heart Rate Zones for Running – Are You Training in the Right Zone?",
-  description:
-    "Learn how to use heart rate zones for running and workouts, and quickly check whether you are in the right zone with HeartRateTap’s free online heart rate monitor.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: "https://www.heartratetap.com/blog/heart-rate-zones-for-running"
   }
 };
 
-const ZONES = [
+const TARGETS = [
+  { age: "20", zone: "100–170", maximum: "200" },
+  { age: "30", zone: "95–162", maximum: "190" },
+  { age: "40", zone: "90–153", maximum: "180" },
+  { age: "50", zone: "85–145", maximum: "170" },
+  { age: "60", zone: "80–136", maximum: "160" },
+  { age: "70", zone: "75–128", maximum: "150" }
+];
+
+const SOURCES: Source[] = [
   {
-    name: "Zone 1 – Easy / Recovery",
-    percent: "50–60% HRmax",
-    feeling: "You can breathe through your nose and talk in full sentences.",
-    use: "Warm-ups, cooldowns, active recovery days."
+    name: "Target Heart Rates Chart",
+    publisher: "American Heart Association",
+    url: "https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/target-heart-rates",
+    note: "Age-predicted maximum values, 50–85% target ranges and cautions about medication and individual needs."
   },
   {
-    name: "Zone 2 – Endurance / Fat-burning",
-    percent: "60–70% HRmax",
-    feeling: "Comfortable but purposeful. You can talk, but not sing.",
-    use: "Building aerobic base, long steady runs and walks."
-  },
-  {
-    name: "Zone 3 – Tempo / Moderate",
-    percent: "70–80% HRmax",
-    feeling: "Talking in short phrases only, breathing more labored.",
-    use: "Shorter steady runs, tempo sessions for experienced runners."
-  },
-  {
-    name: "Zone 4 – Hard / Threshold",
-    percent: "80–90% HRmax",
-    feeling: "Very challenging. You can only say a few words at a time.",
-    use: "Intervals, hill repeats, race-pace efforts for trained athletes."
-  },
-  {
-    name: "Zone 5 – Max Effort",
-    percent: "90–100% HRmax",
-    feeling: "All-out sprinting, unsustainable for long.",
-    use: "Very short sprint work under guidance; not needed for most people."
+    name: "How to Measure Physical Activity Intensity",
+    publisher: "U.S. Centers for Disease Control and Prevention",
+    url: "https://www.cdc.gov/physical-activity-basics/measuring/index.html",
+    note: "The talk test and perceived-effort descriptions for moderate and vigorous activity."
   }
 ];
 
-const RunningZonesPage = () => {
+export default function RunningZonesPage() {
   return (
     <div className="frame blog-page">
       <article className="panel blog-article">
         <header className="blog-hero">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            Guides • Training & running
+            Guides • Exercise context
           </p>
-          <h1>Heart Rate Zones for Running – Are You Training in the Right Zone?</h1>
+          <h1>{TITLE}</h1>
           <p className="blog-intro">
-            If you run or work out without checking your heart rate, you might be training in the wrong zone—too easy to
-            improve, or too hard to recover. Here’s how to use HeartRateTap to stay in the right zone before and after
-            your runs.
+            Heart-rate ranges can add context to perceived effort, but age formulas are averages and a tap-based reading
+            taken after you stop is not continuous workout monitoring. Here is a careful way to use both the numbers and
+            their limitations.
           </p>
         </header>
 
+        <ArticleMeta published="December 22, 2025" reviewed="July 10, 2026" readingTime="8 minute read" />
+
         <section className="blog-section">
-          <h2>Why heart rate zones matter for runners</h2>
+          <h2>Why heart rate context can help runners</h2>
           <p>
-            When you run based purely on pace, you ignore a key signal: how hard your body is actually working. Heat,
-            hills, sleep, stress, and even caffeine can make the same pace feel very different from day to day.
+            Pace does not always equal effort. Hills, heat, fatigue and fitness can make the same pace feel different.
+            Heart rate is one additional observation, while perceived effort and the ability to talk provide context
+            that does not require a device.
           </p>
           <p>
-            Heart rate zones anchor your effort to your own physiology instead of a fixed pace. Training in the right
-            zone helps you:
-          </p>
-          <ul>
-            <li>Build endurance without overtraining</li>
-            <li>Burn fat efficiently at sustainable intensities</li>
-            <li>Protect your heart from constantly “redlining” workouts</li>
-            <li>Recover smarter between hard sessions</li>
-          </ul>
-          <p>
-            With{" "}
-            <Link href="/" className="blog-inline-cta">
-              HeartRateTap
-            </Link>
-            , you can quickly check your heart rate before you start running and right after you finish—no watch, strap,
-            or app install required.
+            The CDC describes moderate relative intensity as roughly 5 or 6 on a 0–10 effort scale, where you can talk
+            but not sing. Vigorous relative intensity begins around 7 or 8, where speaking more than a few words without
+            pausing is difficult. This “talk test” adapts to the person better than treating one BPM threshold as
+            universal.
           </p>
         </section>
 
         <section className="blog-section">
-          <h2>Quick refresher: how HeartRateTap works</h2>
+          <h2>What age-predicted target ranges mean</h2>
           <p>
-            Instead of reading from a wearable, HeartRateTap uses your taps to measure your pulse rhythm. Each time you
-            feel a heartbeat at your wrist or neck, you tap or hit the spacebar. The tool processes the timing between
-            taps and converts it into a live BPM reading.
-          </p>
-          <ol>
-            <li>Find your pulse at your wrist or neck.</li>
-            <li>Tap along with each beat using your keyboard or screen.</li>
-            <li>Watch your BPM update in real time while you tap.</li>
-            <li>Click “Stop” to lock your result and see coaching for rest or workout ranges.</li>
-          </ol>
-          <p>
-            It’s ideal for those moments before and after a workout where you simply want to confirm:{" "}
-            <em>am I in the right zone for today’s goal?</em>
-          </p>
-          <p>
-            👉{" "}
-            <Link href="/online-heart-rate-monitor" className="blog-inline-cta">
-              Try HeartRateTap now
-            </Link>{" "}
-            and get a live BPM reading in seconds.
-          </p>
-        </section>
-
-        <section className="blog-section">
-          <h2>Understanding running heart rate zones</h2>
-          <p>
-            Many runners estimate their maximum heart rate (HRmax) with simple formulas such as{" "}
-            <strong>220 − age</strong> or more refined versions. Zones are then expressed as a percentage of that HRmax.
-            While not perfect, these ranges are a practical starting point:
+            A common estimate for maximum heart rate is about 220 minus age. The American Heart Association describes
+            moderate activity as approximately 50–70% of that estimated maximum and vigorous activity as approximately
+            70–85%. These are averages for general guidance, not test results or prescribed limits.
           </p>
           <div className="blog-table-wrapper">
             <table>
               <thead>
                 <tr>
-                  <th>Zone</th>
-                  <th>% of HRmax</th>
-                  <th>How it feels</th>
-                  <th>Best used for</th>
+                  <th>Age</th>
+                  <th>General 50–85% target range (BPM)</th>
+                  <th>Age-predicted maximum (BPM)</th>
                 </tr>
               </thead>
               <tbody>
-                {ZONES.map((zone) => (
-                  <tr key={zone.name}>
-                    <td>{zone.name}</td>
-                    <td>{zone.percent}</td>
-                    <td>{zone.feeling}</td>
-                    <td>{zone.use}</td>
+                {TARGETS.map((row) => (
+                  <tr key={row.age}>
+                    <td>{row.age}</td>
+                    <td>{row.zone}</td>
+                    <td>{row.maximum}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <p className="blog-note">
-            💡 These are general guidelines. If you have heart conditions, are on medication, or are new to exercise,
-            always check with a healthcare professional or coach before relying heavily on specific HR zones.
+            Source: American Heart Association target heart rates chart, last reviewed August 12, 2024. The AHA table
+            includes additional five-year ages; this shorter table preserves its values at ten-year intervals.
           </p>
         </section>
 
         <section className="blog-section">
-          <h2>How to use HeartRateTap before and after a run</h2>
-          <h3>Before your run: set the right intensity</h3>
-          <ul>
-            <li>
-              <strong>Step 1:</strong> Sit or stand calmly and use HeartRateTap in rest mode to check your starting
-              heart rate.
-            </li>
-            <li>
-              <strong>Step 2:</strong> If your resting BPM is unusually high (for example, well above your normal
-              morning value), consider scaling the session back or turning it into an easy recovery day.
-            </li>
-          </ul>
-          <h3>Right after your run: confirm the training zone</h3>
-          <ul>
-            <li>
-              <strong>Step 1:</strong> Within 30–60 seconds of stopping, use HeartRateTap in “Active” mode and tap along
-              with your pulse.
-            </li>
-            <li>
-              <strong>Step 2:</strong> Lock the result and compare the BPM with the zone ranges in the table above.
-            </li>
-            <li>
-              <strong>Step 3:</strong> Ask: did this session match my intention (easy, tempo, intervals), or drift into a
-              different zone?
-            </li>
-          </ul>
+          <h2>Why your personal zone may differ</h2>
           <p>
-            Over time, pairing your perceived effort with an actual number will sharpen your internal “pace feel” and
-            make your training more intentional.
+            Age prediction does not measure your actual maximum. Fitness, health conditions, heat and medication can
+            change the relationship between BPM and effort. Beta blockers and some other medicines can lower heart rate,
+            making a general target chart inappropriate for setting intensity.
+          </p>
+          <p>
+            If you have a heart condition, take heart-rate-affecting medication, are returning after illness or have
+            been given a clinical exercise limit, use the range and device recommended by your health professional.
+            Beginners should build gradually rather than trying to reach the top of a chart.
           </p>
         </section>
 
-        <section className="blog-section blog-cta">
-          <h2>Try HeartRateTap before your next workout</h2>
+        <section className="blog-section">
+          <h2>What HeartRateTap can measure around a run</h2>
           <p>
-            The next time you head out for a run, take 20–30 seconds before and after to check your heart rate with
-            HeartRateTap. You’ll quickly see whether you are truly training in the right zone—or if your body is asking
-            for more recovery.
+            HeartRateTap requires one hand to find a pulse and another deliberate action for every beat. It is not safe
+            or practical as a continuous monitor while running. It can provide two limited snapshots:
           </p>
-          <Link href="/online-heart-rate-monitor" className="pill active">
-            Try HeartRateTap now
+          <ul>
+            <li>
+              <strong>Before the run:</strong> after sitting quietly, take a resting estimate under your usual conditions
+              and compare it with your own routine—not with someone else&apos;s baseline.
+            </li>
+            <li>
+              <strong>After the run:</strong> once you are safely stopped, find the pulse and tap. Record how many seconds
+              passed after stopping because heart rate begins changing during that delay.
+            </li>
+          </ul>
+          <p>
+            A post-run value is not the peak rate from the workout. The time needed to stop, unlock a phone, find a pulse
+            and tap means the number is a later average. Use a suitable wearable or chest strap if continuous workout
+            monitoring matters.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>A practical pre- and post-run record</h2>
+          <div className="blog-table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Record</th>
+                  <th>Example</th>
+                  <th>Interpretation limit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Planned session</td>
+                  <td>30-minute easy run</td>
+                  <td>Describes intent, not actual intensity</td>
+                </tr>
+                <tr>
+                  <td>Talk test / effort</td>
+                  <td>Full sentences; 5 of 10</td>
+                  <td>Subjective but individualized</td>
+                </tr>
+                <tr>
+                  <td>Post-run delay</td>
+                  <td>45 seconds</td>
+                  <td>Longer delays generally miss more of the earlier rate</td>
+                </tr>
+                <tr>
+                  <td>Tap estimate and repeats</td>
+                  <td>132, then 124 BPM</td>
+                  <td>Shows a short changing period, not continuous monitoring</td>
+                </tr>
+                <tr>
+                  <td>Conditions</td>
+                  <td>Hot, hilly route</td>
+                  <td>Helps compare similar sessions without assigning a cause</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="blog-section">
+          <h2>Stop conditions matter more than a zone</h2>
+          <p>
+            Stop exercising and seek appropriate help if you develop chest pain, fainting, severe shortness of breath,
+            marked dizziness or another alarming symptom. Do not try to finish a tap sequence or use a target-zone table
+            to decide whether the symptom is safe.
+          </p>
+        </section>
+
+        <SourceList sources={SOURCES} />
+
+        <section className="blog-section blog-cta">
+          <h2>Try a clearly labeled snapshot</h2>
+          <p>
+            Use the main calculator only when you are safely still, and record whether the result was resting or taken
+            after activity. For the calculation itself, read the methodology guide first.
+          </p>
+          <Link href="/" className="pill active">
+            Open HeartRateTap
           </Link>
-          <p className="blog-cta-note">
-            No app. No wearables. Just your pulse, your browser, and clearer insight into every session.
-          </p>
         </section>
 
         <BlogKnowledgeHub />
+        <ArticleStructuredData
+          title={TITLE}
+          description={DESCRIPTION}
+          path="/blog/heart-rate-zones-for-running"
+          datePublished="2025-12-22"
+          dateModified="2026-07-10"
+        />
       </article>
+      <Footer />
     </div>
   );
-};
-
-export default RunningZonesPage;
-
-
+}

@@ -1,15 +1,13 @@
-// Structured Data (JSON-LD) for SEO
 export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      // WebApplication - 描述工具类型
       {
         "@type": "WebApplication",
         "@id": "https://www.heartratetap.com/#webapplication",
         "url": "https://www.heartratetap.com",
-        "name": "HeartRateTap - Free Online Heart Rate Monitor",
-        "description": "Free online heart rate checker - measure your heart rate online instantly with no device needed. Tap to check heart rate online free in seconds. The easiest free heart rate monitor online!",
+        "name": "HeartRateTap",
+        "description": "A browser tool that estimates beats per minute from taps made in time with a manually located pulse.",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "Web Browser",
         "browserRequirements": "Modern web browser with JavaScript enabled",
@@ -20,15 +18,13 @@ export function StructuredData() {
           "availability": "https://schema.org/InStock"
         },
         "featureList": [
-          "Real-time heart rate measurement",
-          "No device required",
+          "Tap-interval BPM estimation",
+          "No connected sensor required",
           "Tap or spacebar input",
-          "Resting and active heart rate zones",
-          "BPM analysis and coaching",
-          "Heart rate history tracking",
+          "General resting and exercise reference context",
+          "Local browser history",
           "Multi-language support (English/Spanish)"
         ],
-        "screenshot": "https://www.heartratetap.com/favicon.png",
         "author": {
           "@type": "Organization",
           "@id": "https://www.heartratetap.com/#organization"
@@ -38,7 +34,6 @@ export function StructuredData() {
           "@id": "https://www.heartratetap.com/#organization"
         }
       },
-      // Organization - 描述组织信息
       {
         "@type": "Organization",
         "@id": "https://www.heartratetap.com/#organization",
@@ -46,81 +41,23 @@ export function StructuredData() {
         "alternateName": "Heart Rhythm Studio",
         "url": "https://www.heartratetap.com",
         "logo": "https://www.heartratetap.com/favicon.png",
-        "description": "Free online heart rate monitoring tool providing real-time BPM measurement without any devices or downloads.",
-        "foundingDate": "2024",
+        "description": "The independent product and editorial team that maintains the HeartRateTap browser tool and guides.",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+1-555-123-4567",
           "email": "cloudhu2000@gmail.com",
           "contactType": "technical support",
-          "availableLanguage": ["English", "Spanish"],
-          "hoursAvailable": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "17:00",
-            "timeZone": "America/New_York"
-          }
+          "availableLanguage": ["English", "Spanish"]
         },
         "sameAs": [
           "https://github.com/cloud-hu2000/heartratetap"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "US",
-          "addressRegion": "Global"
-        }
+        ]
       },
-      // ContactPoint - 额外的联系方式
-      {
-        "@type": "ContactPoint",
-        "@id": "https://www.heartratetap.com/#contact",
-        "telephone": "+1-555-123-4567",
-        "email": "cloudhu2000@zohomail.cn",
-        "contactType": "customer service",
-        "availableLanguage": ["English", "Spanish"],
-        "hoursAvailable": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "08:00",
-          "closes": "18:00",
-          "timeZone": "America/New_York"
-        },
-        "areaServed": "Worldwide",
-        "availableChannel": {
-          "@type": "ServiceChannel",
-          "serviceType": "Email Support",
-          "availableLanguage": ["English", "Spanish"]
-        }
-      },
-      // SoftwareApplication - 补充应用信息
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://www.heartratetap.com/#software",
-        "name": "HeartRateTap",
-        "applicationCategory": "HealthApplication",
-        "operatingSystem": "Web",
-        "softwareVersion": "1.0.0",
-        "fileSize": "0 KB",
-        "downloadUrl": "https://www.heartratetap.com",
-        "screenshot": "https://www.heartratetap.com/favicon.png",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "author": {
-          "@type": "Organization",
-          "@id": "https://www.heartratetap.com/#organization"
-        }
-      },
-      // WebSite - 网站信息
       {
         "@type": "WebSite",
         "@id": "https://www.heartratetap.com/#website",
         "url": "https://www.heartratetap.com",
-        "name": "HeartRateTap - Free Online Heart Rate Monitor",
-        "description": "Free online heart rate checker - measure your heart rate online instantly with no device needed",
+        "name": "HeartRateTap",
+        "description": "Tap-based BPM estimation with transparent methodology and general wellness guides.",
         "inLanguage": ["en", "es"],
         "publisher": {
           "@type": "Organization",

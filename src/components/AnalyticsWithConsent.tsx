@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const CONSENT_KEY = "hrt-cookie-consent";
@@ -22,7 +23,30 @@ const AnalyticsWithConsent = () => {
   }, []);
 
   if (!allowed) return null;
-  return <SpeedInsights />;
+
+  return (
+    <>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-95CLQ9158L"
+        strategy="afterInteractive"
+      />
+      <Script id="ga-gtag-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-95CLQ9158L', { anonymize_ip: true });
+        `}
+      </Script>
+      <Script
+        src="https://analytics.ahrefs.com/analytics.js"
+        data-key="F7PUf+eqUra9h+t+ok3o3w"
+        async
+        strategy="afterInteractive"
+      />
+      <SpeedInsights />
+    </>
+  );
 };
 
 export default AnalyticsWithConsent;

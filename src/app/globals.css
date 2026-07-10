@@ -2888,6 +2888,126 @@ input[type="password"]:focus {
   font-weight: 600;
 }
 
+.article-meta {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  background: #f9fffd;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.article-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.article-meta p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+.article-meta a,
+.source-list a,
+.seo-sources a,
+.blog-section a:not(.pill),
+.guide-card a {
+  color: var(--accent);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+.source-list {
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+}
+
+.source-list ul,
+.seo-sources ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.source-list li,
+.seo-sources li {
+  line-height: 1.6;
+}
+
+.source-list span,
+.seo-sources p {
+  color: var(--muted);
+}
+
+.formula-block {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: var(--ink);
+  color: #fff;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.guide-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.guide-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem;
+  background: #f9fffd;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guide-card h3,
+.guide-card p {
+  margin: 0;
+}
+
+.guide-card p:not(.guide-label) {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.guide-label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.seo-sources {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.seo-sources h3,
+.seo-sources p {
+  margin: 0;
+}
+
 .pricing-info-section {
   max-width: 1000px;
   margin: 0 auto 4rem;

@@ -12,16 +12,24 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Heart Rhythm Studio</span>
         </div>
         <div className="footer-links">
+          <Link href="/guides" className="blog-inline-cta">
+            Guides
+          </Link>
+          <Link href="/about" className="blog-inline-cta">
+            About & Editorial Policy
+          </Link>
           <Link href="/privacy-policy" className="blog-inline-cta">
-            Privacy Policy
+            Privacy
+          </Link>
+          <Link href="/terms" className="blog-inline-cta">
+            Terms
           </Link>
         </div>
       </div>
 
       <p className="footer-text">
-        HeartRateTap is a free, zero-device online heart rate checker. We aim to let everyone track heart rate anytime
-        with simple taps—no apps or hardware required. Your measurements stay in your browser by default and we do not
-        sell data. Share your ideas through the feedback panel to help us improve the experience together.
+        HeartRateTap estimates BPM from the timing of taps you make while feeling your pulse. It does not sense your
+        heartbeat and is not a medical device. Recent measurements stay in this browser by default.
       </p>
 
       <div className="footer-row footer-row-center">
@@ -38,10 +46,8 @@ export default function Footer() {
       </div>
 
       <p className="footer-text">
-        Terms of Service: By using HeartRateTap you agree this tool is for personal wellness reference only and does
-        not provide medical diagnosis or treatment advice—doctor&apos;s judgment prevails. Results may be affected by
-        how you tap and your device environment and cannot serve as accurate medical test results. If you disagree,
-        please stop using this site.
+        If you have chest pain, shortness of breath, fainting or another urgent symptom, contact local emergency
+        services; do not wait for or rely on this website.
       </p>
 
       <style jsx>{`

@@ -156,8 +156,8 @@ export default function PulseZone({
               }
             }}
             tabIndex={0}
-            aria-label="Start measuring heart rate"
-            title="Tap to start measuring your heart rate"
+            aria-label="Start estimating BPM from pulse-timed taps"
+            title="Tap once for every pulse beat to start"
           >
             ❤️
           </button>
@@ -202,7 +202,7 @@ export default function PulseZone({
 
       {analysisText && (
         <div className="analysis">
-          <div className="analysis-icon">✓</div>
+          <div className="analysis-icon" aria-hidden="true">i</div>
           <div className="analysis-text">{analysisText}</div>
         </div>
       )}

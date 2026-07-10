@@ -106,8 +106,9 @@ const CookieConsent = () => {
         </div>
         <div className="cookie-consent__text" id="cookie-description">
           <p>
-            We use essential cookies for site functionality. Analytics cookies and error monitoring are only activated if you choose
-            &quot;Accept&quot;. Your privacy is protected - no personal data is collected without consent. You can change your choice anytime in your browser storage. Read our{" "}
+            We use browser storage for essential preferences and local heart-rate history. Optional Google, Ahrefs and
+            Vercel analytics load only if you choose &quot;Accept all&quot;. Error and security logs may still be processed
+            when needed to operate the service. You can clear your choice in browser storage. Read our{" "}
             <Link href="/privacy-policy" className="blog-inline-cta">
               Privacy Policy
             </Link>

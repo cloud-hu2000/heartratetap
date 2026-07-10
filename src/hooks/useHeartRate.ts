@@ -108,9 +108,9 @@ export const useHeartRate = () => {
     // 精确度提示
     const newBeatCount = beatCount + 1;
     if (newBeatCount >= 10 && !accuracyHint) {
-      setAccuracyHint("Great! You have enough beats for a stable reading.");
+      setAccuracyHint("You have enough intervals for a more stable estimate.");
     } else if (newBeatCount === 3 && !accuracyHint) {
-      setAccuracyHint("Keep tapping! Aim for at least 10 beats for better accuracy.");
+      setAccuracyHint("Keep tapping. Aim for at least 10 beats so one timing error has less influence.");
     }
   }, [isFrozen, triggerTapPulse, isMobile, beatCount, accuracyHint]);
 

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { makeSessionCookie, signSession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 function getBaseUrl(req: Request) {
   const envBase =
     process.env.NEXT_PUBLIC_BASE_URL ||

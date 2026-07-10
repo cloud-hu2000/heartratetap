@@ -1,128 +1,176 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | HeartRateTap",
   description:
-    "Learn how HeartRateTap handles your data. We do not sell your data and store your heart rate measurements locally in your browser by default.",
+    "Learn how HeartRateTap handles local measurements, accounts, feedback, payments, optional analytics and Google advertising technologies.",
   alternates: {
     canonical: "https://www.heartratetap.com/privacy-policy"
   },
   openGraph: {
     title: "Privacy Policy | HeartRateTap",
-    description:
-      "Learn how HeartRateTap handles your data and stores heart rate measurements locally by default.",
+    description: "How HeartRateTap handles browser data, service providers, analytics and advertising choices.",
     url: "https://www.heartratetap.com/privacy-policy",
     siteName: "HeartRateTap"
   }
 };
 
-const PrivacyPolicyPage = () => {
+export default function PrivacyPolicyPage() {
   return (
     <div className="frame blog-page">
       <article className="panel blog-article">
         <header className="blog-hero">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            Legal • Privacy Policy
+            Legal • Last updated July 10, 2026
           </p>
           <h1>Privacy Policy</h1>
           <p className="blog-intro">
-            This page explains how HeartRateTap collects, uses, and protects information when you use our service.
+            This policy explains what HeartRateTap stores in your browser, what reaches our service providers, how
+            optional analytics and advertising technologies work, and the choices available to you.
           </p>
         </header>
 
         <section className="blog-section">
-          <h2>What we collect</h2>
+          <h2>Information processed by the basic calculator</h2>
           <ul>
             <li>
-              <strong>Heart rate measurements:</strong> Stored locally in your browser (localStorage) for your personal
-              use. By default, these readings are not sent to our servers.
+              <strong>Tap timestamps:</strong> while a measurement is active, the page uses browser timing values to
+              calculate the intervals between your taps.
             </li>
             <li>
-              <strong>Feedback submissions:</strong> If you submit feedback or vote on ideas, we store the content you
-              provide (title, description, optional email) to operate the feedback board.
+              <strong>Recent readings:</strong> locked BPM values, timestamps and the selected rest/active context are
+              stored in your browser&apos;s local storage by default. They are not sent to our server by the basic calculator.
             </li>
             <li>
-              <strong>Device ID for voting:</strong> A random ID kept in your browser to prevent duplicate votes.
-            </li>
-            <li>
-              <strong>Analytics:</strong> We use privacy-conscious analytics (e.g., Vercel Analytics) to understand
-              anonymous traffic patterns.
+              <strong>Preferences:</strong> language, tutorial state and consent choices are stored locally so the site
+              can remember them.
             </li>
           </ul>
-        </section>
-
-        <section className="blog-section">
-          <h2>How we use data</h2>
-          <ul>
-            <li>Provide the heart rate tap experience.</li>
-            <li>Improve features based on anonymous usage patterns.</li>
-            <li>Respond to your feedback and feature requests.</li>
-          </ul>
-        </section>
-
-        <section className="blog-section">
-          <h2>What we do not do</h2>
-          <ul>
-            <li>We do not sell your data.</li>
-            <li>We do not share your personal data with advertisers.</li>
-            <li>We do not require account creation to use the heart rate tool.</li>
-          </ul>
-        </section>
-
-        <section className="blog-section">
-          <h2>Data storage and retention</h2>
           <p>
-            Heart rate readings stay in your browser until you clear them. Feedback submissions are retained to operate
-            the roadmap and community voting. If you want your feedback entry removed, contact us and include the title
-            or description you submitted.
+            You can remove local data through the history controls where available or by clearing site data in your
+            browser. Private browsing and switching browsers or devices create separate storage.
           </p>
         </section>
 
         <section className="blog-section">
-          <h2>Cookies and local storage</h2>
+          <h2>Accounts, authentication and payments</h2>
           <p>
-            We primarily use localStorage for history and voting. If cookies or similar storage are used for analytics,
-            they are limited to improving the service and not for ad tracking.
+            If you create an account, we process the email address and profile information you provide, authentication
+            records, account tier and security/session data. Passwords are stored as one-way hashes rather than plain
+            text. If you use Google sign-in, Google provides the identity data necessary to create or locate your
+            account under the permissions shown during sign-in.
+          </p>
+          <p>
+            Stripe processes paid checkout. We keep the order, plan, amount, currency, payment status and transaction
+            identifiers needed to provide the purchase and reconcile it. Card or wallet credentials are entered with
+            the payment provider and are not stored in this application&apos;s database.
           </p>
         </section>
 
         <section className="blog-section">
-          <h2>Third-party services</h2>
+          <h2>Feedback and public roadmap</h2>
           <p>
-            We may use providers such as Vercel (hosting/analytics) and email services to communicate about feedback.
-            These services process minimal data necessary to operate the product.
+            A feedback submission can include a title, description and optional email. We also use a random browser ID
+            to reduce duplicate votes. Approved feedback may appear on the public roadmap, so do not submit medical,
+            confidential or identifying details that you do not want displayed. Contact us to request removal and
+            include enough information to locate the entry.
           </p>
         </section>
 
         <section className="blog-section">
-          <h2>Your choices</h2>
+          <h2>Analytics, reliability and consent</h2>
+          <p>
+            Google Analytics, Ahrefs Analytics and Vercel Speed Insights are optional. Their browser scripts load only
+            after you choose “Accept all” in the consent notice. They can process device/browser information, approximate
+            location derived from an IP address, page visits, referrers and interaction or performance events according
+            to their own policies. Rejecting non-essential cookies prevents these optional scripts from loading through
+            our application.
+          </p>
+          <p>
+            Hosting, security and error-monitoring providers may process request data, IP addresses, device details,
+            URLs, timestamps and diagnostic information when necessary to deliver the service, prevent abuse and fix
+            failures. Do not place sensitive personal information in URLs or feedback fields.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>Google AdSense and advertising cookies</h2>
+          <p>
+            HeartRateTap has applied to Google AdSense. When Google advertising is enabled on an eligible content page,
+            Google and its partners may use cookies, web beacons, IP addresses or other identifiers to deliver ads,
+            limit repetition, measure performance, prevent fraud and—where permitted by your choices—personalize ads.
+            AdSense advertising cookies may be associated with domains such as doubleclick.net or google.com.
+          </p>
+          <p>
+            Google explains how AdSense uses cookies in its{" "}
+            <a href="https://support.google.com/adsense/answer/7549925" rel="noopener noreferrer">
+              AdSense cookie documentation
+            </a>
+            . You can control personalized Google advertising through{" "}
+            <a href="https://adssettings.google.com/" rel="noopener noreferrer">
+              Google Ads Settings
+            </a>
+            . Where required, Google&apos;s certified consent controls will be used before advertising is activated.
+          </p>
+          <p>
+            Google-served ads are not placed on sign-in, registration, password reset, profile, checkout-success, error,
+            alert or other non-content screens. Advertising should remain visibly separate from navigation and the
+            calculator controls.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>Service providers and disclosure</h2>
+          <p>
+            We use providers for hosting, databases, authentication, email, payments, security, analytics and—after
+            approval—advertising. They process data for the service they provide under their own terms and our
+            configuration. We may also disclose information when required by law, to protect users and the service, or
+            in connection with a business transfer subject to appropriate safeguards. We do not sell your heart-rate
+            measurement history.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>Retention and your choices</h2>
           <ul>
-            <li>You can clear your local heart rate history anytime in your browser storage settings.</li>
-            <li>You may choose not to submit feedback or omit your email address.</li>
-            <li>You can use ad blockers or opt-out tools to limit analytics cookies if enabled.</li>
+            <li>Local history remains until you delete it or browser storage is cleared.</li>
+            <li>Account, payment and security records are kept as needed to provide the service, meet legal duties and prevent fraud.</li>
+            <li>Feedback is kept while it remains useful to the roadmap or until an appropriate deletion request is completed.</li>
+            <li>You can reject optional analytics, clear local consent, use browser cookie controls and manage Google ad personalization.</li>
+            <li>You may ask to access, correct or delete applicable account or feedback data, subject to legal and security requirements.</li>
           </ul>
         </section>
 
         <section className="blog-section">
-          <h2>Contact</h2>
+          <h2>Children and international use</h2>
           <p>
-            For privacy questions or data requests, please reach out via the feedback widget or email listed on our
-            site.
+            HeartRateTap is a general-audience service and is not directed to children under 13. Do not create an
+            account or submit personal information if you cannot legally consent in your location. The service and its
+            providers may process data in countries different from the one where you live.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>Contact and policy changes</h2>
+          <p>
+            For a privacy request or question, email{" "}
+            <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>. We may revise this policy as features,
+            providers or legal requirements change; the date at the top identifies the current version. Our{" "}
+            <Link href="/about">About page</Link> explains the editorial and correction process.
           </p>
         </section>
 
         <section className="blog-section blog-cta">
-          <h2>Back to HeartRateTap</h2>
-          <p>Ready to measure? Return to the main tool and start tapping.</p>
+          <h2>Return to the calculator</h2>
+          <p>The basic tap calculation works without an account and keeps recent readings in this browser by default.</p>
           <Link href="/" className="pill active">
             Go to HeartRateTap
           </Link>
         </section>
       </article>
+      <Footer />
     </div>
   );
-};
-
-export default PrivacyPolicyPage;
-
+}
