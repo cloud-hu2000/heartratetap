@@ -11,7 +11,6 @@ const PricingContent = () => {
   const { user, upgradeMembership, checkAuth } = useAuth();
   const searchParams = useSearchParams();
   const [isUpgrading, setIsUpgrading] = useState<MembershipTier | null>(null);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'stripe' | 'alipay'>('stripe');
   const [currentLang, setCurrentLang] = useState<"en" | "es">(() => {
     if (typeof window !== "undefined") {
       const stored = window.localStorage.getItem(LANG_STORAGE_KEY) as "en" | "es" | null;
@@ -86,15 +85,6 @@ const PricingContent = () => {
 
     setIsUpgrading(tier);
     try {
-      // 支付宝占位功能
-      if (selectedPaymentMethod === 'alipay') {
-        alert(currentLang === 'en' 
-          ? 'Alipay payment is coming soon. Please use Stripe for now.' 
-          : 'El pago con Alipay llegará pronto. Por favor, use Stripe por ahora.');
-        setIsUpgrading(null);
-        return;
-      }
-
       const result = await upgradeMembership(tier);
       if (result.success && result.paymentUrl) {
         window.location.href = result.paymentUrl;
@@ -139,24 +129,9 @@ const PricingContent = () => {
           )}
         </header>
 
-        {/* Payment Method Selection */}
         <div className="payment-methods">
           <div className="payment-methods-label">
-            {currentLang === 'en' ? 'Payment Method:' : 'Método de Pago:'}
-          </div>
-          <div className="payment-methods-options">
-            <button
-              className={`payment-method-button ${selectedPaymentMethod === 'stripe' ? 'payment-method-selected' : ''}`}
-              onClick={() => setSelectedPaymentMethod('stripe')}
-            >
-              💳 Stripe
-            </button>
-            <button
-              className={`payment-method-button ${selectedPaymentMethod === 'alipay' ? 'payment-method-selected' : ''}`}
-              onClick={() => setSelectedPaymentMethod('alipay')}
-            >
-              🟦 Alipay
-            </button>
+            {currentLang === 'en' ? 'Secure checkout is processed by Stripe' : 'El pago seguro se procesa con Stripe'}
           </div>
         </div>
 
@@ -253,6 +228,36 @@ const PricingContent = () => {
             </button>
           </div>
         </div>
+
+        <section className="pricing-info-section">
+          <h2>{currentLang === 'en' ? 'What each upgrade changes' : 'Que cambia con cada mejora'}</h2>
+          <div className="pricing-info-grid">
+            <article>
+              <h3>{currentLang === 'en' ? 'Free plan' : 'Plan gratuito'}</h3>
+              <p>
+                {currentLang === 'en'
+                  ? 'Use the online heart rate checker without an account, keep recent readings locally, and review basic BPM guidance after each session.'
+                  : 'Use el medidor en linea sin cuenta, conserve lecturas recientes localmente y revise orientacion basica de BPM despues de cada sesion.'}
+              </p>
+            </article>
+            <article>
+              <h3>{currentLang === 'en' ? 'Pro plan' : 'Plan Pro'}</h3>
+              <p>
+                {currentLang === 'en'
+                  ? 'Adds deeper trend context for people who check resting rate, workout recovery, or stress response regularly on the same account.'
+                  : 'Agrega mas contexto de tendencias para quienes revisan reposo, recuperacion o respuesta al estres con regularidad.'}
+              </p>
+            </article>
+            <article>
+              <h3>{currentLang === 'en' ? 'Premium plan' : 'Plan Premium'}</h3>
+              <p>
+                {currentLang === 'en'
+                  ? 'Designed for frequent self-tracking, with more personalized interpretation while keeping HeartRateTap a wellness reference rather than a medical device.'
+                  : 'Pensado para seguimiento frecuente, con interpretacion mas personalizada sin convertir HeartRateTap en un dispositivo medico.'}
+              </p>
+            </article>
+          </div>
+        </section>
 
         {/* CTA Section */}
         {!user && (

@@ -21,7 +21,7 @@ import RoadmapPreview from "@/components/RoadmapPreview";
 import Footer from "@/components/Footer";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import UpgradeModal from "@/components/UpgradeModal";
-import AdBanner from "@/components/AdBanner";
+import PublisherContentAdditions from "@/components/PublisherContentAdditions";
 
 // Lazy load non-critical components
 const FeedbackWidget = lazy(() => import("@/components/FeedbackWidget"));
@@ -112,14 +112,13 @@ const HeartRatePage = () => {
         />
       </main>
 
-      {/* 广告横幅 - 居中显示 */}
-      <AdBanner />
-
       <RoadmapPreview lang={lang} />
 
       <Suspense fallback={<div>Loading...</div>}>
         <SEOContent lang={lang} />
       </Suspense>
+
+      <PublisherContentAdditions lang={lang} />
 
       <Footer />
 

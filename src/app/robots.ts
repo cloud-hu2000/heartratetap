@@ -26,13 +26,29 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [],
+        disallow: [
+          '/api/',
+          '/checkout/',
+          '/login',
+          '/profile',
+          '/register',
+          '/reset-password',
+          '/sentry-example-page',
+        ],
       },
       // Explicitly allow AI crawlers and bots
       ...aiCrawlers.map((crawler) => ({
         userAgent: crawler,
         allow: '/',
-        disallow: [],
+        disallow: [
+          '/api/',
+          '/checkout/',
+          '/login',
+          '/profile',
+          '/register',
+          '/reset-password',
+          '/sentry-example-page',
+        ],
       })),
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

@@ -109,13 +109,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Script
-          async
-          src="//shockedmirror.com/b/X.VAsQdAGGl/0pYiWucc/fedmA9/uzZGUQlQk/PsTbYx3/NkTuEK2eOXTOMitVNyjSca1-MGTXYl5VNrAE"
-          referrerPolicy="no-referrer-when-downgrade"
-          strategy="afterInteractive"
-        />
-
         {/* Ahrefs Analytics */}
         <Script
           src="https://analytics.ahrefs.com/analytics.js"

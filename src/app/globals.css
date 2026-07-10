@@ -630,6 +630,64 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.publisher-content {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.publisher-reviewed {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.publisher-intro {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.publisher-grid,
+.publisher-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.publisher-card,
+.publisher-faq article {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem;
+  background: #f9fffd;
+}
+
+.publisher-card h3,
+.publisher-faq h3,
+.publisher-faq h4 {
+  margin: 0;
+  color: var(--ink);
+}
+
+.publisher-card h3 {
+  font-size: 1.05rem;
+}
+
+.publisher-card p,
+.publisher-faq p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.publisher-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .feedback-widget {
   position: fixed;
   bottom: 1.5rem;
@@ -2828,6 +2886,47 @@ input[type="password"]:focus {
   background: rgba(0, 137, 137, 0.1);
   color: var(--accent);
   font-weight: 600;
+}
+
+.pricing-info-section {
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.pricing-info-section h2 {
+  margin: 0 0 1.25rem;
+  color: var(--ink);
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.pricing-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.pricing-info-grid article {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  background: #f9fffd;
+}
+
+.pricing-info-grid h3 {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+.pricing-info-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 
