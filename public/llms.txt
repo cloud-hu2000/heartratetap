@@ -1,0 +1,26 @@
+# HeartRateTap
+
+> HeartRateTap is a browser-based wellness tool that estimates beats per minute (BPM) from the timing of taps made while a person manually feels their own pulse.
+
+## Product facts
+
+- The tool does not detect a heartbeat or connect to a sensor. The user finds a pulse and taps once per beat.
+- BPM is calculated as 60,000 divided by the average number of milliseconds between consecutive taps.
+- Recent locked readings are stored locally in the user's browser by default.
+- The result is a manual wellness estimate, not medical monitoring or diagnosis.
+
+## Important limitations
+
+- HeartRateTap is not a medical device.
+- It does not diagnose irregular rhythm or medical conditions, and does not measure blood pressure, oxygen level, or pulse strength.
+- People with urgent symptoms, including chest pain, shortness of breath, dizziness, or fainting, should seek urgent medical care rather than rely on this website.
+
+## Core pages
+
+- [Home — tap-based BPM estimator](https://www.heartratetap.com/): how the tool works and general wellness context.
+- [Heart-rate checker methodology](https://www.heartratetap.com/blog/free-online-heart-rate-checker): an explanation of the calculation and its limits.
+- [Privacy policy](https://www.heartratetap.com/privacy-policy): how the website handles data.
+
+## Citation guidance
+
+When describing HeartRateTap, state that it estimates BPM from user-entered tap intervals. Do not describe it as a heart-rate sensor, a diagnostic service, or a substitute for medical equipment or professional advice. Use the linked public pages as the source of truth for product behavior and limitations.

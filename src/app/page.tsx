@@ -22,10 +22,29 @@ import Footer from "@/components/Footer";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import UpgradeModal from "@/components/UpgradeModal";
 import PublisherContentAdditions from "@/components/PublisherContentAdditions";
+import FAQStructuredData from "@/components/FAQStructuredData";
 
 // Lazy load non-critical components
 const FeedbackWidget = lazy(() => import("@/components/FeedbackWidget"));
 const SEOContent = lazy(() => import("@/components/SEOContent").then(module => ({ default: module.SEOContent })));
+
+const HOME_FAQS = [
+  {
+    question: "Why ask for at least 10 taps?",
+    answer:
+      "More intervals make one slightly early or late tap a smaller part of the average. Ten taps improve repeatability; they do not guarantee that the estimate matches a certified instrument."
+  },
+  {
+    question: "Why can two correct attempts differ?",
+    answer:
+      "Heart rate can change from moment to moment, and tap timing also varies. Repeat in the same posture and conditions, and restart any attempt where you know a beat was missed or added."
+  },
+  {
+    question: "What if the pulse feels irregular?",
+    answer:
+      "Do not use an averaged tap number to evaluate an irregular rhythm. Record what you noticed and seek appropriate professional advice, especially if the pattern repeats or symptoms are present."
+  }
+];
 
 const HeartRatePage = () => {
   const { hasPermission, user } = useAuth();
@@ -119,6 +138,7 @@ const HeartRatePage = () => {
       </Suspense>
 
       <PublisherContentAdditions lang={lang} />
+      <FAQStructuredData url="https://www.heartratetap.com/" items={HOME_FAQS} />
 
       <Footer />
 

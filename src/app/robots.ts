@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
   const aiCrawlers = [
     'GPTBot',
     'ChatGPT-User',
+    'OAI-SearchBot',
     'CCBot',
     'anthropic-ai',
     'Claude-Web',

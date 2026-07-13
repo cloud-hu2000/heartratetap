@@ -1,3 +1,4 @@
+// Structured data is limited to facts that are visible on the public site.
 export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -71,7 +72,7 @@ export function StructuredData() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData, null, 2)
+        __html: JSON.stringify(structuredData, null, 2).replace(/</g, "\\u003c")
       }}
     />
   );
