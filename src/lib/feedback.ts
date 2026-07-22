@@ -20,13 +20,14 @@ export type Feedback = {
   description: string;
   email: string | null;
   votes: number;
-  status: "planned" | "in_progress" | "shipped" | "archived";
+  status: "pending" | "planned" | "in_progress" | "shipped" | "archived";
   createdAt: string;
 };
 
 const normalizeStatus = (status: string | null): Feedback["status"] => {
-  if (!status) return "planned";
+  if (!status) return "pending";
   const value = status.toLowerCase().trim();
+  if (value === "pending") return "pending";
   if (value === "planned") return "planned";
   if (value === "in_progress" || value === "in progress" || value === "in-progress") return "in_progress";
   if (value === "shipped" || value === "done" || value === "released" || value === "release") return "shipped";
@@ -65,6 +66,10 @@ const ensureTables = async () => {
         ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'planned'
       `;
       await sql`
+        ALTER TABLE feedback_items
+        ALTER COLUMN status SET DEFAULT 'pending'
+      `;
+      await sql`
         CREATE TABLE IF NOT EXISTS feedback_votes (
           feedback_id UUID NOT NULL REFERENCES feedback_items(id) ON DELETE CASCADE,
           device_hash TEXT NOT NULL,
@@ -99,6 +104,7 @@ export const fetchFeedbackList = async (): Promise<Feedback[]> => {
     const rows = (await sql`
       SELECT id, title, description, email, votes, status, created_at
       FROM feedback_items
+      WHERE status IN ('planned', 'in_progress', 'shipped')
       ORDER BY votes DESC, created_at ASC
     `) as FeedbackRecord[];
     return rows.map(sanitizeFeedback);
@@ -119,7 +125,7 @@ export const createFeedback = async (data: { title: string; description: string;
     await ensureTables();
     const rows = (await sql`
       INSERT INTO feedback_items (title, description, email, status)
-      VALUES (${data.title}, ${data.description}, ${data.email}, 'planned')
+      VALUES (${data.title}, ${data.description}, ${data.email}, 'pending')
       RETURNING id, title, description, email, votes, status, created_at
     `) as FeedbackRecord[];
     return sanitizeFeedback(rows[0]);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from "react";
-import Link from "next/link";
 
 type FeedbackItem = {
   id: string;
@@ -130,12 +129,11 @@ const FeedbackWidget = () => {
         const errorBody = (await response.json().catch(() => null)) as { error?: string } | null;
         throw new Error(errorBody?.error ?? "Submission failed, please try again");
       }
-      const { feedback } = (await response.json()) as { feedback: FeedbackItem };
-      setItems((prev) => [feedback, ...prev]);
+      await response.json();
       setForm(INITIAL_FORM);
       setMessage({
         type: "success",
-        text: "Thanks! Your idea has been recorded. You can now see it on the Top Ideas page."
+        text: "Thanks! Your idea has been received and will appear publicly only after review."
       });
     } catch (error) {
       console.error(error);
@@ -255,11 +253,6 @@ const FeedbackWidget = () => {
               {message && (
                 <p className={`feedback-message feedback-message-${message.type}`}>
                   {message.text}{" "}
-                  {message.type === "success" && (
-                    <Link href="/roadmap" className="blog-inline-cta">
-                      View Top Ideas
-                    </Link>
-                  )}
                 </p>
               )}
 
@@ -385,4 +378,3 @@ const FeedbackWidget = () => {
 };
 
 export default FeedbackWidget;
-

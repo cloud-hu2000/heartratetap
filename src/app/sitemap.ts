@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.heartratetap.com'
-  const contentReviewDate = new Date('2026-07-10T00:00:00.000Z')
+  const contentReviewDate = new Date('2026-07-22T00:00:00.000Z')
   
   return [
     {

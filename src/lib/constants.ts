@@ -1,9 +1,9 @@
 export const COPY = {
   en: {
     heroTitle: "Heart Rhythm Studio",
-    heroHeadline: "Free Online Heart Rate Monitor – Check Your Heart Rate Online Free",
-    heroSub: "Heart rate calculator",
-    tapHint: "Tap pulse or hit space",
+    heroHeadline: "Estimate BPM by Tapping Along With Your Pulse",
+    heroSub: "Manual pulse-timing calculator",
+    tapHint: "Tap once for each pulse, or press space",
     frozenTag: "Result locked",
     diagramTitle: "Pulse map",
     diagramWrist: "Wrist",
@@ -12,7 +12,7 @@ export const COPY = {
     sportLabel: "Active",
     stop: "Stop",
     resume: "Reset",
-    idleHint: "Ready to estimate BPM from your taps",
+    idleHint: "Find your pulse, then tap once for each beat",
     zoneHint: "BPM scale — not a diagnosis",
     historyTitle: "Recent heart rate history",
     historyEmpty: "Once you lock a result, your last 20 readings will appear here — only stored in this browser.",

@@ -10,7 +10,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 export function generateMetadata(): Metadata {
   return {
     metadataBase: new URL("https://www.heartratetap.com"),
-    title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free | HeartRateTap",
+    title: "Manual Tap BPM Estimator | HeartRateTap",
     description:
       "Estimate BPM by tapping in time with a pulse you locate manually. See the formula, limitations, local history and cited resting and exercise context.",
     icons: {
@@ -28,7 +28,7 @@ export function generateMetadata(): Metadata {
       canonical: "https://www.heartratetap.com"
     },
     openGraph: {
-      title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
+      title: "Manual Tap BPM Estimator | HeartRateTap",
       description:
         "A transparent tap-interval BPM estimator with local history, documented limitations and cited reference context.",
       url: "https://www.heartratetap.com",
@@ -38,13 +38,13 @@ export function generateMetadata(): Metadata {
           url: "https://www.heartratetap.com/favicon.png",
           width: 1200,
           height: 630,
-          alt: "Free online heart rate monitor - check heart rate online free"
+          alt: "HeartRateTap manual pulse-timing BPM estimator"
         }
       ]
     },
     twitter: {
       card: "summary_large_image",
-      title: "Free Online Heart Rate Monitor - Check Heart Rate Online Free",
+      title: "Manual Tap BPM Estimator | HeartRateTap",
       description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations."
     },
     other: {

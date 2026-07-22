@@ -23,10 +23,10 @@ import TutorialOverlay from "@/components/TutorialOverlay";
 import UpgradeModal from "@/components/UpgradeModal";
 import PublisherContentAdditions from "@/components/PublisherContentAdditions";
 import FAQStructuredData from "@/components/FAQStructuredData";
+import { SEOContent } from "@/components/SEOContent";
 
 // Lazy load non-critical components
 const FeedbackWidget = lazy(() => import("@/components/FeedbackWidget"));
-const SEOContent = lazy(() => import("@/components/SEOContent").then(module => ({ default: module.SEOContent })));
 
 const HOME_FAQS = [
   {
@@ -133,9 +133,9 @@ const HeartRatePage = () => {
 
       <RoadmapPreview lang={lang} />
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <SEOContent lang={lang} />
-      </Suspense>
+      {/* Keep the primary explanatory content in the initial document. It must not
+          depend on a client-side lazy import for readers or crawlers to reach it. */}
+      <SEOContent lang={lang} />
 
       <PublisherContentAdditions lang={lang} />
       <FAQStructuredData url="https://www.heartratetap.com/" items={HOME_FAQS} />

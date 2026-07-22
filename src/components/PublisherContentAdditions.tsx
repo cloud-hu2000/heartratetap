@@ -99,10 +99,15 @@ const CONTENT = {
 
 export default function PublisherContentAdditions({ lang }: PublisherContentAdditionsProps) {
   const t = CONTENT[lang];
+  const title =
+    lang === "en"
+      ? "How this tap-based estimate works — and where it stops"
+      : "Cómo funciona esta estimación por toques y cuándo no basta";
 
   return (
     <section className="panel publisher-content" aria-label="HeartRateTap calculation and limitations">
       <p className="publisher-reviewed">{t.reviewed}</p>
+      <h2>{title}</h2>
       <p className="publisher-intro">{t.intro}</p>
 
       <div className="publisher-grid">
