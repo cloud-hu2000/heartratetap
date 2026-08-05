@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
       <article className="panel blog-article">
         <header className="blog-hero">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            Legal • Last updated July 10, 2026
+            Legal • Last updated August 5, 2026
           </p>
           <h1>Privacy Policy</h1>
           <p className="blog-intro">
@@ -99,9 +99,10 @@ export default function PrivacyPolicyPage() {
           <h2>Google AdSense and advertising cookies</h2>
           <p>
             HeartRateTap has applied to Google AdSense. When Google advertising is enabled on an eligible content page,
-            Google and its partners may use cookies, web beacons, IP addresses or other identifiers to deliver ads,
-            limit repetition, measure performance, prevent fraud and—where permitted by your choices—personalize ads.
-            AdSense advertising cookies may be associated with domains such as doubleclick.net or google.com.
+            third-party vendors, including Google and its advertising partners, may use cookies, web beacons, IP
+            addresses or other identifiers to serve ads based on a visitor&apos;s prior visits to this and other websites,
+            limit repetition, measure performance, prevent fraud and—where permitted by consent choices—personalize
+            ads. AdSense advertising cookies may be associated with domains such as doubleclick.net or google.com.
           </p>
           <p>
             Google explains how AdSense uses cookies in its{" "}
@@ -155,7 +156,7 @@ export default function PrivacyPolicyPage() {
         <section className="blog-section">
           <h2>Contact and policy changes</h2>
           <p>
-            For a privacy request or question, email{" "}
+            For a privacy request or question, use our <Link href="/contact">Contact page</Link> or email{" "}
             <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>. We may revise this policy as features,
             providers or legal requirements change; the date at the top identifies the current version. Our{" "}
             <Link href="/about">About page</Link> explains the editorial and correction process.

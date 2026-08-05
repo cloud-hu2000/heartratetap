@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.heartratetap.com'
   const contentReviewDate = new Date('2026-07-22T00:00:00.000Z')
+  const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   
   return [
     {
@@ -22,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentReviewDate,
       changeFrequency: 'yearly',
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: contactPageDate,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/blog/how-to-check-pulse-manually`,
+      lastModified: contactPageDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
     },
     {
       url: `${baseUrl}/blog/heart-rate-zones-for-running`,
@@ -55,4 +68,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 }
-

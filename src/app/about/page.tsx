@@ -52,7 +52,8 @@ export default function AboutPage() {
             , so the timing approach and product changes can be inspected.
           </p>
           <p>
-            Questions, accessibility issues and correction requests can be sent to{" "}
+            Questions, accessibility issues and correction requests can be sent through our{" "}
+            <Link href="/contact">Contact page</Link> or to{" "}
             <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>. Include the page URL and the sentence or
             result you believe needs attention so we can reproduce the issue.
           </p>

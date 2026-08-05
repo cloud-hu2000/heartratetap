@@ -18,6 +18,9 @@ export default function Footer() {
           <Link href="/about" className="blog-inline-cta">
             About & Editorial Policy
           </Link>
+          <Link href="/contact" className="blog-inline-cta">
+            Contact
+          </Link>
           <Link href="/privacy-policy" className="blog-inline-cta">
             Privacy
           </Link>
@@ -33,14 +36,12 @@ export default function Footer() {
       </p>
 
       <div className="footer-row footer-row-center">
-        <span className="footer-label">Contact</span>
+        <Link href="/contact" className="footer-label">
+          Contact
+        </Link>
         <div className="footer-contact">
           <Link href="mailto:cloudhu2000@gmail.com" className="blog-inline-cta">
             cloudhu2000@gmail.com
-          </Link>
-          <span className="footer-sep">/</span>
-          <Link href="mailto:cloudhu2000@zohomail.cn" className="blog-inline-cta">
-            cloudhu2000@zohomail.cn
           </Link>
         </div>
       </div>
@@ -107,9 +108,6 @@ export default function Footer() {
           flex-wrap: wrap;
           align-items: center;
           justify-content: center;
-        }
-        .footer-sep {
-          opacity: 0.6;
         }
         @media (max-width: 640px) {
           .footer-head {

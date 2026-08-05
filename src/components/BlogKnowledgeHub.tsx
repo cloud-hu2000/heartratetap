@@ -28,6 +28,11 @@ const BlogKnowledgeHub = () => {
             Daily Resting Heart Rate Check – A 30-Second Health Habit
           </Link>
         </li>
+        <li>
+          <Link href="/blog/how-to-check-pulse-manually">
+            How to Check Your Pulse Manually: A Repeatable Wrist-Pulse Method
+          </Link>
+        </li>
       </ul>
       <p>
         Ready to put it into practice?{" "}
@@ -41,5 +46,4 @@ const BlogKnowledgeHub = () => {
 };
 
 export default BlogKnowledgeHub;
-
 

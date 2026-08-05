@@ -16,7 +16,7 @@ export default function TermsPage() {
       <article className="panel blog-article">
         <header className="blog-hero">
           <p className="hero-sub" style={{ marginBottom: "0.5rem" }}>
-            Legal • Last updated July 10, 2026
+            Legal • Last updated August 5, 2026
           </p>
           <h1>Terms of Use</h1>
           <p className="blog-intro">
@@ -76,7 +76,7 @@ export default function TermsPage() {
           <h2>Changes and contact</h2>
           <p>
             We may update these terms when the product or applicable requirements change. The date above identifies the
-            current version. Questions may be sent to{" "}
+            current version. Questions may be sent through our <Link href="/contact">Contact page</Link> or to{" "}
             <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>. See the{" "}
             <Link href="/privacy-policy">Privacy Policy</Link> for information about data handling.
           </p>

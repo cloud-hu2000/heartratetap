@@ -88,7 +88,7 @@ export default function NavBar() {
           </svg>
           Guides
         </Link>
-        <Link href="mailto:cloudhu2000@gmail.com" className="nav-link" style={{ textDecoration: "none" }}>
+        <Link href="/contact" className="nav-link" style={{ textDecoration: "none" }}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
@@ -241,4 +241,3 @@ export default function NavBar() {
     </header>
   );
 }
-

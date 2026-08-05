@@ -17,7 +17,9 @@ not a guarantee that Google will approve the site.
 - `/blog/free-online-heart-rate-checker` — original, reproducible product methodology.
 - `/blog/daily-resting-heart-rate-check` — a distinct comparison routine with a recording template.
 - `/blog/heart-rate-zones-for-running` — exercise context, talk test and post-exercise timing limitation.
+- `/blog/how-to-check-pulse-manually` — a step-by-step manual wrist-pulse technique, repeatability routine and safety limits.
 - `/about` — ownership, editorial standards, corrections and monetization separation.
+- `/contact` — public operator contact channels, correction procedure, privacy-request route and emergency limitation.
 - `/privacy-policy` and `/terms` — data, advertising and service disclosures.
 
 The former keyword-variant tool and article URLs return permanent redirects to consolidated canonical content and are
@@ -45,16 +47,20 @@ not publisher content. Search indexing controls do not replace ad route exclusio
    `ads.txt`.
 2. Open each sitemap URL in a logged-out/private browser and confirm that it has a visible H1, substantial body content,
    working navigation and no placeholder state.
-3. Confirm that the four consolidated legacy URLs return HTTP 308/301 and are absent from the sitemap.
-4. Confirm that login, registration, password reset, profile, checkout, pricing, roadmap and error screens load no ad
+3. Confirm `/contact` returns HTTP 200, both email links open correctly, and the footer, primary navigation, About,
+   Terms and Privacy Policy all link to it.
+4. Confirm the deployed Privacy Policy names third-party vendors, including Google, and states that cookies, web beacons
+   or identifiers may be used for advertising when ads are enabled.
+5. Confirm that the four consolidated legacy URLs return HTTP 308/301 and are absent from the sitemap.
+6. Confirm that login, registration, password reset, profile, checkout, pricing, roadmap and error screens load no ad
    requests.
-5. Validate the sitemap in Search Console and request indexing for the homepage, guide library and three substantive
+7. Validate the sitemap in Search Console and request indexing for the homepage, guide library and substantive
    guides after deployment.
-6. If AdSense ads are enabled later, configure Google's required consent solution for applicable regions and test a
+8. If AdSense ads are enabled later, configure Google's required consent solution for applicable regions and test a
    rejected-consent session as well as an accepted session.
-7. Request review from the Sites page only after the deployed version has been crawled. Keep adding genuinely distinct,
+9. Request review from the Sites page only after the deployed version has been crawled. Keep adding genuinely distinct,
    manually reviewed content over time; do not recreate keyword-variant doorway pages.
-8. Review each feedback submission before making it public. New submissions are stored as `pending`; only reviewed
+10. Review each feedback submission before making it public. New submissions are stored as `pending`; only reviewed
    `planned`, `in_progress` or `shipped` records are returned to public pages.
 
 ## Skill audit snapshot — July 22, 2026

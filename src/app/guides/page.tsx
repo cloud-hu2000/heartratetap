@@ -32,6 +32,13 @@ const GUIDES = [
     title: "Using heart rate context around a run",
     description:
       "Understand age-predicted ranges, the talk test and the important limitation of taking a tap-based reading after exercise stops."
+  },
+  {
+    href: "/blog/how-to-check-pulse-manually",
+    label: "Technique",
+    title: "How to check a pulse manually",
+    description:
+      "Learn a repeatable wrist-pulse technique, how to count and compare readings, and when a manual estimate is not the right tool."
   }
 ];
 
@@ -92,6 +99,47 @@ export default function GuidesPage() {
             A BPM estimate cannot identify a rhythm problem or explain a change. Symptoms and personal medical context
             take priority over a general range. If a suddenly unusual heart rate comes with chest pain, shortness of
             breath, fainting or marked dizziness, contact local emergency services instead of repeating the calculator.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>Start with the measurement technique</h2>
+          <p>
+            Before comparing numbers, make the input as consistent as possible. The practical pulse guide explains how
+            to find the wrist pulse with two fingers, why the thumb is a poor choice, how to label the situation, and
+            why a short tap estimate should be repeated when it is unexpected. The aim is not to turn a browser into a
+            medical device; it is to make the manual step clear enough that a result can be interpreted with the right
+            amount of caution.
+          </p>
+          <p>
+            A reliable personal comparison starts with a simple question: was this a calm, resting check or a reading
+            after movement? Resting checks work best when taken under similar conditions. After exercise, a manual
+            value can change while you are finding the pulse and tapping, so it describes a brief recovery period rather
+            than a fixed training-zone measurement. Record the condition alongside the number instead of treating every
+            result as interchangeable.
+          </p>
+          <p>
+            The guides deliberately separate three jobs: the calculator documentation explains the arithmetic; the
+            technique guide explains the human input; and the resting and exercise articles provide general context from
+            named health sources. Reading the relevant guide is more useful than searching for multiple versions of the
+            same answer, and it helps keep product limitations visible next to the information people use.
+          </p>
+        </section>
+
+        <section className="blog-section">
+          <h2>What to do with an unexpected reading</h2>
+          <p>
+            First, pause and consider the conditions. Recent activity, stress, fever, caffeine, body position and some
+            medicines can affect heart rate. If you feel well and the value is surprising, rest in the same position and
+            repeat the manual measurement rather than deciding from a single set of taps. A one-off difference may be a
+            changed condition or a missed tap; it is not enough information to explain a cause.
+          </p>
+          <p>
+            Do not use this site to diagnose a rhythm issue, set a treatment plan or decide whether to ignore symptoms.
+            If a pulse feels irregular, repeated attempts differ greatly, or you have chest pain, shortness of breath,
+            fainting, severe dizziness or another urgent symptom, seek appropriate professional or emergency help for
+            your location. The safety guidance is part of every guide because a simple BPM estimate cannot answer those
+            questions.
           </p>
         </section>
 
