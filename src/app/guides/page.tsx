@@ -39,6 +39,41 @@ const GUIDES = [
     title: "How to check a pulse manually",
     description:
       "Learn a repeatable wrist-pulse technique, how to count and compare readings, and when a manual estimate is not the right tool."
+  },
+  {
+    href: "/blog/seniors-guide-checking-pulse",
+    label: "Older-adult wellness",
+    title: "A calm manual pulse-check routine for older adults",
+    description:
+      "Build a comfortable, repeatable check, record the surrounding context, and know when a self-check is not enough."
+  },
+  {
+    href: "/blog/heart-rate-yoga-meditation",
+    label: "Yoga and meditation",
+    title: "Use a pulse check without turning practice into a score",
+    description:
+      "Choose a stable moment around yoga or meditation, log it mindfully, and preserve appropriate safety boundaries."
+  },
+  {
+    href: "/blog/manual-heart-rate-checks-team-sports",
+    label: "Team-sport routines",
+    title: "Manual heart-rate checks around team sports",
+    description:
+      "Use consistent recovery checkpoints as context notes, without treating a manual estimate as medical clearance."
+  },
+  {
+    href: "/blog/build-personal-heart-rate-log",
+    label: "Personal tracking",
+    title: "How to build a meaningful personal heart-rate log",
+    description:
+      "Record method, conditions, and symptoms in a small log that supports a responsible health-care conversation."
+  },
+  {
+    href: "/blog/talk-to-doctor-manual-heart-rate-data",
+    label: "Health-care conversations",
+    title: "Discuss manual pulse measurements with a doctor",
+    description:
+      "Prepare a concise timeline, better questions, and clear safety boundaries before a health-care visit."
   }
 ];
 
@@ -52,9 +87,9 @@ export default function GuidesPage() {
           </p>
           <h1>Heart rate guides and product methodology</h1>
           <p className="blog-intro">
-            This library is intentionally small. Each guide has a different job: document the calculator, improve the
-            consistency of a resting check, or add exercise context. Closely related material is kept on one page so
-            readers can find the full answer without comparing repeated versions.
+            Each guide has a distinct job: document the calculator, improve a measurement routine, add an activity
+            context, or prepare a health-care conversation. Closely related material is kept on one page so readers can
+            find a full answer without comparing repeated versions.
           </p>
         </header>
 

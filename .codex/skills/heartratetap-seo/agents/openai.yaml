@@ -1,0 +1,4 @@
+interface:
+  display_name: "HeartRateTap SEO"
+  short_description: "Create search-focused HeartRateTap pages"
+  default_prompt: "Use $heartratetap-seo to create or review a HeartRateTap blog or tool landing page."

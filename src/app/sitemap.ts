@@ -4,6 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.heartratetap.com'
   const contentReviewDate = new Date('2026-07-22T00:00:00.000Z')
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
+  const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
   
   return [
     {
@@ -53,6 +54,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentReviewDate,
       changeFrequency: 'monthly',
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/blog/seniors-guide-checking-pulse`,
+      lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/heart-rate-yoga-meditation`,
+      lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/manual-heart-rate-checks-team-sports`,
+      lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/build-personal-heart-rate-log`,
+      lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/talk-to-doctor-manual-heart-rate-data`,
+      lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
     },
     {
       url: `${baseUrl}/privacy-policy`,

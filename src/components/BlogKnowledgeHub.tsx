@@ -33,6 +33,23 @@ const BlogKnowledgeHub = () => {
             How to Check Your Pulse Manually: A Repeatable Wrist-Pulse Method
           </Link>
         </li>
+        <li>
+          <Link href="/blog/seniors-guide-checking-pulse">A Senior&apos;s Guide to Checking Your Pulse</Link>
+        </li>
+        <li>
+          <Link href="/blog/heart-rate-yoga-meditation">Using HeartRateTap During Yoga and Meditation</Link>
+        </li>
+        <li>
+          <Link href="/blog/manual-heart-rate-checks-team-sports">Manual Heart-Rate Checks for Team Sports</Link>
+        </li>
+        <li>
+          <Link href="/blog/build-personal-heart-rate-log">How to Build a Meaningful Personal Heart-Rate Log</Link>
+        </li>
+        <li>
+          <Link href="/blog/talk-to-doctor-manual-heart-rate-data">
+            How to Talk to Your Doctor About Manual Heart-Rate Measurements
+          </Link>
+        </li>
       </ul>
       <p>
         Ready to put it into practice?{" "}
@@ -46,4 +63,3 @@ const BlogKnowledgeHub = () => {
 };
 
 export default BlogKnowledgeHub;
-
