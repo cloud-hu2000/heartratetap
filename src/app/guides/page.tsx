@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Heart Rate Guides & Tap-Measurement Methodology | HeartRateTap",
   description:
-    "Browse HeartRateTap's original guide to tap-based BPM calculation, a consistent resting-rate routine, and exercise intensity context.",
+    "Browse tap-based BPM methodology, resting-rate routines, and in-depth heart rate zone guides for running, cycling, swimming, and strength training.",
   alternates: {
     canonical: "https://www.heartratetap.com/guides"
   }
@@ -28,10 +28,31 @@ const GUIDES = [
   },
   {
     href: "/blog/heart-rate-zones-for-running",
-    label: "Exercise",
-    title: "Using heart rate context around a run",
+    label: "Running",
+    title: "Calculate and use running heart rate zones",
     description:
-      "Understand age-predicted ranges, the talk test and the important limitation of taking a tap-based reading after exercise stops."
+      "Calculate zones, match them to easy and hard sessions, and understand the delay in a tap-based reading after running stops."
+  },
+  {
+    href: "/blog/cycling-heart-rate-zones",
+    label: "Cycling",
+    title: "Calculate cycling zones for road or indoor rides",
+    description:
+      "Use broad zones alongside power and perceived effort, and learn why a post-ride tap is a recovery snapshot rather than on-bike data."
+  },
+  {
+    href: "/blog/swimming-heart-rate-zones",
+    label: "Swimming",
+    title: "Calculate swimming zones without copying running",
+    description:
+      "Account for sport-specific response and the safety, exit delay, and manual-input limits of taking a tap estimate after laps."
+  },
+  {
+    href: "/blog/heart-rate-zones-strength-training",
+    label: "Strength training",
+    title: "Know what heart rate can tell you after lifting",
+    description:
+      "Separate aerobic BPM zones from lifting intensity, and use post-set tap estimates only as context beside load, reps, form, and RPE."
   },
   {
     href: "/blog/how-to-check-pulse-manually",

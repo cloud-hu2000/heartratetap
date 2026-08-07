@@ -20,8 +20,17 @@ const BlogKnowledgeHub = () => {
         </li>
         <li>
           <Link href="/blog/heart-rate-zones-for-running">
-            Heart Rate Zones for Running: Are You Training in the Right Zone?
+            Running Heart Rate Zones: Calculate and Use Them on Your Runs
           </Link>
+        </li>
+        <li>
+          <Link href="/blog/cycling-heart-rate-zones">Cycling Heart Rate Zones: Calculate Them and Check After a Ride</Link>
+        </li>
+        <li>
+          <Link href="/blog/swimming-heart-rate-zones">Swimming Heart Rate Zones: Calculate Them and Measure After Laps</Link>
+        </li>
+        <li>
+          <Link href="/blog/heart-rate-zones-strength-training">Heart Rate Zones for Strength Training: What BPM Can Tell You</Link>
         </li>
         <li>
           <Link href="/blog/daily-resting-heart-rate-check">

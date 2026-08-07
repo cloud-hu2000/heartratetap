@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const contentReviewDate = new Date('2026-07-22T00:00:00.000Z')
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
+  const exerciseGuideDate = new Date('2026-08-07T00:00:00.000Z')
   
   return [
     {
@@ -15,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/guides`,
-      lastModified: contentReviewDate,
+      lastModified: exerciseGuideDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
@@ -39,7 +40,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/heart-rate-zones-for-running`,
-      lastModified: contentReviewDate,
+      lastModified: exerciseGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/cycling-heart-rate-zones`,
+      lastModified: exerciseGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/swimming-heart-rate-zones`,
+      lastModified: exerciseGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/heart-rate-zones-strength-training`,
+      lastModified: exerciseGuideDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
