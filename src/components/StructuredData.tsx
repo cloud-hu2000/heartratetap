@@ -41,8 +41,20 @@ export function StructuredData() {
         "name": "HeartRateTap",
         "alternateName": "Heart Rhythm Studio",
         "url": "https://www.heartratetap.com",
-        "logo": "https://www.heartratetap.com/favicon.png",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.heartratetap.com/favicon-256x256.png",
+          "width": 256,
+          "height": 256
+        },
+        "image": "https://www.heartratetap.com/og-heart-rate-tap.png",
         "description": "The independent product and editorial team that maintains the HeartRateTap browser tool and guides.",
+        "areaServed": "Worldwide",
+        "knowsAbout": [
+          "Tap-interval BPM calculation",
+          "Manual pulse-check workflow",
+          "Browser-local heart-rate logging"
+        ],
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "cloudhu2000@gmail.com",

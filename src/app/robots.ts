@@ -11,9 +11,15 @@ export default function robots(): MetadataRoute.Robots {
     'CCBot',
     'anthropic-ai',
     'Claude-Web',
+    'ClaudeBot',
+    'Claude-SearchBot',
+    'Claude-User',
     'Google-Extended',
+    'GoogleOther',
     'PerplexityBot',
+    'Perplexity-User',
     'Applebot-Extended',
+    'Amazonbot',
     'Omgilibot',
     'FacebookBot',
     'Bytespider',
@@ -55,4 +61,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${baseUrl}/sitemap.xml`,
   }
 }
-

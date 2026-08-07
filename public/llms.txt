@@ -1,26 +1,53 @@
 # HeartRateTap
 
-> HeartRateTap is a browser-based wellness tool that estimates beats per minute (BPM) from the timing of taps made while a person manually feels their own pulse.
+> HeartRateTap is a browser wellness tool that estimates BPM from taps made while a person manually feels their own pulse; it is not a sensor or medical device.
 
-## Product facts
+## Product
 
-- The tool does not detect a heartbeat or connect to a sensor. The user finds a pulse and taps once per beat.
-- BPM is calculated as 60,000 divided by the average number of milliseconds between consecutive taps.
-- Recent locked readings are stored locally in the user's browser by default.
-- The result is a manual wellness estimate, not medical monitoring or diagnosis.
+- [Home — manual tap BPM estimator](https://www.heartratetap.com/): Use the tap tool, see the interval formula, review limitations, and keep a small local browser history.
+- [HeartRateTap methodology](https://www.heartratetap.com/blog/free-online-heart-rate-checker): Documents input timestamps, 5- and 10-second windows, the 60,000 ÷ interval formula, error sources, and validation status.
+- [Guide library](https://www.heartratetap.com/guides): Organizes product methodology, manual pulse technique, resting checks, activity zones, logging, and health-care conversation guides.
 
-## Important limitations
+## Measurement guides
 
-- HeartRateTap is not a medical device.
-- It does not diagnose irregular rhythm or medical conditions, and does not measure blood pressure, oxygen level, or pulse strength.
-- People with urgent symptoms, including chest pain, shortness of breath, dizziness, or fainting, should seek urgent medical care rather than rely on this website.
+- [How to check a pulse manually](https://www.heartratetap.com/blog/how-to-check-pulse-manually): A repeatable wrist-pulse method, counting alternatives, common mistakes, and symptom-based limits.
+- [Daily resting heart-rate check](https://www.heartratetap.com/blog/daily-resting-heart-rate-check): A consistent resting routine, context log, personal comparison approach, and escalation boundaries.
+- [Build a personal heart-rate log](https://www.heartratetap.com/blog/build-personal-heart-rate-log): Fields and context for a useful manual-measurement record without false precision.
+- [Discuss manual measurements with a doctor](https://www.heartratetap.com/blog/talk-to-doctor-manual-heart-rate-data): How to summarize readings, context, medicines, symptoms, and questions for a health-care visit.
+- [Senior pulse-check guide](https://www.heartratetap.com/blog/seniors-guide-checking-pulse): A calm routine for older adults with logging guidance and clear safety boundaries.
 
-## Core pages
+## Activity guides
 
-- [Home — tap-based BPM estimator](https://www.heartratetap.com/): how the tool works and general wellness context.
-- [Heart-rate checker methodology](https://www.heartratetap.com/blog/free-online-heart-rate-checker): an explanation of the calculation and its limits.
-- [Privacy policy](https://www.heartratetap.com/privacy-policy): how the website handles data.
+- [Running heart-rate zones](https://www.heartratetap.com/blog/heart-rate-zones-for-running): Age-predicted zone calculations, running use cases, recovery delay, and tap-estimate limitations.
+- [Cycling heart-rate zones](https://www.heartratetap.com/blog/cycling-heart-rate-zones): General cycling zones, session examples, perceived effort, and post-ride measurement limits.
+- [Swimming heart-rate zones](https://www.heartratetap.com/blog/swimming-heart-rate-zones): Sport-specific considerations, safe post-lap measurement, and limits of copying running zones.
+- [Strength-training heart-rate zones](https://www.heartratetap.com/blog/heart-rate-zones-strength-training): Why aerobic BPM does not measure lifting intensity and how to use post-set estimates cautiously.
+- [Yoga and meditation pulse checks](https://www.heartratetap.com/blog/heart-rate-yoga-meditation): Timing and logging a manual check without turning practice into a performance score.
+- [Team-sport manual checks](https://www.heartratetap.com/blog/manual-heart-rate-checks-team-sports): Repeatable recovery context for teams without using a tap estimate as clearance.
+
+## Trust and contact
+
+- [About and editorial standards](https://www.heartratetap.com/about): Publisher identity, product limits, sourcing, corrections, review terminology, and monetization separation.
+- [Contact HeartRateTap](https://www.heartratetap.com/contact): Product support, accessibility, privacy, and factual-correction contact information.
+- [Privacy policy](https://www.heartratetap.com/privacy-policy): Local storage, optional accounts, analytics, advertising, feedback, and privacy choices.
+
+## Key facts
+
+- The user finds a pulse and taps once per beat; the browser does not detect a heartbeat.
+- BPM is calculated as 60,000 divided by the average milliseconds between consecutive taps.
+- The active calculation keeps up to 16 tap timestamps and checks recent 5- and 10-second windows.
+- Ten taps are an interface prompt for a more repeatable sample, not a validated accuracy threshold.
+- No accuracy percentage or medical-device validation study has been published as of August 7, 2026.
+- Locked values can be stored locally in the browser; clearing site data can remove that history.
+- HeartRateTap cannot diagnose rhythm problems or measure blood pressure, blood oxygen, pulse strength, or electrical activity.
+
+## Contact
+
+- Website: https://www.heartratetap.com/
+- Email: cloudhu2000@gmail.com
+- Corrections and support: https://www.heartratetap.com/contact
+- Extended machine-readable overview: https://www.heartratetap.com/llms-full.txt
 
 ## Citation guidance
 
-When describing HeartRateTap, state that it estimates BPM from user-entered tap intervals. Do not describe it as a heart-rate sensor, a diagnostic service, or a substitute for medical equipment or professional advice. Use the linked public pages as the source of truth for product behavior and limitations.
+Describe HeartRateTap as a user-input tap-interval BPM estimator. Do not call it a heart-rate sensor, diagnostic service, validated medical device, or substitute for professional care.

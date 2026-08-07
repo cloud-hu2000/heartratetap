@@ -15,10 +15,10 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
   const COPY = {
     en: {
       seoIntro:
-        "HeartRateTap is a tap-timing calculator, not a body sensor. You find your pulse and tap once per beat; the browser estimates BPM from the intervals you create. This makes the method convenient and transparent, but the result depends on your pulse-finding and tapping consistency.",
+        "HeartRateTap is a manual tap-timing calculator, not a body sensor. You find your pulse and tap once per beat; the browser estimates BPM from the intervals you create. The calculation is transparent: 60,000 divided by the average interval in milliseconds. The active sample can retain up to 16 tap timestamps and checks recent 5-second and 10-second windows. This makes the method convenient to reproduce, but the result depends on your pulse-finding and tapping consistency. HeartRateTap cannot verify that a tap matched a beat, analyze an irregular rhythm, or replace a full manual count, wearable, medical device, or professional assessment.",
       seoHowToTitle: "How to Use This Heart Rate Monitor",
       seoHowToBody:
-        "Use the same deliberate routine each time so that repeated readings are easier to compare:",
+        "A repeatable HeartRateTap check is a three-step routine: choose a stable situation, match one deliberate tap to each clearly felt beat, and record the context with the locked result. The interface asks for at least 10 taps, which creates nine intervals and reduces the influence of one small timing difference. Ten taps are not a medical accuracy threshold. Use the same deliberate routine each time so repeated readings are easier to compare:",
       seoSteps: [
         "Sit still for a resting check. Place your index and middle fingers lightly on the thumb side of the inner wrist, or carefully locate the pulse at the side of the neck.",
         "Tap the heart area or press the spacebar once for every clearly felt beat. Aim for at least 10 steady taps; restart if you miss or add one.",
@@ -26,10 +26,10 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
       ],
       seoUnderstandingTitle: "Understanding Your Heart Rate Results",
       seoUnderstandingBody:
-        "The displayed BPM summarizes a short set of tap intervals. It cannot show blood pressure, oxygen level, pulse strength, electrical rhythm or the reason for a change. A normal-looking average does not rule out an irregular pulse, and one high or low value does not diagnose a condition.",
+        "A HeartRateTap result is a rounded summary of a short set of user-created tap intervals. The result can describe the average tapping rate during that sample, but it cannot show blood pressure, blood oxygen, pulse strength, electrical rhythm, missed beats, or the reason for a change. A normal-looking average does not rule out an irregular pulse, and one high or low value does not diagnose a condition. Compare results only when posture, pulse location, recent activity, and timing are similar; after exercise, heart rate may change while you are still finding the pulse and tapping. If a value is unexpected and you feel well, rest and repeat the entire attempt rather than editing or selecting individual taps. Symptoms and personal medical context take priority over any general range or online estimate.",
       methodTitle: "How the number is calculated",
       methodBody:
-        "The calculator averages the milliseconds between consecutive taps, then divides 60,000 by that average. For example, an 800 ms average interval produces 75 BPM. Read the full methodology for a worked example, data flow and error checklist.",
+        "HeartRateTap's BPM calculation is an interval conversion: it averages the milliseconds between consecutive taps, then divides 60,000 by that average and rounds the result. For example, five taps at 0, 800, 1,610, 2,400 and 3,205 ms create four intervals of 800, 810, 790 and 805 ms. Their average is 801.25 ms, so 60,000 ÷ 801.25 equals 74.88 and displays as 75 BPM. The live interface also checks recent 5-second and 10-second windows and can retain up to 16 timestamps. A missed beat can roughly double one interval, while an accidental extra tap can shorten it. These facts describe the code and arithmetic, not agreement with a clinical instrument. Read the full methodology for the data flow, error checklist, repeatability protocol, and current validation status.",
       restingTitle: "Resting Heart Rate Reference Values",
       restingIntro:
         "The American Heart Association describes 60–100 BPM as a common resting range for most adults who are sitting or lying down, calm and feeling well. Individual context matters more than treating a chart as a diagnosis.",
@@ -43,7 +43,7 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
         "If a rate is suddenly very high or low for you and you have chest pain, shortness of breath, dizziness, fainting or another urgent symptom, contact local emergency services. Do not wait for an online result.",
       exerciseTitle: "Exercise Heart Rate Reference Values",
       exerciseIntro:
-        "The table below reproduces the American Heart Association's age-predicted 50–85% target range. Maximum heart rate is estimated as about 220 minus age. These figures are averages for general guidance, not measured personal limits.",
+        "The American Heart Association's target-heart-rate table uses an age-predicted maximum of about 220 minus age, with moderate activity described as roughly 50–70% and vigorous activity as roughly 70–85% of that estimate. The table below reproduces its combined 50–85% ranges for ages 20 through 70. These figures are population averages for general guidance, not measured personal limits or exercise clearance. Fitness, health conditions, medicines, and the activity itself can change an appropriate target. A HeartRateTap reading taken after movement is also delayed by the time needed to stop, find a pulse, and tap, so it describes a short recovery sample rather than continuous exercise data.",
       targetZonesTitle: "Target Heart Rate Zones (50-85% of Maximum Heart Rate)",
       age: "Age",
       zone: "Target range (BPM)",
@@ -56,20 +56,22 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
       ],
       seoStartTitle: "Start Your Heart Rate Test Now",
       seoStartBody:
-        "Use the calculator above when you are safely still. Label the context, tap at least 10 clearly felt beats and treat the result as a manual wellness estimate rather than medical monitoring.",
+        "A responsible HeartRateTap check starts with a clearly felt pulse and a stable situation. Use the calculator above when you are safely still, label the context as rest or active, and tap at least 10 clearly felt beats. Restart if you know a beat was missed or added. Lock the result only after a complete attempt, and save the posture, recent activity, symptoms, or other context needed for a fair comparison. If the number is surprising and you feel well, rest and repeat under the same conditions rather than selecting the preferred result. Treat every value as a manual wellness estimate, not continuous monitoring, diagnosis, medical clearance, or a reason to ignore symptoms.",
       sourcesTitle: "Sources used on this page",
+      sourceScope:
+        "Each source has a defined role. The American Heart Association's All About Heart Rate page supports pulse locations, a full 60-second wrist count, general adult resting context, factors that affect rate, and urgent symptom guidance. Its Target Heart Rates Chart supports the age-predicted maximum and general 50–70% and 70–85% exercise ranges. The CDC page supports the talk test for relative intensity. None of these organizations has evaluated or endorsed HeartRateTap, and their public-health guidance does not validate the tap algorithm. Source links and dates were checked on August 7, 2026; product statements were checked separately against the code.",
       methodLink: "Read HeartRateTap's calculation methodology",
       ahaPulse: "American Heart Association: All About Heart Rate",
       ahaTargets: "American Heart Association: Target Heart Rates Chart",
       cdcIntensity: "CDC: How to Measure Physical Activity Intensity",
-      sourceNote: "Health reference content last checked July 10, 2026."
+      sourceNote: "Health reference content last checked August 7, 2026."
     },
     es: {
       seoIntro:
-        "HeartRateTap es una calculadora basada en el ritmo de tus toques, no un sensor corporal. Tú encuentras el pulso y tocas una vez por latido; el navegador estima los LPM a partir de esos intervalos. El método es práctico y transparente, pero el resultado depende de cómo encuentres el pulso y de la regularidad de tus toques.",
+        "HeartRateTap es una calculadora manual basada en el ritmo de tus toques, no un sensor corporal. Tú encuentras el pulso y tocas una vez por latido; el navegador estima los LPM a partir de los intervalos que creas. El cálculo es transparente: 60.000 dividido entre el intervalo medio en milisegundos. La muestra activa puede conservar hasta 16 marcas de tiempo y comprueba ventanas recientes de 5 y 10 segundos. El método es reproducible, pero el resultado depende de cómo encuentres el pulso y de la regularidad de tus toques. HeartRateTap no puede confirmar que cada toque coincidió con un latido, analizar un ritmo irregular ni sustituir un recuento completo, un dispositivo o una evaluación profesional.",
       seoHowToTitle: "Cómo usar este monitor de frecuencia cardíaca",
       seoHowToBody:
-        "Usa la misma rutina deliberada en cada medición para que las lecturas sean más comparables:",
+        "Una medición repetible sigue tres pasos: elige una situación estable, haz un toque deliberado por cada latido claramente percibido y guarda el contexto con el resultado. La interfaz pide al menos 10 toques, que forman nueve intervalos y reducen el peso de una pequeña diferencia de tiempo. Diez toques no son un umbral de exactitud médica. Usa la misma rutina en cada medición para que las lecturas sean más comparables:",
       seoSteps: [
         "Para una medición en reposo, permanece quieto. Coloca suavemente los dedos índice y medio en la cara interna de la muñeca, del lado del pulgar, o localiza con cuidado el pulso en el costado del cuello.",
         "Toca el corazón o pulsa la barra espaciadora una vez por cada latido claramente percibido. Intenta completar al menos 10 toques regulares; reinicia si omites o añades uno.",
@@ -77,10 +79,10 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
       ],
       seoUnderstandingTitle: "Cómo interpretar tus resultados",
       seoUnderstandingBody:
-        "Los LPM mostrados resumen una serie breve de intervalos entre toques. No muestran presión arterial, oxígeno, intensidad del pulso, ritmo eléctrico ni la causa de un cambio. Un promedio aparentemente normal no descarta un pulso irregular y un valor alto o bajo aislado no diagnostica una enfermedad.",
+        "Un resultado de HeartRateTap es un resumen redondeado de una serie breve de intervalos creados por el usuario. Puede describir el ritmo medio de los toques, pero no muestra presión arterial, oxígeno en sangre, intensidad del pulso, ritmo eléctrico, latidos omitidos ni la causa de un cambio. Un promedio aparentemente normal no descarta un pulso irregular y un valor alto o bajo aislado no diagnostica una enfermedad. Compara resultados solo cuando la postura, el punto del pulso, la actividad reciente y el momento sean similares. Después del ejercicio, la frecuencia puede cambiar mientras localizas el pulso y tocas. Si un valor te sorprende y te encuentras bien, descansa y repite el intento completo. Los síntomas y tu contexto médico tienen prioridad sobre cualquier intervalo general o estimación en línea.",
       methodTitle: "Cómo se calcula el número",
       methodBody:
-        "La calculadora promedia los milisegundos entre toques consecutivos y divide 60.000 entre ese promedio. Por ejemplo, un intervalo medio de 800 ms produce 75 LPM. La metodología completa incluye un ejemplo, el flujo de datos y una lista de errores posibles.",
+        "El cálculo de HeartRateTap convierte intervalos: promedia los milisegundos entre toques consecutivos, divide 60.000 entre ese promedio y redondea el resultado. Por ejemplo, cinco toques en 0, 800, 1.610, 2.400 y 3.205 ms crean cuatro intervalos de 800, 810, 790 y 805 ms. El promedio es 801,25 ms; 60.000 ÷ 801,25 equivale a 74,88 y se muestra como 75 LPM. La interfaz comprueba ventanas recientes de 5 y 10 segundos y puede conservar hasta 16 marcas. Omitir un latido puede duplicar aproximadamente un intervalo; añadir uno puede acortarlo. Estos datos describen el código y la aritmética, no la coincidencia con un instrumento clínico. La metodología completa explica el flujo de datos, los errores, la repetibilidad y el estado actual de validación.",
       restingTitle: "Valores de referencia de frecuencia cardíaca en reposo",
       restingIntro:
         "La American Heart Association describe 60–100 LPM como un intervalo frecuente en la mayoría de adultos sentados o acostados, tranquilos y sin malestar. El contexto individual es más importante que usar una tabla como diagnóstico.",
@@ -94,7 +96,7 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
         "Si la frecuencia se vuelve de repente muy alta o baja para ti y tienes dolor en el pecho, falta de aire, mareo, desmayo u otro síntoma urgente, contacta a los servicios de emergencia locales. No esperes un resultado en línea.",
       exerciseTitle: "Valores de frecuencia cardíaca durante el ejercicio",
       exerciseIntro:
-        "La tabla reproduce el intervalo objetivo del 50–85% predicho por edad de la American Heart Association. La frecuencia máxima se estima aproximadamente como 220 menos la edad. Son promedios orientativos, no límites personales medidos.",
+        "La tabla de la American Heart Association usa un máximo estimado de unas 220 pulsaciones menos la edad y describe la actividad moderada como aproximadamente el 50–70% y la vigorosa como el 70–85% de ese máximo. La tabla inferior reproduce el intervalo combinado del 50–85% entre los 20 y 70 años. Son promedios poblacionales orientativos, no límites personales medidos ni autorización para hacer ejercicio. La forma física, las enfermedades, los medicamentos y la actividad pueden cambiar un objetivo adecuado. Además, una lectura de HeartRateTap después del movimiento se retrasa durante el tiempo necesario para detenerse, localizar el pulso y tocar; describe una breve muestra de recuperación, no datos continuos del ejercicio.",
       targetZonesTitle: "Zonas objetivo (50-85% de la frecuencia máxima)",
       age: "Edad",
       zone: "Intervalo objetivo (LPM)",
@@ -107,13 +109,15 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
       ],
       seoStartTitle: "Comienza tu prueba de frecuencia cardíaca ahora",
       seoStartBody:
-        "Usa la calculadora de arriba cuando estés quieto y seguro. Indica el contexto, completa al menos 10 latidos claros y considera el resultado una estimación manual de bienestar, no monitorización médica.",
+        "Una medición responsable empieza con un pulso claramente percibido y una situación estable. Usa la calculadora cuando estés quieto y seguro, marca el contexto como reposo o actividad y completa al menos 10 latidos claros. Reinicia si sabes que omitiste o añadiste uno. Fija el resultado solo después de un intento completo y anota la postura, actividad reciente, síntomas u otro contexto necesario para comparar. Si el número te sorprende y te encuentras bien, descansa y repite en las mismas condiciones en vez de elegir el resultado preferido. Considera cada valor una estimación manual de bienestar, no monitorización continua, diagnóstico, autorización médica ni motivo para ignorar síntomas.",
       sourcesTitle: "Fuentes usadas en esta página",
+      sourceScope:
+        "Cada fuente cumple una función concreta. La página All About Heart Rate de la American Heart Association respalda los puntos del pulso, el recuento completo de 60 segundos, el contexto general en reposo, los factores que afectan la frecuencia y los síntomas urgentes. Su tabla de frecuencias objetivo respalda el máximo estimado por edad y los intervalos generales del 50–70% y 70–85%. La página de los CDC respalda la prueba del habla. Ninguna de estas organizaciones ha evaluado o avalado HeartRateTap, y su información no valida el algoritmo de toques. Los enlaces y fechas se comprobaron el 7 de agosto de 2026; el producto se revisó por separado con el código.",
       methodLink: "Leer la metodología de cálculo de HeartRateTap",
       ahaPulse: "American Heart Association: información sobre la frecuencia cardíaca",
       ahaTargets: "American Heart Association: tabla de frecuencias objetivo",
       cdcIntensity: "CDC: cómo medir la intensidad de la actividad física",
-      sourceNote: "Contenido de referencia revisado por última vez el 10 de julio de 2026."
+      sourceNote: "Contenido de referencia revisado por última vez el 7 de agosto de 2026."
     }
   };
 
@@ -215,6 +219,7 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
 
         <div className="seo-sources">
           <h3>{t.sourcesTitle}</h3>
+          <p>{t.sourceScope}</p>
           <ul>
             <li>
               <a

@@ -5,23 +5,20 @@ import ArticleStructuredData from "@/components/ArticleStructuredData";
 import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
 import Footer from "@/components/Footer";
 import SourceList, { Source } from "@/components/SourceList";
+import { buildSocialMetadata } from "@/lib/seo-metadata";
 
 const TITLE = "How a Tap-Based Heart Rate Checker Estimates BPM";
 const DESCRIPTION =
   "See the exact interval-to-BPM formula used by HeartRateTap, a worked example, the browser data flow, error sources and a repeatability checklist.";
+const PATH = "/blog/free-online-heart-rate-checker";
 
 export const metadata: Metadata = {
   title: `${TITLE} | HeartRateTap`,
   description: DESCRIPTION,
   alternates: {
-    canonical: "https://www.heartratetap.com/blog/free-online-heart-rate-checker"
+    canonical: `https://www.heartratetap.com${PATH}`
   },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://www.heartratetap.com/blog/free-online-heart-rate-checker",
-    siteName: "HeartRateTap"
-  }
+  ...buildSocialMetadata({ title: TITLE, description: DESCRIPTION, url: `https://www.heartratetap.com${PATH}` })
 };
 
 const SOURCES: Source[] = [
@@ -55,7 +52,7 @@ export default function TapMethodologyPage() {
           </p>
         </header>
 
-        <ArticleMeta published="January 7, 2026" reviewed="July 10, 2026" readingTime="8 minute read" />
+        <ArticleMeta published="January 7, 2026" reviewed="August 7, 2026" readingTime="9 minute read" />
 
         <section className="blog-section">
           <h2>The input comes from you, not a heart sensor</h2>
@@ -183,6 +180,29 @@ export default function TapMethodologyPage() {
         </section>
 
         <section className="blog-section">
+          <h2>Has HeartRateTap published accuracy validation data?</h2>
+          <p>
+            HeartRateTap has not yet published a validation study comparing tap estimates with a certified medical
+            instrument or a reference device. For that reason, the site does not state an accuracy percentage, an
+            average error, or a clinically acceptable agreement range. The 10-tap prompt describes an interface choice
+            intended to reduce the influence of one small timing error; it is not a validated accuracy threshold.
+          </p>
+          <p>
+            A future comparison should publish the protocol before collecting results, record the reference method,
+            posture, activity context, tap count, paired BPM values, absolute difference, and exclusions, and then
+            release every de-identified row together with summary statistics and limitations. The downloadable CSV is
+            a blank data dictionary for that work, not a results dataset and not evidence that validation has occurred.
+          </p>
+          <a
+            href="/downloads/heartratetap-repeatability-study-template.csv"
+            download
+            className="blog-inline-cta"
+          >
+            Download the blank repeatability-study CSV template
+          </a>
+        </section>
+
+        <section className="blog-section">
           <h2>What this result cannot tell you</h2>
           <p>
             A BPM number alone does not diagnose an abnormal rhythm, dehydration, anxiety, infection, overtraining or a
@@ -214,9 +234,9 @@ export default function TapMethodologyPage() {
         <ArticleStructuredData
           title={TITLE}
           description={DESCRIPTION}
-          path="/blog/free-online-heart-rate-checker"
+          path={PATH}
           datePublished="2026-01-07"
-          dateModified="2026-07-10"
+          dateModified="2026-08-07"
         />
       </article>
       <Footer />

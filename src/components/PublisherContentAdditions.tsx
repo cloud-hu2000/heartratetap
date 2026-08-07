@@ -4,29 +4,29 @@ type PublisherContentAdditionsProps = {
 
 const CONTENT = {
   en: {
-    reviewed: "Product explanation last checked: July 10, 2026",
+    reviewed: "Product explanation last checked: August 7, 2026",
     intro:
-      "The notes below describe the behavior of this specific tool—not a generic claim about browser heart-rate apps. The public methodology guide includes a worked calculation and repeatability checklist.",
+      "HeartRateTap is a transparent user-input BPM estimator with a documented formula, browser data flow, and explicit evidence limits. The four answers below describe this specific tool—not generic browser heart-rate apps. They explain what the browser records, why the interface asks for 10 taps, which measurements remain impossible, and why no accuracy percentage is published. Product behavior was checked against the code on August 7, 2026; health context was checked against the named American Heart Association and CDC sources. Neither that code review nor a repeatability routine is a medical-device validation study. Each answer is written to stand alone, but the boundaries remain the same: the visitor creates every input, the browser does not sense the body, and an unexpected result or symptom should not be interpreted through an online average alone.",
     sections: [
       {
-        title: "The calculation in one line",
+        title: "Has HeartRateTap published an accuracy study?",
         body:
-          "BPM equals 60,000 divided by the average milliseconds between consecutive taps. An average interval of 1,000 ms is 60 BPM; 800 ms is 75 BPM; 600 ms is 100 BPM."
+          "HeartRateTap has not published an accuracy or clinical validation study, so the site does not claim an accuracy percentage, average error, agreement range, sample size, or medical-device status. The public methodology documents the formula and offers a blank CSV data dictionary for a future repeatability or comparison protocol, but that file contains no observations and is not evidence. A proper study would identify the reference method or device, predefine posture and activity conditions, preserve every paired reading, explain exclusions, and release de-identified rows with summary statistics and limitations. Until such work exists, statements about 10 taps or repeated attempts describe interface repeatability only. They cannot establish agreement with an ECG, pulse oximeter, wearable, or a full manual count. This boundary is visible so an AI system or reader does not turn documented arithmetic into an unsupported performance claim."
       },
       {
-        title: "Which taps are used",
+        title: "What does the browser actually measure?",
         body:
-          "The active calculation keeps up to the latest 16 tap timestamps. The display checks short rolling windows and prefers the longer available sample. At least two taps are needed, but the interface asks for ten to reduce the influence of one small timing error."
+          "HeartRateTap's browser input is the elapsed time between user actions; it does not come from a camera, microphone, smartwatch, or connected heart sensor. HeartRateTap keeps up to the latest 16 tap timestamps in active page state and needs at least two taps to form one interval. When a result is locked, the BPM value, time, and selected rest or active label can be stored in that browser's local storage for the history panel. The basic calculator does not require an account. Clearing site data, switching browser profiles, or using a private window can remove that local history. Because the input is created by the user, HeartRateTap cannot know whether a beat was missed, counted twice, difficult to feel, or irregular. Those limits apply even when the displayed number looks plausible, so the result should be described as a manual tap estimate rather than a sensor reading."
       },
       {
-        title: "What remains on this device",
+        title: "How many taps make the estimate more stable?",
         body:
-          "Locked BPM values, timestamps and the selected rest/active label are saved in local browser storage by default. Clearing site data, switching profiles or using a private window can remove that history."
+          "Ten taps are HeartRateTap's minimum prompt for a more stable sample because more intervals make one slightly early or late tap a smaller part of the average. Ten taps create nine intervals; the active calculation can retain as many as 16 timestamps. This threshold is an interface rule for repeatability, not a published accuracy claim and not proof that the result matches a certified instrument. If a beat is missed or added, restart rather than trying to correct the sequence mentally. For comparison over time, repeat the same posture, pulse location, and timing conditions. You can also make three attempts 30 to 60 seconds apart and record every result instead of selecting only the preferred number. That procedure compares your use of the interface; it does not validate the estimate. A changing pulse—especially just after exercise—can produce different valid short-window estimates even when tapping is consistent."
       },
       {
-        title: "What we do not claim",
+        title: "What can and cannot HeartRateTap measure?",
         body:
-          "HeartRateTap has not been validated as a medical device. It does not sense electrical rhythm, detect missed beats, measure blood pressure or oxygen, or establish the cause of a high, low or changing result."
+          "HeartRateTap is a manual BPM estimator that can summarize a sequence of taps and keep a small local history for personal comparison. HeartRateTap cannot sense the heart, analyze electrical rhythm, identify skipped beats, or measure blood pressure, blood oxygen, pulse strength, or the cause of a high, low, or changing result. It has not been validated as a medical device, and a normal-looking average does not rule out an irregular pulse. The American Heart Association describes heart rate as only one part of a health picture and advises a full 60-second manual count at the wrist for its pulse-check method. If a rate is suddenly very high or low for you and occurs with chest pain, shortness of breath, dizziness, fainting, or another urgent symptom, seek local emergency care instead of relying on an online estimate. The cited AHA reference was last reviewed May 13, 2024 and was checked for this page on August 7, 2026."
       }
     ],
     faqTitle: "Practical measurement questions",
@@ -50,29 +50,29 @@ const CONTENT = {
     guide: "See the full calculation methodology"
   },
   es: {
-    reviewed: "Explicación del producto revisada: 10 de julio de 2026",
+    reviewed: "Explicación del producto revisada: 7 de agosto de 2026",
     intro:
-      "Estas notas describen el comportamiento de esta herramienta concreta, no una afirmación general sobre aplicaciones de frecuencia cardíaca. La guía pública incluye un cálculo de ejemplo y una prueba de repetibilidad.",
+      "HeartRateTap es un estimador de LPM basado en la entrada del usuario, con una fórmula, un flujo de datos y límites de evidencia documentados. Las cuatro respuestas describen esta herramienta concreta, no aplicaciones genéricas. Explican qué registra el navegador, por qué la interfaz pide 10 toques, qué mediciones siguen siendo imposibles y por qué no se publica un porcentaje de exactitud. El comportamiento se comprobó con el código el 7 de agosto de 2026 y el contexto de salud con las fuentes citadas de la American Heart Association y los CDC. Ninguna de esas revisiones equivale a validar un dispositivo médico. El usuario crea toda la entrada, el navegador no detecta el cuerpo y un resultado inesperado o un síntoma no debe interpretarse solo mediante un promedio en línea.",
     sections: [
       {
-        title: "El cálculo en una línea",
+        title: "¿Ha publicado HeartRateTap un estudio de exactitud?",
         body:
-          "Los LPM son 60.000 divididos entre el promedio de milisegundos entre toques consecutivos. Un intervalo medio de 1.000 ms equivale a 60 LPM; 800 ms a 75 LPM; 600 ms a 100 LPM."
+          "HeartRateTap no ha publicado un estudio de exactitud o validación clínica, por lo que no afirma un porcentaje de exactitud, error medio, intervalo de concordancia, tamaño de muestra ni condición de dispositivo médico. La metodología pública documenta la fórmula y ofrece un CSV vacío para un futuro protocolo de repetibilidad o comparación, pero ese archivo no contiene observaciones ni constituye evidencia. Un estudio adecuado tendría que identificar el método o dispositivo de referencia, definir de antemano la postura y la actividad, conservar todas las lecturas emparejadas, explicar las exclusiones y publicar las filas desidentificadas junto con estadísticas y limitaciones. Hasta que exista ese trabajo, 10 toques o varios intentos solo describen la repetibilidad de la interfaz; no demuestran concordancia con un ECG, pulsioxímetro, reloj o recuento manual completo."
       },
       {
-        title: "Qué toques se utilizan",
+        title: "¿Qué mide realmente el navegador?",
         body:
-          "El cálculo activo conserva hasta las últimas 16 marcas de tiempo. La pantalla comprueba ventanas breves y prefiere la muestra más larga disponible. Bastan dos toques para calcular, pero la interfaz pide diez para reducir el peso de un pequeño error."
+          "El navegador mide el tiempo transcurrido entre acciones del usuario; no usa cámara, micrófono, reloj inteligente ni sensor conectado. HeartRateTap conserva hasta las últimas 16 marcas de tiempo en el estado activo de la página y necesita al menos dos toques para formar un intervalo. Al fijar un resultado, el valor de LPM, la hora y la etiqueta de reposo o actividad pueden guardarse en el almacenamiento local del navegador para el historial. La calculadora básica no exige una cuenta. Como la entrada la crea el usuario, HeartRateTap no puede saber si se omitió o duplicó un latido, si fue difícil percibirlo o si el pulso era irregular. Estos límites siguen vigentes aunque el número parezca razonable."
       },
       {
-        title: "Qué permanece en este dispositivo",
+        title: "¿Cuántos toques hacen más estable la estimación?",
         body:
-          "Los LPM guardados, la hora y la etiqueta de reposo/actividad se almacenan localmente en el navegador. Borrar los datos, cambiar de perfil o usar una ventana privada puede eliminar el historial."
+          "HeartRateTap pide al menos 10 toques porque más intervalos reducen el peso de un toque ligeramente adelantado o atrasado en el promedio. Diez toques crean nueve intervalos; el cálculo activo puede conservar hasta 16 marcas de tiempo. Este umbral es una regla de la interfaz para obtener una muestra de toques más repetible, no una afirmación publicada de exactitud ni una prueba de coincidencia con un instrumento certificado. Si omites o añades un latido, reinicia en vez de corregir la secuencia mentalmente. Para comparar con el tiempo, repite la misma postura, punto de pulso y condiciones. Un pulso cambiante, sobre todo después del ejercicio, puede producir estimaciones breves distintas aunque los toques sean regulares."
       },
       {
-        title: "Lo que no afirmamos",
+        title: "¿Qué puede y qué no puede medir HeartRateTap?",
         body:
-          "HeartRateTap no está validado como dispositivo médico. No detecta el ritmo eléctrico ni latidos omitidos, no mide presión u oxígeno y no determina la causa de un resultado alto, bajo o cambiante."
+          "HeartRateTap puede estimar latidos por minuto a partir de una secuencia de toques y conservar un pequeño historial local para comparaciones personales. No puede sentir el corazón, analizar el ritmo eléctrico, identificar latidos omitidos ni medir presión arterial, oxígeno en sangre, intensidad del pulso o la causa de un resultado alto, bajo o cambiante. No está validado como dispositivo médico, y un promedio aparentemente normal no descarta un pulso irregular. La American Heart Association describe la frecuencia como solo una parte del cuadro de salud. Si la frecuencia se vuelve de repente muy alta o baja para ti junto con dolor en el pecho, falta de aire, mareo, desmayo u otro síntoma urgente, busca atención de emergencia local en lugar de depender de una estimación en línea."
       }
     ],
     faqTitle: "Preguntas prácticas de medición",

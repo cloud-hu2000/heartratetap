@@ -5,23 +5,20 @@ import ArticleStructuredData from "@/components/ArticleStructuredData";
 import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
 import Footer from "@/components/Footer";
 import SourceList, { Source } from "@/components/SourceList";
+import { buildSocialMetadata } from "@/lib/seo-metadata";
 
 const TITLE = "How to Check Your Pulse Manually: A Repeatable Wrist-Pulse Method";
 const DESCRIPTION =
   "Learn a careful manual pulse-check routine, how to count or tap each beat, what to record, common mistakes, and when a BPM estimate is not enough.";
+const PATH = "/blog/how-to-check-pulse-manually";
 
 export const metadata: Metadata = {
   title: `${TITLE} | HeartRateTap`,
   description: DESCRIPTION,
   alternates: {
-    canonical: "https://www.heartratetap.com/blog/how-to-check-pulse-manually"
+    canonical: `https://www.heartratetap.com${PATH}`
   },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://www.heartratetap.com/blog/how-to-check-pulse-manually",
-    siteName: "HeartRateTap"
-  }
+  ...buildSocialMetadata({ title: TITLE, description: DESCRIPTION, url: `https://www.heartratetap.com${PATH}` })
 };
 
 const SOURCES: Source[] = [
@@ -257,7 +254,7 @@ export default function ManualPulseCheckPage() {
         <ArticleStructuredData
           title={TITLE}
           description={DESCRIPTION}
-          path="/blog/how-to-check-pulse-manually"
+          path={PATH}
           datePublished="2026-08-05"
           dateModified="2026-08-05"
         />

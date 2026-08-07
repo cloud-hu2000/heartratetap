@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import DeepGuidePage from "@/components/DeepGuidePage";
 import { type Source } from "@/components/SourceList";
+import { buildSocialMetadata } from "@/lib/seo-metadata";
 
 const TITLE = "Running Heart Rate Zones: Calculate and Use Them on Your Runs";
 const DESCRIPTION =
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: `${TITLE} | HeartRateTap`,
   description: DESCRIPTION,
   alternates: { canonical: `https://www.heartratetap.com${PATH}` },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `https://www.heartratetap.com${PATH}`, siteName: "HeartRateTap" }
+  ...buildSocialMetadata({ title: TITLE, description: DESCRIPTION, url: `https://www.heartratetap.com${PATH}` })
 };
 
 const SOURCES: Source[] = [

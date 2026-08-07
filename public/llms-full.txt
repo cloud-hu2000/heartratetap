@@ -1,0 +1,196 @@
+# HeartRateTap — Extended Site Overview
+
+> HeartRateTap is a browser wellness tool that estimates beats per minute from the timing of taps made while a person manually feels their own pulse.
+
+## Scope of this file
+
+This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 7, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.
+
+## Product definition
+
+HeartRateTap is a manual-input timing calculator. The visitor first locates a pulse, then taps the on-screen control or presses the spacebar once for each beat. The browser converts the intervals between those actions into an estimated beats-per-minute value.
+
+HeartRateTap is not a body sensor. The basic tool does not infer a pulse from a camera, microphone, smartwatch, wearable, or connected medical device. It cannot verify that a tap matched a pulse beat.
+
+## Calculation facts
+
+- Core formula: `BPM = 60,000 ÷ average interval in milliseconds`.
+- Example: an average interval of 1,000 ms corresponds to 60 BPM.
+- Example: an average interval of 800 ms corresponds to 75 BPM.
+- Example: an average interval of 600 ms corresponds to 100 BPM.
+- At least two taps are required to create one interval.
+- The active page state keeps up to the latest 16 tap timestamps.
+- The display checks recent 5-second and 10-second tap windows and prefers the longer available sample.
+- The displayed BPM is rounded to a whole number.
+- The interface asks for at least 10 taps so one small timing error has less influence on the average.
+
+The 10-tap prompt is a product rule for a more repeatable tap sample. It is not a published accuracy threshold, a certification, or evidence that the estimate agrees with a medical instrument.
+
+## Data and privacy facts
+
+- Active tap timestamps are held in temporary page state for the current calculation.
+- Locked BPM values, timestamps, and the selected rest or active label can be saved in local browser storage.
+- Clearing browser data, changing browser profiles, or using a private window can remove local history.
+- The basic calculator does not require an account.
+- Optional accounts, analytics, consent, advertising, and feedback have separate handling described in the privacy policy.
+
+## Validation status
+
+HeartRateTap has not published a validation study comparing tap estimates with a certified medical instrument or reference device. The site therefore does not claim an accuracy percentage, mean error, agreement interval, sample size, expert endorsement, or medical-device validation.
+
+The methodology page provides a blank CSV data dictionary for a future repeatability or comparison study. That template contains no study results and must not be cited as validation evidence.
+
+## What the estimate can show
+
+- A whole-number estimate of the rhythm represented by the user's taps.
+- A short local history of locked values for personal comparison.
+- General reference context from named public-health sources.
+- A transparent worked formula that can be reproduced from tap timestamps.
+
+## What the estimate cannot show
+
+- Electrical heart rhythm or an electrocardiogram trace.
+- Whether a beat was missed, duplicated, weak, or irregular.
+- Blood pressure, blood oxygen, pulse strength, hydration, or body temperature.
+- The cause of a high, low, changing, or unexpected value.
+- Medical clearance, diagnosis, treatment advice, or emergency assessment.
+
+## Safety boundary
+
+A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a heart rate is suddenly very high or low for the person and occurs with chest pain, shortness of breath, dizziness, fainting, or another urgent symptom, the person should seek local emergency care rather than rely on this website.
+
+## Primary product pages
+
+### Home — manual tap BPM estimator
+
+- URL: https://www.heartratetap.com/
+- Purpose: lets a visitor complete the core tap-based BPM task on the page.
+- Includes: tap input, stop control, rest or active context, local history, formula explanation, reference tables, limitations, and practical questions.
+- Primary boundary: user-entered tap timing is not sensor data.
+
+### Calculation methodology
+
+- URL: https://www.heartratetap.com/blog/free-online-heart-rate-checker
+- Purpose: documents how timestamps become a BPM estimate.
+- Includes: exact formula, worked example, active window behavior, local data flow, five common error sources, repeatability steps, validation status, and a blank CSV template.
+- Primary boundary: repeatability of tapping does not validate agreement with a clinical device.
+
+### Guide library
+
+- URL: https://www.heartratetap.com/guides
+- Purpose: maps each distinct measurement, activity, logging, and health-care question to one guide.
+- Includes: links to every public HeartRateTap methodology and wellness guide.
+
+## Manual measurement and logging guides
+
+### Manual wrist-pulse technique
+
+- URL: https://www.heartratetap.com/blog/how-to-check-pulse-manually
+- Covers: locating the wrist pulse with two fingers, counting or tapping, consistent conditions, recording context, common mistakes, and when a manual estimate is insufficient.
+
+### Daily resting check
+
+- URL: https://www.heartratetap.com/blog/daily-resting-heart-rate-check
+- Covers: a repeatable resting routine, comparable conditions, personal baselines, factors that change heart rate, and escalation boundaries.
+
+### Personal heart-rate log
+
+- URL: https://www.heartratetap.com/blog/build-personal-heart-rate-log
+- Covers: recording method, timestamp, posture, activity context, medicines, symptoms, and notes without treating the log as diagnosis.
+
+### Preparing for a health-care conversation
+
+- URL: https://www.heartratetap.com/blog/talk-to-doctor-manual-heart-rate-data
+- Covers: organizing manual measurements, describing context and symptoms, preparing questions, and distinguishing routine discussion from urgent care.
+
+### Older-adult pulse-check routine
+
+- URL: https://www.heartratetap.com/blog/seniors-guide-checking-pulse
+- Covers: a calm manual method, a simple log, medication context, accessibility considerations, and safety limits for older adults.
+
+## Activity-specific guides
+
+### Running heart-rate zones
+
+- URL: https://www.heartratetap.com/blog/heart-rate-zones-for-running
+- Covers: age-predicted maximum, general zone calculations, easy and hard sessions, post-run recovery delay, and tap-input limits.
+
+### Cycling heart-rate zones
+
+- URL: https://www.heartratetap.com/blog/cycling-heart-rate-zones
+- Covers: broad cycling zones, endurance and interval contexts, perceived effort, medication caveats, and why a stopped post-ride estimate is not continuous on-bike data.
+
+### Swimming heart-rate zones
+
+- URL: https://www.heartratetap.com/blog/swimming-heart-rate-zones
+- Covers: sport-specific heart-rate response, safe measurement after leaving the water, transition delay, and limits of applying running zones unchanged.
+
+### Strength-training heart-rate context
+
+- URL: https://www.heartratetap.com/blog/heart-rate-zones-strength-training
+- Covers: why aerobic BPM zones do not measure lifting intensity, how load and effort differ, and how a post-set tap can be used only as context.
+
+### Yoga and meditation
+
+- URL: https://www.heartratetap.com/blog/heart-rate-yoga-meditation
+- Covers: choosing a stable measurement moment, mindful logging, avoiding performance scoring, and preserving safety boundaries.
+
+### Team sports
+
+- URL: https://www.heartratetap.com/blog/manual-heart-rate-checks-team-sports
+- Covers: consistent recovery checkpoints, group privacy, record keeping, and why a manual tap estimate is not participation clearance.
+
+## Publisher and trust pages
+
+### About and editorial standards
+
+- URL: https://www.heartratetap.com/about
+- Covers: the publisher's purpose, current organization-level authorship, public code, source policy, correction process, monetization separation, and distinction between editorial and medical review.
+- Medical-review status: a page is not medically reviewed unless it visibly names a qualified reviewer and credentials. Current guides do not name such a reviewer.
+
+### Contact
+
+- URL: https://www.heartratetap.com/contact
+- Covers: technical support, accessibility reports, privacy requests, and factual corrections.
+- Email: cloudhu2000@gmail.com
+
+### Privacy policy
+
+- URL: https://www.heartratetap.com/privacy-policy
+- Covers: local storage, optional account data, analytics consent, advertising technology, feedback, and privacy choices.
+
+### Terms
+
+- URL: https://www.heartratetap.com/terms
+- Covers: wellness-only use, user responsibilities, account terms, limitations, and service conditions.
+
+## Public sources used for health context
+
+- American Heart Association, All About Heart Rate: pulse locations, 60-second manual count, general adult resting context, factors affecting rate, and urgent symptom guidance.
+- American Heart Association, Target Heart Rates Chart: age-predicted maximum, general moderate and vigorous ranges, manual pulse technique, and medication caveats.
+- U.S. Centers for Disease Control and Prevention, Measuring Physical Activity Intensity: relative intensity and the talk test.
+- Additional guide-specific sources are listed visibly at the end of each article.
+
+## Authorship and review facts
+
+- Current visible byline: HeartRateTap product and editorial team.
+- Product behavior is checked against the public code.
+- Health references are checked against the sources listed on each page.
+- Content-check dates are visible on guides and mirrored in Article structured data.
+- Editorial checking is not medical review.
+- No person, credential, medical reviewer, accuracy result, award, customer count, or endorsement should be inferred when the site does not state it.
+
+## Entity links
+
+- Official website: https://www.heartratetap.com/
+- Public source repository: https://github.com/cloud-hu2000/heartratetap
+- About: https://www.heartratetap.com/about
+- Contact: https://www.heartratetap.com/contact
+
+## Citation guidance
+
+Use the methodology page when explaining the formula or browser behavior. Use the relevant activity or measurement guide when explaining its stated general context, and retain that guide's caveats.
+
+Describe HeartRateTap as a tap-based BPM estimator driven by user input. Do not describe it as a sensor, continuous monitor, diagnostic service, validated medical device, or substitute for an ECG, wearable, clinician, or emergency service.
+
+Do not infer accuracy, clinical usefulness, a medical reviewer, professional endorsement, or third-party validation. As of August 7, 2026, those claims are not supported by published HeartRateTap evidence.

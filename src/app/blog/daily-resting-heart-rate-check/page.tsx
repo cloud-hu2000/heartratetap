@@ -5,17 +5,20 @@ import ArticleStructuredData from "@/components/ArticleStructuredData";
 import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
 import Footer from "@/components/Footer";
 import SourceList, { Source } from "@/components/SourceList";
+import { buildSocialMetadata } from "@/lib/seo-metadata";
 
 const TITLE = "Daily Resting Heart Rate Check – A 30-Second Health Habit";
 const DESCRIPTION =
   "Learn a consistent manual resting-heart-rate routine, what context to record, how to compare a personal baseline and when an online estimate is not enough.";
+const PATH = "/blog/daily-resting-heart-rate-check";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: {
-    canonical: "https://www.heartratetap.com/blog/daily-resting-heart-rate-check"
-  }
+    canonical: `https://www.heartratetap.com${PATH}`
+  },
+  ...buildSocialMetadata({ title: TITLE, description: DESCRIPTION, url: `https://www.heartratetap.com${PATH}` })
 };
 
 const SOURCES: Source[] = [

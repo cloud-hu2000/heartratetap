@@ -35,7 +35,7 @@ export function generateMetadata(): Metadata {
       siteName: "HeartRateTap",
       images: [
         {
-          url: "https://www.heartratetap.com/favicon.png",
+          url: "https://www.heartratetap.com/og-heart-rate-tap.png",
           width: 1200,
           height: 630,
           alt: "HeartRateTap manual pulse-timing BPM estimator"
@@ -45,7 +45,8 @@ export function generateMetadata(): Metadata {
     twitter: {
       card: "summary_large_image",
       title: "Manual Tap BPM Estimator | HeartRateTap",
-      description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations."
+      description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations.",
+      images: ["https://www.heartratetap.com/og-heart-rate-tap.png"]
     },
     other: {
       ...Sentry.getTraceData()
@@ -91,4 +92,3 @@ export default function RootLayout({
     </html>
   );
 }
-
