@@ -17,7 +17,6 @@ import HeroSection from "@/components/HeroSection";
 import MembershipBanner from "@/components/MembershipBanner";
 import PulseZone from "@/components/PulseZone";
 import HistoryPanel from "@/components/HistoryPanel";
-import RoadmapPreview from "@/components/RoadmapPreview";
 import Footer from "@/components/Footer";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import UpgradeModal from "@/components/UpgradeModal";
@@ -131,8 +130,6 @@ const HeartRatePage = () => {
         />
       </main>
 
-      <RoadmapPreview lang={lang} />
-
       {/* Keep the primary explanatory content in the initial document. It must not
           depend on a client-side lazy import for readers or crawlers to reach it. */}
       <SEOContent lang={lang} />
@@ -152,4 +149,3 @@ const HeartRatePage = () => {
 export default function Page() {
   return <HeartRatePage />;
 }
-

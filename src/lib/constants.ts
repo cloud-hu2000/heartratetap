@@ -25,12 +25,6 @@ export const COPY = {
     trendStable: "Relatively stable across recent measurements",
     trendHigher: "Trending slightly higher in recent checks",
     trendLower: "Trending slightly lower in recent checks",
-    roadmapTitle: "Product roadmap",
-    roadmapHeading: "See what the community is voting for next",
-    roadmapDesc:
-      "Ideas submitted through the feedback panel can be reviewed for the public roadmap. Open it to see planned, in-progress, and shipped work; voting remains in the feedback panel on this page.",
-    roadmapCta: "Open roadmap & top ideas",
-    wantInfluence: "Want to influence what comes next?",
     status: {
       waiting: "Tap to begin",
       measuring: "Listening",
@@ -115,12 +109,6 @@ export const COPY = {
     trendStable: "Relativamente estable en las mediciones recientes",
     trendHigher: "Tendencia ligeramente más alta en las mediciones recientes",
     trendLower: "Tendencia ligeramente más baja en las mediciones recientes",
-    roadmapTitle: "Hoja de ruta del producto",
-    roadmapHeading: "Mira qué está votando la comunidad",
-    roadmapDesc:
-      "Las ideas enviadas mediante el panel de comentarios pueden revisarse para la hoja de ruta pública. Ábrela para ver lo planificado, en progreso o entregado; la votación permanece en el panel de esta página.",
-    roadmapCta: "Abrir hoja de ruta e ideas principales",
-    wantInfluence: "¿Quieres influir en lo que sigue?",
     status: {
       waiting: "Toca para empezar",
       measuring: "Escuchando",

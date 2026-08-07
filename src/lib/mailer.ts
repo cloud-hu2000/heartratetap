@@ -16,12 +16,11 @@ export const sendFeedbackEmail = async (feedback: Feedback) => {
     await resend.emails.send({
       from: `HeartRate Tap <${FROM_ADDRESS}>`,
       to: FEEDBACK_TARGET,
-      subject: `New feedback idea: ${feedback.title}`,
+      subject: `New HeartRateTap feedback: ${feedback.title}`,
       text: [
         `Title: ${feedback.title}`,
         `Description: ${feedback.description}`,
         `User email: ${feedback.email ?? "Not provided"}`,
-        `Votes: ${feedback.votes}`,
         `Submitted at: ${new Date(feedback.createdAt).toISOString()}`
       ].join("\n\n")
     });

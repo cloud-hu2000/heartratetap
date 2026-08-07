@@ -70,12 +70,12 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="blog-section">
-          <h2>Feedback and public roadmap</h2>
+          <h2>Feedback</h2>
           <p>
-            A feedback submission can include a title, description and optional email. We also use a random browser ID
-            to reduce duplicate votes. Approved feedback may appear on the public roadmap, so do not submit medical,
-            confidential or identifying details that you do not want displayed. Contact us to request removal and
-            include enough information to locate the entry.
+            A feedback submission can include a title, description and optional email. Feedback is sent privately to
+            the team and is not published publicly. Do not submit medical, confidential or identifying
+            details that are not needed to understand the product request. Contact us to request removal and include
+            enough information to locate the entry.
           </p>
         </section>
 
@@ -138,7 +138,7 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li>Local history remains until you delete it or browser storage is cleared.</li>
             <li>Account, payment and security records are kept as needed to provide the service, meet legal duties and prevent fraud.</li>
-            <li>Feedback is kept while it remains useful to the roadmap or until an appropriate deletion request is completed.</li>
+            <li>Feedback is kept while it remains useful for product improvement or until an appropriate deletion request is completed.</li>
             <li>You can reject optional analytics, clear local consent, use browser cookie controls and manage Google ad personalization.</li>
             <li>You may ask to access, correct or delete applicable account or feedback data, subject to legal and security requirements.</li>
           </ul>
