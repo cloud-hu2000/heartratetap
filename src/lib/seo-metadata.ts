@@ -5,11 +5,13 @@ export const SOCIAL_IMAGE_URL = "https://www.heartratetap.com/og-heart-rate-tap.
 export function buildSocialMetadata({
   title,
   description,
-  url
+  url,
+  type = "article"
 }: {
   title: string;
   description: string;
   url: string;
+  type?: "article" | "website";
 }): Pick<Metadata, "openGraph" | "twitter"> {
   return {
     openGraph: {
@@ -17,7 +19,7 @@ export function buildSocialMetadata({
       description,
       url,
       siteName: "HeartRateTap",
-      type: "article",
+      type,
       images: [
         {
           url: SOCIAL_IMAGE_URL,

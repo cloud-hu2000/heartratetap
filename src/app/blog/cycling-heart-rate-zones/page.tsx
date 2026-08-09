@@ -70,7 +70,7 @@ export default function CyclingHeartRateZonesPage() {
         {
           heading: "Calculate a general cycling range from maximum heart rate",
           content: <>
-            <p>A simple starting estimate is <strong>maximum HR = 220 − age</strong>. The American Heart Association uses about 50–70% of maximum for moderate activity and 70–85% for vigorous activity. For a 50-year-old, estimated maximum is 170 BPM. The broad moderate band is 85–119 BPM, and the vigorous band is 119–145 BPM after rounding to whole beats.</p>
+            <p>A simple starting estimate is <strong>maximum HR = 220 − age</strong>. The <Link href="/target-heart-rate-calculator">target heart rate calculator</Link> can compare this method with heart rate reserve. The American Heart Association uses about 50–70% of maximum for moderate activity and 70–85% for vigorous activity. For a 50-year-old, estimated maximum is 170 BPM. The broad moderate band is 85–119 BPM, and the vigorous band is 119–145 BPM after rounding to whole beats.</p>
             <div className="blog-table-wrapper"><table><thead><tr><th>Calculation</th><th>50-year-old example</th><th>Estimated result</th></tr></thead><tbody>
               <tr><td>Maximum</td><td>220 − 50</td><td>170 BPM</td></tr>
               <tr><td>Moderate</td><td>170 × 0.50 to 170 × 0.70</td><td>85–119 BPM</td></tr>
@@ -106,7 +106,7 @@ export default function CyclingHeartRateZonesPage() {
         {
           heading: "How accurate is tapping your pulse after cycling?",
           content: <>
-            <p>HeartRateTap measures the spacing of your taps. It does not read a pulse sensor. Never tap while riding: doing so takes a hand and attention away from controlling the bicycle. Stop off the roadway, stabilize the bike, and wait until you can safely use both hands. Then the <Link href="/">tap-based BPM calculator</Link> can estimate the rate during the tapping window.</p>
+            <p>HeartRateTap measures the spacing of your taps. It does not read a pulse sensor. Never tap while riding: doing so takes a hand and attention away from controlling the bicycle. Stop off the roadway, stabilize the bike, and wait until you can safely use both hands. Then the tap-based estimator can calculate the rate during the tapping window.</p>
             <p>That estimate is not your on-bike heart rate. Coasting, braking, dismounting, removing gloves, opening the page, and locating the wrist pulse all create delay. Meanwhile, heart rate changes. The higher the finishing effort and the longer the setup, the less the result represents the final working interval. It is a post-ride or recovery snapshot, never a reconstruction of peak, average, or threshold heart rate.</p>
             <p>Cycling creates distinctive input problems. Handlebar pressure can leave hands numb, cold air can make the radial pulse difficult to feel, gloves add delay, and sweat can affect phone handling. After hard intervals, rapid breathing and a changing rate make beat matching harder. The calculation can faithfully represent the tap intervals while those intervals imperfectly represent the pulse.</p>
           </>

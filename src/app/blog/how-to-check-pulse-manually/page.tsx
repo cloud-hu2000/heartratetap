@@ -250,7 +250,7 @@ export default function ManualPulseCheckPage() {
           </Link>
         </section>
 
-        <BlogKnowledgeHub />
+        <BlogKnowledgeHub currentPath={PATH} />
         <ArticleStructuredData
           title={TITLE}
           description={DESCRIPTION}

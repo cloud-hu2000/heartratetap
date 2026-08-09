@@ -230,7 +230,7 @@ export default function TapMethodologyPage() {
           </Link>
         </section>
 
-        <BlogKnowledgeHub />
+        <BlogKnowledgeHub currentPath={PATH} />
         <ArticleStructuredData
           title={TITLE}
           description={DESCRIPTION}

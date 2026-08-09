@@ -70,7 +70,7 @@ export default function SwimmingHeartRateZonesPage() {
         {
           heading: "Calculate a broad swimming range from age",
           content: <>
-            <p>The most accessible estimate starts with <strong>maximum HR = 220 − age</strong>. The American Heart Association describes moderate effort as roughly 50–70% of that maximum and vigorous effort as about 70–85%. For a 30-year-old, the age-predicted maximum is 190 BPM. The broad bands are 95–133 BPM for moderate activity and 133–162 BPM for vigorous activity after rounding.</p>
+            <p>The most accessible estimate starts with <strong>maximum HR = 220 − age</strong>. The <Link href="/target-heart-rate-calculator">target heart rate calculator</Link> shows the percent-of-maximum and heart rate reserve arithmetic separately. The American Heart Association describes moderate effort as roughly 50–70% of that maximum and vigorous effort as about 70–85%. For a 30-year-old, the age-predicted maximum is 190 BPM. The broad bands are 95–133 BPM for moderate activity and 133–162 BPM for vigorous activity after rounding.</p>
             <div className="blog-table-wrapper"><table><thead><tr><th>Step</th><th>30-year-old example</th><th>Estimated range</th></tr></thead><tbody>
               <tr><td>Maximum</td><td>220 − 30</td><td>190 BPM</td></tr>
               <tr><td>Moderate</td><td>190 × 0.50 to 190 × 0.70</td><td>95–133 BPM</td></tr>
@@ -106,7 +106,7 @@ export default function SwimmingHeartRateZonesPage() {
         {
           heading: "Why tapping after swimming has special accuracy limits",
           content: <>
-            <p>HeartRateTap converts the time between your taps into a BPM estimate. It is not a waterproof sensor and must not be handled in the pool. Exit safely, move away from the edge, dry your hands and device, and stabilize your breathing before using the <Link href="/">tap-based heart rate calculator</Link>. Follow the pool’s device rules.</p>
+            <p>HeartRateTap converts the time between your taps into a BPM estimate. It is not a waterproof sensor and must not be handled in the pool. Exit safely, move away from the edge, dry your hands and device, and stabilize your breathing before using the tap-based estimator. Follow the pool’s device rules.</p>
             <p>Those necessary actions create a long and variable delay. Heart rate may change while you rest at the wall, climb out, walk to a towel, dry off, unlock the device, find the wrist pulse, and begin tapping. The result represents the pulse during that later window. It cannot recover the final-lap rate, the session peak, or the average for the set.</p>
             <p>Wet or cold skin, a weak-to-the-finger wrist pulse, breathlessness, and a rapidly changing recovery rate can produce missed beats or extra taps. After gripping the pool edge, forearm tension can also make palpation awkward. The app may calculate the intervals correctly while the manual sequence is wrong. If the pulse is unclear or irregular-feeling, do not guess.</p>
           </>

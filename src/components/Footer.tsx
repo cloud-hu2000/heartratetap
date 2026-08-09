@@ -12,6 +12,12 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Heart Rhythm Studio</span>
         </div>
         <div className="footer-links">
+          <Link href="/target-heart-rate-calculator" className="blog-inline-cta">
+            Target HR Calculator
+          </Link>
+          <Link href="/heart-rate-recovery-calculator" className="blog-inline-cta">
+            Recovery Calculator
+          </Link>
           <Link href="/guides" className="blog-inline-cta">
             Guides
           </Link>
@@ -80,6 +86,7 @@ export default function Footer() {
         }
         .footer-links {
           display: flex;
+          flex-wrap: wrap;
           gap: 0.75rem;
         }
         .footer-text {

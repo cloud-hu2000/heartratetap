@@ -6,6 +6,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
   const exerciseGuideDate = new Date('2026-08-07T00:00:00.000Z')
+  const guideLibraryDate = new Date('2026-08-09T00:00:00.000Z')
+  const restingGuideDate = new Date('2026-08-09T00:00:00.000Z')
+  const calculatorLaunchDate = new Date('2026-08-09T00:00:00.000Z')
   
   return [
     {
@@ -16,9 +19,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/guides`,
-      lastModified: exerciseGuideDate,
+      lastModified: guideLibraryDate,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/target-heart-rate-calculator`,
+      lastModified: calculatorLaunchDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/heart-rate-recovery-calculator`,
+      lastModified: calculatorLaunchDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
@@ -64,9 +79,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/daily-resting-heart-rate-check`,
-      lastModified: contentReviewDate,
+      lastModified: restingGuideDate,
       changeFrequency: 'monthly',
       priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/normal-resting-heart-rate-by-age`,
+      lastModified: restingGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/blog/free-online-heart-rate-checker`,

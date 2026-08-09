@@ -70,7 +70,7 @@ export default function StrengthTrainingHeartRateZonesPage() {
         {
           heading: "Calculate aerobic zones for the conditioning parts of a workout",
           content: <>
-            <p>If a session includes sustained cycling, rowing, treadmill work, loaded carries, or a continuous circuit, broad aerobic zones may provide context. Start with <strong>estimated maximum HR = 220 − age</strong>. The American Heart Association describes moderate activity as about 50–70% of maximum and vigorous activity as about 70–85%.</p>
+            <p>If a session includes sustained cycling, rowing, treadmill work, loaded carries, or a continuous circuit, broad aerobic zones may provide context. Start with <strong>estimated maximum HR = 220 − age</strong>. The <Link href="/target-heart-rate-calculator">target heart rate calculator</Link> can perform the percent-of-maximum or reserve calculation without mixing the methods. The American Heart Association describes moderate activity as about 50–70% of maximum and vigorous activity as about 70–85%.</p>
             <p>For a 35-year-old, estimated maximum is 185 BPM. The broad moderate range is approximately 93–130 BPM, and the vigorous range is approximately 130–157 BPM. These are general exercise estimates, not targets for a heavy deadlift or a clinical limit.</p>
             <div className="blog-table-wrapper"><table><thead><tr><th>Step</th><th>35-year-old example</th><th>Estimated result</th></tr></thead><tbody>
               <tr><td>Maximum</td><td>220 − 35</td><td>185 BPM</td></tr>
@@ -112,7 +112,7 @@ export default function StrengthTrainingHeartRateZonesPage() {
         {
           heading: "How accurate is a tap reading after a lifting set?",
           content: <>
-            <p>HeartRateTap calculates BPM from the time between deliberate taps. It does not sense a heartbeat. Never tap while holding a weight, using a machine, spotting another person, or standing where equipment can move. Rack the load, clear the lifting area, and become stable before opening the <Link href="/">tap-based BPM calculator</Link>.</p>
+            <p>HeartRateTap calculates BPM from the time between deliberate taps. It does not sense a heartbeat. Never tap while holding a weight, using a machine, spotting another person, or standing where equipment can move. Rack the load, clear the lifting area, and become stable before using the tap-based estimator.</p>
             <p>The necessary transition introduces delay. Heart rate may still be rising after a brief set or may already be falling by the time you locate the pulse. The value therefore represents the tapping window, not the heaviest repetition, the peak cardiovascular response, or the average across the set. A tap made 15 seconds after one set cannot be compared fairly with a tap made 45 seconds after another.</p>
             <p>Grip-intensive work can make the wrist and forearm feel tense, chalk or sweat can complicate phone use, and a rapidly changing rate can be difficult to match. A missed beat produces one long interval; an extra tap produces a short one. Restart after a clear input error rather than editing the result in your head. If the pulse feels irregular or is hard to find, do not force a reading.</p>
           </>
