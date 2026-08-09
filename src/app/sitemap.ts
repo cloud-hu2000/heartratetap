@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const guideLibraryDate = new Date('2026-08-09T00:00:00.000Z')
   const restingGuideDate = new Date('2026-08-09T00:00:00.000Z')
   const calculatorLaunchDate = new Date('2026-08-09T00:00:00.000Z')
+  const methodologyReviewDate = new Date('2026-08-09T00:00:00.000Z')
+  const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
   
   return [
     {
@@ -91,7 +93,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/free-online-heart-rate-checker`,
-      lastModified: contentReviewDate,
+      lastModified: methodologyReviewDate,
       changeFrequency: 'monthly',
       priority: 0.85,
     },
@@ -115,7 +117,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/build-personal-heart-rate-log`,
-      lastModified: newGuideDate,
+      lastModified: personalLogReviewDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },

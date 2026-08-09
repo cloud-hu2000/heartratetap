@@ -5,6 +5,7 @@ import ArticleStructuredData from "@/components/ArticleStructuredData";
 import BlogKnowledgeHub from "@/components/BlogKnowledgeHub";
 import Footer from "@/components/Footer";
 import SourceList, { Source } from "@/components/SourceList";
+import TapIntervalExplorer from "@/components/TapIntervalExplorer";
 import { buildSocialMetadata } from "@/lib/seo-metadata";
 
 const TITLE = "How a Tap-Based Heart Rate Checker Estimates BPM";
@@ -52,7 +53,7 @@ export default function TapMethodologyPage() {
           </p>
         </header>
 
-        <ArticleMeta published="January 7, 2026" reviewed="August 7, 2026" readingTime="9 minute read" />
+        <ArticleMeta published="January 7, 2026" reviewed="August 9, 2026" readingTime="11 minute read" />
 
         <section className="blog-section">
           <h2>The input comes from you, not a heart sensor</h2>
@@ -93,6 +94,8 @@ export default function TapMethodologyPage() {
             timing mistake, which is why the interface asks for at least 10 taps before treating a result as stable.
             “Stable” refers to the sample of taps; it is not a claim of medical accuracy.
           </p>
+
+          <TapIntervalExplorer />
         </section>
 
         <section className="blog-section">
@@ -236,7 +239,7 @@ export default function TapMethodologyPage() {
           description={DESCRIPTION}
           path={PATH}
           datePublished="2026-01-07"
-          dateModified="2026-08-07"
+          dateModified="2026-08-09"
         />
       </article>
       <Footer />

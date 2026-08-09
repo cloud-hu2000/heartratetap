@@ -206,11 +206,25 @@ const CookieConsent = () => {
           justify-content: flex-end;
         }
         @media (max-width: 720px) {
+          .cookie-consent {
+            bottom: 0.5rem;
+          }
           .cookie-consent__card {
-            grid-template-columns: 1fr;
+            width: calc(100vw - 1rem);
+            padding: 0.85rem;
+            gap: 0.75rem;
+          }
+          .cookie-consent__text p {
+            font-size: 0.88rem;
+            line-height: 1.4;
           }
           .cookie-consent__actions {
-            justify-content: flex-start;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+          }
+          .cookie-consent__actions .pill {
+            min-height: 44px;
+            padding-inline: 0.65rem;
           }
         }
       `}</style>
@@ -219,4 +233,3 @@ const CookieConsent = () => {
 };
 
 export default CookieConsent;
-
