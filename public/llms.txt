@@ -5,6 +5,8 @@
 ## Product
 
 - [Home — manual tap BPM estimator](https://www.heartratetap.com/): Use the tap tool, see the interval formula, review limitations, and keep a small local browser history.
+- [Target heart rate calculator](https://www.heartratetap.com/target-heart-rate-calculator): Compare percent-of-maximum and heart-rate-reserve ranges with adjustable intensity inputs and visible formulas.
+- [Heart rate recovery calculator](https://www.heartratetap.com/heart-rate-recovery-calculator): Calculate the BPM change after one or two minutes while retaining the measurement interval and protocol context.
 - [HeartRateTap methodology](https://www.heartratetap.com/blog/free-online-heart-rate-checker): Documents input timestamps, 5- and 10-second windows, the 60,000 ÷ interval formula, error sources, and validation status.
 - [Guide library](https://www.heartratetap.com/guides): Organizes product methodology, manual pulse technique, resting checks, activity zones, logging, and health-care conversation guides.
 
@@ -12,6 +14,7 @@
 
 - [How to check a pulse manually](https://www.heartratetap.com/blog/how-to-check-pulse-manually): A repeatable wrist-pulse method, counting alternatives, common mistakes, and symptom-based limits.
 - [Daily resting heart-rate check](https://www.heartratetap.com/blog/daily-resting-heart-rate-check): A consistent resting routine, context log, personal comparison approach, and escalation boundaries.
+- [Normal resting heart rate by age](https://www.heartratetap.com/blog/normal-resting-heart-rate-by-age): Separates population patterns from adult reference ranges and explains why age, conditions, and personal context matter.
 - [Build a personal heart-rate log](https://www.heartratetap.com/blog/build-personal-heart-rate-log): Fields and context for a useful manual-measurement record without false precision.
 - [Discuss manual measurements with a doctor](https://www.heartratetap.com/blog/talk-to-doctor-manual-heart-rate-data): How to summarize readings, context, medicines, symptoms, and questions for a health-care visit.
 - [Senior pulse-check guide](https://www.heartratetap.com/blog/seniors-guide-checking-pulse): A calm routine for older adults with logging guidance and clear safety boundaries.
@@ -28,16 +31,18 @@
 ## Trust and contact
 
 - [About and editorial standards](https://www.heartratetap.com/about): Publisher identity, product limits, sourcing, corrections, review terminology, and monetization separation.
-- [Contact HeartRateTap](https://www.heartratetap.com/contact): Product support, accessibility, privacy, and factual-correction contact information.
+- [Contact HeartRateTap](https://www.heartratetap.com/contact): Product support, accessibility, privacy, and factual-correction contact information for users and editors.
 - [Privacy policy](https://www.heartratetap.com/privacy-policy): Local storage, optional accounts, analytics, advertising, feedback, and privacy choices.
 
 ## Key facts
 
 - The user finds a pulse and taps once per beat; the browser does not detect a heartbeat.
 - BPM is calculated as 60,000 divided by the average milliseconds between consecutive taps.
+- Target ranges are formula-based planning references, not individualized exercise prescriptions or medical clearance.
+- Recovery results are arithmetic differences between documented time points, not diagnoses or pass/fail scores.
 - The active calculation keeps up to 16 tap timestamps and checks recent 5- and 10-second windows.
 - Ten taps are an interface prompt for a more repeatable sample, not a validated accuracy threshold.
-- No accuracy percentage or medical-device validation study has been published as of August 7, 2026.
+- No accuracy percentage or medical-device validation study has been published as of August 11, 2026.
 - Locked values can be stored locally in the browser; clearing site data can remove that history.
 - HeartRateTap cannot diagnose rhythm problems or measure blood pressure, blood oxygen, pulse strength, or electrical activity.
 
