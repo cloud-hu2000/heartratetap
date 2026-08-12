@@ -24,6 +24,9 @@ export default function Footer() {
           <Link href="/about" className="blog-inline-cta">
             About & Editorial Policy
           </Link>
+          <Link href="/write-for-us" className="blog-inline-cta">
+            Write for Us (Guest Posts)
+          </Link>
           <Link href="/contact" className="blog-inline-cta">
             Contact
           </Link>

@@ -9,6 +9,7 @@ const CONTENT_LINKS = [
   { href: "/guides", label: "Guides" },
   { href: "/target-heart-rate-calculator", label: "Target calculator" },
   { href: "/heart-rate-recovery-calculator", label: "Recovery calculator" },
+  { href: "/write-for-us", label: "Write for Us" },
   { href: "/about", label: "About" }
 ] as const;
 

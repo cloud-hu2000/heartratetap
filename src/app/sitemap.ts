@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const calculatorLaunchDate = new Date('2026-08-09T00:00:00.000Z')
   const methodologyReviewDate = new Date('2026-08-09T00:00:00.000Z')
   const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
+  const guestPostPageDate = new Date('2026-08-12T00:00:00.000Z')
   
   return [
     {
@@ -46,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/contact`,
       lastModified: contactPageDate,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/write-for-us`,
+      lastModified: guestPostPageDate,
       changeFrequency: 'yearly',
       priority: 0.6,
     },
