@@ -74,6 +74,27 @@ const GUIDES = [
     title: "Discuss manual pulse measurements with a doctor",
     description:
       "Prepare a concise timeline, better questions, and clear safety boundaries before a health-care visit."
+  },
+  {
+    href: "/blog/poor-sleep-resting-heart-rate",
+    label: "Sleep context",
+    title: "Log poor sleep without overreading a morning pulse",
+    description:
+      "Use a comparable two-week morning routine and sleep notes without treating one BPM value as a diagnosis."
+  },
+  {
+    href: "/blog/stress-resting-heart-rate",
+    label: "Stress context",
+    title: "Build a calm resting-heart-rate baseline",
+    description:
+      "Separate a scheduled resting check from a stressful moment, then record the difference responsibly."
+  },
+  {
+    href: "/blog/hydration-alcohol-fever-heart-rate",
+    label: "Illness and safety",
+    title: "Know when a heart-rate check is not a baseline",
+    description:
+      "Record hydration, alcohol, fever, and symptoms as context instead of treating an unwell-day pulse as a fitness score."
   }
 ];
 

@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const contentReviewDate = new Date('2026-07-22T00:00:00.000Z')
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
+  const lifestyleGuideDate = new Date('2026-08-12T00:00:00.000Z')
   
   return [
     {
@@ -82,6 +83,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/blog/talk-to-doctor-manual-heart-rate-data`,
       lastModified: newGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/poor-sleep-resting-heart-rate`,
+      lastModified: lifestyleGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/stress-resting-heart-rate`,
+      lastModified: lifestyleGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/hydration-alcohol-fever-heart-rate`,
+      lastModified: lifestyleGuideDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },

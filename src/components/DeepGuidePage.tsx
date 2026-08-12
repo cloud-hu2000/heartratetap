@@ -22,6 +22,10 @@ type DeepGuidePageProps = {
   sources: Source[];
   ctaTitle: string;
   ctaText: string;
+  published?: string;
+  reviewed?: string;
+  datePublished?: string;
+  dateModified?: string;
 };
 
 const DATE = "August 6, 2026";
@@ -37,7 +41,11 @@ export default function DeepGuidePage({
   sections,
   sources,
   ctaTitle,
-  ctaText
+  ctaText,
+  published = DATE,
+  reviewed = DATE,
+  datePublished = ISO_DATE,
+  dateModified = ISO_DATE
 }: DeepGuidePageProps) {
   return (
     <div className="frame blog-page">
@@ -50,7 +58,7 @@ export default function DeepGuidePage({
           <p className="blog-intro">{intro}</p>
         </header>
 
-        <ArticleMeta published={DATE} reviewed={DATE} readingTime={readingTime} />
+        <ArticleMeta published={published} reviewed={reviewed} readingTime={readingTime} />
 
         {sections.map((section) => (
           <section className="blog-section" key={section.heading}>
@@ -74,8 +82,8 @@ export default function DeepGuidePage({
           title={title}
           description={description}
           path={path}
-          datePublished={ISO_DATE}
-          dateModified={ISO_DATE}
+          datePublished={datePublished}
+          dateModified={dateModified}
         />
       </article>
       <Footer />

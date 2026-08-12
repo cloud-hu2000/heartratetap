@@ -50,6 +50,17 @@ const BlogKnowledgeHub = () => {
             How to Talk to Your Doctor About Manual Heart-Rate Measurements
           </Link>
         </li>
+        <li>
+          <Link href="/blog/poor-sleep-resting-heart-rate">Poor Sleep and Resting Heart Rate: What to Log</Link>
+        </li>
+        <li>
+          <Link href="/blog/stress-resting-heart-rate">Stress and Resting Heart Rate: Find Your Baseline</Link>
+        </li>
+        <li>
+          <Link href="/blog/hydration-alcohol-fever-heart-rate">
+            Hydration, Alcohol, Fever, and Heart Rate Checks
+          </Link>
+        </li>
       </ul>
       <p>
         Ready to put it into practice?{" "}
