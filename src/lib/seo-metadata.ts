@@ -13,6 +13,8 @@ export function buildSocialMetadata({
   url: string;
   type?: "article" | "website";
 }): Pick<Metadata, "openGraph" | "twitter"> {
+  const isSpanish = new URL(url).pathname === "/es" || new URL(url).pathname.startsWith("/es/");
+
   return {
     openGraph: {
       title,
@@ -20,12 +22,16 @@ export function buildSocialMetadata({
       url,
       siteName: "HeartRateTap",
       type,
+      locale: isSpanish ? "es_ES" : "en_US",
+      alternateLocale: [isSpanish ? "en_US" : "es_ES"],
       images: [
         {
           url: SOCIAL_IMAGE_URL,
           width: 1200,
           height: 630,
-          alt: "HeartRateTap manual tap BPM estimator"
+          alt: isSpanish
+            ? "Estimador manual de LPM por toques de HeartRateTap"
+            : "HeartRateTap manual tap BPM estimator"
         }
       ]
     },

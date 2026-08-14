@@ -2,12 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { localizePath, type AppLocale } from "@/i18n/routing";
 
 const CONSENT_KEY = "hrt-cookie-consent";
 
 type ConsentState = "accepted" | "rejected" | null;
 
 const CookieConsent = () => {
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("Cookie");
   const [status, setStatus] = useState<ConsentState>(null);
   const [ready, setReady] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -90,27 +94,25 @@ const CookieConsent = () => {
         className="cookie-consent__card"
         role="dialog"
         aria-modal="true"
-        aria-label="Cookie consent dialog"
+        aria-label={t("dialogAria")}
         aria-describedby="cookie-description"
       >
         <div className="cookie-consent__header">
-          <h3>Cookies & Privacy</h3>
+          <h3>{t("title")}</h3>
           <button
             type="button"
             className="cookie-consent__close"
             onClick={() => updateConsent("rejected")}
-            aria-label="Close cookie consent dialog"
+            aria-label={t("closeAria")}
           >
             ×
           </button>
         </div>
         <div className="cookie-consent__text" id="cookie-description">
           <p>
-            We use browser storage for essential preferences and local heart-rate history. Optional Google, Ahrefs and
-            Vercel analytics load only if you choose &quot;Accept all&quot;. Error and security logs may still be processed
-            when needed to operate the service. You can clear your choice in browser storage. Read our{" "}
-            <Link href="/privacy-policy" className="blog-inline-cta">
-              Privacy Policy
+            {t("description")} {" "}
+            <Link href={localizePath("/privacy-policy", locale)} className="blog-inline-cta">
+              {t("policy")}
             </Link>
             .
           </p>
@@ -121,7 +123,7 @@ const CookieConsent = () => {
             className="pill"
             onClick={() => updateConsent("rejected")}
           >
-            Reject non-essential
+            {t("reject")}
           </button>
           <button
             ref={acceptButtonRef}
@@ -129,7 +131,7 @@ const CookieConsent = () => {
             className="pill active"
             onClick={() => updateConsent("accepted")}
           >
-            Accept all
+            {t("accept")}
           </button>
         </div>
       </div>

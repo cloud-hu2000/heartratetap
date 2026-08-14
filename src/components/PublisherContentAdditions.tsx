@@ -131,7 +131,7 @@ export default function PublisherContentAdditions({ lang }: PublisherContentAddi
         </div>
       </div>
 
-      <a href="/blog/free-online-heart-rate-checker" className="blog-inline-cta">
+      <a href={`${lang === "es" ? "/es" : ""}/blog/free-online-heart-rate-checker`} className="blog-inline-cta">
         {t.guide}
       </a>
     </section>

@@ -12,6 +12,7 @@ export default function CalculatorStructuredData({
   featureList
 }: CalculatorStructuredDataProps) {
   const url = `https://www.heartratetap.com${path}`;
+  const isSpanish = path === "/es" || path.startsWith("/es/");
   const data = {
     "@context": "https://schema.org",
     "@graph": [
@@ -21,6 +22,7 @@ export default function CalculatorStructuredData({
         name,
         description,
         url,
+        inLanguage: isSpanish ? "es" : "en",
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
         browserRequirements: "Modern web browser with JavaScript enabled",
@@ -43,8 +45,8 @@ export default function CalculatorStructuredData({
           {
             "@type": "ListItem",
             position: 1,
-            name: "Home",
-            item: "https://www.heartratetap.com/"
+            name: isSpanish ? "Inicio" : "Home",
+            item: `https://www.heartratetap.com${isSpanish ? "/es" : "/"}`
           },
           {
             "@type": "ListItem",

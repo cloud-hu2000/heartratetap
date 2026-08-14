@@ -2,6 +2,12 @@
 
 > HeartRateTap is a browser wellness tool that estimates BPM from taps made while a person manually feels their own pulse; it is not a sensor or medical device.
 
+## Languages
+
+- English is served at the canonical root URLs.
+- [Spanish homepage](https://www.heartratetap.com/es): Full Spanish interface, calculators, policy pages, and guide library.
+- Spanish versions use the same path under `/es`, such as [Spanish guides](https://www.heartratetap.com/es/guides) and [Spanish methodology](https://www.heartratetap.com/es/blog/free-online-heart-rate-checker).
+
 ## Product
 
 - [Home — manual tap BPM estimator](https://www.heartratetap.com/): Use the tap tool, see the interval formula, review limitations, and keep a small local browser history.

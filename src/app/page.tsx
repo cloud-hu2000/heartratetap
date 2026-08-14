@@ -22,7 +22,8 @@ import { SEOContent } from "@/components/SEOContent";
 // Lazy load non-critical components
 const FeedbackWidget = lazy(() => import("@/components/FeedbackWidget"));
 
-const HOME_FAQS = [
+const HOME_FAQS = {
+  en: [
   {
     question: "Why ask for at least 10 taps?",
     answer:
@@ -38,12 +39,30 @@ const HOME_FAQS = [
     answer:
       "Do not use an averaged tap number to evaluate an irregular rhythm. Record what you noticed and seek appropriate professional advice, especially if the pattern repeats or symptoms are present."
   }
-];
+  ],
+  es: [
+    {
+      question: "¿Por qué se piden al menos 10 toques?",
+      answer:
+        "Con más intervalos, un toque ligeramente adelantado o atrasado influye menos en el promedio. Diez toques mejoran la repetibilidad; no garantizan que la estimación coincida con un instrumento certificado."
+    },
+    {
+      question: "¿Por qué pueden diferir dos intentos correctos?",
+      answer:
+        "La frecuencia cardíaca puede cambiar de un momento a otro y el ritmo de los toques también varía. Repite con la misma postura y en las mismas condiciones, y reinicia si sabes que omitiste o añadiste un latido."
+    },
+    {
+      question: "¿Qué hago si el pulso parece irregular?",
+      answer:
+        "No uses un promedio de toques para evaluar un ritmo irregular. Anota lo que percibiste y busca orientación profesional adecuada, sobre todo si se repite o aparecen síntomas."
+    }
+  ]
+};
 
 const HeartRatePage = () => {
   // 使用自定义 hooks
   const { lang, changeLanguage } = useLanguage();
-  const { state: heartRateState, computed, actions: heartRateActions } = useHeartRate();
+  const { state: heartRateState, computed, actions: heartRateActions } = useHeartRate(lang);
   const { state: uiState, actions: uiActions } = useUIState();
   const {
     history,
@@ -126,11 +145,14 @@ const HeartRatePage = () => {
       <SEOContent lang={lang} />
 
       <PublisherContentAdditions lang={lang} />
-      <FAQStructuredData url="https://www.heartratetap.com/" items={HOME_FAQS} />
+      <FAQStructuredData
+        url={lang === "es" ? "https://www.heartratetap.com/es" : "https://www.heartratetap.com/"}
+        items={HOME_FAQS[lang]}
+      />
 
       <Footer />
 
-      <Suspense fallback={<div>Loading feedback...</div>}>
+      <Suspense fallback={<div>{lang === "es" ? "Cargando comentarios…" : "Loading feedback…"}</div>}>
         <FeedbackWidget />
       </Suspense>
     </div>

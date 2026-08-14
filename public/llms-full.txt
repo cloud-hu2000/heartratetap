@@ -2,6 +2,10 @@
 
 > HeartRateTap is a browser wellness tool that estimates beats per minute from the timing of taps made while a person manually feels their own pulse.
 
+## Language versions
+
+HeartRateTap is available in English at the root URLs and in Spanish under `/es`. The Spanish version includes the interactive estimator, both calculators, the guide library, published articles, account flows, and legal or policy pages. Equivalent English and Spanish pages declare alternate-language links and are listed together in the sitemap.
+
 ## Scope of this file
 
 This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 11, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.

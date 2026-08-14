@@ -143,7 +143,7 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
         <h3 className="seo-subheading">{t.methodTitle}</h3>
         <p className="seo-body">
           {t.methodBody}{" "}
-          <a href="/blog/free-online-heart-rate-checker" className="blog-inline-cta">
+          <a href={`${lang === "es" ? "/es" : ""}/blog/free-online-heart-rate-checker`} className="blog-inline-cta">
             {t.methodLink}
           </a>
           .
@@ -154,8 +154,8 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
         </h2>
         <p className="seo-body">
           {t.restingIntro}{" "}
-          <a href="/blog/normal-resting-heart-rate-by-age" className="blog-inline-cta">
-            {lang === "es" ? "Consulta la guía por edades (en inglés)" : "Read the resting heart rate by age guide"}
+          <a href={`${lang === "es" ? "/es" : ""}/blog/normal-resting-heart-rate-by-age`} className="blog-inline-cta">
+            {lang === "es" ? "Consulta la guía por edades" : "Read the resting heart rate by age guide"}
           </a>
           .
         </p>
@@ -190,9 +190,9 @@ export function SEOContent({ lang }: { lang: "en" | "es" }) {
         </h2>
         <p className="seo-body">
           {t.exerciseIntro}{" "}
-          <a href="/target-heart-rate-calculator" className="blog-inline-cta">
+          <a href={`${lang === "es" ? "/es" : ""}/target-heart-rate-calculator`} className="blog-inline-cta">
             {lang === "es"
-              ? "Abrir la calculadora de frecuencia objetivo (en inglés)"
+              ? "Abrir la calculadora de frecuencia objetivo"
               : "Open the target heart rate calculator"}
           </a>
           .

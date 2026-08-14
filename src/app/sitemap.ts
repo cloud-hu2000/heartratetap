@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
   const guestPostPageDate = new Date('2026-08-12T00:00:00.000Z')
   
-  return [
+  const englishPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: contentReviewDate,
@@ -147,4 +147,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
   ]
+
+  return englishPages.flatMap((page) => {
+    const englishPath = page.url.slice(baseUrl.length)
+    const spanishUrl = `${baseUrl}/es${englishPath}`
+    const languages = {
+      en: page.url,
+      es: spanishUrl,
+      'x-default': page.url,
+    }
+
+    return [
+      { ...page, alternates: { languages } },
+      { ...page, url: spanishUrl, alternates: { languages } },
+    ]
+  })
 }

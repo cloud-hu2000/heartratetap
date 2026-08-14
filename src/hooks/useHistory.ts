@@ -45,11 +45,11 @@ export const useHistory = ({ lang }: UseHistoryProps) => {
     if (history.length === 0) return;
 
     const csvContent = [
-      ["Timestamp", "BPM", "Mode"].join(","),
+      [t.csvTimestamp, "BPM", t.csvMode].join(","),
       ...history.map(entry => [
         new Date(entry.timestamp).toLocaleString(),
         entry.bpm,
-        entry.context === "sport" ? "Active" : entry.context === "rest" ? "Rest" : "Unknown"
+        entry.context === "sport" ? t.sportLabel : entry.context === "rest" ? t.restLabel : t.csvUnknown
       ].join(","))
     ].join("\n");
 
@@ -62,17 +62,17 @@ export const useHistory = ({ lang }: UseHistoryProps) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [history]);
+  }, [history, t]);
 
   // 清除历史数据
   const clearHistory = useCallback(() => {
     if (typeof window !== "undefined") {
-      if (confirm("Are you sure you want to clear all heart rate history? This action cannot be undone.")) {
+      if (confirm(t.clearHistoryConfirm)) {
         setHistory([]);
         window.localStorage.removeItem(HISTORY_STORAGE_KEY);
       }
     }
-  }, []);
+  }, [t]);
 
 
   // 计算分页和趋势

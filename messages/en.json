@@ -1,0 +1,59 @@
+{
+  "Nav": {
+    "brand": "Online Heart Rate Monitor",
+    "homeAria": "HeartRateTap home",
+    "guides": "Guides",
+    "targetCalculator": "Target calculator",
+    "recoveryCalculator": "Recovery calculator",
+    "writeForUs": "Write for Us",
+    "about": "About",
+    "menu": "Menu",
+    "close": "Close",
+    "primaryAria": "Primary navigation",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "language": "Español"
+  },
+  "Footer": {
+    "targetCalculator": "Target HR Calculator",
+    "recoveryCalculator": "Recovery Calculator",
+    "guides": "Guides",
+    "about": "About & Editorial Policy",
+    "writeForUs": "Write for Us (Guest Posts)",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "description": "HeartRateTap estimates BPM from the timing of taps you make while feeling your pulse. It does not sense your heartbeat and is not a medical device. Recent measurements stay in this browser by default.",
+    "emergency": "If you have chest pain, shortness of breath, fainting or another urgent symptom, contact local emergency services; do not wait for or rely on this website."
+  },
+  "Common": {
+    "loadingFeedback": "Loading feedback…"
+  },
+  "Cookie": {
+    "dialogAria": "Cookie consent dialog",
+    "closeAria": "Close cookie consent dialog",
+    "title": "Cookies & Privacy",
+    "description": "We use browser storage for essential preferences and local heart-rate history. Optional Google, Ahrefs and Vercel analytics load only if you choose \"Accept all\". Error and security logs may still be processed when needed to operate the service. You can clear your choice in browser storage. Read our",
+    "policy": "Privacy Policy",
+    "reject": "Reject non-essential",
+    "accept": "Accept all"
+  },
+  "Feedback": {
+    "panelAria": "Send product feedback",
+    "private": "Private feedback",
+    "heading": "Tell us what to improve",
+    "close": "Close feedback",
+    "title": "Title",
+    "titlePlaceholder": "Describe the issue or suggestion",
+    "details": "Details",
+    "detailsPlaceholder": "Share the context needed to understand it",
+    "email": "Email (optional)",
+    "emailPlaceholder": "For a follow-up if needed",
+    "sending": "Sending…",
+    "send": "Send feedback",
+    "titleError": "Title needs at least 4 characters.",
+    "detailsError": "Please add a little more detail.",
+    "submitError": "Submission failed, please try again",
+    "success": "Thanks! Your feedback has been sent privately to the team."
+  }
+}

@@ -2,19 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { localizePath, type AppLocale } from "@/i18n/routing";
 
 const CONTENT_LINKS = [
-  { href: "/guides", label: "Guides" },
-  { href: "/target-heart-rate-calculator", label: "Target calculator" },
-  { href: "/heart-rate-recovery-calculator", label: "Recovery calculator" },
-  { href: "/write-for-us", label: "Write for Us" },
-  { href: "/about", label: "About" }
+  { href: "/guides", label: "guides" },
+  { href: "/target-heart-rate-calculator", label: "targetCalculator" },
+  { href: "/heart-rate-recovery-calculator", label: "recoveryCalculator" },
+  { href: "/write-for-us", label: "writeForUs" },
+  { href: "/about", label: "about" }
 ] as const;
 
 export default function NavBar() {
   const pathname = usePathname();
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("Nav");
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
 
@@ -35,9 +39,9 @@ export default function NavBar() {
 
   return (
     <header className="nav">
-      <Link href="/" className="nav-brand" aria-label="HeartRateTap home">
+      <Link href={localizePath("/", locale)} className="nav-brand" aria-label={t("homeAria")}>
         <span className="logo" aria-hidden="true">♥</span>
-        <span>Online Heart Rate Monitor</span>
+        <span>{t("brand")}</span>
       </Link>
 
       <button
@@ -52,39 +56,46 @@ export default function NavBar() {
           <span />
           <span />
         </span>
-        <span>{menuOpen ? "Close" : "Menu"}</span>
+        <span>{menuOpen ? t("close") : t("menu")}</span>
       </button>
 
       <nav
         id="primary-navigation"
         className={`nav-right${menuOpen ? " nav-right-open" : ""}`}
-        aria-label="Primary navigation"
+        aria-label={t("primaryAria")}
       >
         {CONTENT_LINKS.map((link) => (
           <Link
             key={link.href}
-            href={link.href}
+            href={localizePath(link.href, locale)}
             className="nav-link"
-            aria-current={pathname === link.href ? "page" : undefined}
+            aria-current={pathname === localizePath(link.href, locale) ? "page" : undefined}
           >
-            {link.label}
+            {t(link.label)}
           </Link>
         ))}
 
         {isAuthenticated && user ? (
           <div className="user-menu">
-            <Link href="/profile" className="nav-link">
+            <Link href={localizePath("/profile", locale)} className="nav-link">
               {user.name || user.email.split("@")[0]}
             </Link>
             <button type="button" onClick={logout} className="nav-link nav-button">
-              Sign out
+              {t("signOut")}
             </button>
           </div>
         ) : (
-          <Link href="/login" className="nav-link nav-account-link">
-            Sign in
+          <Link href={localizePath("/login", locale)} className="nav-link nav-account-link">
+            {t("signIn")}
           </Link>
         )}
+        <Link
+          href={localizePath(pathname, locale === "en" ? "es" : "en")}
+          className="nav-link nav-language-link"
+          hrefLang={locale === "en" ? "es" : "en"}
+        >
+          {t("language")}
+        </Link>
       </nav>
     </header>
   );

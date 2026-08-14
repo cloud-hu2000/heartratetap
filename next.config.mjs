@@ -1,4 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -49,6 +52,31 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/es/check-heart-rate-online-free',
+        destination: '/es',
+        permanent: true,
+      },
+      {
+        source: '/es/online-heart-rate-monitor',
+        destination: '/es',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/free-online-heart-rate-monitor',
+        destination: '/es/blog/free-online-heart-rate-checker',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/heart-rate-monitor-online',
+        destination: '/es/blog/free-online-heart-rate-checker',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/how-to-check-heart-rate-online',
+        destination: '/es/blog/how-to-check-pulse-manually',
+        permanent: true,
+      },
     ];
   },
   // Optimize for static generation and reduce server-side rendering
@@ -66,7 +94,7 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withNextIntl(nextConfig), {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 

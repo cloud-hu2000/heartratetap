@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 type FormState = {
   title: string;
@@ -15,6 +16,7 @@ const INITIAL_FORM: FormState = {
 };
 
 const FeedbackWidget = () => {
+  const t = useTranslations("Feedback");
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [submitting, setSubmitting] = useState(false);
@@ -31,11 +33,11 @@ const FeedbackWidget = () => {
     const email = form.email.trim();
 
     if (title.length < 4) {
-      setMessage({ type: "error", text: "Title needs at least 4 characters." });
+      setMessage({ type: "error", text: t("titleError") });
       return;
     }
     if (description.length < 10) {
-      setMessage({ type: "error", text: "Please add a little more detail." });
+      setMessage({ type: "error", text: t("detailsError") });
       return;
     }
 
@@ -51,14 +53,14 @@ const FeedbackWidget = () => {
 
       if (!response.ok) {
         const errorBody = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(errorBody?.error ?? "Submission failed, please try again");
+        throw new Error(errorBody?.error ?? t("submitError"));
       }
 
       setForm(INITIAL_FORM);
-      setMessage({ type: "success", text: "Thanks! Your feedback has been sent privately to the team." });
+      setMessage({ type: "success", text: t("success") });
     } catch (error) {
       console.error(error);
-      setMessage({ type: "error", text: error instanceof Error ? error.message : "Submission failed, please try again" });
+      setMessage({ type: "error", text: error instanceof Error ? error.message : t("submitError") });
     } finally {
       setSubmitting(false);
     }
@@ -67,17 +69,17 @@ const FeedbackWidget = () => {
   return (
     <div className="feedback-widget">
       {isOpen && (
-        <section id="feedback-panel" className="feedback-panel" aria-label="Send product feedback">
+        <section id="feedback-panel" className="feedback-panel" aria-label={t("panelAria")}>
           <div className="feedback-panel-header">
             <div>
-              <p className="feedback-panel-label">Private feedback</p>
-              <h3>Tell us what to improve</h3>
+              <p className="feedback-panel-label">{t("private")}</p>
+              <h3>{t("heading")}</h3>
             </div>
             <button
               type="button"
               className="feedback-close"
               onClick={() => setIsOpen(false)}
-              aria-label="Close feedback"
+              aria-label={t("close")}
             >
               ×
             </button>
@@ -85,37 +87,37 @@ const FeedbackWidget = () => {
 
           <form className="feedback-form" onSubmit={handleSubmit}>
             <label>
-              Title
+              {t("title")}
               <input
                 type="text"
                 value={form.title}
                 onChange={handleChange("title")}
-                placeholder="Describe the issue or suggestion"
+                placeholder={t("titlePlaceholder")}
                 maxLength={80}
               />
             </label>
             <label>
-              Details
+              {t("details")}
               <textarea
                 value={form.description}
                 onChange={handleChange("description")}
-                placeholder="Share the context needed to understand it"
+                placeholder={t("detailsPlaceholder")}
                 rows={4}
                 maxLength={1000}
               />
             </label>
             <label>
-              Email (optional)
+              {t("email")}
               <input
                 type="email"
                 value={form.email}
                 onChange={handleChange("email")}
-                placeholder="For a follow-up if needed"
+                placeholder={t("emailPlaceholder")}
                 maxLength={120}
               />
             </label>
             <button type="submit" className="pill active" disabled={submitting}>
-              {submitting ? "Sending…" : "Send feedback"}
+              {submitting ? t("sending") : t("send")}
             </button>
           </form>
 
@@ -130,7 +132,7 @@ const FeedbackWidget = () => {
         aria-controls="feedback-panel"
         onClick={() => setIsOpen((previous) => !previous)}
       >
-        {isOpen ? "Close feedback" : "Send feedback"}
+        {isOpen ? t("close") : t("send")}
       </button>
     </div>
   );
