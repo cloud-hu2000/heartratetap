@@ -15,7 +15,6 @@ The concise file leads with task-completion pages, then groups editorial content
 ## Excluded or borderline pages
 
 - `/terms` remains in the extended file but not the concise selection because it offers less retrieval value than the privacy and editorial-standard pages.
-- `/pricing` is intentionally `noindex` and is excluded from the sitemap and both llms directories.
 - Authentication, profile, checkout, reset-password, API, Sentry-demo, and redirect-alias routes are intentionally excluded.
 
 ## Update frequency

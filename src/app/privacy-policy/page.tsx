@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Privacy Policy | HeartRateTap",
   description:
-    "Learn how HeartRateTap handles local measurements, accounts, feedback, payments, optional analytics and Google advertising technologies.",
+    "Learn how HeartRateTap handles local measurements, accounts, feedback, optional analytics and Google advertising technologies.",
   alternates: {
     canonical: "https://www.heartratetap.com/privacy-policy"
   },
@@ -55,17 +55,12 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="blog-section">
-          <h2>Accounts, authentication and payments</h2>
+          <h2>Accounts and authentication</h2>
           <p>
             If you create an account, we process the email address and profile information you provide, authentication
-            records, account tier and security/session data. Passwords are stored as one-way hashes rather than plain
+            records and security/session data. Passwords are stored as one-way hashes rather than plain
             text. If you use Google sign-in, Google provides the identity data necessary to create or locate your
             account under the permissions shown during sign-in.
-          </p>
-          <p>
-            Stripe processes paid checkout. We keep the order, plan, amount, currency, payment status and transaction
-            identifiers needed to provide the purchase and reconcile it. Card or wallet credentials are entered with
-            the payment provider and are not stored in this application&apos;s database.
           </p>
         </section>
 
@@ -116,7 +111,7 @@ export default function PrivacyPolicyPage() {
             . Where required, Google&apos;s certified consent controls will be used before advertising is activated.
           </p>
           <p>
-            Google-served ads are not placed on sign-in, registration, password reset, profile, checkout-success, error,
+            Google-served ads are not placed on sign-in, registration, password reset, profile, error,
             alert or other non-content screens. Advertising should remain visibly separate from navigation and the
             calculator controls.
           </p>
@@ -125,7 +120,7 @@ export default function PrivacyPolicyPage() {
         <section className="blog-section">
           <h2>Service providers and disclosure</h2>
           <p>
-            We use providers for hosting, databases, authentication, email, payments, security, analytics and—after
+            We use providers for hosting, databases, authentication, email, security, analytics and—after
             approval—advertising. They process data for the service they provide under their own terms and our
             configuration. We may also disclose information when required by law, to protect users and the service, or
             in connection with a business transfer subject to appropriate safeguards. We do not sell your heart-rate

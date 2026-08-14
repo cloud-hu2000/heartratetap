@@ -2,8 +2,6 @@
 
 import { lazy, Suspense } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { useAuth } from "@/contexts/AuthContext";
 import { COPY } from "@/lib/constants";
 
 // Hooks
@@ -14,12 +12,9 @@ import { useUIState } from "@/hooks/useUIState";
 
 // Components
 import HeroSection from "@/components/HeroSection";
-import MembershipBanner from "@/components/MembershipBanner";
 import PulseZone from "@/components/PulseZone";
 import HistoryPanel from "@/components/HistoryPanel";
 import Footer from "@/components/Footer";
-import TutorialOverlay from "@/components/TutorialOverlay";
-import UpgradeModal from "@/components/UpgradeModal";
 import PublisherContentAdditions from "@/components/PublisherContentAdditions";
 import FAQStructuredData from "@/components/FAQStructuredData";
 import { SEOContent } from "@/components/SEOContent";
@@ -46,8 +41,6 @@ const HOME_FAQS = [
 ];
 
 const HeartRatePage = () => {
-  const { hasPermission, user } = useAuth();
-
   // 使用自定义 hooks
   const { lang, changeLanguage } = useLanguage();
   const { state: heartRateState, computed, actions: heartRateActions } = useHeartRate();
@@ -60,7 +53,7 @@ const HeartRatePage = () => {
     trendLabel,
     chartData,
     actions: historyActions
-  } = useHistory({ lang, hasPermission });
+  } = useHistory({ lang });
 
   // 冻结心率并添加到历史记录
   const handleFreeze = () => {
@@ -72,8 +65,6 @@ const HeartRatePage = () => {
 
   return (
     <div className="frame">
-      <MembershipBanner user={user} />
-
       <HeroSection lang={lang} onLanguageChange={changeLanguage} />
 
       <main className="canvas">

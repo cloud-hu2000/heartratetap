@@ -93,15 +93,12 @@ Never place ad code on or automatically monetize:
 
 - `/login`, `/register`, `/reset-password`
 - `/profile`
-- `/checkout/*`
-- `/pricing`
 - `/roadmap` (public ideas must be reviewed before a `planned`, `in_progress` or `shipped` status is assigned)
 - `/sentry-example-page`, error and not-found screens
 - `/api/*`
 
-Authentication, account, checkout, diagnostic and example routes are excluded from search in route metadata and/or
-`robots.txt`. Pricing and roadmap pages are also `noindex` because their primary purpose is transactional or behavioral,
-not publisher content. Search indexing controls do not replace ad route exclusions.
+Authentication, account, diagnostic and example routes are excluded from search in route metadata and/or `robots.txt`.
+Search indexing controls do not replace ad route exclusions.
 
 ## Before requesting review
 

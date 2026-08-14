@@ -24,6 +24,31 @@ const nextConfig = {
         destination: '/blog/free-online-heart-rate-checker',
         permanent: true,
       },
+      {
+        source: '/blog/how-to-check-heart-rate-online',
+        destination: '/blog/how-to-check-pulse-manually',
+        permanent: true,
+      },
+      {
+        source: '/comment',
+        destination: '/contact',
+        permanent: true,
+      },
+      {
+        source: '/roadmap',
+        destination: '/guides',
+        permanent: true,
+      },
+      {
+        source: '/pricing',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/checkout/success',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
   // Optimize for static generation and reduce server-side rendering

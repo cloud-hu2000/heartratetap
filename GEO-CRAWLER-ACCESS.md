@@ -32,7 +32,7 @@ The remaining P1 discovery gap was in `llms.txt` and `llms-full.txt`; both files
 - **robots.txt:** Present at `/robots.txt`; references the canonical sitemap and does not apply blanket AI blocking.
 - **Sitemap:** Present at `/sitemap.xml`; P1 routes are included and private, authentication, redirect-alias, checkout, and `noindex` pricing routes are excluded.
 - **Page-level robots:** Public P1 pages do not declare `noindex`, `nofollow`, `noai`, or `noimageai`.
-- **Private pages:** Login, registration, profile, reset-password, checkout-success, and the Sentry example are intentionally excluded by metadata and/or robots rules.
+- **Private pages:** Login, registration, profile, reset-password, and the Sentry example are intentionally excluded by metadata and/or robots rules.
 - **Rendering:** Next.js emits the P1 pages as pre-rendered HTML, so their primary copy and links do not depend on crawler-side JavaScript execution.
 - **AI discovery:** `/llms.txt` and `/llms-full.txt` are served as plain text and now mirror the P1 content additions.
 - **Response headers:** No repository configuration adds an `X-Robots-Tag` that blocks the public P1 pages.

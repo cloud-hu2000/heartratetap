@@ -6,10 +6,9 @@ import { COPY } from "@/lib/constants";
 
 interface UseHistoryProps {
   lang: "en" | "es";
-  hasPermission: (permission: string) => boolean;
 }
 
-export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
+export const useHistory = ({ lang }: UseHistoryProps) => {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [historyPage, setHistoryPage] = useState(0);
 
@@ -45,13 +44,6 @@ export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
   const exportHistoryToCSV = useCallback(() => {
     if (history.length === 0) return;
 
-    // 检查会员权限
-    if (!hasPermission('export_data')) {
-      // 跳转到新页面显示升级提示
-      window.open('/pricing?feature=export', '_blank');
-      return;
-    }
-
     const csvContent = [
       ["Timestamp", "BPM", "Mode"].join(","),
       ...history.map(entry => [
@@ -70,7 +62,7 @@ export const useHistory = ({ lang, hasPermission }: UseHistoryProps) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [history, hasPermission]);
+  }, [history]);
 
   // 清除历史数据
   const clearHistory = useCallback(() => {
