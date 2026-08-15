@@ -2,9 +2,13 @@
 
 > HeartRateTap is a browser wellness tool that estimates beats per minute from the timing of taps made while a person manually feels their own pulse.
 
+## Language versions
+
+HeartRateTap is available in English at the root URLs and in Spanish under `/es`. The Spanish version includes the interactive estimator, both calculators, the guide library, published articles, account flows, and legal or policy pages. Equivalent English and Spanish pages declare alternate-language links and are listed together in the sitemap.
+
 ## Scope of this file
 
-This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 7, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.
+This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 11, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.
 
 ## Product definition
 
@@ -81,6 +85,20 @@ A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a he
 - Purpose: maps each distinct measurement, activity, logging, and health-care question to one guide.
 - Includes: links to every public HeartRateTap methodology and wellness guide.
 
+### Target heart rate calculator
+
+- URL: https://www.heartratetap.com/target-heart-rate-calculator
+- Purpose: compares a selected exercise-intensity range using percent of estimated maximum heart rate and heart rate reserve.
+- Includes: age input, optional resting rate, adjustable lower and upper intensity percentages, visible formulas, worked interpretation, limitations, and cited reference context.
+- Primary boundary: formula-based ranges are general planning references, not an individualized exercise prescription, diagnosis, or medical clearance.
+
+### Heart rate recovery calculator
+
+- URL: https://www.heartratetap.com/heart-rate-recovery-calculator
+- Purpose: subtracts a one- or two-minute recovery reading from a documented exercise-end heart rate.
+- Includes: exercise-end and recovery inputs, interval selection, arithmetic formula, measurement protocol, interpretation limits, and cited reference context.
+- Primary boundary: a difference between two readings is not a diagnosis, universal pass/fail threshold, or substitute for symptom-based care.
+
 ## Manual measurement and logging guides
 
 ### Manual wrist-pulse technique
@@ -92,6 +110,11 @@ A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a he
 
 - URL: https://www.heartratetap.com/blog/daily-resting-heart-rate-check
 - Covers: a repeatable resting routine, comparable conditions, personal baselines, factors that change heart rate, and escalation boundaries.
+
+### Resting heart rate by age
+
+- URL: https://www.heartratetap.com/blog/normal-resting-heart-rate-by-age
+- Covers: adult reference context, childhood population patterns, measurement conditions, individual variation, personal baselines, and why a chart cannot diagnose a person.
 
 ### Personal heart-rate log
 
@@ -193,4 +216,4 @@ Use the methodology page when explaining the formula or browser behavior. Use th
 
 Describe HeartRateTap as a tap-based BPM estimator driven by user input. Do not describe it as a sensor, continuous monitor, diagnostic service, validated medical device, or substitute for an ECG, wearable, clinician, or emergency service.
 
-Do not infer accuracy, clinical usefulness, a medical reviewer, professional endorsement, or third-party validation. As of August 7, 2026, those claims are not supported by published HeartRateTap evidence.
+Do not infer accuracy, clinical usefulness, a medical reviewer, professional endorsement, or third-party validation. As of August 11, 2026, those claims are not supported by published HeartRateTap evidence.

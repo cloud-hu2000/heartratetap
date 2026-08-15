@@ -14,6 +14,7 @@ export default function ArticleStructuredData({
   dateModified
 }: ArticleStructuredDataProps) {
   const url = `https://www.heartratetap.com${path}`;
+  const isSpanish = path === "/es" || path.startsWith("/es/");
   const articleId = `${url}#article`;
   const data = {
     "@context": "https://schema.org",
@@ -37,12 +38,12 @@ export default function ArticleStructuredData({
         datePublished,
         dateModified,
         isAccessibleForFree: true,
-        inLanguage: "en",
+        inLanguage: isSpanish ? "es" : "en",
         author: {
           "@type": "Organization",
           "@id": "https://www.heartratetap.com/#organization",
-          name: "HeartRateTap product and editorial team",
-          url: "https://www.heartratetap.com/about"
+          name: isSpanish ? "Equipo de producto y editorial de HeartRateTap" : "HeartRateTap product and editorial team",
+          url: `https://www.heartratetap.com${isSpanish ? "/es" : ""}/about`
         },
         publisher: {
           "@type": "Organization",
@@ -68,14 +69,14 @@ export default function ArticleStructuredData({
           {
             "@type": "ListItem",
             position: 1,
-            name: "Home",
-            item: "https://www.heartratetap.com/"
+            name: isSpanish ? "Inicio" : "Home",
+            item: `https://www.heartratetap.com${isSpanish ? "/es" : "/"}`
           },
           {
             "@type": "ListItem",
             position: 2,
-            name: "Guides",
-            item: "https://www.heartratetap.com/guides"
+            name: isSpanish ? "Guías" : "Guides",
+            item: `https://www.heartratetap.com${isSpanish ? "/es" : ""}/guides`
           },
           {
             "@type": "ListItem",

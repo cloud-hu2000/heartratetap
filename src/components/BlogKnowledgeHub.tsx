@@ -1,64 +1,26 @@
 import Link from "next/link";
+import { getRelatedGuides } from "@/lib/guide-content";
 
-const BlogKnowledgeHub = () => {
+const BlogKnowledgeHub = ({ currentPath }: { currentPath: string }) => {
+  const relatedGuides = getRelatedGuides(currentPath);
+
   return (
     <section className="blog-section">
-      <h2>HeartRateTap Knowledge Hub</h2>
+      <h2>Related heart rate guides</h2>
       <p>
-        Continue with a guide that answers a different question, or browse the curated library. Closely related
-        instructions stay together so you do not have to compare repeated versions of the same article.
+        Continue with a closely related question, or browse the full library. Each guide has a distinct job so that
+        measurement technique, personal tracking, exercise context and product methodology remain easy to distinguish.
       </p>
       <div className="tool-link-grid">
         <Link href="/">Use the tap-based BPM calculator</Link>
         <Link href="/guides">Browse all guides</Link>
       </div>
       <ul>
-        <li>
-          <Link href="/blog/free-online-heart-rate-checker">
-            How a Tap-Based Heart Rate Checker Estimates BPM
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-zones-for-running">
-            Running Heart Rate Zones: Calculate and Use Them on Your Runs
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/cycling-heart-rate-zones">Cycling Heart Rate Zones: Calculate Them and Check After a Ride</Link>
-        </li>
-        <li>
-          <Link href="/blog/swimming-heart-rate-zones">Swimming Heart Rate Zones: Calculate Them and Measure After Laps</Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-zones-strength-training">Heart Rate Zones for Strength Training: What BPM Can Tell You</Link>
-        </li>
-        <li>
-          <Link href="/blog/daily-resting-heart-rate-check">
-            Daily Resting Heart Rate Check – A 30-Second Health Habit
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/how-to-check-pulse-manually">
-            How to Check Your Pulse Manually: A Repeatable Wrist-Pulse Method
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/seniors-guide-checking-pulse">A Senior&apos;s Guide to Checking Your Pulse</Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-yoga-meditation">Using HeartRateTap During Yoga and Meditation</Link>
-        </li>
-        <li>
-          <Link href="/blog/manual-heart-rate-checks-team-sports">Manual Heart-Rate Checks for Team Sports</Link>
-        </li>
-        <li>
-          <Link href="/blog/build-personal-heart-rate-log">How to Build a Meaningful Personal Heart-Rate Log</Link>
-        </li>
-        <li>
-          <Link href="/blog/talk-to-doctor-manual-heart-rate-data">
-            How to Talk to Your Doctor About Manual Heart-Rate Measurements
-          </Link>
-        </li>
+        {relatedGuides.map((guide) => (
+          <li key={guide.path}>
+            <Link href={guide.path}>{guide.title}</Link>
+          </li>
+        ))}
       </ul>
       <p>
         Ready to put it into practice?{" "}

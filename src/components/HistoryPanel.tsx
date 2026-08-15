@@ -53,17 +53,17 @@ export default function HistoryPanel({
               type="button"
               className="pill"
               onClick={onExportHistory}
-              title="Export history as CSV"
+              title={t.exportHistoryTitle}
             >
-              📊 Export
+              📊 {t.exportHistory}
             </button>
             <button
               type="button"
               className="pill danger"
               onClick={onClearHistory}
-              title="Clear all history"
+              title={t.clearHistoryTitle}
             >
-              🗑️ Clear
+              🗑️ {t.clearHistory}
             </button>
           </div>
         )}
@@ -99,9 +99,9 @@ export default function HistoryPanel({
                 />
               </svg>
               <div className="history-chart-caption">
-                Last {chartData.chartSource.length} locked readings •{" "}
+                {t.lastReadings} {chartData.chartSource.length} {t.lockedReadings} •{" "}
                 <span>
-                  {chartData.chartMin}–{chartData.chartMax} bpm
+                  {chartData.chartMin}–{chartData.chartMax} {t.bpmUnit}
                 </span>
               </div>
             </div>
@@ -115,11 +115,11 @@ export default function HistoryPanel({
                 <div>
                   <div className="history-bpm">
                     {entry.bpm}
-                    <span> bpm</span>
+                    <span> {t.bpmUnit}</span>
                   </div>
                   <p className="history-meta">
                     {entry.context === "sport" ? t.historyMetaWorkout : t.historyMetaRest} •{" "}
-                    {formatTimestamp(entry.timestamp)}
+                    {formatTimestamp(entry.timestamp, lang)}
                   </p>
                 </div>
               </li>

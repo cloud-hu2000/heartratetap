@@ -1,0 +1,619 @@
+'use client';
+
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+export default function ProfilePage() {
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    logout,
+    checkAuth
+  } = useAuth();
+  const router = useRouter();
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState<string | null>(null);
+  const [resendError, setResendError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/es');
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  // 页面加载时刷新用户数据，确保显示最新的tier信息
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      checkAuth().catch(err => console.error("No se puede actualizar los datos del usuario en el montaje:", err));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 只在组件挂载时执行一次
+
+  const handleLogout = async () => {
+    await logout();
+    router.push('/es');
+  };
+  const handleResendVerification = async () => {
+    if (!user?.email) return;
+    setResendLoading(true);
+    setResendMessage(null);
+    setResendError(null);
+    try {
+      const response = await fetch('/api/auth/send-verification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: user.email
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setResendMessage("¡Email de verificación enviado con éxito! Por favor, compruebe su buzón de entrada y haga clic en el enlace de verificación.");
+        // Clear success message after 8 seconds
+        setTimeout(() => setResendMessage(null), 8000);
+      } else {
+        setResendError(data.error || "No ha enviado correo electrónico de verificación. Por favor, inténtelo de nuevo.");
+        // Clear error message after 6 seconds
+        setTimeout(() => setResendError(null), 6000);
+      }
+    } catch (error) {
+      console.error("Correo electrónico de verificación de envío de errores:", error);
+      setResendError("Error de red. Por favor, compruebe su conexión e inténtelo de nuevo.");
+      setTimeout(() => setResendError(null), 6000);
+    } finally {
+      setResendLoading(false);
+    }
+  };
+  const handleRefreshProfile = async () => {
+    setRefreshing(true);
+    try {
+      await checkAuth();
+    } catch (error) {
+      console.error("Failed to refrescar perfil:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+  if (isLoading) {
+    return <div className="frame">
+        <div className="panel" style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '400px'
+      }}>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--accent)] mx-auto"></div>
+            <p className="mt-4" style={{
+            color: 'var(--muted)'
+          }}>Carga de perfil...</p>
+          </div>
+        </div>
+      </div>;
+  }
+  if (!isAuthenticated || !user) {
+    return null;
+  }
+  return <div className="frame">
+      {/* Header Section */}
+      <section className="panel hero">
+        <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1rem',
+        flexWrap: 'wrap'
+      }}>
+          <div>
+            <p className="hero-sub">Personal Dashboard</p>
+            <h1 className="hero-title">Mi perfil</h1>
+            <p style={{
+            color: 'var(--muted)',
+            marginTop: '0.5rem'
+          }}>
+              Gestione la configuración y preferencias de su cuenta
+            </p>
+          </div>
+          <button onClick={handleLogout} className="pill" style={{
+          background: '#dc3545',
+          color: '#fff',
+          borderColor: '#dc3545',
+          fontWeight: '600'
+        }} onMouseEnter={e => (e.target as HTMLElement).style.background = '#c82333'} onMouseLeave={e => (e.target as HTMLElement).style.background = '#dc3545'}>
+            Cerrar sesión
+          </button>
+        </div>
+      </section>
+
+      {/* Profile Information Cards */}
+      <div className="canvas">
+        {/* Account Information */}
+        <section className="panel">
+          <div style={{
+          marginBottom: '1.5rem'
+        }}>
+            <h2 style={{
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            color: 'var(--accent)',
+            margin: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            letterSpacing: '-0.025em'
+          }}>
+              Información de cuentas
+            </h2>
+            <p style={{
+            color: 'var(--muted)',
+            margin: '0',
+            fontSize: '0.95rem'
+          }}>
+              Sus datos básicos de la cuenta y estado de verificación
+            </p>
+          </div>
+
+          <div style={{
+          display: 'grid',
+          gap: '1.25rem'
+        }}>
+            <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem'
+          }}>
+              <label style={{
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              color: 'var(--ink)',
+              letterSpacing: '0.01em'
+            }}>
+                Dirección de correo electrónico
+              </label>
+              <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '1rem'
+            }}>
+                <div style={{
+                fontSize: '1rem',
+                color: 'var(--ink)',
+                fontWeight: '500'
+              }}>
+                  {user.email}
+                </div>
+                <button onClick={handleRefreshProfile} disabled={refreshing} style={{
+                padding: "0,25rem 0,5rem",
+                border: "1px sólido var(--line)",
+                borderRadius: '6px',
+                background: 'var(--card)',
+                color: 'var(--muted)',
+                fontSize: '0.75rem',
+                cursor: refreshing ? 'not-allowed' : 'pointer',
+                opacity: refreshing ? 0.6 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: "todos los 0,2 facilidades"
+              }} onMouseEnter={e => !refreshing && ((e.target as HTMLElement).style.borderColor = 'var(--accent)')} onMouseLeave={e => !refreshing && ((e.target as HTMLElement).style.borderColor = 'var(--line)')}>
+                  {refreshing ? <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-[var(--accent)]"></div> : <svg style={{
+                  width: '0.75rem',
+                  height: '0.75rem'
+                }} viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                    </svg>}
+                  {refreshing ? 'Refreshing...' : 'Refresh'}
+                </button>
+              </div>
+              {user.email_verified ? <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontSize: '0.875rem',
+              color: '#16a34a',
+              fontWeight: '500'
+            }}>
+                  <svg style={{
+                width: '1rem',
+                height: '1rem'
+              }} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Correo electrónico verificado
+                </div> : <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontSize: '0.875rem',
+              color: '#d97706',
+              fontWeight: '500'
+            }}>
+                  <svg style={{
+                width: '1rem',
+                height: '1rem'
+              }} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  Correo electrónico no verificado
+                </div>}
+            </div>
+
+            {user.name && <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem'
+          }}>
+                <label style={{
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              color: 'var(--ink)',
+              letterSpacing: '0.01em'
+            }}>
+                  Nombre completo
+                </label>
+                <div style={{
+              fontSize: '1rem',
+              color: 'var(--ink)',
+              fontWeight: '500'
+            }}>
+                  {user.name}
+                </div>
+              </div>}
+
+            <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem'
+          }}>
+              <label style={{
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              color: 'var(--ink)',
+              letterSpacing: '0.01em'
+            }}>
+                Tipo de cuenta
+              </label>
+              <div style={{
+              fontSize: '1rem',
+              color: 'var(--ink)',
+              fontWeight: '500',
+              textTransform: 'capitalize'
+            }}>
+                {user.role}
+              </div>
+            </div>
+
+            <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem'
+          }}>
+              <label style={{
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              color: 'var(--ink)',
+              letterSpacing: '0.01em'
+            }}>
+                Miembro desde
+              </label>
+              <div style={{
+              fontSize: '1rem',
+              color: 'var(--ink)',
+              fontWeight: '500'
+            }}>
+                {user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }) : 'N/A'}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Account Actions */}
+        <section className="panel">
+          <div style={{
+          marginBottom: '1.5rem'
+        }}>
+            <h2 style={{
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            color: 'var(--accent)',
+            margin: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            letterSpacing: '-0.025em'
+          }}>
+              Medidas de la cuenta
+            </h2>
+            <p style={{
+            color: 'var(--muted)',
+            margin: '0',
+            fontSize: '0.95rem'
+          }}>
+              Administrar la configuración de su cuenta y seguridad
+            </p>
+          </div>
+
+          <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem'
+        }}>
+            {!user.email_verified && <div style={{
+            padding: '1rem',
+            background: "rgba(217, 119, 6, 0,05)",
+            border: '1px solid rgba(217, 119, 6, 0.2)',
+            borderRadius: '12px'
+          }}>
+                <div style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.75rem'
+            }}>
+                  <svg style={{
+                width: '1.25rem',
+                height: '1.25rem',
+                color: '#d97706',
+                flexShrink: '0',
+                marginTop: '0.125rem'
+              }} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <div style={{
+                flex: 1
+              }}>
+                    <h3 style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '600',
+                  color: '#92400e',
+                  margin: "0 0 0,25rem 0"
+                }}>
+                      Verificación de correo electrónico requerida
+                    </h3>
+                    <p style={{
+                  fontSize: '0.875rem',
+                  color: '#a16207',
+                  margin: "0 0 0,75rem 0",
+                  lineHeight: '1.4'
+                }}>
+                      Por favor, verifique su dirección de correo electrónico para acceder a todas las características.
+                    </p>
+
+                    <button style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#92400e',
+                  textDecoration: 'underline',
+                  background: 'none',
+                  border: 'none',
+                  cursor: resendLoading ? 'not-allowed' : 'pointer',
+                  padding: '0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  opacity: resendLoading ? 0.6 : 1
+                }} onClick={handleResendVerification} disabled={resendLoading}>
+                      {resendLoading && <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-[#92400e]"></div>}
+                      Reenviar correo electrónico de verificación
+                    </button>
+
+                    {resendMessage && <div style={{
+                  marginTop: '0.75rem',
+                  padding: "0,75rem 0,75rem",
+                  background: 'rgba(34, 197, 94, 0.1)',
+                  border: '1px solid rgba(34, 197, 94, 0.2)',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  color: '#16a34a',
+                  fontWeight: '500'
+                }}>
+                        <div style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.5rem'
+                  }}>
+                          <svg style={{
+                      width: '1rem',
+                      height: '1rem',
+                      flexShrink: '0',
+                      marginTop: '0.125rem'
+                    }} viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span>{resendMessage}</span>
+                        </div>
+                      </div>}
+
+                    {resendError && <div style={{
+                  marginTop: '0.75rem',
+                  padding: "0,75rem 0,75rem",
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: "1 px sólido rgba(239, 68, 68, 0.2)",
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  color: '#dc2626',
+                  fontWeight: '500'
+                }}>
+                        <div style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.5rem'
+                  }}>
+                          <svg style={{
+                      width: '1rem',
+                      height: '1rem',
+                      flexShrink: '0',
+                      marginTop: '0.125rem'
+                    }} viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                          </svg>
+                          <span>{resendError}</span>
+                        </div>
+                      </div>}
+                  </div>
+                </div>
+              </div>}
+
+            <div style={{
+            display: 'grid',
+            gridTemplateColumns: "(auto-fit, minmax(200px, 1fr))",
+            gap: '0.75rem'
+          }}>
+              <button className="pill" onClick={() => alert("Cambiar la función de contraseña pronto!")} style={{
+              width: '100%',
+              padding: '0.875rem 1rem',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              border: "1px sólido var(--line)",
+              background: 'var(--card)',
+              color: 'var(--ink)'
+            }}>
+                Cambiar contraseña
+              </button>
+
+              <button className="pill" onClick={() => alert("Actualizar la función de perfil pronto!")} style={{
+              width: '100%',
+              padding: '0.875rem 1rem',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              border: "1px sólido var(--line)",
+              background: 'var(--card)',
+              color: 'var(--ink)'
+            }}>
+                Actualizar el perfil
+              </button>
+            </div>
+
+            <button className="pill" onClick={() => {
+            if (confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no puede ser desechada.")) {
+              alert("¡La función de eliminación de cuentas pronto!");
+            }
+          }} style={{
+            width: '100%',
+            padding: '0.875rem 1rem',
+            fontSize: '0.9rem',
+            fontWeight: '600',
+            border: "1 px sólido #dc3545",
+            background: '#dc3545',
+            color: '#fff'
+          }} onMouseEnter={e => {
+            (e.target as HTMLElement).style.background = '#c82333';
+            (e.target as HTMLElement).style.borderColor = '#c82333';
+          }} onMouseLeave={e => {
+            (e.target as HTMLElement).style.background = '#dc3545';
+            (e.target as HTMLElement).style.borderColor = '#dc3545';
+          }}>
+              Suprimir la Cuenta
+            </button>
+          </div>
+        </section>
+
+        {/* Usage Statistics */}
+        <section className="panel">
+          <div style={{
+          marginBottom: '1.5rem'
+        }}>
+            <h2 style={{
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            color: 'var(--accent)',
+            margin: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            letterSpacing: '-0.025em'
+          }}>
+              Estadísticas de uso
+            </h2>
+            <p style={{
+            color: 'var(--muted)',
+            margin: '0',
+            fontSize: '0.95rem'
+          }}>
+              Realizar seguimiento de su actividad de monitorización de frecuencia cardíaca
+            </p>
+          </div>
+
+          <div style={{
+          display: 'grid',
+          gridTemplateColumns: "(auto-fit, minmax(140px, 1fr))",
+          gap: '1.25rem',
+          marginBottom: '1.5rem'
+        }}>
+            <div style={{
+            textAlign: 'center'
+          }}>
+              <div style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: 'var(--accent)',
+              marginBottom: '0.5rem'
+            }}>
+                --
+              </div>
+              <div style={{
+              fontSize: '0.875rem',
+              color: 'var(--muted)',
+              fontWeight: '500'
+            }}>
+                Calificaciones cardíacas
+              </div>
+            </div>
+            <div style={{
+            textAlign: 'center'
+          }}>
+              <div style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: '#16a34a',
+              marginBottom: '0.5rem'
+            }}>
+                --
+              </div>
+              <div style={{
+              fontSize: '0.875rem',
+              color: 'var(--muted)',
+              fontWeight: '500'
+            }}>
+                Sesiones Este Mes
+              </div>
+            </div>
+            <div style={{
+            textAlign: 'center'
+          }}>
+              <div style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: '#7c3aed',
+              marginBottom: '0.5rem'
+            }}>
+                --
+              </div>
+              <div style={{
+              fontSize: '0.875rem',
+              color: 'var(--muted)',
+              fontWeight: '500'
+            }}>
+                Edad de la cuenta (días)
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+          padding: '1rem',
+          background: "rgba(15, 140, 140, 0,03)",
+          border: "1 px sólido rgba(15, 140, 140, 0.1)",
+          borderRadius: '12px',
+          textAlign: 'center'
+        }}>
+            <p style={{
+            margin: '0',
+            fontSize: '0.875rem',
+            color: 'var(--muted)',
+            fontStyle: 'italic'
+          }}>
+              Las estadísticas estarán disponibles una vez que la integración de bases de datos esté completa
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>;
+}

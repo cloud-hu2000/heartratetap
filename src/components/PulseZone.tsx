@@ -114,7 +114,7 @@ export default function PulseZone({
       <div className="pulse-zone-header">
         <div className={`metric ${tapPulse ? "metric-pulse" : ""}`} aria-live="polite" aria-atomic="true">
           {displayBpm ?? "--"}
-          <span className="metric-unit">bpm</span>
+          <span className="metric-unit">{t.bpmUnit}</span>
           {beats.length > 0 && !isFrozen && (
             <span className="beat-indicator">
               <span className={`beat-dot ${tapPulse ? "beat-dot-active" : ""}`} />
@@ -124,16 +124,16 @@ export default function PulseZone({
         <p className="status-label">
           {statusLabel}
           {beats.length > 0 && !isFrozen && (
-            <span className="tap-counter"> • {beatCount} taps</span>
+            <span className="tap-counter"> • {beatCount} {t.tapsUnit}</span>
           )}
         </p>
         {!isFrozen && (bpm5s || bpm10s) && (
           <div className="bpm-details">
             {bpm10s && (
-              <span>10s: {bpm10s} bpm</span>
+              <span>10s: {bpm10s} {t.bpmUnit}</span>
             )}
             {bpm5s && (
-              <span>5s: {bpm5s} bpm</span>
+              <span>5s: {bpm5s} {t.bpmUnit}</span>
             )}
           </div>
         )}
@@ -156,8 +156,8 @@ export default function PulseZone({
               }
             }}
             tabIndex={0}
-            aria-label="Start estimating BPM from pulse-timed taps"
-            title="Tap once for every pulse beat to start"
+            aria-label={t.startAria}
+            title={t.startTitle}
           >
             ❤️
           </button>

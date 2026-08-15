@@ -38,7 +38,9 @@ export default function PersonalHeartRateLogPage() {
       description={DESCRIPTION}
       path={PATH}
       category="Personal tracking"
-      readingTime="11 minute read"
+      readingTime="12 minute read"
+      reviewed="August 9, 2026"
+      dateModified="2026-08-09"
       intro={
         <>A personal heart-rate log is useful when it makes your observations more comparable and easier to explain. It is not a diagnosis, a medical record replacement, or an instruction to react to every fluctuation. This guide shows how to make a small log that captures timing, conditions, and symptoms without creating false precision.</>
       }
@@ -69,6 +71,14 @@ export default function PersonalHeartRateLogPage() {
           content: <>
             <p>A notes app, paper list, or spreadsheet is enough. Keep the columns understandable: date/time; context; position; method; estimate; repeat estimate; symptoms; and notes. For example: “Aug. 6, 7:15 a.m.; before breakfast; seated; 60-second wrist count; 70 BPM; repeated 71; no symptoms; slept poorly.” A second reading can show whether the process was similar, but it is not an invitation to repeat until you get the number you want.</p>
             <p>Avoid collecting sensitive detail you would not want stored on a shared device. Use a lock screen, a private notebook, or a secure record if needed. If you plan to share the log, write as though a clinician will read it: concise, factual, and free of guesses about what the number means.</p>
+            <p>
+              If a spreadsheet suits your routine, start with the{" "}
+              <a href="/downloads/personal-heart-rate-log-template.csv" download className="blog-inline-cta">
+                blank personal heart-rate log CSV template
+              </a>
+              . It contains only column headings and no sample health data. Open it in a spreadsheet, remove fields you
+              do not need, and store the completed file somewhere appropriate for its sensitivity.
+            </p>
           </>
         },
         {

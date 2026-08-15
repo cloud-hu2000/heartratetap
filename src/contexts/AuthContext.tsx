@@ -15,57 +15,6 @@ export interface User {
   updated_at?: string;
 }
 
-// 会员等级定义
-export const MEMBERSHIP_TIERS = {
-  free: {
-    name: 'EN: Free | ES: Gratis',
-    price: 0,
-    currency: 'USD',
-    features: [
-      'EN: Tap-based BPM estimate | ES: Estimación de LPM mediante toques',
-      'EN: Live tap-interval display | ES: Visualización de intervalos en directo',
-      'EN: Local history (20 readings) | ES: Historial local (20 lecturas)',
-      'EN: Cited general reference context | ES: Contexto general con fuentes',
-    ],
-  },
-  pro: {
-    name: 'EN: Professional | ES: Profesional',
-    price: 1.99,
-    currency: 'USD',
-    features: [
-      'EN: All free features | ES: Todas las funciones gratuitas',
-      'EN: Data export (CSV) | ES: Exportación de datos (CSV)',
-      'EN: Professional supporter account tier | ES: Nivel de cuenta de colaborador profesional',
-      'EN: One-time payment | ES: Pago único',
-      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
-    ],
-  },
-  premium: {
-    name: 'EN: Premium | ES: Premium',
-    price: 6.99,
-    currency: 'USD',
-    features: [
-      'EN: All professional features | ES: Todas las funciones profesionales',
-      'EN: Premium supporter account tier | ES: Nivel de cuenta de colaborador premium',
-      'EN: Higher one-time contribution to development | ES: Mayor aporte único al desarrollo',
-      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
-    ],
-  },
-  enterprise: {
-    name: 'EN: Enterprise | ES: Empresarial',
-    price: 29.99,
-    currency: 'USD',
-    features: [
-      'EN: All premium features | ES: Todas las funciones premium',
-      'EN: Enterprise supporter account tier | ES: Nivel de cuenta de colaborador empresarial',
-      'EN: One-time contribution to development | ES: Aporte único al desarrollo',
-      'EN: Lifetime access to the listed features | ES: Acceso de por vida a las funciones indicadas',
-    ],
-  },
-} as const;
-
-export type MembershipTier = keyof typeof MEMBERSHIP_TIERS;
-
 // 认证状态类型
 export interface AuthState {
   user: User | null;
@@ -83,8 +32,6 @@ interface AuthContextType extends AuthState {
   }) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
-  hasPermission: (feature: string) => boolean;
-  upgradeMembership: (tier: MembershipTier) => Promise<{ success: boolean; error?: string; paymentUrl?: string }>;
 }
 
 // 创建Context
@@ -311,86 +258,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
   }, [authState.isAuthenticated, checkAuth]);
 
-  // 权限检查函数
-  const hasPermission = (feature: string): boolean => {
-    if (!authState.user) return false;
-
-    const tier = authState.user.account_tier;
-
-    // 功能权限映射
-    const featurePermissions: Record<string, MembershipTier[]> = {
-      // 免费功能
-      'basic_measurement': ['free', 'pro', 'premium', 'enterprise'],
-      'local_history': ['free', 'pro', 'premium', 'enterprise'],
-      'basic_analysis': ['free', 'pro', 'premium', 'enterprise'],
-
-      // 专业功能 ($1.99)
-      'export_data': ['pro', 'premium', 'enterprise'],
-      'advanced_analysis': ['pro', 'premium', 'enterprise'],
-      'trend_analysis': ['pro', 'premium', 'enterprise'],
-
-      // 高级功能 ($6.99)
-      'cloud_sync': ['premium', 'enterprise'],
-      'personalized_reports': ['premium', 'enterprise'],
-      'workout_plans': ['premium', 'enterprise'],
-      'health_goals': ['premium', 'enterprise'],
-      'advanced_visualization': ['premium', 'enterprise'],
-      // 企业功能 ($29.99)
-      'team_management': ['enterprise'],
-      'api_access': ['enterprise'],
-      'custom_reports': ['enterprise'],
-      'priority_support': ['enterprise'],
-    };
-
-    const allowedTiers = featurePermissions[feature];
-    return allowedTiers ? allowedTiers.includes(tier) : false;
-  };
-
-  // 会员升级函数
-  const upgradeMembership = async (tier: MembershipTier): Promise<{ success: boolean; error?: string; paymentUrl?: string }> => {
-    try {
-      console.log('🚀 upgradeMembership: 开始会员升级', { tier });
-      console.log('🔍 当前用户信息:', { userId: authState.user?.id, userTier: authState.user?.account_tier });
-
-      const response = await fetch('/api/billing/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // 包含cookies以进行身份验证
-        body: JSON.stringify({
-          tier,
-          successUrl: `${window.location.origin}/profile?upgrade=success`,
-          cancelUrl: `${window.location.origin}/pricing?canceled=true`,
-        }),
-      });
-
-      console.log('📡 API响应状态:', response.status, response.statusText);
-      console.log('📡 响应头:', Object.fromEntries(response.headers.entries()));
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('✅ 升级会话创建成功:', data);
-        return { success: true, paymentUrl: data.url };
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('❌ 升级会话创建失败:', errorData);
-        return { success: false, error: errorData.error || errorData.debug || 'Failed to create checkout session' };
-      }
-    } catch (error) {
-      console.error('💥 upgradeMembership: 网络异常', error);
-      return { success: false, error: 'Network error. Please try again.' };
-    }
-  };
-
   const contextValue: AuthContextType = {
     ...authState,
     login,
     register,
     logout,
     checkAuth,
-    hasPermission,
-    upgradeMembership,
   };
 
   return (

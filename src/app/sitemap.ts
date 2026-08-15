@@ -6,8 +6,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
   const exerciseGuideDate = new Date('2026-08-07T00:00:00.000Z')
+  const guideLibraryDate = new Date('2026-08-09T00:00:00.000Z')
+  const restingGuideDate = new Date('2026-08-09T00:00:00.000Z')
+  const calculatorLaunchDate = new Date('2026-08-09T00:00:00.000Z')
+  const methodologyReviewDate = new Date('2026-08-09T00:00:00.000Z')
+  const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
+  const heartRateVsHrvDate = new Date('2026-08-15T00:00:00.000Z')
   
-  return [
+  const englishPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: contentReviewDate,
@@ -16,9 +22,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/guides`,
-      lastModified: exerciseGuideDate,
+      lastModified: guideLibraryDate,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/target-heart-rate-calculator`,
+      lastModified: calculatorLaunchDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/heart-rate-recovery-calculator`,
+      lastModified: calculatorLaunchDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
@@ -64,13 +82,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/daily-resting-heart-rate-check`,
-      lastModified: contentReviewDate,
+      lastModified: restingGuideDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
     {
+      url: `${baseUrl}/blog/normal-resting-heart-rate-by-age`,
+      lastModified: restingGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/blog/free-online-heart-rate-checker`,
-      lastModified: contentReviewDate,
+      lastModified: methodologyReviewDate,
       changeFrequency: 'monthly',
       priority: 0.85,
     },
@@ -94,7 +118,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog/build-personal-heart-rate-log`,
-      lastModified: newGuideDate,
+      lastModified: personalLogReviewDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
@@ -117,4 +141,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
   ]
+
+  const englishOnlyPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+      lastModified: heartRateVsHrvDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+          'x-default': `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+        },
+      },
+    },
+  ]
+
+  const bilingualPages = englishPages.flatMap((page) => {
+    const englishPath = page.url.slice(baseUrl.length)
+    const spanishUrl = `${baseUrl}/es${englishPath}`
+    const languages = {
+      en: page.url,
+      es: spanishUrl,
+      'x-default': page.url,
+    }
+
+    return [
+      { ...page, alternates: { languages } },
+      { ...page, url: spanishUrl, alternates: { languages } },
+    ]
+  })
+
+  return [...bilingualPages, ...englishOnlyPages]
 }

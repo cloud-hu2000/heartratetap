@@ -70,7 +70,7 @@ export default function RunningHeartRateZonesPage() {
         {
           heading: "Calculate running zones with percent of maximum heart rate",
           content: <>
-            <p>The simplest calculation starts with an estimated maximum: <strong>220 − age</strong>. Multiply that estimate by a percentage to create a boundary. For a 40-year-old, the estimate is 180 BPM. Fifty percent is 90 BPM, 70% is 126 BPM, and 85% is 153 BPM. The resulting general bands are about 90–126 BPM for moderate activity and 126–153 BPM for vigorous activity.</p>
+            <p>The simplest calculation starts with an estimated maximum: <strong>220 − age</strong>. Multiply that estimate by a percentage to create a boundary. The <Link href="/target-heart-rate-calculator">target heart rate calculator</Link> keeps the selected formula beside the result. For a 40-year-old, the estimate is 180 BPM. Fifty percent is 90 BPM, 70% is 126 BPM, and 85% is 153 BPM. The resulting general bands are about 90–126 BPM for moderate activity and 126–153 BPM for vigorous activity.</p>
             <div className="blog-table-wrapper"><table><thead><tr><th>Step</th><th>40-year-old example</th><th>Result</th></tr></thead><tbody>
               <tr><td>Estimate maximum</td><td>220 − 40</td><td>180 BPM</td></tr>
               <tr><td>Moderate band</td><td>180 × 0.50 to 180 × 0.70</td><td>90–126 BPM</td></tr>
@@ -98,7 +98,7 @@ export default function RunningHeartRateZonesPage() {
         {
           heading: "Why a tap reading after running is a delayed snapshot",
           content: <>
-            <p>HeartRateTap estimates BPM from the intervals between deliberate taps. It does not sense blood flow or record an electrocardiogram. During a run, tapping is unsafe and hand movement would make it difficult to match every beat. Only use the <Link href="/">tap-based heart rate calculator</Link> after you have stopped in a safe place and can feel a clear pulse.</p>
+            <p>HeartRateTap estimates BPM from the intervals between deliberate taps. It does not sense blood flow or record an electrocardiogram. During a run, tapping is unsafe and hand movement would make it difficult to match every beat. Only use the tap-based estimator after you have stopped in a safe place and can feel a clear pulse.</p>
             <p>The delay matters immediately. Time passes while you slow down, move off the path, unlock a phone, find the wrist pulse, and begin tapping. Heart rate is already changing during that interval. The displayed estimate therefore describes the beats during the tapping window, not the final minute of running, the workout average, or the peak. A small study of pulse palpation after aerobic exercise found modest average differences under its controlled procedure, but its twelve participants and prompt 10-second checks do not validate every runner, delay, or tapping method.</p>
             <p>Running adds practical sources of error: arm motion, sweat, cold fingers, heavy breathing, and a rapidly falling rate can make the pulse harder to follow. A missed beat makes one interval too long; an extra tap makes another too short. The app can calculate tap timing precisely while the human input is still imperfect. For continuous in-run data, use equipment designed for continuous exercise monitoring.</p>
           </>

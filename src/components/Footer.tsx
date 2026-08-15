@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { localizePath, type AppLocale } from "@/i18n/routing";
 
 export default function Footer() {
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("Footer");
+
   return (
     <footer className="footnote footer-block">
       <div className="footer-head">
@@ -12,32 +17,37 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Heart Rhythm Studio</span>
         </div>
         <div className="footer-links">
-          <Link href="/guides" className="blog-inline-cta">
-            Guides
+          <Link href={localizePath("/target-heart-rate-calculator", locale)} className="blog-inline-cta">
+            {t("targetCalculator")}
           </Link>
-          <Link href="/about" className="blog-inline-cta">
-            About & Editorial Policy
+          <Link href={localizePath("/heart-rate-recovery-calculator", locale)} className="blog-inline-cta">
+            {t("recoveryCalculator")}
           </Link>
-          <Link href="/contact" className="blog-inline-cta">
-            Contact
+          <Link href={localizePath("/guides", locale)} className="blog-inline-cta">
+            {t("guides")}
           </Link>
-          <Link href="/privacy-policy" className="blog-inline-cta">
-            Privacy
+          <Link href={localizePath("/about", locale)} className="blog-inline-cta">
+            {t("about")}
           </Link>
-          <Link href="/terms" className="blog-inline-cta">
-            Terms
+          <Link href={localizePath("/contact", locale)} className="blog-inline-cta">
+            {t("contact")}
+          </Link>
+          <Link href={localizePath("/privacy-policy", locale)} className="blog-inline-cta">
+            {t("privacy")}
+          </Link>
+          <Link href={localizePath("/terms", locale)} className="blog-inline-cta">
+            {t("terms")}
           </Link>
         </div>
       </div>
 
       <p className="footer-text">
-        HeartRateTap estimates BPM from the timing of taps you make while feeling your pulse. It does not sense your
-        heartbeat and is not a medical device. Recent measurements stay in this browser by default.
+        {t("description")}
       </p>
 
       <div className="footer-row footer-row-center">
-        <Link href="/contact" className="footer-label">
-          Contact
+        <Link href={localizePath("/contact", locale)} className="footer-label">
+          {t("contact")}
         </Link>
         <div className="footer-contact">
           <Link href="mailto:cloudhu2000@gmail.com" className="blog-inline-cta">
@@ -47,8 +57,7 @@ export default function Footer() {
       </div>
 
       <p className="footer-text">
-        If you have chest pain, shortness of breath, fainting or another urgent symptom, contact local emergency
-        services; do not wait for or rely on this website.
+        {t("emergency")}
       </p>
 
       <style jsx>{`
@@ -80,6 +89,7 @@ export default function Footer() {
         }
         .footer-links {
           display: flex;
+          flex-wrap: wrap;
           gap: 0.75rem;
         }
         .footer-text {
