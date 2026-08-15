@@ -7,6 +7,10 @@ const URL = "https://www.heartratetap.com/es/write-for-us";
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  robots: {
+    index: false,
+    follow: true
+  },
   alternates: {
     canonical: URL
   },

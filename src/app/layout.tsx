@@ -9,7 +9,7 @@ import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
 import { StructuredData } from "@/components/StructuredData";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { localizePath } from "@/i18n/routing";
+import { hasSpanishVersion, localizePath } from "@/i18n/routing";
 
 export function generateMetadata(): Metadata {
   return {
@@ -68,6 +68,7 @@ export default async function RootLayout({
   const pathname = headers().get("X-HRT-PATHNAME") || "/";
   const englishPath = localizePath(pathname, "en");
   const spanishPath = localizePath(pathname, "es");
+  const spanishVersionAvailable = hasSpanishVersion(pathname);
   const baseUrl = "https://www.heartratetap.com";
 
   return (
@@ -90,7 +91,9 @@ export default async function RootLayout({
         <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
         <link rel="alternate" hrefLang="en" href={`${baseUrl}${englishPath === "/" ? "" : englishPath}`} />
-        <link rel="alternate" hrefLang="es" href={`${baseUrl}${spanishPath}`} />
+        {spanishVersionAvailable && (
+          <link rel="alternate" hrefLang="es" href={`${baseUrl}${spanishPath}`} />
+        )}
         <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${englishPath === "/" ? "" : englishPath}`} />
 
         <StructuredData />

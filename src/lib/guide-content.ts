@@ -71,6 +71,16 @@ export const TOOL_CONTENT: ToolContentEntry[] = [
  */
 export const GUIDE_CONTENT: GuideContentEntry[] = [
   {
+    path: "/blog/heart-rate-vs-heart-rate-variability",
+    label: "Measurement literacy",
+    title: "Understand heart rate vs heart rate variability",
+    description:
+      "Compare two interval patterns with the same average BPM and learn why a tap-based BPM estimate is not an HRV measurement.",
+    cluster: "measurement",
+    primaryKeywordGroup: "heart rate vs heart rate variability; HR vs HRV; can a BPM tool measure HRV",
+    searchIntent: "Understand the difference between average heart rate and beat-to-beat interval variability."
+  },
+  {
     path: "/blog/free-online-heart-rate-checker",
     label: "Methodology",
     title: "How tap timing becomes a BPM estimate",
@@ -203,6 +213,11 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
 ];
 
 export const SEARCH_INTENT_OWNERS = [
+  {
+    ownerPath: "/blog/heart-rate-vs-heart-rate-variability",
+    primaryKeywordGroup: "heart rate vs heart rate variability; HR vs HRV; BPM compared with HRV",
+    redirectAliases: []
+  },
   {
     ownerPath: "/",
     primaryKeywordGroup: "manual tap BPM estimator; tap heart rate calculator",

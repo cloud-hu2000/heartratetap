@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "audit:adsense": "node scripts/verify-adsense-readiness.mjs",
     "sentry:sourcemaps": "sentry-cli sourcemaps upload --org cloudhu --project javascript-nextjs --release=$npm_package_version ./.next/static/chunks",
     "postbuild": "node -e \"if (process.env.SENTRY_AUTH_TOKEN) require('child_process').execSync('npm run sentry:sourcemaps', { stdio: 'inherit' }); else console.log('Skipping sentry sourcemaps upload (SENTRY_AUTH_TOKEN not set)');\""
   },

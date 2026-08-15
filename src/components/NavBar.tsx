@@ -5,13 +5,12 @@ import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { localizePath, type AppLocale } from "@/i18n/routing";
+import { hasSpanishVersion, localizePath, type AppLocale } from "@/i18n/routing";
 
 const CONTENT_LINKS = [
   { href: "/guides", label: "guides" },
   { href: "/target-heart-rate-calculator", label: "targetCalculator" },
   { href: "/heart-rate-recovery-calculator", label: "recoveryCalculator" },
-  { href: "/write-for-us", label: "writeForUs" },
   { href: "/about", label: "about" }
 ] as const;
 
@@ -89,13 +88,15 @@ export default function NavBar() {
             {t("signIn")}
           </Link>
         )}
-        <Link
-          href={localizePath(pathname, locale === "en" ? "es" : "en")}
-          className="nav-link nav-language-link"
-          hrefLang={locale === "en" ? "es" : "en"}
-        >
-          {t("language")}
-        </Link>
+        {hasSpanishVersion(pathname) && (
+          <Link
+            href={localizePath(pathname, locale === "en" ? "es" : "en")}
+            className="nav-link nav-language-link"
+            hrefLang={locale === "en" ? "es" : "en"}
+          >
+            {t("language")}
+          </Link>
+        )}
       </nav>
     </header>
   );

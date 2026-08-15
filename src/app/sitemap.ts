@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const calculatorLaunchDate = new Date('2026-08-09T00:00:00.000Z')
   const methodologyReviewDate = new Date('2026-08-09T00:00:00.000Z')
   const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
-  const guestPostPageDate = new Date('2026-08-12T00:00:00.000Z')
+  const heartRateVsHrvDate = new Date('2026-08-15T00:00:00.000Z')
   
   const englishPages: MetadataRoute.Sitemap = [
     {
@@ -47,12 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/contact`,
       lastModified: contactPageDate,
-      changeFrequency: 'yearly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/write-for-us`,
-      lastModified: guestPostPageDate,
       changeFrequency: 'yearly',
       priority: 0.6,
     },
@@ -148,7 +142,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  return englishPages.flatMap((page) => {
+  const englishOnlyPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+      lastModified: heartRateVsHrvDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+          'x-default': `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
+        },
+      },
+    },
+  ]
+
+  const bilingualPages = englishPages.flatMap((page) => {
     const englishPath = page.url.slice(baseUrl.length)
     const spanishUrl = `${baseUrl}/es${englishPath}`
     const languages = {
@@ -162,4 +171,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { ...page, url: spanishUrl, alternates: { languages } },
     ]
   })
+
+  return [...bilingualPages, ...englishOnlyPages]
 }

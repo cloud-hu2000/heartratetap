@@ -29,9 +29,6 @@ export default function Footer() {
           <Link href={localizePath("/about", locale)} className="blog-inline-cta">
             {t("about")}
           </Link>
-          <Link href={localizePath("/write-for-us", locale)} className="blog-inline-cta">
-            {t("writeForUs")}
-          </Link>
           <Link href={localizePath("/contact", locale)} className="blog-inline-cta">
             {t("contact")}
           </Link>

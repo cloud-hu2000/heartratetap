@@ -3,11 +3,13 @@
 This file documents the site state expected before requesting another AdSense review. It is an operational checklist,
 not a guarantee that Google will approve the site.
 
-## Decision — not ready until deployment and owner checks
+## Decision — code ready; do not request review until production passes
 
-The repository is **ready after deployment and account checks**, but the live site is not yet at parity with the
-repository. Do not request another review until the current commit is deployed, every sitemap URL returns 200 in a
-logged-out browser, and the owner-only checks below are confirmed.
+The repository is **ready after deployment and account checks**, but the live site is not at parity with this build.
+On August 15, 2026, the automated crawler check passed all 43 expected canonical publisher URLs in the local production
+build. The same check found only 18 of those URLs in the production sitemap, with 25 current routes absent. Do not
+request another review until the current commit is deployed, `npm run audit:adsense -- https://www.heartratetap.com`
+exits successfully, and the owner-only checks below are confirmed.
 
 ### Findings ordered by severity
 
@@ -19,12 +21,11 @@ logged-out browser, and the owner-only checks below are confirmed.
 
 **High risks**
 
-- `ADS-UX-01`: the production navigation still predates the repository's mobile menu improvement. The repository now
-  uses an accessible collapsed menu below 960px and prioritizes guides and working calculators without changing
-  established page titles or heading copy. Deploy and test this before review.
-- `ADS-CRAWL-01`: on August 9, 2026, the current production content URLs sampled with a `Mediapartners-Google` user agent
-  returned 200, but `/target-heart-rate-calculator` returned 404 because the calculator commit had not been deployed.
-  The local production build now generates both calculator routes. Deployment is the exact fix.
+- `ADS-UX-01`: the production homepage still lacks the repository's accessible mobile-menu control and direct links to
+  the two working calculators. Deploy the current build and test the collapsed menu at narrow widths before review.
+- `ADS-CRAWL-01`: on August 15, 2026, all 18 URLs in the production sitemap returned 200 to a
+  `Mediapartners-Google` user agent, but production is missing 25 routes from the current 43-URL publisher baseline,
+  including both calculators, the age-reference guide and all Spanish canonical pages. Deployment is the exact fix.
 - `ADS-PRIV-04`: analytics already waits for consent, but Google advertising must remain disabled until a Google-certified
   consent solution is configured for applicable EEA/UK traffic and both accepted and rejected sessions are tested.
 
@@ -38,7 +39,7 @@ logged-out browser, and the owner-only checks below are confirmed.
 
 ### Low-value-content remediation evidence
 
-- Thirteen canonical guide articles contain approximately 949–2,067 substantive English words in source before shared
+- Fourteen canonical guide articles contain at least 800 substantive English words in source before shared
   navigation, metadata and footer copy. Each has a distinct search intent, visible publication/review information,
   authoritative sources and explicit product or health limitations.
 - The target-heart-rate and heart-rate-recovery landing pages place a working calculator before their supporting copy and
@@ -46,14 +47,20 @@ logged-out browser, and the owner-only checks below are confirmed.
 - The methodology article now includes a first-party interactive interval explorer that applies the repository's actual
   `60,000 ÷ average interval` calculation and demonstrates one late tap and one missed beat without claiming clinical
   validation.
+- The HR-versus-HRV guide includes an original interval demonstration in which two patterns retain the same average BPM
+  while their spacing changes, making the product boundary visible without presenting the tap series as clinical HRV.
 - The personal-log guide now offers a blank CSV with only relevant field headings; it contains no fabricated observations
   or health claims.
 - A five-word-shingle comparison across the canonical articles found a maximum pairwise similarity of 1.74%, supporting
   that the articles are not template copies despite necessary recurring safety boundaries.
 - The repository loads no AdSense serving script or ad unit. Publisher content, citations and tools remain the main page
   content.
+- Guest-post solicitation pages are now `noindex`, absent from primary navigation and footer, and excluded from the
+  sitemap. They remain directly accessible for legitimate contributors but are not presented as core publisher content.
+- `npm run audit:adsense -- <base-url>` now checks the full 43-URL publisher baseline, H1 and canonical output,
+  `robots.txt`, `ads.txt`, permanent redirects, excluded screens and premature AdSense serving code.
 
-### Official basis refreshed August 9, 2026
+### Official basis refreshed August 15, 2026
 
 - [AdSense eligibility](https://support.google.com/adsense/answer/9724?hl=en) requires original, high-quality content
   that attracts an audience and compliance with Program policies.
@@ -76,16 +83,25 @@ logged-out browser, and the owner-only checks below are confirmed.
 
 - `/` — complete tap tool, actual interval formula, limitations, cited reference ranges and local-history explanation.
 - `/guides` — curated content hierarchy and responsible-use explanation.
+- `/target-heart-rate-calculator` — a working age/HRR calculator with formulas, examples, limitations and named sources.
+- `/heart-rate-recovery-calculator` — a working timed-difference calculator with protocol-specific interpretation limits.
 - `/blog/free-online-heart-rate-checker` — original, reproducible product methodology.
+- `/blog/heart-rate-vs-heart-rate-variability` — an original same-BPM interval demonstration and a sourced explanation
+  of why average tap BPM is not HRV.
 - `/blog/daily-resting-heart-rate-check` — a distinct comparison routine with a recording template.
+- `/blog/normal-resting-heart-rate-by-age` — population evidence separated from personal and diagnostic interpretation.
 - `/blog/heart-rate-zones-for-running` — exercise context, talk test and post-exercise timing limitation.
 - `/blog/how-to-check-pulse-manually` — a step-by-step manual wrist-pulse technique, repeatability routine and safety limits.
 - `/about` — ownership, editorial standards, corrections and monetization separation.
 - `/contact` — public operator contact channels, correction procedure, privacy-request route and emergency limitation.
 - `/privacy-policy` and `/terms` — data, advertising and service disclosures.
 
+The current build contains 42 URLs across 21 English/Spanish canonical pairs plus the new English-only HR/HRV guide. Its Spanish
+alternate and language switch are intentionally withheld until a reviewed translation exists. The automated check
+therefore requires 43 canonical publisher URLs before production is considered ready.
+
 The former keyword-variant tool and article URLs return permanent redirects to consolidated canonical content and are
-not in the sitemap.
+not in the sitemap. Guest-post solicitation routes are also outside the publisher sitemap and carry `noindex` metadata.
 
 ## Screens that must not receive Google-served ads
 
@@ -102,10 +118,10 @@ Search indexing controls do not replace ad route exclusions.
 
 ## Before requesting review
 
-1. Deploy the commit and wait until production serves the new pages, redirects, `robots.txt`, `sitemap.xml` and
-   `ads.txt`.
-2. Open each sitemap URL in a logged-out/private browser and confirm that it has a visible H1, substantial body content,
-   working navigation and no placeholder state.
+1. Deploy the commit and wait until production serves the 43 expected publisher URLs, redirects, `robots.txt`,
+   `sitemap.xml` and `ads.txt`.
+2. Run `npm run audit:adsense -- https://www.heartratetap.com`. Do not continue until it exits successfully. Then open
+   representative English and Spanish pages in a logged-out/private browser and check mobile navigation visually.
 3. Confirm `/contact` returns HTTP 200, both email links open correctly, and the footer, primary navigation, About,
    Terms and Privacy Policy all link to it.
 4. Confirm the deployed Privacy Policy names third-party vendors, including Google, and states that cookies, web beacons
@@ -122,11 +138,11 @@ Search indexing controls do not replace ad route exclusions.
 10. Review each feedback submission before making it public. New submissions are stored as `pending`; only reviewed
    `planned`, `in_progress` or `shipped` records are returned to public pages.
 
-## Skill audit snapshot — August 9, 2026
+## Skill audit snapshot — August 15, 2026
 
 This is a repository and public-URL audit, not access to the publisher account. `Unknown` items require the account
-owner to verify them before requesting a review. The current decision is **Not ready until deployment and account
-checks; ready after those fixes pass**.
+owner to verify them before requesting a review. The current decision is **code ready; production not ready until the
+43-URL audit and account checks pass**.
 
 | Requirement | Status | Evidence / next action |
 | --- | --- | --- |
@@ -143,19 +159,19 @@ checks; ready after those fixes pass**.
 | ADS-TXT-02 | Pass | ads.txt is deployed at the public root. |
 | ADS-CONTENT-01 | Pass | Original calculators, product methodology, an interactive interval explorer, downloadable blank templates, source-backed guides and explicit limitations provide visitor-relevant value. |
 | ADS-CONTENT-02 | Pass | No copied feed or embedded-only content was found. |
-| ADS-CONTENT-03 | Pass | Home, guide hub, 13 canonical guides and two calculator landing pages contain substantive visible content; all canonical blog sources exceed the project's 800-word floor. |
+| ADS-CONTENT-03 | Pass | The local build includes home, bilingual guide hubs, 14 canonical English guide intents, 13 Spanish guide intents and two working calculator landing pages per language; every canonical English blog source meets the project's 800-word floor. |
 | ADS-CONTENT-04 | Pass | No placeholder or ad-only page found. |
 | ADS-CONTENT-05 | Pass | No Google ad script or ad units are currently rendered. |
 | ADS-CONTENT-06 | Pass | English and Spanish are supported AdSense languages. |
 | ADS-CONTENT-07 | Pass | New feedback is pending until reviewed; pending items are not public. |
 | ADS-CONTENT-08 | Pass | Keyword-variant URLs permanently redirect to canonical content. |
-| ADS-UX-01 | Fail | Repository fix adds an accessible mobile menu and content-first links, but it must be deployed and verified at narrow widths before review. |
+| ADS-UX-01 | Fail | The repository has an accessible mobile menu and content-first calculator links, but the August 15 production homepage does not yet contain that control or those links. Deploy and verify at narrow widths. |
 | ADS-UX-02 | Pass | Tool, guide hub, article links and footer provide clear paths. |
 | ADS-UX-03 | Pass | No fake downloads, deceptive buttons or irrelevant redirects found. |
 | ADS-UX-04 | Pass | No forced download, popup or preference-changing behavior found. |
 | ADS-UX-05 | Pass | About, contact, privacy and terms pages are public. |
 | ADS-UX-06 | Pass | No ad-like slots are present before approval. |
-| ADS-CRAWL-01 | Fail | Current public content samples returned 200, but the not-yet-deployed `/target-heart-rate-calculator` returned 404. Deploy the passing local build and re-crawl every sitemap URL. |
+| ADS-CRAWL-01 | Fail | The local production build passes all 43 expected publisher URLs. Production exposes only 18 of them and is missing 25 current routes, including both calculators, all Spanish canonicals and the new English HR/HRV guide. Deploy, then rerun the automated audit. |
 | ADS-CRAWL-02 | Pass | robots.txt allows Googlebot and public content has no login wall. |
 | ADS-CRAWL-03 | Pass | Content URLs are readable without POST data. |
 | ADS-CRAWL-04 | Pass | Legacy URLs use explicit permanent canonical redirects. |
@@ -203,3 +219,9 @@ checks; ready after those fixes pass**.
 | ADS-PRIV-08 | N/A | No personalized-ad audience implementation is active. |
 | ADS-PRIV-09 | N/A | No housing, employment or credit ad targeting. |
 | ADS-PRIV-10 | N/A | Personalized ads are inactive. |
+
+## Completeness check
+
+- Requirement IDs in the installed skill reference: **73**
+- Requirement IDs in this report: **73**
+- Missing IDs: **none**

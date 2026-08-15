@@ -3,6 +3,10 @@ export const defaultLocale = "en" as const;
 
 export type AppLocale = (typeof locales)[number];
 
+const ENGLISH_ONLY_PATHS = new Set([
+  "/blog/heart-rate-vs-heart-rate-variability"
+]);
+
 export function isAppLocale(value: string | null | undefined): value is AppLocale {
   return locales.includes(value as AppLocale);
 }
@@ -21,6 +25,10 @@ export function localizePath(pathname: string, locale: AppLocale): string {
   return normalized;
 }
 
+export function hasSpanishVersion(pathname: string): boolean {
+  return !ENGLISH_ONLY_PATHS.has(localizePath(pathname, "en"));
+}
+
 export function getAlternates(pathname: string) {
   const englishPath = localizePath(pathname, "en");
   const spanishPath = localizePath(pathname, "es");
@@ -30,7 +38,7 @@ export function getAlternates(pathname: string) {
     canonical: `${baseUrl}${englishPath === "/" ? "" : englishPath}`,
     languages: {
       en: `${baseUrl}${englishPath === "/" ? "" : englishPath}`,
-      es: `${baseUrl}${spanishPath}`,
+      ...(hasSpanishVersion(pathname) ? { es: `${baseUrl}${spanishPath}` } : {}),
       "x-default": `${baseUrl}${englishPath === "/" ? "" : englishPath}`
     }
   };
