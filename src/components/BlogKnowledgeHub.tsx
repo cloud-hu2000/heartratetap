@@ -61,6 +61,19 @@ const BlogKnowledgeHub = () => {
             Hydration, Alcohol, Fever, and Heart Rate Checks
           </Link>
         </li>
+        <li>
+          <Link href="/blog/resting-heart-rate-after-night-shift">
+            Resting Heart Rate After a Night Shift: How to Make a Comparable Check
+          </Link>
+        </li>
+        <li>
+          <Link href="/blog/heart-rate-while-gaming">Heart Rate While Gaming: A Practical Check-In for Players</Link>
+        </li>
+        <li>
+          <Link href="/blog/heart-rate-before-presentation">
+            Heart Rate Before a Presentation: A Calm Check-In for Speakers
+          </Link>
+        </li>
       </ul>
       <p>
         Ready to put it into practice?{" "}

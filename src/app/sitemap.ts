@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const contactPageDate = new Date('2026-08-05T00:00:00.000Z')
   const newGuideDate = new Date('2026-08-06T00:00:00.000Z')
   const lifestyleGuideDate = new Date('2026-08-12T00:00:00.000Z')
+  const scenarioGuideDate = new Date('2026-08-22T00:00:00.000Z')
   
   return [
     {
@@ -101,6 +102,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/blog/hydration-alcohol-fever-heart-rate`,
       lastModified: lifestyleGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/resting-heart-rate-after-night-shift`,
+      lastModified: scenarioGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/heart-rate-while-gaming`,
+      lastModified: scenarioGuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog/heart-rate-before-presentation`,
+      lastModified: scenarioGuideDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },

@@ -95,6 +95,27 @@ const GUIDES = [
     title: "Know when a heart-rate check is not a baseline",
     description:
       "Record hydration, alcohol, fever, and symptoms as context instead of treating an unwell-day pulse as a fitness score."
+  },
+  {
+    href: "/blog/resting-heart-rate-after-night-shift",
+    label: "Shift work",
+    title: "Make a post-night-shift pulse check comparable",
+    description:
+      "Keep shift, sleep, caffeine and recovery context beside a calm reading instead of comparing it with a daytime baseline."
+  },
+  {
+    href: "/blog/heart-rate-while-gaming",
+    label: "Gaming and esports",
+    title: "Use a before-and-after gaming check-in",
+    description:
+      "Record game type and conditions at a natural pause without treating a tap estimate as continuous monitoring."
+  },
+  {
+    href: "/blog/heart-rate-before-presentation",
+    label: "Speaking and work",
+    title: "Keep a presentation pulse in context",
+    description:
+      "Make a calm check-in before or after a talk without turning one number into a readiness or performance score."
   }
 ];
 
