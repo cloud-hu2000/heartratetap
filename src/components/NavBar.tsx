@@ -8,7 +8,10 @@ const LANG_STORAGE_KEY = "heartratetap-lang";
 
 export default function NavBar() {
   const [lang, setLang] = useState<"en" | "es">("en");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
+
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -36,8 +39,22 @@ export default function NavBar() {
           Online Heart Rate Monitor
         </Link>
       </div>
-      <nav className="nav-right" aria-label="Primary">
-        <Link href="/" className="nav-link" style={{ textDecoration: "none" }}>
+      <button
+        type="button"
+        className="nav-toggle"
+        aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={mobileMenuOpen}
+        aria-controls="primary-navigation"
+        onClick={() => setMobileMenuOpen((open) => !open)}
+      >
+        <span aria-hidden="true">{mobileMenuOpen ? "×" : "☰"}</span>
+      </button>
+      <nav
+        id="primary-navigation"
+        className={`nav-right ${mobileMenuOpen ? "nav-right-open" : ""}`}
+        aria-label="Primary"
+      >
+        <Link href="/" className="nav-link" style={{ textDecoration: "none" }} onClick={closeMobileMenu}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
           </svg>
@@ -76,19 +93,19 @@ export default function NavBar() {
             <option value="es">ES — Español</option>
           </select>
         </div>
-        <Link href="/pricing" className="nav-link" style={{ textDecoration: "none" }}>
+        <Link href="/pricing" className="nav-link" style={{ textDecoration: "none" }} onClick={closeMobileMenu}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
           Pricing
         </Link>
-        <Link href="/guides" className="nav-link" style={{ textDecoration: "none" }}>
+        <Link href="/guides" className="nav-link" style={{ textDecoration: "none" }} onClick={closeMobileMenu}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M12 1L3 5v6c0 5.25 3.84 10.74 9 12 5.16-1.26 9-6.75 9-12V5l-9-4z"/>
           </svg>
           Guides
         </Link>
-        <Link href="/contact" className="nav-link" style={{ textDecoration: "none" }}>
+        <Link href="/contact" className="nav-link" style={{ textDecoration: "none" }} onClick={closeMobileMenu}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
             <path fill="currentColor" d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
@@ -102,6 +119,7 @@ export default function NavBar() {
               href="/profile"
               className="nav-link user-button"
               style={{ textDecoration: "none" }}
+              onClick={closeMobileMenu}
             >
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
                 <path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14C13.66 14 15 15.34 15 17C15 18.66 13.66 20 12 20C10.34 20 9 18.66 9 17C9 15.34 10.34 14 12 14Z"/>
@@ -109,7 +127,10 @@ export default function NavBar() {
               {user.name || user.email.split('@')[0]}
             </Link>
             <button
-              onClick={logout}
+              onClick={() => {
+                closeMobileMenu();
+                logout();
+              }}
               className="nav-link logout-button"
               style={{ textDecoration: "none" }}
             >
@@ -124,6 +145,7 @@ export default function NavBar() {
             href="/login"
             className="nav-link auth-button pill"
             style={{ textDecoration: "none" }}
+            onClick={closeMobileMenu}
           >
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style={{marginRight:8}}>
               <path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14C13.66 14 15 15.34 15 17C15 18.66 13.66 20 12 20C10.34 20 9 18.66 9 17C9 15.34 10.34 14 12 14Z"/>
@@ -168,6 +190,9 @@ export default function NavBar() {
           display: flex;
           gap: 0.75rem;
           align-items: center;
+        }
+        .nav-toggle {
+          display: none;
         }
         .nav-link {
           color: var(--ink, #000);
@@ -233,9 +258,75 @@ export default function NavBar() {
         .nav-right > :not(:last-child) {
           margin-right: 0;
         }
-        @media (max-width: 720px) {
-          .nav-right { gap: 0.4rem; }
-          .nav-title { font-size: 0.95rem; }
+        @media (max-width: 1023px) {
+          .nav {
+            padding: 0 0.75rem;
+            gap: 0.5rem;
+          }
+          .nav-left {
+            min-width: 0;
+            flex: 1;
+          }
+          .nav-left :global(.nav-title) {
+            font-size: 0.9rem;
+            max-width: calc(100vw - 6.5rem);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+            border: 0;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+          }
+          .nav-toggle:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+          }
+          .nav-right {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            background: var(--accent, #0f8c8c);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
+          }
+          .nav-right.nav-right-open {
+            display: flex;
+          }
+          .nav-right :global(.nav-link) {
+            min-height: 44px;
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+          }
+          .nav-lang {
+            min-height: 44px;
+            padding: 0 0.85rem;
+          }
+          .lang-select {
+            min-height: 40px;
+            flex: 1;
+          }
+          .user-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+          }
         }
       `}</style>
     </header>

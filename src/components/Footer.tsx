@@ -114,6 +114,21 @@ export default function Footer() {
             flex-direction: column;
             align-items: flex-start;
           }
+          .footer-links {
+            gap: 0.25rem;
+            flex-wrap: wrap;
+          }
+          .footer-brand {
+            flex-wrap: wrap;
+          }
+          .footer-links :global(.blog-inline-cta),
+          .footer-label,
+          .footer-contact :global(.blog-inline-cta) {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0 0.45rem;
+          }
         }
       `}</style>
     </footer>

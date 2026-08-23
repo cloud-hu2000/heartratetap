@@ -61,7 +61,7 @@ body {
 .canvas {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
 }
 
@@ -594,8 +594,18 @@ body {
 
 .seo-content {
   max-width: 900px;
+  width: 100%;
+  min-width: 0;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (max-width: 360px) {
+  .seo-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }
 
 .seo-content table {
@@ -2575,6 +2585,7 @@ input[type="password"]:focus {
 
 /* Page Layout */
 .pricing-page {
+  width: 100%;
   min-height: 100vh;
   background: var(--bg);
   padding: 2rem 1rem;
@@ -3369,4 +3380,3 @@ input[type="password"]:focus {
     font-size: 1rem;
   }
 }
-

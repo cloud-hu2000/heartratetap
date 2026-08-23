@@ -146,6 +146,8 @@ const CookieConsent = () => {
         }
         .cookie-consent__card {
           width: min(960px, 92vw);
+          max-height: calc(100dvh - 2rem);
+          overflow-y: auto;
           background: #111;
           color: #fff;
           border: 1px solid rgba(255, 255, 255, 0.08);
@@ -205,12 +207,24 @@ const CookieConsent = () => {
           flex-wrap: wrap;
           justify-content: flex-end;
         }
+        .cookie-consent__actions .pill {
+          min-height: 44px;
+        }
+        .cookie-consent__actions .pill:not(.active) {
+          background: rgba(255, 255, 255, 0.14);
+          border-color: rgba(255, 255, 255, 0.45);
+          color: #fff;
+        }
         @media (max-width: 720px) {
           .cookie-consent__card {
             grid-template-columns: 1fr;
           }
           .cookie-consent__actions {
+            flex-direction: column;
             justify-content: flex-start;
+          }
+          .cookie-consent__actions .pill {
+            width: 100%;
           }
         }
       `}</style>
@@ -219,4 +233,3 @@ const CookieConsent = () => {
 };
 
 export default CookieConsent;
-
