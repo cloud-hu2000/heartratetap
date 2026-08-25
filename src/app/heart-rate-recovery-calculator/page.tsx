@@ -223,6 +223,7 @@ export default function HeartRateRecoveryCalculatorPage() {
           <section className="blog-section">
             <h2>Related measurement guides</h2>
             <div className="tool-link-grid">
+              <Link href="/blog/how-to-measure-heart-rate-recovery">How to measure heart rate recovery</Link>
               <Link href="/blog/how-to-check-pulse-manually">How to check a pulse manually</Link>
               <Link href="/blog/build-personal-heart-rate-log">Build a personal heart-rate log</Link>
               <Link href="/blog/heart-rate-zones-for-running">Running heart rate zones</Link>

@@ -111,6 +111,16 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
     searchIntent: "Create a repeatable routine for comparing personal resting-rate observations."
   },
   {
+    path: "/blog/factors-that-affect-resting-heart-rate",
+    label: "Changing conditions",
+    title: "Understand what affects resting heart rate",
+    description:
+      "Separate measurement conditions, sleep, stress, caffeine, activity, temperature, illness, hydration and medication context from a diagnosis.",
+    cluster: "resting",
+    primaryKeywordGroup: "factors that affect resting heart rate; why resting heart rate changes; what changes resting pulse",
+    searchIntent: "Understand why a resting heart-rate observation can change and what context belongs beside it."
+  },
+  {
     path: "/blog/normal-resting-heart-rate-by-age",
     label: "Age reference",
     title: "Understand normal resting heart rate by age",
@@ -149,6 +159,26 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
     cluster: "resting",
     primaryKeywordGroup: "how seniors check pulse; pulse check for older adults; elderly pulse routine",
     searchIntent: "Learn a comfortable manual pulse routine for an older adult."
+  },
+  {
+    path: "/blog/target-heart-rate-formulas-compared",
+    label: "Formula comparison",
+    title: "Compare target heart rate formulas",
+    description:
+      "Compare 220 minus age, the Tanaka maximum estimate and Karvonen heart rate reserve with worked examples and clear limits.",
+    cluster: "training",
+    primaryKeywordGroup: "target heart rate formulas compared; 220 minus age vs Tanaka; Karvonen vs percent maximum",
+    searchIntent: "Compare common target heart-rate formulas and understand why their BPM results differ."
+  },
+  {
+    path: "/blog/how-to-measure-heart-rate-recovery",
+    label: "Recovery protocol",
+    title: "Measure heart rate recovery at 1 or 2 minutes",
+    description:
+      "Choose an exercise endpoint, recovery action, interval and measurement method before calculating a clearly labeled BPM change.",
+    cluster: "training",
+    primaryKeywordGroup: "how to measure heart rate recovery; one minute heart rate recovery test; two minute heart rate recovery",
+    searchIntent: "Learn a repeatable protocol for measuring a 1- or 2-minute post-exercise heart-rate change."
   },
   {
     path: "/blog/heart-rate-zones-for-running",
@@ -213,6 +243,21 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
 ];
 
 export const SEARCH_INTENT_OWNERS = [
+  {
+    ownerPath: "/blog/how-to-measure-heart-rate-recovery",
+    primaryKeywordGroup: "how to measure heart rate recovery; one-minute and two-minute recovery protocol",
+    redirectAliases: []
+  },
+  {
+    ownerPath: "/blog/target-heart-rate-formulas-compared",
+    primaryKeywordGroup: "target heart rate formulas compared; 220 minus age vs Tanaka vs Karvonen",
+    redirectAliases: []
+  },
+  {
+    ownerPath: "/blog/factors-that-affect-resting-heart-rate",
+    primaryKeywordGroup: "factors that affect resting heart rate; why resting heart rate changes",
+    redirectAliases: []
+  },
   {
     ownerPath: "/blog/heart-rate-vs-heart-rate-variability",
     primaryKeywordGroup: "heart rate vs heart rate variability; HR vs HRV; BPM compared with HRV",

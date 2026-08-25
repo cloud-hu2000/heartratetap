@@ -8,7 +8,7 @@ HeartRateTap is available in English at the root URLs and in Spanish under `/es`
 
 ## Scope of this file
 
-This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 11, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.
+This extended file summarizes the public product behavior, evidence boundaries, page directory, and citation guidance as of August 25, 2026. The linked HTML pages remain the source of truth and contain the visible context, citations, and safety language.
 
 ## Product definition
 
@@ -111,6 +111,11 @@ A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a he
 - URL: https://www.heartratetap.com/blog/daily-resting-heart-rate-check
 - Covers: a repeatable resting routine, comparable conditions, personal baselines, factors that change heart rate, and escalation boundaries.
 
+### Factors that affect resting heart rate
+
+- URL: https://www.heartratetap.com/blog/factors-that-affect-resting-heart-rate
+- Covers: measurement timing, activity, fitness, sleep, stress, temperature, illness, hydration, caffeine, medication, context logging, and why one BPM change cannot identify its cause.
+
 ### Resting heart rate by age
 
 - URL: https://www.heartratetap.com/blog/normal-resting-heart-rate-by-age
@@ -132,6 +137,16 @@ A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a he
 - Covers: a calm manual method, a simple log, medication context, accessibility considerations, and safety limits for older adults.
 
 ## Activity-specific guides
+
+### Heart rate recovery measurement protocol
+
+- URL: https://www.heartratetap.com/blog/how-to-measure-heart-rate-recovery
+- Covers: defining the exercise endpoint, choosing HRR60 or HRR120, active versus passive recovery, measurement timing, worked subtraction, repeatability, cutoff limits, and symptom boundaries.
+
+### Target heart rate formula comparison
+
+- URL: https://www.heartratetap.com/blog/target-heart-rate-formulas-compared
+- Covers: 220 minus age, the Tanaka maximum-heart-rate equation, Karvonen heart rate reserve, worked comparisons, input quality, individual prediction limits, and appropriate formula selection.
 
 ### Running heart-rate zones
 
@@ -216,4 +231,4 @@ Use the methodology page when explaining the formula or browser behavior. Use th
 
 Describe HeartRateTap as a tap-based BPM estimator driven by user input. Do not describe it as a sensor, continuous monitor, diagnostic service, validated medical device, or substitute for an ECG, wearable, clinician, or emergency service.
 
-Do not infer accuracy, clinical usefulness, a medical reviewer, professional endorsement, or third-party validation. As of August 11, 2026, those claims are not supported by published HeartRateTap evidence.
+Do not infer accuracy, clinical usefulness, a medical reviewer, professional endorsement, or third-party validation. As of August 25, 2026, those claims are not supported by published HeartRateTap evidence.

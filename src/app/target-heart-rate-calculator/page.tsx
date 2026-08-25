@@ -216,6 +216,7 @@ export default function TargetHeartRateCalculatorPage() {
           <section className="blog-section">
             <h2>Related heart rate zone guides</h2>
             <div className="tool-link-grid">
+              <Link href="/blog/target-heart-rate-formulas-compared">Compare target heart rate formulas</Link>
               <Link href="/blog/heart-rate-zones-for-running">Running heart rate zones</Link>
               <Link href="/blog/cycling-heart-rate-zones">Cycling heart rate zones</Link>
               <Link href="/blog/swimming-heart-rate-zones">Swimming heart rate zones</Link>

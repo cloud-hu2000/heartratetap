@@ -20,6 +20,7 @@
 
 - [How to check a pulse manually](https://www.heartratetap.com/blog/how-to-check-pulse-manually): A repeatable wrist-pulse method, counting alternatives, common mistakes, and symptom-based limits.
 - [Daily resting heart-rate check](https://www.heartratetap.com/blog/daily-resting-heart-rate-check): A consistent resting routine, context log, personal comparison approach, and escalation boundaries.
+- [Factors that affect resting heart rate](https://www.heartratetap.com/blog/factors-that-affect-resting-heart-rate): Explains measurement, sleep, stress, caffeine, activity, temperature, illness, hydration, posture, and medication context without diagnosing changes.
 - [Normal resting heart rate by age](https://www.heartratetap.com/blog/normal-resting-heart-rate-by-age): Separates population patterns from adult reference ranges and explains why age, conditions, and personal context matter.
 - [Build a personal heart-rate log](https://www.heartratetap.com/blog/build-personal-heart-rate-log): Fields and context for a useful manual-measurement record without false precision.
 - [Discuss manual measurements with a doctor](https://www.heartratetap.com/blog/talk-to-doctor-manual-heart-rate-data): How to summarize readings, context, medicines, symptoms, and questions for a health-care visit.
@@ -27,6 +28,8 @@
 
 ## Activity guides
 
+- [How to measure heart rate recovery](https://www.heartratetap.com/blog/how-to-measure-heart-rate-recovery): Defines exercise endpoints, 60- and 120-second intervals, recovery actions, measurement timing, calculations, and protocol-specific interpretation limits.
+- [Target heart rate formulas compared](https://www.heartratetap.com/blog/target-heart-rate-formulas-compared): Compares 220 minus age, Tanaka maximum heart rate, and Karvonen heart rate reserve with worked examples.
 - [Running heart-rate zones](https://www.heartratetap.com/blog/heart-rate-zones-for-running): Age-predicted zone calculations, running use cases, recovery delay, and tap-estimate limitations.
 - [Cycling heart-rate zones](https://www.heartratetap.com/blog/cycling-heart-rate-zones): General cycling zones, session examples, perceived effort, and post-ride measurement limits.
 - [Swimming heart-rate zones](https://www.heartratetap.com/blog/swimming-heart-rate-zones): Sport-specific considerations, safe post-lap measurement, and limits of copying running zones.
@@ -48,7 +51,7 @@
 - Recovery results are arithmetic differences between documented time points, not diagnoses or pass/fail scores.
 - The active calculation keeps up to 16 tap timestamps and checks recent 5- and 10-second windows.
 - Ten taps are an interface prompt for a more repeatable sample, not a validated accuracy threshold.
-- No accuracy percentage or medical-device validation study has been published as of August 11, 2026.
+- No accuracy percentage or medical-device validation study has been published as of August 25, 2026.
 - Locked values can be stored locally in the browser; clearing site data can remove that history.
 - HeartRateTap cannot diagnose rhythm problems or measure blood pressure, blood oxygen, pulse strength, or electrical activity.
 

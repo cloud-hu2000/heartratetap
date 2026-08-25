@@ -172,7 +172,9 @@ export default function DailyRestingHeartRatePage() {
             A population range is context, not a personal diagnosis. A single value inside the range cannot prove that
             everything is fine, and one value outside it does not identify a disease. Your symptoms, usual baseline,
             medical history and medication matter. The <Link href="/blog/normal-resting-heart-rate-by-age">resting heart
-            rate by age guide</Link> separates childhood trends, adult references and population averages.
+            rate by age guide</Link> separates childhood trends, adult references and population averages. The guide to{" "}
+            <Link href="/blog/factors-that-affect-resting-heart-rate">factors that affect resting heart rate</Link> explains
+            which measurement and lifestyle details belong beside a changed value.
           </p>
           <p className="blog-note">
             If you take medication that affects heart rate or have a heart condition, ask your health professional what

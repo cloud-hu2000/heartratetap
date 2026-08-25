@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const methodologyReviewDate = new Date('2026-08-09T00:00:00.000Z')
   const personalLogReviewDate = new Date('2026-08-09T00:00:00.000Z')
   const heartRateVsHrvDate = new Date('2026-08-15T00:00:00.000Z')
+  const p1GuideDate = new Date('2026-08-25T00:00:00.000Z')
   
   const englishPages: MetadataRoute.Sitemap = [
     {
@@ -143,6 +144,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const englishOnlyPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog/how-to-measure-heart-rate-recovery`,
+      lastModified: p1GuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/how-to-measure-heart-rate-recovery`,
+          'x-default': `${baseUrl}/blog/how-to-measure-heart-rate-recovery`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/blog/target-heart-rate-formulas-compared`,
+      lastModified: p1GuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/target-heart-rate-formulas-compared`,
+          'x-default': `${baseUrl}/blog/target-heart-rate-formulas-compared`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/blog/factors-that-affect-resting-heart-rate`,
+      lastModified: p1GuideDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/factors-that-affect-resting-heart-rate`,
+          'x-default': `${baseUrl}/blog/factors-that-affect-resting-heart-rate`,
+        },
+      },
+    },
     {
       url: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
       lastModified: heartRateVsHrvDate,

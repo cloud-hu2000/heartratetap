@@ -4,13 +4,13 @@
 
 ## Coverage
 
-The site exposes 21 canonical, indexable URLs in its sitemap. Twenty high-value URLs are selected for `llms.txt`: the core estimator, two P1 calculators, the guide library, 13 editorial guides, and the about, contact, and privacy trust pages.
+The sitemap exposes 46 canonical, indexable URLs: 25 English pages and 21 Spanish equivalents. Twenty-six high-value links are selected for `llms.txt`, including language entry points, the core estimator, two calculators, the guide library, 16 editorial guides, and trust pages.
 
-The extended `llms-full.txt` adds deeper product behavior, formula boundaries, safety context, authorship, source, and citation guidance. It now includes the same three P1 additions as the concise file.
+The extended `llms-full.txt` adds deeper product behavior, formula boundaries, safety context, authorship, source, and citation guidance. It now includes the three August 25 P1 guides covering recovery measurement, target-rate formulas and resting-rate factors.
 
 ## Prioritization
 
-The concise file leads with task-completion pages, then groups editorial content by manual measurement, activity, and trust intent. P1 calculator descriptions identify what each result computes and explicitly avoid diagnostic or clearance claims. The new resting-rate-by-age entry distinguishes population context from individual diagnosis.
+The concise file leads with language and task-completion pages, then groups editorial content by manual measurement, activity, and trust intent. Calculator and supporting-guide descriptions identify what each result computes and explicitly avoid diagnostic or clearance claims.
 
 ## Excluded or borderline pages
 
@@ -21,4 +21,4 @@ The concise file leads with task-completion pages, then groups editorial content
 
 Review the concise file monthly while the guide library is active, and update both files in the same release as any new calculator, search-facing landing page, major methodology change, or editorial-policy change. Stable legal and trust sections can be reviewed quarterly.
 
-**Generated:** August 11, 2026
+**Generated:** August 25, 2026
