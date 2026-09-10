@@ -1,79 +1,26 @@
 import Link from "next/link";
+import { getRelatedGuides } from "@/lib/guide-content";
 
-const BlogKnowledgeHub = () => {
+const BlogKnowledgeHub = ({ currentPath }: { currentPath: string }) => {
+  const relatedGuides = getRelatedGuides(currentPath);
+
   return (
     <section className="blog-section">
-      <h2>HeartRateTap Knowledge Hub</h2>
+      <h2>Related heart rate guides</h2>
       <p>
-        Continue with a guide that answers a different question, or browse the curated library. Closely related
-        instructions stay together so you do not have to compare repeated versions of the same article.
+        Continue with a closely related question, or browse the full library. Each guide has a distinct job so that
+        measurement technique, personal tracking, exercise context and product methodology remain easy to distinguish.
       </p>
       <div className="tool-link-grid">
         <Link href="/">Use the tap-based BPM calculator</Link>
         <Link href="/guides">Browse all guides</Link>
       </div>
       <ul>
-        <li>
-          <Link href="/blog/free-online-heart-rate-checker">
-            How a Tap-Based Heart Rate Checker Estimates BPM
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-zones-for-running">
-            Heart Rate Zones for Running: Are You Training in the Right Zone?
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/daily-resting-heart-rate-check">
-            Daily Resting Heart Rate Check – A 30-Second Health Habit
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/how-to-check-pulse-manually">
-            How to Check Your Pulse Manually: A Repeatable Wrist-Pulse Method
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/seniors-guide-checking-pulse">A Senior&apos;s Guide to Checking Your Pulse</Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-yoga-meditation">Using HeartRateTap During Yoga and Meditation</Link>
-        </li>
-        <li>
-          <Link href="/blog/manual-heart-rate-checks-team-sports">Manual Heart-Rate Checks for Team Sports</Link>
-        </li>
-        <li>
-          <Link href="/blog/build-personal-heart-rate-log">How to Build a Meaningful Personal Heart-Rate Log</Link>
-        </li>
-        <li>
-          <Link href="/blog/talk-to-doctor-manual-heart-rate-data">
-            How to Talk to Your Doctor About Manual Heart-Rate Measurements
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/poor-sleep-resting-heart-rate">Poor Sleep and Resting Heart Rate: What to Log</Link>
-        </li>
-        <li>
-          <Link href="/blog/stress-resting-heart-rate">Stress and Resting Heart Rate: Find Your Baseline</Link>
-        </li>
-        <li>
-          <Link href="/blog/hydration-alcohol-fever-heart-rate">
-            Hydration, Alcohol, Fever, and Heart Rate Checks
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/resting-heart-rate-after-night-shift">
-            Resting Heart Rate After a Night Shift: How to Make a Comparable Check
-          </Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-while-gaming">Heart Rate While Gaming: A Practical Check-In for Players</Link>
-        </li>
-        <li>
-          <Link href="/blog/heart-rate-before-presentation">
-            Heart Rate Before a Presentation: A Calm Check-In for Speakers
-          </Link>
-        </li>
+        {relatedGuides.map((guide) => (
+          <li key={guide.path}>
+            <Link href={guide.path}>{guide.title}</Link>
+          </li>
+        ))}
       </ul>
       <p>
         Ready to put it into practice?{" "}

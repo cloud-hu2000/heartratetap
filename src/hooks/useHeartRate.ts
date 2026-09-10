@@ -2,8 +2,10 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { ViewMode, HeartRateState } from "@/lib/types";
 import { MIN_BEAT_INTERVAL, BPM_CALCULATION_CONSTANTS } from "@/lib/heart-rate-constants";
 import { computeBpm, computeBpmByCount, isMobileDevice } from "@/lib/heart-rate-utils";
+import { COPY } from "@/lib/constants";
 
-export const useHeartRate = () => {
+export const useHeartRate = (lang: "en" | "es" = "en") => {
+  const t = COPY[lang] as typeof COPY[keyof typeof COPY];
   const [beats, setBeats] = useState<number[]>([]);
   const [isFrozen, setIsFrozen] = useState(false);
   const [frozenBpm, setFrozenBpm] = useState<number | null>(null);
@@ -108,11 +110,11 @@ export const useHeartRate = () => {
     // 精确度提示
     const newBeatCount = beatCount + 1;
     if (newBeatCount >= 10 && !accuracyHint) {
-      setAccuracyHint("You have enough intervals for a more stable estimate.");
+      setAccuracyHint(t.stableHint);
     } else if (newBeatCount === 3 && !accuracyHint) {
-      setAccuracyHint("Keep tapping. Aim for at least 10 beats so one timing error has less influence.");
+      setAccuracyHint(t.keepTappingHint);
     }
-  }, [isFrozen, triggerTapPulse, isMobile, beatCount, accuracyHint]);
+  }, [isFrozen, triggerTapPulse, isMobile, beatCount, accuracyHint, t]);
 
   // 当测量开始时，自动将焦点转移到tap-surface按钮
   useEffect(() => {

@@ -94,7 +94,7 @@ export default function AboutPage() {
           <p>
             Articles and product guidance are written independently of advertisers. Advertising does not determine
             reference ranges, recommendations or which sources we cite. Advertising code is not placed on sign-in,
-            registration, password-reset, account, checkout-success, alert or error screens. Any future ad placement
+            registration, password-reset, account, alert or error screens. Any future ad placement
             must remain visually distinct from navigation and the tap controls.
           </p>
           <p>

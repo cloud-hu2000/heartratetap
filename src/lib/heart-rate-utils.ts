@@ -73,8 +73,8 @@ export const isMobileDevice = (): boolean => {
 /**
  * 格式化日期时间
  */
-export const formatTimestamp = (timestamp: string): string => {
-  return new Date(timestamp).toLocaleString("en-US", {
+export const formatTimestamp = (timestamp: string, locale = "en"): string => {
+  return new Date(timestamp).toLocaleString(locale === "es" ? "es-ES" : "en-US", {
     month: "short",
     day: "2-digit",
     hour: "2-digit",

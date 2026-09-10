@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Terms of Use | HeartRateTap",
-  description: "Terms for using the HeartRateTap wellness tool, local history, accounts, feedback and paid features.",
+  description: "Terms for using the HeartRateTap wellness tool, local history, accounts and feedback.",
   alternates: {
     canonical: "https://www.heartratetap.com/terms"
   }
@@ -43,12 +43,11 @@ export default function TermsPage() {
         </section>
 
         <section className="blog-section">
-          <h2>Accounts, paid features and availability</h2>
+          <h2>Accounts and availability</h2>
           <p>
-            The basic tap measurement is available without an account. Optional account or paid features may change as
-            the product develops. Prices and included features shown at checkout control the purchase. Payment providers
-            process payment information under their own terms. Unless applicable law requires otherwise, access may be
-            suspended for fraud, abuse or a security threat.
+            The tap measurement is available without an account. Optional account features may change as the product
+            develops. Unless applicable law requires otherwise, access may be suspended for fraud, abuse or a security
+            threat.
           </p>
         </section>
 

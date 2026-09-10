@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { useAuth } from "@/contexts/AuthContext";
 import { COPY } from "@/lib/constants";
 import "@/app/HeartRateMonitor.css";
 
@@ -69,7 +67,6 @@ interface HeartRateMonitorProps {
 }
 
 export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonitorProps) {
-  const { hasPermission, user } = useAuth();
   const [viewMode, setViewMode] = useState<ViewMode>("rest");
   const [beats, setBeats] = useState<number[]>([]);
   const [isFrozen, setIsFrozen] = useState(false);
@@ -202,13 +199,6 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
   const exportHistoryToCSV = useCallback(() => {
     if (history.length === 0) return;
 
-    // 检查会员权限
-    if (!hasPermission('export_data')) {
-      // 跳转到新页面显示升级提示
-      window.open('/pricing?feature=export', '_blank');
-      return;
-    }
-
     const csvContent = [
       ["Timestamp", "BPM", "Mode"].join(","),
       ...history.map(entry => [
@@ -227,7 +217,7 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [history, hasPermission]);
+  }, [history]);
 
   // 清除历史数据
   const clearHistory = useCallback(() => {
@@ -353,32 +343,6 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
 
   return (
     <div className="frame">
-      {/* Membership Status Banner */}
-      {user && (
-        <div className="membership-banner">
-          <div className="membership-content">
-            <div className="membership-info">
-              <span className="membership-tier">
-                {user.account_tier === 'free' && 'Free Plan'}
-                {user.account_tier === 'pro' && 'Professional Plan'}
-                {user.account_tier === 'premium' && 'Premium Plan'}
-                {user.account_tier === 'enterprise' && 'Enterprise Plan'}
-              </span>
-              {user.account_tier === 'free' && (
-                <span className="membership-upgrade">
-                  Upgrade for advanced features like data export and personalized reports
-                </span>
-              )}
-            </div>
-            {user.account_tier === 'free' && (
-              <Link href="/pricing" className="membership-upgrade-button">
-                Upgrade Now
-              </Link>
-            )}
-          </div>
-        </div>
-      )}
-
       <section className="panel hero">
         <div className="hero-header">
           <div className="hero-content">

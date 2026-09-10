@@ -24,10 +24,5 @@ export interface UIState {
   isMobile: boolean;
   isFirstTime: boolean;
   showTutorial: boolean;
-  showUpgradePrompt: boolean;
   historyPage: number;
-}
-
-export interface AuthUser {
-  account_tier: 'free' | 'pro' | 'premium' | 'enterprise';
 }

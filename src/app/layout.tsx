@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import * as Sentry from "@sentry/nextjs";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import { headers } from "next/headers";
 import "./globals.css";
 import AnalyticsWithConsent from "@/components/AnalyticsWithConsent";
 import CookieConsent from "@/components/CookieConsent";
 import NavBar from "@/components/NavBar";
 import { StructuredData } from "@/components/StructuredData";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { hasSpanishVersion, localizePath } from "@/i18n/routing";
 
 export function generateMetadata(): Metadata {
   return {
@@ -35,7 +39,7 @@ export function generateMetadata(): Metadata {
       siteName: "HeartRateTap",
       images: [
         {
-          url: "https://www.heartratetap.com/favicon.png",
+          url: "https://www.heartratetap.com/og-heart-rate-tap.png",
           width: 1200,
           height: 630,
           alt: "HeartRateTap manual pulse-timing BPM estimator"
@@ -45,7 +49,8 @@ export function generateMetadata(): Metadata {
     twitter: {
       card: "summary_large_image",
       title: "Manual Tap BPM Estimator | HeartRateTap",
-      description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations."
+      description: "Estimate BPM from your own pulse-timed taps and read the documented calculation and limitations.",
+      images: ["https://www.heartratetap.com/og-heart-rate-tap.png"]
     },
     other: {
       ...Sentry.getTraceData()
@@ -53,13 +58,21 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const pathname = headers().get("X-HRT-PATHNAME") || "/";
+  const englishPath = localizePath(pathname, "en");
+  const spanishPath = localizePath(pathname, "es");
+  const spanishVersionAvailable = hasSpanishVersion(pathname);
+  const baseUrl = "https://www.heartratetap.com";
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -77,18 +90,24 @@ export default function RootLayout({
         />
         <meta name="yandex-verification" content="a65c35f1e7bbadb7" />
         <meta name="google-adsense-account" content="ca-pub-4356459181693102" />
+        <link rel="alternate" hrefLang="en" href={`${baseUrl}${englishPath === "/" ? "" : englishPath}`} />
+        {spanishVersionAvailable && (
+          <link rel="alternate" hrefLang="es" href={`${baseUrl}${spanishPath}`} />
+        )}
+        <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${englishPath === "/" ? "" : englishPath}`} />
 
         <StructuredData />
       </head>
       <body style={{ paddingTop: "56px" }}>
-        <AuthProvider>
-          <NavBar />
-          {children}
-          <AnalyticsWithConsent />
-          <CookieConsent />
-        </AuthProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AuthProvider>
+            <NavBar />
+            {children}
+            <AnalyticsWithConsent />
+            <CookieConsent />
+          </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
 }
-

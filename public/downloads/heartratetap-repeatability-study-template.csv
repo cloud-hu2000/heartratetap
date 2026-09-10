@@ -1,0 +1,1 @@
+session_id,attempt_id,recorded_at_iso,context,posture,pulse_location,tap_count,tap_estimate_bpm,reference_method,reference_device,reference_bpm,absolute_difference_bpm,notes,excluded,exclusion_reason

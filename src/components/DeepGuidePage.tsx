@@ -77,7 +77,7 @@ export default function DeepGuidePage({
           </Link>
         </section>
 
-        <BlogKnowledgeHub />
+        <BlogKnowledgeHub currentPath={path} />
         <ArticleStructuredData
           title={title}
           description={description}

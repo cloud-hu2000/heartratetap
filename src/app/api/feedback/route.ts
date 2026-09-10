@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createFeedback, fetchFeedbackList } from "@/lib/feedback";
+import { createFeedback } from "@/lib/feedback";
 import { notifyNewFeedback } from "@/lib/mailer";
 
 const feedbackSchema = z.object({
@@ -16,23 +16,7 @@ const feedbackSchema = z.object({
 
 // Use Node.js runtime to reduce edge function usage
 export const runtime = 'nodejs';
-// Allow caching for GET requests to reduce database queries
 export const dynamic = "force-dynamic";
-
-export async function GET() {
-  try {
-    const feedback = await fetchFeedbackList();
-    // Cache feedback list for 5 minutes to reduce edge requests
-    return NextResponse.json({ feedback }, {
-      headers: {
-        'Cache-Control': 'public, max-age=300, stale-while-revalidate=600'
-      }
-    });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Unable to fetch feedback" }, { status: 500 });
-  }
-}
 
 export async function POST(request: Request) {
   try {
@@ -54,4 +38,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Submission failed, please try again later" }, { status: 500 });
   }
 }
-

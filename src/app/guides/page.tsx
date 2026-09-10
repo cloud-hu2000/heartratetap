@@ -1,123 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { GUIDE_CLUSTER_META, GUIDE_CLUSTER_ORDER, GUIDE_CONTENT, TOOL_CONTENT } from "@/lib/guide-content";
 
 export const metadata: Metadata = {
   title: "Heart Rate Guides & Tap-Measurement Methodology | HeartRateTap",
   description:
-    "Browse HeartRateTap's original guide to tap-based BPM calculation, a consistent resting-rate routine, and exercise intensity context.",
+    "Use target and recovery calculators, then browse tap-based BPM methodology, resting-rate references and heart rate zone guides.",
   alternates: {
     canonical: "https://www.heartratetap.com/guides"
   }
 };
-
-const GUIDES = [
-  {
-    href: "/blog/free-online-heart-rate-checker",
-    label: "Methodology",
-    title: "How tap timing becomes a BPM estimate",
-    description:
-      "See the interval formula, a worked example, the browser data flow, sources of error and a repeatability checklist."
-  },
-  {
-    href: "/blog/daily-resting-heart-rate-check",
-    label: "Routine",
-    title: "A consistent resting heart rate check",
-    description:
-      "Build a comparable morning routine, record context with each result and learn when a trend deserves professional advice."
-  },
-  {
-    href: "/blog/heart-rate-zones-for-running",
-    label: "Exercise",
-    title: "Using heart rate context around a run",
-    description:
-      "Understand age-predicted ranges, the talk test and the important limitation of taking a tap-based reading after exercise stops."
-  },
-  {
-    href: "/blog/how-to-check-pulse-manually",
-    label: "Technique",
-    title: "How to check a pulse manually",
-    description:
-      "Learn a repeatable wrist-pulse technique, how to count and compare readings, and when a manual estimate is not the right tool."
-  },
-  {
-    href: "/blog/seniors-guide-checking-pulse",
-    label: "Older-adult wellness",
-    title: "A calm manual pulse-check routine for older adults",
-    description:
-      "Build a comfortable, repeatable check, record the surrounding context, and know when a self-check is not enough."
-  },
-  {
-    href: "/blog/heart-rate-yoga-meditation",
-    label: "Yoga and meditation",
-    title: "Use a pulse check without turning practice into a score",
-    description:
-      "Choose a stable moment around yoga or meditation, log it mindfully, and preserve appropriate safety boundaries."
-  },
-  {
-    href: "/blog/manual-heart-rate-checks-team-sports",
-    label: "Team-sport routines",
-    title: "Manual heart-rate checks around team sports",
-    description:
-      "Use consistent recovery checkpoints as context notes, without treating a manual estimate as medical clearance."
-  },
-  {
-    href: "/blog/build-personal-heart-rate-log",
-    label: "Personal tracking",
-    title: "How to build a meaningful personal heart-rate log",
-    description:
-      "Record method, conditions, and symptoms in a small log that supports a responsible health-care conversation."
-  },
-  {
-    href: "/blog/talk-to-doctor-manual-heart-rate-data",
-    label: "Health-care conversations",
-    title: "Discuss manual pulse measurements with a doctor",
-    description:
-      "Prepare a concise timeline, better questions, and clear safety boundaries before a health-care visit."
-  },
-  {
-    href: "/blog/poor-sleep-resting-heart-rate",
-    label: "Sleep context",
-    title: "Log poor sleep without overreading a morning pulse",
-    description:
-      "Use a comparable two-week morning routine and sleep notes without treating one BPM value as a diagnosis."
-  },
-  {
-    href: "/blog/stress-resting-heart-rate",
-    label: "Stress context",
-    title: "Build a calm resting-heart-rate baseline",
-    description:
-      "Separate a scheduled resting check from a stressful moment, then record the difference responsibly."
-  },
-  {
-    href: "/blog/hydration-alcohol-fever-heart-rate",
-    label: "Illness and safety",
-    title: "Know when a heart-rate check is not a baseline",
-    description:
-      "Record hydration, alcohol, fever, and symptoms as context instead of treating an unwell-day pulse as a fitness score."
-  },
-  {
-    href: "/blog/resting-heart-rate-after-night-shift",
-    label: "Shift work",
-    title: "Make a post-night-shift pulse check comparable",
-    description:
-      "Keep shift, sleep, caffeine and recovery context beside a calm reading instead of comparing it with a daytime baseline."
-  },
-  {
-    href: "/blog/heart-rate-while-gaming",
-    label: "Gaming and esports",
-    title: "Use a before-and-after gaming check-in",
-    description:
-      "Record game type and conditions at a natural pause without treating a tap estimate as continuous monitoring."
-  },
-  {
-    href: "/blog/heart-rate-before-presentation",
-    label: "Speaking and work",
-    title: "Keep a presentation pulse in context",
-    description:
-      "Make a calm check-in before or after a talk without turning one number into a readiness or performance score."
-  }
-];
 
 export default function GuidesPage() {
   return (
@@ -136,18 +29,44 @@ export default function GuidesPage() {
         </header>
 
         <section className="blog-section">
-          <h2>Choose a guide by your goal</h2>
+          <h2>Start with a calculator</h2>
+          <p>
+            Use a functional calculator for a formula-based task, then open the supporting guide that matches your
+            measurement method, activity or tracking question.
+          </p>
           <div className="guide-card-grid">
-            {GUIDES.map((guide) => (
-              <article key={guide.href} className="guide-card">
-                <p className="guide-label">{guide.label}</p>
-                <h3>{guide.title}</h3>
-                <p>{guide.description}</p>
-                <Link href={guide.href}>Read the guide</Link>
+            {TOOL_CONTENT.map((tool) => (
+              <article key={tool.path} className="guide-card">
+                <p className="guide-label">{tool.label}</p>
+                <h3>{tool.title}</h3>
+                <p>{tool.description}</p>
+                <Link href={tool.path}>Open the calculator</Link>
               </article>
             ))}
           </div>
         </section>
+
+        {GUIDE_CLUSTER_ORDER.map((cluster) => {
+          const clusterMeta = GUIDE_CLUSTER_META[cluster];
+          const guides = GUIDE_CONTENT.filter((guide) => guide.cluster === cluster);
+
+          return (
+            <section className="blog-section" key={cluster}>
+              <h2>{clusterMeta.title}</h2>
+              <p>{clusterMeta.description}</p>
+              <div className="guide-card-grid">
+                {guides.map((guide) => (
+                  <article key={guide.path} className="guide-card">
+                    <p className="guide-label">{guide.label}</p>
+                    <h3>{guide.title}</h3>
+                    <p>{guide.description}</p>
+                    <Link href={guide.path}>Read the guide</Link>
+                  </article>
+                ))}
+              </div>
+            </section>
+          );
+        })}
 
         <section className="blog-section">
           <h2>What these guides do differently</h2>

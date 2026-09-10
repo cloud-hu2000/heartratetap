@@ -7,7 +7,6 @@ export const useUIState = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
-  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
   const [historyPage, setHistoryPage] = useState(0);
 
   useEffect(() => {
@@ -41,14 +40,12 @@ export const useUIState = () => {
     isMobile,
     isFirstTime,
     showTutorial,
-    showUpgradePrompt,
     historyPage
   };
 
   return {
     state,
     actions: {
-      setShowUpgradePrompt,
       setHistoryPage,
       dismissTutorial
     }

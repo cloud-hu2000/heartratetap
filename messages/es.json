@@ -1,0 +1,59 @@
+{
+  "Nav": {
+    "brand": "Monitor de frecuencia cardíaca en línea",
+    "homeAria": "Inicio de HeartRateTap",
+    "guides": "Guías",
+    "targetCalculator": "Calculadora de frecuencia objetivo",
+    "recoveryCalculator": "Calculadora de recuperación",
+    "writeForUs": "Escribe para nosotros",
+    "about": "Acerca de",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "primaryAria": "Navegación principal",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "language": "English"
+  },
+  "Footer": {
+    "targetCalculator": "Calculadora de frecuencia objetivo",
+    "recoveryCalculator": "Calculadora de recuperación",
+    "guides": "Guías",
+    "about": "Acerca de y política editorial",
+    "writeForUs": "Escribe para nosotros (artículos invitados)",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "description": "HeartRateTap estima los LPM a partir del ritmo de los toques que haces mientras sientes el pulso. No detecta tus latidos y no es un dispositivo médico. Las mediciones recientes permanecen en este navegador de forma predeterminada.",
+    "emergency": "Si tienes dolor en el pecho, dificultad para respirar, desmayos u otro síntoma urgente, contacta con los servicios de emergencia de tu zona; no esperes ni dependas de este sitio web."
+  },
+  "Common": {
+    "loadingFeedback": "Cargando comentarios…"
+  },
+  "Cookie": {
+    "dialogAria": "Diálogo de consentimiento de cookies",
+    "closeAria": "Cerrar el diálogo de cookies",
+    "title": "Cookies y privacidad",
+    "description": "Usamos el almacenamiento del navegador para las preferencias esenciales y el historial local de frecuencia cardíaca. Los análisis opcionales de Google, Ahrefs y Vercel solo se cargan si eliges \"Aceptar todo\". Los registros de errores y seguridad pueden procesarse cuando sean necesarios para operar el servicio. Puedes borrar tu elección en el almacenamiento del navegador. Lee nuestra",
+    "policy": "Política de privacidad",
+    "reject": "Rechazar las no esenciales",
+    "accept": "Aceptar todo"
+  },
+  "Feedback": {
+    "panelAria": "Enviar comentarios sobre el producto",
+    "private": "Comentarios privados",
+    "heading": "Cuéntanos qué podemos mejorar",
+    "close": "Cerrar comentarios",
+    "title": "Título",
+    "titlePlaceholder": "Describe el problema o la sugerencia",
+    "details": "Detalles",
+    "detailsPlaceholder": "Comparte el contexto necesario para entenderlo",
+    "email": "Correo electrónico (opcional)",
+    "emailPlaceholder": "Para responderte si fuera necesario",
+    "sending": "Enviando…",
+    "send": "Enviar comentarios",
+    "titleError": "El título debe tener al menos 4 caracteres.",
+    "detailsError": "Añade un poco más de detalle.",
+    "submitError": "No se pudo enviar; inténtalo de nuevo",
+    "success": "Gracias. Tus comentarios se enviaron de forma privada al equipo."
+  }
+}
