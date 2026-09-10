@@ -455,57 +455,6 @@ export default function ProfilePage() {
                 </div>
               </div>}
 
-            <div style={{
-            display: 'grid',
-            gridTemplateColumns: "(auto-fit, minmax(200px, 1fr))",
-            gap: '0.75rem'
-          }}>
-              <button className="pill" onClick={() => alert("Cambiar la función de contraseña pronto!")} style={{
-              width: '100%',
-              padding: '0.875rem 1rem',
-              fontSize: '0.9rem',
-              fontWeight: '600',
-              border: "1px sólido var(--line)",
-              background: 'var(--card)',
-              color: 'var(--ink)'
-            }}>
-                Cambiar contraseña
-              </button>
-
-              <button className="pill" onClick={() => alert("Actualizar la función de perfil pronto!")} style={{
-              width: '100%',
-              padding: '0.875rem 1rem',
-              fontSize: '0.9rem',
-              fontWeight: '600',
-              border: "1px sólido var(--line)",
-              background: 'var(--card)',
-              color: 'var(--ink)'
-            }}>
-                Actualizar el perfil
-              </button>
-            </div>
-
-            <button className="pill" onClick={() => {
-            if (confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no puede ser desechada.")) {
-              alert("¡La función de eliminación de cuentas pronto!");
-            }
-          }} style={{
-            width: '100%',
-            padding: '0.875rem 1rem',
-            fontSize: '0.9rem',
-            fontWeight: '600',
-            border: "1 px sólido #dc3545",
-            background: '#dc3545',
-            color: '#fff'
-          }} onMouseEnter={e => {
-            (e.target as HTMLElement).style.background = '#c82333';
-            (e.target as HTMLElement).style.borderColor = '#c82333';
-          }} onMouseLeave={e => {
-            (e.target as HTMLElement).style.background = '#dc3545';
-            (e.target as HTMLElement).style.borderColor = '#dc3545';
-          }}>
-              Suprimir la Cuenta
-            </button>
           </div>
         </section>
 

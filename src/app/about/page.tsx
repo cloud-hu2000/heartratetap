@@ -94,8 +94,8 @@ export default function AboutPage() {
           <p>
             Articles and product guidance are written independently of advertisers. Advertising does not determine
             reference ranges, recommendations or which sources we cite. Advertising code is not placed on sign-in,
-            registration, password-reset, account, alert or error screens. Any future ad placement
-            must remain visually distinct from navigation and the tap controls.
+            registration, password-reset, account, alert or error screens. Advertising remains visually distinct from
+            navigation and the tap controls.
           </p>
           <p>
             HeartRateTap has applied to Google AdSense. Google may use cookies or similar identifiers on pages where its

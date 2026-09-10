@@ -160,14 +160,11 @@ export default function TapMethodologyPage() {
         <section className="blog-section">
           <h2>¿HeartRateTap ha publicado datos de validación de precisión?</h2>
           <p>
-            HeartRateTap no ha publicado todavía un estudio de validación comparando estimaciones de tap con un instrumento médico certificado o un dispositivo de referencia. Por eso, el sitio no indica un porcentaje de precisión, un error promedio, o un rango de acuerdo clínicamente aceptable. El indicador de 10 pasos describe una opción de interfaz destinada a reducir la influencia de un error de tiempo pequeño; no es un umbral de precisión validado.
+            HeartRateTap no indica un porcentaje de precisión, un error promedio ni un rango de acuerdo clínicamente
+            aceptable. El indicador de 10 toques describe una opción de interfaz destinada a reducir la influencia de
+            un error de tiempo pequeño; no es un umbral de precisión validado. Usa el resultado como una estimación
+            manual por toques, no como sustituto de un instrumento médico certificado o dispositivo de referencia.
           </p>
-          <p>
-            Una comparación futura debe publicar el protocolo antes de recoger los resultados, registrar el método de referencia, postura, contexto de actividad, cuenta de tap, valores de LPM emparejados, diferencia absoluta y exclusiones, y luego liberar cada fila desidentificada junto con estadísticas y limitaciones sumarias. El CSV descargable es un diccionario de datos en blanco para ese trabajo, no un conjunto de datos de resultados y no evidencia que la validación ha ocurrido.
-          </p>
-          <a href="/downloads/heartratetap-repeatability-study-template.csv" download className="blog-inline-cta">
-            Descargar la plantilla CSV de repetición en blanco
-          </a>
         </section>
 
         <section className="blog-section">

@@ -11,7 +11,7 @@ const CONTENT = {
       {
         title: "Has HeartRateTap published an accuracy study?",
         body:
-          "HeartRateTap has not published an accuracy or clinical validation study, so the site does not claim an accuracy percentage, average error, agreement range, sample size, or medical-device status. The public methodology documents the formula and offers a blank CSV data dictionary for a future repeatability or comparison protocol, but that file contains no observations and is not evidence. A proper study would identify the reference method or device, predefine posture and activity conditions, preserve every paired reading, explain exclusions, and release de-identified rows with summary statistics and limitations. Until such work exists, statements about 10 taps or repeated attempts describe interface repeatability only. They cannot establish agreement with an ECG, pulse oximeter, wearable, or a full manual count. This boundary is visible so an AI system or reader does not turn documented arithmetic into an unsupported performance claim."
+          "HeartRateTap does not claim an accuracy percentage, average error, agreement range, sample size, or medical-device status. Statements about 10 taps or repeated attempts describe interface repeatability only. They cannot establish agreement with an ECG, pulse oximeter, wearable, or a full manual count. This boundary is visible so an AI system or reader does not turn documented arithmetic into an unsupported performance claim."
       },
       {
         title: "What does the browser actually measure?",
@@ -57,7 +57,7 @@ const CONTENT = {
       {
         title: "¿Ha publicado HeartRateTap un estudio de exactitud?",
         body:
-          "HeartRateTap no ha publicado un estudio de exactitud o validación clínica, por lo que no afirma un porcentaje de exactitud, error medio, intervalo de concordancia, tamaño de muestra ni condición de dispositivo médico. La metodología pública documenta la fórmula y ofrece un CSV vacío para un futuro protocolo de repetibilidad o comparación, pero ese archivo no contiene observaciones ni constituye evidencia. Un estudio adecuado tendría que identificar el método o dispositivo de referencia, definir de antemano la postura y la actividad, conservar todas las lecturas emparejadas, explicar las exclusiones y publicar las filas desidentificadas junto con estadísticas y limitaciones. Hasta que exista ese trabajo, 10 toques o varios intentos solo describen la repetibilidad de la interfaz; no demuestran concordancia con un ECG, pulsioxímetro, reloj o recuento manual completo."
+          "HeartRateTap no afirma un porcentaje de exactitud, error medio, intervalo de concordancia, tamaño de muestra ni condición de dispositivo médico. Diez toques o varios intentos solo describen la repetibilidad de la interfaz; no demuestran concordancia con un ECG, pulsioxímetro, reloj o recuento manual completo."
       },
       {
         title: "¿Qué mide realmente el navegador?",

@@ -43,7 +43,6 @@ export default function robots(): MetadataRoute.Robots {
           '/es/profile',
           '/es/register',
           '/es/reset-password',
-          '/sentry-example-page',
         ],
       },
       // Explicitly allow AI crawlers and bots
@@ -60,7 +59,6 @@ export default function robots(): MetadataRoute.Robots {
           '/es/profile',
           '/es/register',
           '/es/reset-password',
-          '/sentry-example-page',
         ],
       })),
     ],

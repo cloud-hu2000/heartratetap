@@ -42,7 +42,6 @@ The 10-tap prompt is a product rule for a more repeatable tap sample. It is not 
 
 HeartRateTap has not published a validation study comparing tap estimates with a certified medical instrument or reference device. The site therefore does not claim an accuracy percentage, mean error, agreement interval, sample size, expert endorsement, or medical-device validation.
 
-The methodology page provides a blank CSV data dictionary for a future repeatability or comparison study. That template contains no study results and must not be cited as validation evidence.
 
 ## What the estimate can show
 
@@ -76,7 +75,7 @@ A BPM estimate is not enough to evaluate symptoms or an irregular pulse. If a he
 
 - URL: https://www.heartratetap.com/blog/free-online-heart-rate-checker
 - Purpose: documents how timestamps become a BPM estimate.
-- Includes: exact formula, worked example, active window behavior, local data flow, five common error sources, repeatability steps, validation status, and a blank CSV template.
+- Includes: exact formula, worked example, active window behavior, local data flow, five common error sources, repeatability steps, and validation status.
 - Primary boundary: repeatability of tapping does not validate agreement with a clinical device.
 
 ### Guide library

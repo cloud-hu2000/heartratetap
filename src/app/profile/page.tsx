@@ -401,67 +401,6 @@ export default function ProfilePage() {
               </div>
             )}
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
-              <button
-                className="pill"
-                onClick={() => alert('Change password feature coming soon!')}
-                style={{
-                  width: '100%',
-                  padding: '0.875rem 1rem',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  border: '1px solid var(--line)',
-                  background: 'var(--card)',
-                  color: 'var(--ink)'
-                }}
-              >
-                Change Password
-              </button>
-
-              <button
-                className="pill"
-                onClick={() => alert('Update profile feature coming soon!')}
-                style={{
-                  width: '100%',
-                  padding: '0.875rem 1rem',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  border: '1px solid var(--line)',
-                  background: 'var(--card)',
-                  color: 'var(--ink)'
-                }}
-              >
-                Update Profile
-              </button>
-            </div>
-
-            <button
-              className="pill"
-              onClick={() => {
-                if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                  alert('Account deletion feature coming soon!');
-                }
-              }}
-              style={{
-                width: '100%',
-                padding: '0.875rem 1rem',
-                fontSize: '0.9rem',
-                fontWeight: '600',
-                border: '1px solid #dc3545',
-                background: '#dc3545',
-                color: '#fff'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.background = '#c82333';
-                (e.target as HTMLElement).style.borderColor = '#c82333';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.background = '#dc3545';
-                (e.target as HTMLElement).style.borderColor = '#dc3545';
-              }}
-            >
-              Delete Account
-            </button>
           </div>
         </section>
 

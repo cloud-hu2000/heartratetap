@@ -185,24 +185,11 @@ export default function TapMethodologyPage() {
         <section className="blog-section">
           <h2>Has HeartRateTap published accuracy validation data?</h2>
           <p>
-            HeartRateTap has not yet published a validation study comparing tap estimates with a certified medical
-            instrument or a reference device. For that reason, the site does not state an accuracy percentage, an
-            average error, or a clinically acceptable agreement range. The 10-tap prompt describes an interface choice
-            intended to reduce the influence of one small timing error; it is not a validated accuracy threshold.
+            HeartRateTap does not state an accuracy percentage, an average error, or a clinically acceptable agreement
+            range. The 10-tap prompt is an interface choice intended to reduce the influence of one small timing error;
+            it is not a validated accuracy threshold. The tool should therefore be used as a manual tap estimate, not
+            as a substitute for a certified medical instrument or reference device.
           </p>
-          <p>
-            A future comparison should publish the protocol before collecting results, record the reference method,
-            posture, activity context, tap count, paired BPM values, absolute difference, and exclusions, and then
-            release every de-identified row together with summary statistics and limitations. The downloadable CSV is
-            a blank data dictionary for that work, not a results dataset and not evidence that validation has occurred.
-          </p>
-          <a
-            href="/downloads/heartratetap-repeatability-study-template.csv"
-            download
-            className="blog-inline-cta"
-          >
-            Download the blank repeatability-study CSV template
-          </a>
         </section>
 
         <section className="blog-section">
