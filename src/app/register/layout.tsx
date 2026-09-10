@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
+  title: "Create a HeartRateTap account",
+  description: "Create a HeartRateTap account.",
   robots: {
     index: false,
     follow: false

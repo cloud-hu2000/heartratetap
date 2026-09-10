@@ -36,11 +36,16 @@ export default function AboutPage() {
         <section className="blog-section">
           <h2>Quien mantiene el sitio</h2>
           <p>
-            El equipo de producto y editorial HeartRateTap mantiene el código, la interfaz y los artículos. No presentamos al equipo como médicos o repetimos la revisión médica donde no se ha producido ninguno.{" "}
+            HeartRateTap es desarrollado y mantenido por un desarrollador de software independiente. El comportamiento
+            del producto se prueba con el código fuente del sitio, y la información de salud se resume a partir de la
+            American Heart Association, los CDC, el NHS y otras fuentes médicas o de salud pública primarias. No
+            proporcionamos diagnósticos médicos ni consejos médicos individualizados. El código fuente está disponible
+            en el{" "}
             <a href="https://github.com/cloud-hu2000/heartratetap" rel="noopener noreferrer">
               repositorio GitHub
             </a>
-            , por lo que el enfoque de tiempo y los cambios de producto pueden ser inspeccionados.
+            , por lo que el enfoque de tiempo y los cambios de producto pueden ser inspeccionados. No presentamos al
+            desarrollador como médico ni afirmamos revisión médica cuando no la ha habido.
           </p>
           <p>
             Preguntas, problemas de accesibilidad y solicitudes de corrección pueden ser enviadas a través de nuestras{" "}

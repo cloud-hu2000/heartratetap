@@ -44,12 +44,15 @@ export default function AboutPage() {
         <section className="blog-section">
           <h2>Who maintains the site</h2>
           <p>
-            The HeartRateTap product and editorial team maintains the code, interface and articles. We do not present
-            the team as clinicians or claim medical review where none has occurred. The source code is available in the{" "}
+            HeartRateTap is developed and maintained by an independent software developer. Product behavior is tested
+            against the site&apos;s source code, and health information is summarized from the American Heart Association,
+            CDC, NHS and other primary medical or public-health sources. We do not provide medical diagnosis or
+            individualized medical advice. The source code is available in the{" "}
             <a href="https://github.com/cloud-hu2000/heartratetap" rel="noopener noreferrer">
               public GitHub repository
             </a>
-            , so the timing approach and product changes can be inspected.
+            , so the timing approach and product changes can be inspected. We do not present the developer as a
+            clinician or claim medical review where none has occurred.
           </p>
           <p>
             Questions, accessibility issues and correction requests can be sent through our{" "}

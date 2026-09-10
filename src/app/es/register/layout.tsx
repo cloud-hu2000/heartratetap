@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Sign in to HeartRateTap",
-  description: "Sign in to your HeartRateTap account.",
+  title: "Crear una cuenta de HeartRateTap",
+  description: "Crea una cuenta de HeartRateTap.",
   robots: {
     index: false,
     follow: false
   }
 };
 
-export default function LoginLayout({ children }: { children: ReactNode }) {
+export default function SpanishRegisterLayout({ children }: { children: ReactNode }) {
   return children;
 }
