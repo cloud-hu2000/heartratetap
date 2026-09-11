@@ -7,9 +7,9 @@ import SourceList, { type Source } from "@/components/SourceList";
 import TargetHeartRateCalculator from "@/components/TargetHeartRateCalculator";
 import { buildSocialMetadata } from "@/lib/seo-metadata";
 
-const TITLE = "Target Heart Rate Calculator: Max HR and Heart Rate Reserve";
+const TITLE = "Max Heart Rate Calculator & Target Zones";
 const DESCRIPTION =
-  "Calculate a target heart rate range from age or heart rate reserve, compare the formulas, and keep population estimates in the right exercise context.";
+  "Use this max heart rate calculator to estimate 220 minus age, set target heart rate zones, compare heart rate reserve, and keep exercise context clear.";
 const PATH = "/target-heart-rate-calculator";
 const URL = `https://www.heartratetap.com${PATH}`;
 
@@ -72,7 +72,7 @@ export default function TargetHeartRateCalculatorPage() {
         <section className="panel tool-hero">
           <div className="tool-hero-copy">
             <p className="tool-eyebrow">Free exercise planning calculator</p>
-            <h1>Target Heart Rate Calculator</h1>
+            <h1>Max Heart Rate Calculator and Target Zones</h1>
             <p className="tool-intro">
               Estimate a target heart rate range with percent of maximum heart rate or the heart rate reserve
               (Karvonen) formula. Change the intensity endpoints, see the arithmetic immediately and keep the selected
@@ -120,6 +120,20 @@ export default function TargetHeartRateCalculatorPage() {
         </section>
 
         <article className="panel blog-article">
+          <section className="blog-section">
+            <h2>How the max heart rate calculator works</h2>
+            <p>
+              This calculator starts with the public age-predicted estimate of <strong>220 minus age</strong>. It then
+              applies the lower and upper percentages you select to show a target range. The result is useful when a
+              plan calls for a broad starting reference, but it is not a measurement of your actual maximum heart
+              rate. Age cannot account for individual fitness, medication, sport, a measured exercise test or a
+              clinician-defined limit.
+            </p>
+            <p>
+              The default 50–85% span mirrors the general range in the <a href="https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/target-heart-rates" rel="noopener noreferrer">American Heart Association&apos;s target heart-rate chart</a>. Moderate activity is described there as about 50–70% of maximum and vigorous activity as about 70–85%. Those are population averages, so use the displayed formula and your exercise context together rather than treating a calculated boundary as a personal prescription.
+            </p>
+          </section>
+
           <section className="blog-section">
             <h2>What a target heart rate calculation means</h2>
             <p>
@@ -216,6 +230,8 @@ export default function TargetHeartRateCalculatorPage() {
           <section className="blog-section">
             <h2>Related heart rate zone guides</h2>
             <div className="tool-link-grid">
+              <Link href="/blog/heart-rate-zones">Heart rate zones: a practical guide</Link>
+              <Link href="/blog/zone-2-heart-rate">Zone 2 heart rate: a practical guide</Link>
               <Link href="/blog/heart-rate-zones-for-running">Running heart rate zones</Link>
               <Link href="/blog/cycling-heart-rate-zones">Cycling heart rate zones</Link>
               <Link href="/blog/swimming-heart-rate-zones">Swimming heart rate zones</Link>

@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lifestyleGuideDate = new Date('2026-08-12T00:00:00.000Z')
   const scenarioGuideDate = new Date('2026-08-22T00:00:00.000Z')
   const travelAndDanceGuideDate = new Date('2026-08-23T00:00:00.000Z')
+  const zoneGuideDate = new Date('2026-09-11T00:00:00.000Z')
   
   const englishPages: MetadataRoute.Sitemap = [
     {
@@ -167,6 +168,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ["/blog/heart-rate-before-presentation", scenarioGuideDate],
       ["/blog/resting-heart-rate-after-flying", travelAndDanceGuideDate],
       ["/blog/heart-rate-after-dance-class", travelAndDanceGuideDate],
+      ["/blog/heart-rate-zones", zoneGuideDate],
+      ["/blog/zone-2-heart-rate", zoneGuideDate],
     ].map(([path, lastModified]) => ({
       url: `${baseUrl}${path}`,
       lastModified,

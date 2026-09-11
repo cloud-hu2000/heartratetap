@@ -51,7 +51,7 @@ export const TOOL_CONTENT: ToolContentEntry[] = [
     title: "Calculate a target heart rate range",
     description:
       "Compare percent of estimated maximum with heart rate reserve, change the intensity range and keep the formula beside the result.",
-    primaryKeywordGroup: "target heart rate calculator; heart rate reserve calculator; Karvonen calculator",
+    primaryKeywordGroup: "max heart rate calculator; target heart rate calculator; heart rate reserve calculator; Karvonen calculator",
     searchIntent: "Calculate formula-based exercise heart rate reference points."
   },
   {
@@ -201,6 +201,26 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
     searchIntent: "Learn a comfortable manual pulse routine for an older adult."
   },
   {
+    path: "/blog/heart-rate-zones",
+    label: "Zone fundamentals",
+    title: "Understand heart rate zones",
+    description:
+      "Compare broad zone calculations, heart rate reserve, and the talk test without treating a printed BPM boundary as a prescription.",
+    cluster: "training",
+    primaryKeywordGroup: "heart rate zones; heart rate zone calculator; training intensity zones",
+    searchIntent: "Understand what heart rate zones represent and how to use a formula-based range in training."
+  },
+  {
+    path: "/blog/zone-2-heart-rate",
+    label: "Easy aerobic training",
+    title: "Understand zone 2 heart rate",
+    description:
+      "Calculate a starting Zone 2 range, identify why labels differ, and use the talk test to keep easy aerobic work sustainable.",
+    cluster: "training",
+    primaryKeywordGroup: "zone 2 heart rate; zone 2 heart rate calculator; easy aerobic heart rate",
+    searchIntent: "Estimate and use a Zone 2 training range without treating a generic BPM target as individualized advice."
+  },
+  {
     path: "/blog/heart-rate-zones-for-running",
     label: "Running",
     title: "Calculate and use running heart rate zones",
@@ -310,7 +330,17 @@ export const SEARCH_INTENT_OWNERS = [
   },
   {
     ownerPath: "/target-heart-rate-calculator",
-    primaryKeywordGroup: "target heart rate calculator; heart rate reserve calculator; Karvonen calculator",
+    primaryKeywordGroup: "max heart rate calculator; target heart rate calculator; heart rate reserve calculator; Karvonen calculator",
+    redirectAliases: []
+  },
+  {
+    ownerPath: "/blog/heart-rate-zones",
+    primaryKeywordGroup: "heart rate zones; training heart rate zones; heart rate zone calculation",
+    redirectAliases: []
+  },
+  {
+    ownerPath: "/blog/zone-2-heart-rate",
+    primaryKeywordGroup: "zone 2 heart rate; zone 2 heart rate calculator; zone 2 training",
     redirectAliases: []
   },
   {
