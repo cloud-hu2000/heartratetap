@@ -15,7 +15,7 @@ import HeroSection from "@/components/HeroSection";
 import PulseZone from "@/components/PulseZone";
 import HistoryPanel from "@/components/HistoryPanel";
 import Footer from "@/components/Footer";
-import AdsterraAd from "@/components/AdsterraAd";
+import MobileBannerAd from "@/components/MobileBannerAd";
 import PublisherContentAdditions from "@/components/PublisherContentAdditions";
 import FAQStructuredData from "@/components/FAQStructuredData";
 import { SEOContent } from "@/components/SEOContent";
@@ -106,8 +106,6 @@ const HeartRatePage = () => {
           onSetViewMode={heartRateActions.setViewMode}
         />
 
-        <AdsterraAd />
-
         <section className="panel">
           <p className="hero-sub hero-sub-margin">
             {COPY[lang].diagramTitle}
@@ -142,6 +140,8 @@ const HeartRatePage = () => {
           onSetHistoryPage={uiActions.setHistoryPage}
         />
       </main>
+
+      <MobileBannerAd />
 
       {/* Keep the primary explanatory content in the initial document. It must not
           depend on a client-side lazy import for readers or crawlers to reach it. */}
