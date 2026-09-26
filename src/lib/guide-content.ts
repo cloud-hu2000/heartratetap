@@ -101,6 +101,16 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
     searchIntent: "Learn a safe, repeatable manual pulse-check technique."
   },
   {
+    path: "/blog/manual-pulse-vs-smartwatch",
+    label: "Measurement comparison",
+    title: "Compare a manual pulse check with a smartwatch",
+    description:
+      "Understand what manual counts, tap estimates, smartwatch displays, and chest straps each record before comparing BPM labels.",
+    cluster: "measurement",
+    primaryKeywordGroup: "manual pulse vs smartwatch; manual pulse versus chest strap; compare heart rate measurement methods",
+    searchIntent: "Compare heart-rate measurement methods by their timing, inputs, and practical limits."
+  },
+  {
     path: "/blog/daily-resting-heart-rate-check",
     label: "Routine",
     title: "A consistent resting heart rate check",
@@ -221,6 +231,16 @@ export const GUIDE_CONTENT: GuideContentEntry[] = [
     searchIntent: "Estimate and use a Zone 2 training range without treating a generic BPM target as individualized advice."
   },
   {
+    path: "/blog/heart-rate-vs-rpe",
+    label: "Training signals",
+    title: "Use heart rate and perceived exertion together",
+    description:
+      "Choose the signal that fits the workout, keep its measurement conditions visible, and avoid treating either signal as a verdict.",
+    cluster: "training",
+    primaryKeywordGroup: "heart rate vs RPE; rate of perceived exertion and heart rate; training intensity signals",
+    searchIntent: "Use heart rate and perceived exertion together without treating either as a medical or performance verdict."
+  },
+  {
     path: "/blog/heart-rate-zones-for-running",
     label: "Running",
     title: "Calculate and use running heart rate zones",
@@ -319,6 +339,11 @@ export const SEARCH_INTENT_OWNERS = [
     redirectAliases: []
   },
   {
+    ownerPath: "/blog/manual-pulse-vs-smartwatch",
+    primaryKeywordGroup: "manual pulse vs smartwatch; manual pulse versus chest strap; compare heart rate measurement methods",
+    redirectAliases: []
+  },
+  {
     ownerPath: "/",
     primaryKeywordGroup: "manual tap BPM estimator; tap heart rate calculator",
     redirectAliases: ["/online-heart-rate-monitor", "/check-heart-rate-online-free"]
@@ -341,6 +366,11 @@ export const SEARCH_INTENT_OWNERS = [
   {
     ownerPath: "/blog/zone-2-heart-rate",
     primaryKeywordGroup: "zone 2 heart rate; zone 2 heart rate calculator; zone 2 training",
+    redirectAliases: []
+  },
+  {
+    ownerPath: "/blog/heart-rate-vs-rpe",
+    primaryKeywordGroup: "heart rate vs RPE; rate of perceived exertion and heart rate; training intensity signals",
     redirectAliases: []
   },
   {
