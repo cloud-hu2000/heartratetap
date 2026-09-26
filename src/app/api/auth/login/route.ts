@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { verifyPassword, signSession, makeSessionCookie } from "@/lib/auth";
+import { verifyPassword, signSession, makeSessionCookie, makeSessionHintCookie, makeAuthCheckedCookie } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -67,6 +67,8 @@ export async function POST(req: Request) {
     });
 
     res.headers.set("Set-Cookie", makeSessionCookie(token, secure));
+    res.headers.append("Set-Cookie", makeSessionHintCookie(secure));
+    res.headers.append("Set-Cookie", makeAuthCheckedCookie(secure));
 
     console.log('✅ 登录成功，返回响应');
 

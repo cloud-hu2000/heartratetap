@@ -2,11 +2,63 @@ import { withSentryConfig } from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+const accountsEnabled = process.env.NEXT_PUBLIC_ACCOUNTS_ENABLED === 'true';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   async redirects() {
+    const accountDisabledRedirects = accountsEnabled ? [] : [
+      // Account UI and API code remain available in the repository, but all
+      // account traffic is stopped at the routing layer while disabled.
+      {
+        source: '/api/auth/:path*',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/login',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/register',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/profile',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/reset-password',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/es/login',
+        destination: '/es',
+        permanent: false,
+      },
+      {
+        source: '/es/register',
+        destination: '/es',
+        permanent: false,
+      },
+      {
+        source: '/es/profile',
+        destination: '/es',
+        permanent: false,
+      },
+      {
+        source: '/es/reset-password',
+        destination: '/es',
+        permanent: false,
+      }
+    ];
+
     return [
+      ...accountDisabledRedirects,
       {
         source: '/check-heart-rate-online-free',
         destination: '/',

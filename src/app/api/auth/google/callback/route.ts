@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { makeSessionCookie, signSession } from "@/lib/auth";
+import { makeAuthCheckedCookie, makeSessionCookie, makeSessionHintCookie, signSession } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -233,6 +233,8 @@ export async function GET(req: Request) {
 
     const res = NextResponse.redirect(redirectTarget.toString());
     res.headers.set("Set-Cookie", makeSessionCookie(token, secure));
+    res.headers.append("Set-Cookie", makeSessionHintCookie(secure));
+    res.headers.append("Set-Cookie", makeAuthCheckedCookie(secure));
 
     return res;
   } catch (err) {

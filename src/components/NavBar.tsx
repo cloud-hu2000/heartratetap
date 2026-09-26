@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { hasSpanishVersion, localizePath, type AppLocale } from "@/i18n/routing";
+import { ACCOUNTS_ENABLED } from "@/lib/feature-flags";
 
 const CONTENT_LINKS = [
   { href: "/guides", label: "guides" },
@@ -74,7 +75,7 @@ export default function NavBar() {
           </Link>
         ))}
 
-        {isAuthenticated && user ? (
+        {ACCOUNTS_ENABLED && (isAuthenticated && user ? (
           <div className="user-menu">
             <Link href={localizePath("/profile", locale)} className="nav-link">
               {user.name || user.email.split("@")[0]}
@@ -87,7 +88,7 @@ export default function NavBar() {
           <Link href={localizePath("/login", locale)} className="nav-link nav-account-link">
             {t("signIn")}
           </Link>
-        )}
+        ))}
         {hasSpanishVersion(pathname) && (
           <Link
             href={localizePath(pathname, locale === "en" ? "es" : "en")}

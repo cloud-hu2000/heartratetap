@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { signSession, makeSessionCookie } from "@/lib/auth";
+import { signSession, makeSessionCookie, makeSessionHintCookie, makeAuthCheckedCookie } from "@/lib/auth";
 
 // Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
@@ -55,6 +55,8 @@ export async function GET(req: Request) {
         const secure = process.env.NODE_ENV === "production";
         const res = NextResponse.redirect(new URL("/", req.url));
         res.headers.set("Set-Cookie", makeSessionCookie(sessionToken, secure));
+        res.headers.append("Set-Cookie", makeSessionHintCookie(secure));
+        res.headers.append("Set-Cookie", makeAuthCheckedCookie(secure));
         console.log('🍪 API /auth/verify-email: session cookie set, secure=', secure);
         return res;
       } catch (err) {

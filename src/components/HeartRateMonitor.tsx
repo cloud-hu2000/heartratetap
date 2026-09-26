@@ -547,6 +547,7 @@ export default function HeartRateMonitor({ lang, onLangChange }: HeartRateMonito
                 height={300}
                 className="pause-image"
                 priority={false}
+                unoptimized
               />
             </picture>
           </div>

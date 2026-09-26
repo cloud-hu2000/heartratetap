@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { ACCOUNTS_ENABLED } from '@/lib/feature-flags';
 
 // 用户类型定义
 export interface User {
@@ -37,6 +38,9 @@ interface AuthContextType extends AuthState {
 // 创建Context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const hasCookie = (name: string) =>
+  typeof document !== 'undefined' && document.cookie.split('; ').some((cookie) => cookie.startsWith(`${name}=`));
+
 // AuthProvider组件
 interface AuthProviderProps {
   children: ReactNode;
@@ -52,6 +56,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 检查认证状态
   const checkAuth = useCallback(async () => {
+    if (!ACCOUNTS_ENABLED) {
+      setAuthState({ user: null, isLoading: false, isAuthenticated: false });
+      return;
+    }
+
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }));
 
@@ -90,6 +99,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 登录函数
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    if (!ACCOUNTS_ENABLED) {
+      return { success: false, error: 'Accounts are currently unavailable.' };
+    }
+
     try {
       console.log('🚀 AuthContext.login: 开始登录请求');
       console.log('📤 登录参数:', { email, password: '***' }); // 隐藏密码
@@ -157,6 +170,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     password: string;
     name?: string;
   }): Promise<{ success: boolean; error?: string; needsVerification?: boolean }> => {
+    if (!ACCOUNTS_ENABLED) {
+      return { success: false, error: 'Accounts are currently unavailable.' };
+    }
+
     try {
       console.log('🚀 AuthContext.register: 开始注册请求');
       console.log('📤 请求数据:', { ...userData, password: '***' }); // 隐藏密码
@@ -215,6 +232,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 登出函数
   const logout = async (): Promise<void> => {
+    if (!ACCOUNTS_ENABLED) {
+      setAuthState({ user: null, isLoading: false, isAuthenticated: false });
+      return;
+    }
+
     try {
       await fetch('/api/auth/logout', {
         method: 'POST',
@@ -239,7 +261,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 初始化时检查认证状态
   useEffect(() => {
-    checkAuth();
+    if (!ACCOUNTS_ENABLED) {
+      setAuthState({ user: null, isLoading: false, isAuthenticated: false });
+      return;
+    }
+
+    // Returning anonymous visitors used to invoke a Node.js function on every
+    // page load. The server marks a completed anonymous check for seven days;
+    // authenticated sessions still refresh normally via their non-sensitive
+    // presence hint.
+    if (hasCookie('hrt_session_present') || !hasCookie('hrt_auth_checked')) {
+      checkAuth();
+    } else {
+      setAuthState({ user: null, isLoading: false, isAuthenticated: false });
+    }
   }, [checkAuth]);
 
   // 当页面变为可见时（用户切换回标签页），刷新用户状态

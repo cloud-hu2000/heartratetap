@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const SESSION_COOKIE_NAME = "hrt_session";
+const SESSION_HINT_COOKIE_NAME = "hrt_session_present";
+const AUTH_CHECKED_COOKIE_NAME = "hrt_auth_checked";
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
 export function hashPassword(password: string) {
@@ -40,6 +42,35 @@ export function makeSessionCookie(token: string, secure = false) {
 
 export function clearSessionCookie() {
   return `${SESSION_COOKIE_NAME}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`;
+}
+
+// These contain no credential or user data. They let the client avoid calling
+// the session endpoint on every anonymous page view while keeping the real
+// session cookie HttpOnly.
+export function makeSessionHintCookie(secure = false) {
+  const parts = [
+    `${SESSION_HINT_COOKIE_NAME}=1`,
+    "Path=/",
+    `Max-Age=${SESSION_MAX_AGE}`,
+    "SameSite=Lax"
+  ];
+  if (secure) parts.push("Secure");
+  return parts.join("; ");
+}
+
+export function makeAuthCheckedCookie(secure = false) {
+  const parts = [
+    `${AUTH_CHECKED_COOKIE_NAME}=1`,
+    "Path=/",
+    `Max-Age=${SESSION_MAX_AGE}`,
+    "SameSite=Lax"
+  ];
+  if (secure) parts.push("Secure");
+  return parts.join("; ");
+}
+
+export function clearSessionHintCookie() {
+  return `${SESSION_HINT_COOKIE_NAME}=; Path=/; Max-Age=0; SameSite=Lax`;
 }
 
 export function readSessionFromHeader(cookieHeader: string | null) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { hashPassword, signSession, makeSessionCookie } from "@/lib/auth";
+import { hashPassword, signSession, makeSessionCookie, makeSessionHintCookie, makeAuthCheckedCookie } from "@/lib/auth";
 
 export async function POST(req: Request) {
     // Check if database is available (skip during build)
@@ -34,6 +34,8 @@ export async function POST(req: Request) {
     const res = NextResponse.json({ ok: true });
     const secure = process.env.NODE_ENV === "production";
     res.headers.set("Set-Cookie", makeSessionCookie(tokenJwt, secure));
+    res.headers.append("Set-Cookie", makeSessionHintCookie(secure));
+    res.headers.append("Set-Cookie", makeAuthCheckedCookie(secure));
     return res;
   } catch (err) {
     return NextResponse.json({ error: "Server error", detail: String(err) }, { status: 500 });

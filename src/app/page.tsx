@@ -121,6 +121,7 @@ const HeartRatePage = () => {
                 height={300}
                 className="pause-image"
                 priority={false}
+                unoptimized
               />
             </picture>
           </div>
