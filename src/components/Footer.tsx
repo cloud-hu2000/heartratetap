@@ -38,6 +38,9 @@ export default function Footer() {
           <Link href={localizePath("/terms", locale)} className="blog-inline-cta">
             {t("terms")}
           </Link>
+          <a href="https://zombieaitrend.com/" className="blog-inline-cta">
+            Zombie AI Trend
+          </a>
         </div>
       </div>
 
