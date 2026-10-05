@@ -59,6 +59,17 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.mobile-banner-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.mobile-banner-ad {
+  width: 320px;
+  min-height: 50px;
+}
+
 .canvas {
   flex: 1;
   display: grid;
