@@ -41,6 +41,9 @@ export default function Footer() {
           <a href="https://zombieaitrend.com/" className="blog-inline-cta">
             Zombie AI Trend
           </a>
+          <a href="https://bulbulv4flash.com/" className="blog-inline-cta">
+            Bulbul V4 Flash
+          </a>
         </div>
       </div>
 

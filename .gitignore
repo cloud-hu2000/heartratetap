@@ -11,3 +11,13 @@ test-sentry-token.js
 
 # Test Environment Variables
 .env.local
+
+# Private local configuration and database files
+.env
+.env.*
+!.env.example
+!.env.template
+data/*.db
+data/*.sqlite*
+.DS_Store
+npm-debug.log*
