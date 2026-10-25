@@ -44,6 +44,9 @@ export default function Footer() {
           <a href="https://bulbulv4flash.com/" className="blog-inline-cta">
             Bulbul V4 Flash
           </a>
+          <a href="https://omnihuman20.com/" className="blog-inline-cta">
+            OmniHuman 2.0
+          </a>
         </div>
       </div>
 
