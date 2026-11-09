@@ -148,6 +148,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const englishOnlyPages: MetadataRoute.Sitemap = [
+    ...["/blog/walking-heart-rate", "/blog/athlete-resting-heart-rate"].map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: new Date('2026-11-09T00:00:00.000Z'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+      alternates: { languages: { en: `${baseUrl}${path}`, 'x-default': `${baseUrl}${path}` } },
+    })),
     {
       url: `${baseUrl}/blog/heart-rate-vs-heart-rate-variability`,
       lastModified: heartRateVsHrvDate,

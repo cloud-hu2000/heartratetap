@@ -71,6 +71,24 @@ export const TOOL_CONTENT: ToolContentEntry[] = [
  */
 export const GUIDE_CONTENT: GuideContentEntry[] = [
   {
+    path: "/blog/athlete-resting-heart-rate",
+    label: "Athlete resting pulse",
+    title: "Understand an athlete's resting heart rate",
+    description: "Measure a calm baseline, understand why trained athletes can have lower rates, and know when a change deserves medical advice.",
+    cluster: "resting",
+    primaryKeywordGroup: "athlete resting heart rate; resting heart rate for athletes; low resting pulse in athletes",
+    searchIntent: "Understand a trained athlete's resting pulse and its measurement and safety limits."
+  },
+  {
+    path: "/blog/walking-heart-rate",
+    label: "Walking",
+    title: "Understand heart rate while walking",
+    description: "Compare walking effort with the talk test and learn what a post-walk pulse can and cannot tell you.",
+    cluster: "training",
+    primaryKeywordGroup: "walking heart rate; heart rate while walking; heart rate during a walk",
+    searchIntent: "Interpret heart rate and relative exercise intensity in a walking context."
+  },
+  {
     path: "/blog/heart-rate-vs-heart-rate-variability",
     label: "Measurement literacy",
     title: "Understand heart rate vs heart rate variability",
