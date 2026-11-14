@@ -4,7 +4,8 @@ export const defaultLocale = "en" as const;
 export type AppLocale = (typeof locales)[number];
 
 const ENGLISH_ONLY_PATHS = new Set([
-  "/blog/heart-rate-vs-heart-rate-variability"
+  "/blog/heart-rate-vs-heart-rate-variability",
+  "/resting-heart-rate-calculator"
 ]);
 
 export function isAppLocale(value: string | null | undefined): value is AppLocale {

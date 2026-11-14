@@ -192,6 +192,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     })),
+    {
+      url: `${baseUrl}/resting-heart-rate-calculator`,
+      lastModified: new Date('2026-11-14T00:00:00.000Z'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/resting-heart-rate-calculator`,
+          'x-default': `${baseUrl}/resting-heart-rate-calculator`,
+        },
+      },
+    },
   ]
 
   const bilingualPages = englishPages.flatMap((page) => {

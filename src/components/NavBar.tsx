@@ -74,6 +74,15 @@ export default function NavBar() {
             {t(link.label)}
           </Link>
         ))}
+        {locale === "en" ? (
+          <Link
+            href="/resting-heart-rate-calculator"
+            className="nav-link"
+            aria-current={pathname === "/resting-heart-rate-calculator" ? "page" : undefined}
+          >
+            {t("restingCalculator")}
+          </Link>
+        ) : null}
 
         {ACCOUNTS_ENABLED && (isAuthenticated && user ? (
           <div className="user-menu">
