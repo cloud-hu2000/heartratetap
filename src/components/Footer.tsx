@@ -23,6 +23,16 @@ export default function Footer() {
           <Link href={localizePath("/heart-rate-recovery-calculator", locale)} className="blog-inline-cta">
             {t("recoveryCalculator")}
           </Link>
+          {locale === "en" ? (
+            <Link href="/resting-heart-rate-calculator" className="blog-inline-cta">
+              {t("restingCalculator")}
+            </Link>
+          ) : null}
+          {locale === "en" ? (
+            <Link href="/vo2-max-calculator" className="blog-inline-cta">
+              {t("vo2Calculator")}
+            </Link>
+          ) : null}
           <Link href={localizePath("/guides", locale)} className="blog-inline-cta">
             {t("guides")}
           </Link>

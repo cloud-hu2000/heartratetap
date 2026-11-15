@@ -5,6 +5,8 @@
     "guides": "Guides",
     "targetCalculator": "Target calculator",
     "recoveryCalculator": "Recovery calculator",
+    "restingCalculator": "Resting calculator",
+    "vo2Calculator": "VO2 calculator",
     "writeForUs": "Write for Us",
     "about": "About",
     "menu": "Menu",
@@ -17,6 +19,8 @@
   "Footer": {
     "targetCalculator": "Target HR Calculator",
     "recoveryCalculator": "Recovery Calculator",
+    "restingCalculator": "Resting HR Calculator",
+    "vo2Calculator": "VO2 Max Calculator",
     "guides": "Guides",
     "about": "About & Editorial Policy",
     "writeForUs": "Write for Us (Guest Posts)",

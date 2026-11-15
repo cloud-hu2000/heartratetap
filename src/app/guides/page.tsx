@@ -43,6 +43,24 @@ export default function GuidesPage() {
                 <Link href={tool.path}>Open the calculator</Link>
               </article>
             ))}
+            <article className="guide-card">
+              <p className="guide-label">Resting comparison</p>
+              <h3>Compare a resting heart rate</h3>
+              <p>
+                Enter a calm heart rate and age, then see the beat distance from the cited adult 60–100 BPM span. Ages
+                under 18 are not scored with that adult reference.
+              </p>
+              <Link href="/resting-heart-rate-calculator">Open the calculator</Link>
+            </article>
+            <article className="guide-card">
+              <p className="guide-label">Field-test estimate</p>
+              <h3>Estimate VO2 max from a finished test</h3>
+              <p>
+                Enter a 12-minute run distance, a 1.5-mile time, or a Rockport mile walk. The result uses one cited
+                equation and does not read taps from the BPM timer.
+              </p>
+              <Link href="/vo2-max-calculator">Open the calculator</Link>
+            </article>
           </div>
         </section>
 
