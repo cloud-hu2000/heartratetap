@@ -83,6 +83,15 @@ export default function NavBar() {
             {t("restingCalculator")}
           </Link>
         ) : null}
+        {locale === "en" ? (
+          <Link
+            href="/vo2-max-calculator"
+            className="nav-link"
+            aria-current={pathname === "/vo2-max-calculator" ? "page" : undefined}
+          >
+            {t("vo2Calculator")}
+          </Link>
+        ) : null}
 
         {ACCOUNTS_ENABLED && (isAuthenticated && user ? (
           <div className="user-menu">

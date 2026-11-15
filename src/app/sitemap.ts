@@ -204,6 +204,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    {
+      url: `${baseUrl}/vo2-max-calculator`,
+      lastModified: new Date('2026-11-15T00:00:00.000Z'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/vo2-max-calculator`,
+          'x-default': `${baseUrl}/vo2-max-calculator`,
+        },
+      },
+    },
   ]
 
   const bilingualPages = englishPages.flatMap((page) => {

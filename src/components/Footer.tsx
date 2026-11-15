@@ -28,6 +28,11 @@ export default function Footer() {
               {t("restingCalculator")}
             </Link>
           ) : null}
+          {locale === "en" ? (
+            <Link href="/vo2-max-calculator" className="blog-inline-cta">
+              {t("vo2Calculator")}
+            </Link>
+          ) : null}
           <Link href={localizePath("/guides", locale)} className="blog-inline-cta">
             {t("guides")}
           </Link>
