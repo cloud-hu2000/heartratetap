@@ -148,6 +148,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const englishOnlyPages: MetadataRoute.Sitemap = [
+    ...["/fat-burning-zone-calculator", "/anaerobic-threshold-calculator", "/cycling-heart-rate-zone-calculator"].map((path) => ({ url: `${baseUrl}${path}`, lastModified: new Date('2026-11-16T00:00:00.000Z'), changeFrequency: 'monthly' as const, priority: 0.8, alternates: { languages: { en: `${baseUrl}${path}`, 'x-default': `${baseUrl}${path}` } } })),
     ...["/blog/walking-heart-rate", "/blog/athlete-resting-heart-rate"].map((path) => ({
       url: `${baseUrl}${path}`,
       lastModified: new Date('2026-11-09T00:00:00.000Z'),

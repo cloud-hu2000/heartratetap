@@ -4,6 +4,9 @@ export const defaultLocale = "en" as const;
 export type AppLocale = (typeof locales)[number];
 
 const ENGLISH_ONLY_PATHS = new Set([
+  "/fat-burning-zone-calculator",
+  "/anaerobic-threshold-calculator",
+  "/cycling-heart-rate-zone-calculator",
   "/blog/heart-rate-vs-heart-rate-variability"
 ]);
 

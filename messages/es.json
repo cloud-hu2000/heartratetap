@@ -12,7 +12,11 @@
     "primaryAria": "Navegación principal",
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión",
-    "language": "English"
+    "language": "English",
+    "otherTools": "Otras herramientas",
+    "fatCalculator": "Zona de quema de grasa (inglés)",
+    "thresholdCalculator": "Umbral anaeróbico (inglés)",
+    "cyclingCalculator": "Zonas de ciclismo (inglés)"
   },
   "Footer": {
     "targetCalculator": "Calculadora de frecuencia objetivo",
