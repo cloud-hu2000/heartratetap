@@ -14,7 +14,11 @@
     "primaryAria": "Primary navigation",
     "signIn": "Sign in",
     "signOut": "Sign out",
-    "language": "Español"
+    "language": "Español",
+    "otherTools": "Other Tools",
+    "fatCalculator": "Fat burning zone",
+    "thresholdCalculator": "Anaerobic threshold",
+    "cyclingCalculator": "Cycling heart rate zones"
   },
   "Footer": {
     "targetCalculator": "Target HR Calculator",

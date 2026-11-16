@@ -6,7 +6,10 @@ export type AppLocale = (typeof locales)[number];
 const ENGLISH_ONLY_PATHS = new Set([
   "/blog/heart-rate-vs-heart-rate-variability",
   "/resting-heart-rate-calculator",
-  "/vo2-max-calculator"
+  "/vo2-max-calculator",
+  "/fat-burning-zone-calculator",
+  "/anaerobic-threshold-calculator",
+  "/cycling-heart-rate-zone-calculator"
 ]);
 
 export function isAppLocale(value: string | null | undefined): value is AppLocale {
