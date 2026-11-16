@@ -1,5 +1,8 @@
 "use client";
 
+import footerNetworkLinks from '../../footer-network.links.json';
+import { FooterNetworkLinks } from './footer-network-links';
+
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { localizePath, type AppLocale } from "@/i18n/routing";
@@ -160,6 +163,7 @@ export default function Footer() {
           }
         }
       `}</style>
+    <FooterNetworkLinks links={footerNetworkLinks} />
     </footer>
   );
 }
